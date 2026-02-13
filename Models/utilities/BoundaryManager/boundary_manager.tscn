@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cgcpg77tobgeu"]
+
+[ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="1_kceya"]
+
+[node name="BoundaryManager" type="Node2D" unique_id=790313864]
+script = ExtResource("1_kceya")

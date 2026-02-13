@@ -1,0 +1,59 @@
+[gd_scene format=4 uid="uid://drhrxw7642nqd"]
+
+[ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
+[ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_kufyc"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_kufyc"]
+_data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABiAAAAUklGRloAAABXRUJQVlA4TE4AAAAvH8AHEA8wCpMwFPMf8GAT21acR/VLJCDlSwOpXwJl9ps9kRDR/wlQmLS4BGqQAqxDvgxQFvDLBvWJ3zeoTwv4ZYDSIV8CrEESSItLYQI=")
+size_override = Vector2(32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d2cp"]
+atlas = SubResource("PortableCompressedTexture2D_kufyc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p7nbn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d2cp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0d2cp"]
+
+[node name="Asteroid" type="RigidBody2D" unique_id=1301110429]
+mass = 10.0
+gravity_scale = 0.0
+script = ExtResource("1_7kvrs")
+
+[node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_kufyc")]
+node = NodePath("..")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1692611401]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_p7nbn")
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"layer_section": false,
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"scale": "1.0",
+"should_round_fps": true,
+"slice": "",
+"source": "res://sprites/ast-lg-1.aseprite",
+"source_uid": 6120073618832120444
+}
+metadata/_aseprite_wizard_source_file_hash_ = "ee02a4283d4d8e34a621934af8b9932e"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2000207456]
+shape = SubResource("CircleShape2D_0d2cp")

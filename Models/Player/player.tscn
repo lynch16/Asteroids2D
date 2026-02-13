@@ -1,0 +1,64 @@
+[gd_scene format=4 uid="uid://moxkwo3nfsf4"]
+
+[ext_resource type="Script" uid="uid://bdkr3l4m53lbd" path="res://Models/Player/player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_ccpyr"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_sh265"]
+_data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABeAAAAUklGRlYAAABXRUJQVlA4TEoAAAAvH8AHEA8wCpMwFPMf8GATyVYk9g6RgBSkgTSkIIFw7wneExHR/wkIdQqmLa4fbkR3Jvdm9xcHpsIkDRbpcMiAKCckeSHLD0XwAA==")
+size_override = Vector2(32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4flbx"]
+atlas = SubResource("PortableCompressedTexture2D_sh265")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4flbx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_sh265"]
+points = PackedVector2Array(-15, 15, 0, -15, 15, 15)
+
+[node name="Player" type="CharacterBody2D" unique_id=818107462]
+motion_mode = 1
+script = ExtResource("1_4flbx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1526374553]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_onrkg")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"scale": "1.0",
+"should_round_fps": true,
+"slice": "",
+"source": "res://sprites/Ship.aseprite",
+"source_uid": 3483509233033129144
+}
+metadata/_aseprite_wizard_source_file_hash_ = "89274d3e70cc8630f7b9b9aa5c35e4c5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1160935763]
+shape = SubResource("ConvexPolygonShape2D_sh265")
+
+[node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_ccpyr")]
+node = NodePath("..")
+
+[node name="BulletSpawnLocation" type="Node2D" parent="." unique_id=535632158]
+position = Vector2(0, -23)
+
+[node name="BulletSpawnTimer" type="Timer" parent="." unique_id=1532702493]
+wait_time = 0.1
+one_shot = true

@@ -1,0 +1,46 @@
+[gd_scene format=4 uid="uid://clmhgemf6tliu"]
+
+[ext_resource type="Script" uid="uid://dxr82xds2no31" path="res://Models/Player/bullet.gd" id="1_s1b55"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vsjsl"]
+_data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAAA0AAAAUklGRiwAAABXRUJQVlA4TCAAAAAvH8AHEA8wwYM+cPMf8FCQtgGzOZ/7ayCi/xOAfdG5Bw==")
+size_override = Vector2(32, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vsjsl"]
+radius = 1.0
+height = 4.0
+
+[node name="Bullet" type="RigidBody2D" unique_id=1934145494]
+mass = 0.1
+gravity_scale = 0.0
+script = ExtResource("1_s1b55")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=302593925]
+texture_filter = 1
+position = Vector2(0, 2)
+texture = SubResource("PortableCompressedTexture2D_vsjsl")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://sprites/ship-bullet.aseprite",
+"source_uid": 1495322395040648801
+}
+metadata/_aseprite_wizard_source_file_hash_ = "61f50d2060674f055a6d4418a2a1443a"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1661704517]
+shape = SubResource("CapsuleShape2D_vsjsl")

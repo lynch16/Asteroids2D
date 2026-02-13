@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b8soshry3wmi7"]
+
+[ext_resource type="PackedScene" uid="uid://moxkwo3nfsf4" path="res://Models/Player/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Node2D" unique_id=1095716515]
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1674633673]
+position = Vector2(399, 135)
+polygon = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
+uv = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
+
+[node name="Player" parent="." unique_id=818107462 instance=ExtResource("1_ig7tw")]
+position = Vector2(553, 351)
+
+[node name="Asteroid" parent="." unique_id=1301110429 instance=ExtResource("2_0xm2m")]
+position = Vector2(559, 180)
