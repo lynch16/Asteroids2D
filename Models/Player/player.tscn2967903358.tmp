@@ -28,7 +28,6 @@ points = PackedVector2Array(-15, 15, 0, -15, 15, 15)
 [node name="Player" type="CharacterBody2D" unique_id=818107462]
 motion_mode = 1
 script = ExtResource("1_4flbx")
-mass = 20000
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1526374553]
 texture_filter = 1

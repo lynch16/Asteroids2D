@@ -11,7 +11,13 @@ polygon = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 2
 uv = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
 
 [node name="Player" parent="." unique_id=818107462 instance=ExtResource("1_ig7tw")]
-position = Vector2(553, 351)
+position = Vector2(562, 582)
 
 [node name="Asteroid" parent="." unique_id=1301110429 instance=ExtResource("2_0xm2m")]
-position = Vector2(559, 180)
+position = Vector2(514, 231)
+
+[node name="Asteroid2" parent="." unique_id=1838451310 instance=ExtResource("2_0xm2m")]
+position = Vector2(1028, 462)
+
+[node name="Asteroid3" parent="." unique_id=560364578 instance=ExtResource("2_0xm2m")]
+position = Vector2(317, 400)

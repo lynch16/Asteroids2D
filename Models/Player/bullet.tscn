@@ -13,6 +13,8 @@ height = 4.0
 [node name="Bullet" type="RigidBody2D" unique_id=1934145494]
 mass = 0.1
 gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_s1b55")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=302593925]
@@ -44,3 +46,6 @@ metadata/_aseprite_wizard_source_file_hash_ = "61f50d2060674f055a6d4418a2a1443a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1661704517]
 shape = SubResource("CapsuleShape2D_vsjsl")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1132118516]
+rect = Rect2(-1, -2, 2, 4)

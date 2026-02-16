@@ -1,8 +1,9 @@
 extends CharacterBody2D
+class_name Player
 
 @export var thrust = 100;
+@export var mass = 2;
 @export var rotation_speed = 5;
-@export var bullet_speed = 300;
 
 var ship_direction = Vector2.UP;
 var acceleration = Vector2();
@@ -10,7 +11,7 @@ var acceleration = Vector2();
 func _ready() -> void:
 	velocity = Vector2.UP;
 	ship_direction = velocity.angle();
-	get_node("BulletSpawnTimer").timeout.connect(_spawn_bullet)
+	$BulletSpawnTimer.timeout.connect(_spawn_bullet)
 
 func _physics_process(delta: float) -> void:
 	acceleration = Vector2.ZERO;
@@ -27,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	if (Input.is_action_pressed("brake")):
 		_brake();
 		
-	rotation = ship_direction + PI/2;
+	rotation = _convert_direction_to_rotation(ship_direction);
 	velocity += acceleration * delta;
 	
 	move_and_slide();
@@ -52,14 +53,19 @@ func _yaw_right(delta: float):
 	ship_direction += rotation_speed * delta;
 
 func _fire_weapon():
-	var timer: Timer = get_node("BulletSpawnTimer");
-	if (timer.is_stopped()):
-		timer.start();
+	if ($BulletSpawnTimer.is_stopped()):
+		$BulletSpawnTimer.start();
 
 func _spawn_bullet():
 	var bulletScn = load("res://Models/Player/bullet.tscn");
 	var bullet: Bullet = bulletScn.instantiate();
-	bullet.position = get_node("BulletSpawnLocation").position;
-	bullet.rotation = ship_direction;
-	bullet.apply_central_impulse(velocity + Vector2(bullet_speed, 0).rotated(ship_direction))
-	add_child(bullet)
+	get_tree().root.add_child(bullet)
+	bullet.fire_bullet(
+		$BulletSpawnLocation.global_position, 
+		ship_direction, 
+		velocity
+	);
+	
+	
+func _convert_direction_to_rotation(direction: float) -> float:
+	return direction + PI/2;

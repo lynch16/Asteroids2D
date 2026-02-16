@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_kufyc"]
-[ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
+[ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/asteroid_gravity_field.gd" id="3_0d2cp"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_kufyc"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABiAAAAUklGRloAAABXRUJQVlA4TE4AAAAvH8AHEA8wCpMwFPMf8GAT21acR/VLJCDlSwOpXwJl9ps9kRDR/wlQmLS4BGqQAqxDvgxQFvDLBvWJ3zeoTwv4ZYDSIV8CrEESSItLYQI=")
@@ -24,13 +24,12 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0d2cp"]
-radius = 16.0
+radius = 15.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufyc"]
-radius = 311.07877
 
 [node name="Asteroid" type="RigidBody2D" unique_id=1301110429]
-mass = 10000000000.0
+mass = 10.0
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 5
@@ -65,9 +64,8 @@ metadata/_aseprite_wizard_source_file_hash_ = "ee02a4283d4d8e34a621934af8b9932e"
 [node name="AsteroidCollision" type="CollisionShape2D" parent="." unique_id=2000207456]
 shape = SubResource("CircleShape2D_0d2cp")
 
-[node name="GravityField" type="Area2D" parent="." unique_id=2107640775]
+[node name="AsteroidGravityField" type="Area2D" parent="." unique_id=2107640775]
 script = ExtResource("3_0d2cp")
-enable_player_gravity = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityField" unique_id=265890223]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidGravityField" unique_id=265890223]
 shape = SubResource("CircleShape2D_kufyc")
