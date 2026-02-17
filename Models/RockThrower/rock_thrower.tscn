@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cwbbylt5vni3j"]
+
+[ext_resource type="Script" uid="uid://lwqnhckv5a32" path="res://Models/RockThrower/rock_thrower.gd" id="1_tmv8i"]
+
+[sub_resource type="Curve2D" id="Curve2D_2cb26"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, 649, 0, 0, 0, 0, 1151, 648, 0, 0, 0, 0, 1150, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 649)
+}
+point_count = 5
+
+[node name="RockThrower" type="Path2D" unique_id=1513123556]
+curve = SubResource("Curve2D_2cb26")
+script = ExtResource("1_tmv8i")
+
+[node name="RockSpawnLocation" type="PathFollow2D" parent="." unique_id=632312024]
+position = Vector2(-1, 649)
+rotation = -0.0008680554
+
+[node name="RockThrowTimer" type="Timer" parent="." unique_id=1682102670]
+autostart = true

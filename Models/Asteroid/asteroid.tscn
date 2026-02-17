@@ -24,9 +24,11 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0d2cp"]
+resource_local_to_scene = true
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufyc"]
+resource_local_to_scene = true
 radius = 311.07877
 
 [node name="Asteroid" type="RigidBody2D" unique_id=1301110429]

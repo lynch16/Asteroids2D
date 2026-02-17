@@ -20,7 +20,7 @@ func _apply_gravity(delta: float) -> void:
 			
 		var node_mass = node.mass;
 		var radius = node.global_position.distance_to(get_parent().global_position);
-		var grav_force = grav_const * ((node_mass * get_parent().mass)/(radius ** 2)) # Gm1m2/r^2 = F
+		var grav_force = grav_const * ((node_mass * get_parent().mass)/(radius ** 2)) # G(m1m2/r^2) = F
 		var node_vect = get_parent().global_position - node.global_position;
 		if (grav_force > 0 && grav_force < INF):
 			var grav_force_vector_delta = grav_force * node_vect * delta;
