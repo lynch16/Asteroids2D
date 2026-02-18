@@ -4,6 +4,7 @@ class_name Player
 @export var thrust = 100;
 @export var mass = 2;
 @export var rotation_speed = 5;
+@export var max_speed = 400; # m/s
 
 var ship_direction = Vector2.UP;
 var acceleration = Vector2();
@@ -29,7 +30,10 @@ func _physics_process(delta: float) -> void:
 		_brake();
 		
 	rotation = _convert_direction_to_rotation(ship_direction);
-	velocity += acceleration * delta;
+	
+	var tmp_vel = velocity + (acceleration * delta);
+	if (tmp_vel.length() <= max_speed):
+		velocity = tmp_vel;
 	
 	move_and_slide();
 	

@@ -22,6 +22,8 @@ func _on_rock_throw_timer_timeout():
 	direction += randf_range(-PI/4, PI/4)
 	rock.rotation = direction;
 	
+	print(direction) # TODO: This is causing issues for asteroids with directions less than 3. They spawn and are deleted.
+	
 	var velocity = Vector2(randf_range(min_throw_velocity, max_throw_velocity), 0.0);
 	rock.linear_velocity = velocity.rotated(direction);
 	

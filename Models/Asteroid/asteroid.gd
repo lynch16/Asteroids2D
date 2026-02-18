@@ -1,6 +1,5 @@
 extends RigidBody2D
 
-
 # On ready, pick from 1 of 5 different asteroid options, apply a random rotation and velocity.
 # Calculate mass/density based on asteroid option
 # This class should instead be OrbitingBody?
@@ -9,6 +8,7 @@ extends RigidBody2D
 @export var destroy_limit_force_total = 1000.0; # Total force required to destroy asteroid without shatter
 @export var invincibility_frames_limit = 5;
 @export var min_shatter_radius = 5
+@export var max_velocity = 400; # m/s
 
 @export var debug_logs = false;
 
@@ -26,6 +26,9 @@ func _physics_process(_delta: float) -> void:
 		curr_invinc_frame = 0;
 	elif (curr_invinc_frame > 0): 
 		curr_invinc_frame += 1;
+	
+	# Clamp velocity to reasonable playable value
+	linear_velocity = linear_velocity.normalized() * min(linear_velocity.length(), max_velocity);
 
 func _on_body_entered(body: Node) -> void:
 	if (curr_invinc_frame > 0): 
@@ -52,9 +55,9 @@ func _take_damage(impact_force: Vector2) -> void:
 	destroy_sum += impact_mag;
 	shatter_sum += impact_mag;
 	if (debug_logs):
-		print("impact_mag", impact_mag);
-		print("destroy_sum", destroy_sum);
-		print("shatter_sum", shatter_sum);
+		print("impact_mag: ", impact_mag);
+		print("destroy_sum: ", destroy_sum);
+		print("shatter_sum: ", shatter_sum);
 	
 	var curr_radius = ($AsteroidCollision.shape as CircleShape2D).radius;
 	
@@ -96,19 +99,19 @@ func _shatter(impact_force: Vector2) -> void:
 	# TODO: Temp while I create propper sprite scaling
 	var child1_rad = ((child_asteroid1.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius 
 	((child_asteroid1.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius = child1_rad/2;
-	(child_asteroid1.get_node("Sprite2D") as AnimatedSprite2D).scale = Vector2(0.5, 0.5);
+	(child_asteroid1.get_node("Sprite2D") as AnimatedSprite2D).scale = (child_asteroid1.get_node("Sprite2D") as AnimatedSprite2D).scale * Vector2(0.5, 0.5);
 	var child2_rad = ((child_asteroid2.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius 
 	((child_asteroid2.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius = child2_rad/2;
-	(child_asteroid2.get_node("Sprite2D") as AnimatedSprite2D).scale = Vector2(0.5, 0.5);
+	(child_asteroid2.get_node("Sprite2D") as AnimatedSprite2D).scale = (child_asteroid2.get_node("Sprite2D") as AnimatedSprite2D).scale * Vector2(0.5, 0.5);
 	
 	if (debug_logs):
-		print("IMPULSE", destroy_sum, destroy_limit_force_total);
+		print("IMPULSE :: ", "curr_sum: ", destroy_sum, " total limit: ", destroy_limit_force_total);
 		
 	# TODO: Adjust impact of object based on vector towards center of gravity
 	var impulse_imparted_force = destroy_sum/destroy_limit_force_total * shatter_limit_force_total * impact_force;
 	
 	child_asteroid1.apply_central_impulse(impulse_imparted_force);
-	child_asteroid2.apply_central_impulse(impulse_imparted_force * PI/2);
+	child_asteroid2.apply_central_impulse(-impulse_imparted_force);
 	
 func _destroy() -> void:
 	if (debug_logs):
