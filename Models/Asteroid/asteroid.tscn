@@ -37,6 +37,7 @@ gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_7kvrs")
+debug_logs = true
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_kufyc")]
 node = NodePath("..")

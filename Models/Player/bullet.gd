@@ -1,10 +1,10 @@
 extends RigidBody2D
 class_name Bullet
 
-var bullet_speed = 300;
+var bullet_speed: int = 300;
 
 func _ready() -> void:
-	$VisibleOnScreenNotifier2D.screen_exited.connect(_on_visible_on_screen_notifier_2d_exited)
+	($VisibleOnScreenNotifier2D as VisibleOnScreenNotifier2D).screen_exited.connect(_on_visible_on_screen_notifier_2d_exited)
 	body_entered.connect(_on_body_entered)
 
 func _on_visible_on_screen_notifier_2d_exited() -> void:

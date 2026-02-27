@@ -1,25 +1,30 @@
 extends RigidBody2D
+class_name Asteroid
 
 # On ready, pick from 1 of 5 different asteroid options, apply a random rotation and velocity.
 # Calculate mass/density based on asteroid option
 # This class should instead be OrbitingBody?
 
-@export var shatter_limit_force_total = 50.0; # Total force required to shatter asteroid into pieces
-@export var destroy_limit_force_total = 1000.0; # Total force required to destroy asteroid without shatter
-@export var invincibility_frames_limit = 5;
-@export var min_shatter_radius = 5
-@export var max_velocity = 400; # m/s
+@export var limit_force_scaler: float = 10e10
+@export var invincibility_frames_limit: int = 5;
+@export var max_velocity: int = 400; # m/s
+@export var min_destroy_radius: int = 50;
 
-@export var debug_logs = false;
+@export var debug_logs: bool = false;
 
-var impact_speed = 1; # Duration of impact in seconds
+var shatter_limit_force_total: float = 10.0 * limit_force_scaler; # Total force required to shatter asteroid into pieces
+var destroy_limit_force_total: float = 100.0 * limit_force_scaler; # Total force required to destroy asteroid without shatter
+var impact_speed: float = 1.0; # Duration of impact in seconds
 var shatter_sum: float = 0;
 var destroy_sum: float = 0;
-var curr_invinc_frame = 0;
+var curr_invinc_frame: int = 0;
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered);
 	start_invincibility_frames();
+	#if (debug_logs):
+		#print("shatter_limit_force_total ", shatter_limit_force_total);
+		#print("destroy_limit_force_total ", destroy_limit_force_total);
 
 func _physics_process(_delta: float) -> void:
 	if (curr_invinc_frame >= invincibility_frames_limit):
@@ -35,13 +40,15 @@ func _on_body_entered(body: Node) -> void:
 		return;
 	
 	var body_mass: float = 0.0;
-	var velocity = Vector2.ZERO;
-	if ("mass" in body):
-		body_mass = body.mass;
+	var velocity: Vector2 = Vector2.ZERO;
 	
-	if ("velocity" in body):
+	# bodies can be Players or Rigidbody 2d;
+	
+	if (body is Player):
+		body_mass = body.mass;
 		velocity = body.velocity;
-	elif ("linear_velocity" in body):
+	elif (body is RigidBody2D):
+		body_mass = body.mass;
 		velocity = body.linear_velocity;
 	
 	# Determine total force of impact object with (m*v)/t with t = 1s. 
@@ -49,42 +56,41 @@ func _on_body_entered(body: Node) -> void:
 	_take_damage(impact_force);
 
 func _take_damage(impact_force: Vector2) -> void:
-	var impact_mag = impact_force.length();
+	var impact_mag: float = impact_force.length();
 	
 	# decrement force totals. If destroy is met at the same frame as shatter, destroy. 
 	destroy_sum += impact_mag;
 	shatter_sum += impact_mag;
+
+	var curr_radius: float = (($AsteroidCollision as CollisionShape2D).shape as CircleShape2D).radius;
+	
 	if (debug_logs):
 		print("impact_mag: ", impact_mag);
-		print("destroy_sum: ", destroy_sum);
-		print("shatter_sum: ", shatter_sum);
-	
-	var curr_radius = ($AsteroidCollision.shape as CircleShape2D).radius;
-	
-	if (debug_logs):
-		print("curr_radius", curr_radius, min_shatter_radius)
+		print("curr_radius", curr_radius, min_destroy_radius)
 	
 	if (
 		(destroy_sum >= destroy_limit_force_total) ||
-		curr_radius <= min_shatter_radius
+		curr_radius <= min_destroy_radius
 	):
+		if (debug_logs):
+			print("destroy_sum: ", destroy_sum);
+			GameManager.pause();
 		_destroy();
 	
 	if (shatter_sum >= shatter_limit_force_total):
 		_shatter.call_deferred(impact_force);
+		if (debug_logs):
+			print("shatter_sum: ", shatter_sum);
 
 # Break up asteroid based on sum of force applied - could come from weapons, ship or other bodies. At min size, dequeue
 func _shatter(impact_force: Vector2) -> void:
-	if (debug_logs):
-		print("SHATTER");
-	
 	start_invincibility_frames();
-	var child_asteroid1: RigidBody2D = duplicate();
-	var child_asteroid2: RigidBody2D = duplicate();
+	var child_asteroid1: Asteroid = duplicate();
+	var child_asteroid2: Asteroid = duplicate();
 	
 	call_deferred("queue_free");
 	# TODO: Change sprites;
-	var parent = get_parent();
+	var parent: Node = get_parent();
 	parent.add_child(child_asteroid1);
 	child_asteroid1.start_invincibility_frames();
 	parent.add_child(child_asteroid2);
@@ -97,25 +103,20 @@ func _shatter(impact_force: Vector2) -> void:
 	child_asteroid2.destroy_limit_force_total = destroy_limit_force_total/2;
 	
 	# TODO: Temp while I create propper sprite scaling
-	var child1_rad = ((child_asteroid1.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius 
+	var child1_rad: float = ((child_asteroid1.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius 
 	((child_asteroid1.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius = child1_rad/2;
 	(child_asteroid1.get_node("Sprite2D") as AnimatedSprite2D).scale = (child_asteroid1.get_node("Sprite2D") as AnimatedSprite2D).scale * Vector2(0.5, 0.5);
-	var child2_rad = ((child_asteroid2.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius 
+	var child2_rad: float = ((child_asteroid2.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius 
 	((child_asteroid2.get_node("AsteroidCollision") as CollisionShape2D).shape as CircleShape2D).radius = child2_rad/2;
 	(child_asteroid2.get_node("Sprite2D") as AnimatedSprite2D).scale = (child_asteroid2.get_node("Sprite2D") as AnimatedSprite2D).scale * Vector2(0.5, 0.5);
 	
-	if (debug_logs):
-		print("IMPULSE :: ", "curr_sum: ", destroy_sum, " total limit: ", destroy_limit_force_total);
-		
 	# TODO: Adjust impact of object based on vector towards center of gravity
-	var impulse_imparted_force = destroy_sum/destroy_limit_force_total * shatter_limit_force_total * impact_force;
+	var impulse_imparted_force: Vector2 = destroy_sum/destroy_limit_force_total * shatter_limit_force_total * impact_force;
 	
 	child_asteroid1.apply_central_impulse(impulse_imparted_force);
 	child_asteroid2.apply_central_impulse(-impulse_imparted_force);
 	
 func _destroy() -> void:
-	if (debug_logs):
-		print("DESTROY");
 	call_deferred("queue_free");
 	# TODO: Destroy animation
 	
