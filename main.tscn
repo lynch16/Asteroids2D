@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://moxkwo3nfsf4" path="res://Models/Player/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://dc4xstka1au80" path="res://pause_menu.tscn" id="4_1bvp3"]
 
 [node name="Main" type="Node2D" unique_id=1095716515]
 
@@ -28,3 +29,7 @@ position = Vector2(317, 400)
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("3_h2yge")]
 asteroid_scene = ExtResource("2_0xm2m")
+
+[node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
+process_mode = 3
+visible = false

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dc4xstka1au80"]
+
+[ext_resource type="Script" uid="uid://c07tl5c4qnna8" path="res://pause_menu.gd" id="1_hdmo1"]
+
+[node name="PauseMenu" type="Container" unique_id=1804450957]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hdmo1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=831547323]
+layout_mode = 2
+
+[node name="Unpause" type="Button" parent="VBoxContainer" unique_id=1671081617]
+layout_mode = 2
+text = "Resume"
