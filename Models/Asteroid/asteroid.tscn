@@ -32,11 +32,14 @@ resource_local_to_scene = true
 radius = 311.07877
 
 [node name="Asteroid" type="RigidBody2D" unique_id=1301110429]
-mass = 10000000000.0
+mass = 1000000.0
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_7kvrs")
+shatter_limit_force_total = 1000.0
+destroy_limit_force_total = 1000000000.0
+invincibility_frames_limit = 30
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_kufyc")]
 node = NodePath("..")
