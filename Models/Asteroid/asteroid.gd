@@ -69,9 +69,6 @@ func _on_body_entered(body: Node) -> void:
 	# TODO: Players don't cause _on_body_entered
 	damage_dealer.damage(body);
 
-func on_damage(damage: float) -> void:
-	damageable.on_damage(damage);
-	
 func _destroy() -> void:
 	call_deferred("queue_free");
 	# TODO: Destroy animation

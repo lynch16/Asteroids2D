@@ -13,7 +13,7 @@ func update(_delta: float) -> void:
 	if (_is_inv()):
 		curr_inv_frame += 1;
 
-func on_damage(_dmg: float) -> bool:
+func on_damage(_dmg: float, _dmgr: Node) -> bool:
 	if (curr_inv_frame >= invicible_frames):
 		on_end();
 		return true;

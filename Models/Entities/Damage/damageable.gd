@@ -28,11 +28,11 @@ func on_init(attached_object: Variant) -> void:
 	for damage_result in damage_result_states:
 		damage_result.on_init(attached_object);
 
-func on_damage(damage_amount: float) -> void:
+func on_damage(damage_amount: float, damager_node: Node) -> void:
 	curr_health -= damage_amount;
 
 	for damage_result in damage_result_states:
-		var check_next_result: bool = damage_result.on_damage(damage_amount);
+		var check_next_result: bool = damage_result.on_damage(damage_amount, damager_node);
 			
 		if !check_next_result:
 			break;

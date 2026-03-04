@@ -6,6 +6,9 @@ var child_angle_spread := PI/8;
 var asteroid: Asteroid;
 var max_shatter_times := 2;
 
+var shatter_score := 100;
+var shatter_last_score := 200;
+
 # Run once after damageable is initialized
 func on_init(attached_object: Variant) -> void:
 	var new_scale := 1.0;
@@ -18,10 +21,16 @@ func on_init(attached_object: Variant) -> void:
 	shatter_limit = shatter_limit * new_scale;
 
 # Break up asteroid based on sum of force applied - could come from weapons, ship or other bodies. At min size, dequeue
-func on_damage(damage_amt: float) -> bool:
+func on_damage(damage_amt: float, damager_node: Node) -> bool:
 	shatter_limit -= damage_amt;
 	
+	var is_player_damage := damager_node.is_in_group("player_weapon");
+	
 	if (shatter_limit <= 0):
+		if (is_player_damage):
+			var score := shatter_score if asteroid.child_number < max_shatter_times else shatter_last_score;
+			ScoreManager._update_score(score);
+		
 		if (asteroid.child_number < max_shatter_times):
 			var child_aster1 := AsteroidManager.spawn_asteroid(asteroid);
 			var child_aster2 := AsteroidManager.spawn_asteroid(asteroid);
