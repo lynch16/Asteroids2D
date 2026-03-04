@@ -1,8 +1,6 @@
 class_name AsteroidShatterDamageResult
 extends DamageResult
 
-signal on_shatter;
-
 @export var shatter_limit := 50.0;
 var child_angle_spread := PI/8;
 var asteroid: Asteroid;
@@ -24,19 +22,16 @@ func on_damage(damage_amt: float) -> bool:
 	shatter_limit -= damage_amt;
 	
 	if (shatter_limit <= 0):
-		on_shatter.emit();
+		if (asteroid.child_number < max_shatter_times):
+			var child_aster1 := AsteroidManager.spawn_asteroid(asteroid);
+			var child_aster2 := AsteroidManager.spawn_asteroid(asteroid);
 		
-		if (max_shatter_times <= asteroid.child_number):
-			on_end();
-			return true;
+			call_deferred("_apply_parent_force_to_child", asteroid, child_aster1);
+			call_deferred("_apply_parent_force_to_child", asteroid, child_aster2);
 		
-		var child_aster1 := AsteroidManager.spawn_asteroid(asteroid);
-		var child_aster2 := AsteroidManager.spawn_asteroid(asteroid);
-	
-		call_deferred("_apply_parent_force_to_child", asteroid, child_aster1);
-		call_deferred("_apply_parent_force_to_child", asteroid, child_aster2);
+		on_end();
 		
-		asteroid.call_deferred("queue_free");
+		return true;
 	
 	
 	return false;
