@@ -6,11 +6,15 @@ signal on_shatter;
 @export var shatter_limit := 50.0;
 var child_angle_spread := PI/8;
 var asteroid: Asteroid;
+var max_shatter_times := 2;
 
 # Run once after damageable is initialized
 func on_init(attached_object: Variant) -> void:
-	asteroid = attached_object as Asteroid;
-	var new_scale := 1.0/(pow(2, asteroid.child_number));
+	var new_scale := 1.0;
+	
+	if (attached_object is Asteroid):
+		asteroid = attached_object as Asteroid;
+		new_scale = 1.0/(pow(2, asteroid.child_number));
 	
 	# Smaller asteroid will shatter and destroy with half the force
 	shatter_limit = shatter_limit * new_scale;
@@ -19,15 +23,21 @@ func on_init(attached_object: Variant) -> void:
 func on_damage(damage_amt: float) -> bool:
 	shatter_limit -= damage_amt;
 	
-	print("SHATTER ON DMG: ", asteroid.child_number)
 	if (shatter_limit <= 0):
+		on_shatter.emit();
+		
+		if (max_shatter_times <= asteroid.child_number):
+			on_end();
+			return true;
+		
 		var child_aster1 := AsteroidManager.spawn_asteroid(asteroid);
 		var child_aster2 := AsteroidManager.spawn_asteroid(asteroid);
 	
 		call_deferred("_apply_parent_force_to_child", asteroid, child_aster1);
 		call_deferred("_apply_parent_force_to_child", asteroid, child_aster2);
-	
+		
 		asteroid.call_deferred("queue_free");
+	
 	
 	return false;
 #

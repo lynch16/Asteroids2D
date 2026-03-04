@@ -1,6 +1,5 @@
 class_name Asteroid extends RigidBody2D
 
-# Move shatter and destroy functionality into DamageResults
 # Change impact spead to use DealDamage
 
 @export var invincibility_frames_limit := 5;
@@ -10,9 +9,12 @@ class_name Asteroid extends RigidBody2D
 @export var debug_collide := false;
 
 var child_number := 0;
-var min_shatter_times := 2
-
 var collision_damage := 50.0;
+
+@onready var damageable: Damageable = get_node("Damageable");
+@onready var invince_frames_dr: DamageResult = get_node("Damageable/InvincibleFramesDamageResult");
+@onready var shatter_dr: DamageResult = get_node("Damageable/AsteroidShatterDamageResult");
+@onready var collision: CollisionShape2D = get_node("AsteroidCollision");
 
 func _ready() -> void:
 	add_to_group("enemy");
@@ -20,18 +22,23 @@ func _ready() -> void:
 	
 	body_entered.connect(_on_body_entered);
 	
-	$Damageable.on_init(self);
-	$Damageable/InvincibleFramesDamageResult.init.connect(_disable_colliders)
-	$Damageable/InvincibleFramesDamageResult.end.connect(_enable_colliders)
+	damageable.on_init(self);
+	invince_frames_dr.init.connect(_disable_colliders)
+	invince_frames_dr.end.connect(_enable_colliders)
+	
+	shatter_dr.end.connect(_on_max_shatter);
 	
 	if (debug_collide):
 		linear_velocity = Vector2.LEFT * 100000
 		
 func _disable_colliders() -> void:
-	$AsteroidCollision.disabled = true;
+	collision.disabled = true;
 	
 func _enable_colliders() -> void:
 	$AsteroidCollision.set_deferred("disabled", false);
+	
+func _on_max_shatter() -> void:
+	damageable.die();
 	
 func _scale_to_child() -> void:
 	
@@ -39,10 +46,10 @@ func _scale_to_child() -> void:
 	var new_scale := 1.0/(pow(2, child_number));
 	
 	## Smaller asteroid will shatter and destroy with half the force
-	$Damageable.init_health = $Damageable.init_health * new_scale;
+	damageable.init_health = damageable.init_health * new_scale;
 	
 	# TODO: Change sprites;
-	var collision_shape: CircleShape2D = $AsteroidCollision.shape;
+	var collision_shape: CircleShape2D = collision.shape;
 	collision_shape.radius = collision_shape.radius * new_scale;
 	
 	var sprite: AnimatedSprite2D = $Sprite2D;
@@ -60,11 +67,12 @@ func _physics_process(_delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	# TODO: Players don't cause _on_body_entered
 	if body is Asteroid:
+		var asteroid: Asteroid = body;
 		# Handle Asteroid Collision
-		body.on_damage(collision_damage);
+		asteroid.on_damage(collision_damage);
 
 func on_damage(damage: float) -> void:
-	$Damageable.on_damage(damage);
+	damageable.on_damage(damage);
 	
 func _destroy() -> void:
 	if (debug_logs):

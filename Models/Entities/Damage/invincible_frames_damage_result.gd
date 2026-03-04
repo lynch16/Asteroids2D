@@ -19,7 +19,6 @@ func on_damage(_dmg: float) -> bool:
 		return true;
 		
 	if (_is_inv()):
-		print("INVINCE");
 		return false;
 	
 	return true;
