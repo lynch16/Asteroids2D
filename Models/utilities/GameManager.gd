@@ -1,8 +1,18 @@
 extends Node
 
+signal game_start;
+signal game_over;
 signal game_paused;
 
 var paused: bool = false;
+var started: bool = false;
+
+func on_start() -> void:
+	started = true;
+	game_start.emit();
+
+func trigger_game_over() -> void:
+	game_over.emit();
 
 func pause(force_set_paused: Variant = null) -> void:
 	if (force_set_paused != null):
@@ -12,6 +22,5 @@ func pause(force_set_paused: Variant = null) -> void:
 	_set_paused();
 
 func _set_paused() -> void:
-	print("Setting paused: ", paused);
 	get_tree().paused = paused;
 	game_paused.emit(paused);

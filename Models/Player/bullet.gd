@@ -25,5 +25,6 @@ func fire_bullet(
 func _on_body_entered(node: Node) -> void:
 	if (node.is_in_group("enemy")):
 		deal_damage.damage(node);
+		ScoreManager._update_score(10);
 	
 	queue_free(); 

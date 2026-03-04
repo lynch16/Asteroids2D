@@ -2,16 +2,15 @@ class_name Asteroid extends RigidBody2D
 
 # Change impact spead to use DealDamage
 
-@export var invincibility_frames_limit := 5;
 @export var max_velocity := 400; # m/s
 
-@export var debug_logs := false;
 @export var debug_collide := false;
 
 var child_number := 0;
 var collision_damage := 50.0;
 
 @onready var damageable: Damageable = get_node("Damageable");
+@onready var damage_dealer: DealDamage = get_node("DealDamage");
 @onready var invince_frames_dr: DamageResult = get_node("Damageable/InvincibleFramesDamageResult");
 @onready var shatter_dr: DamageResult = get_node("Damageable/AsteroidShatterDamageResult");
 @onready var collision: CollisionShape2D = get_node("AsteroidCollision");
@@ -23,8 +22,9 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered);
 	
 	damageable.on_init(self);
-	invince_frames_dr.init.connect(_disable_colliders)
-	invince_frames_dr.end.connect(_enable_colliders)
+	damageable.on_destroy.connect(_destroy);
+	invince_frames_dr.init.connect(_disable_colliders);
+	invince_frames_dr.end.connect(_enable_colliders);
 	
 	shatter_dr.end.connect(_on_max_shatter);
 	
@@ -35,7 +35,7 @@ func _disable_colliders() -> void:
 	collision.disabled = true;
 	
 func _enable_colliders() -> void:
-	$AsteroidCollision.set_deferred("disabled", false);
+	collision.set_deferred("disabled", false);
 	
 func _on_max_shatter() -> void:
 	damageable.die();
@@ -47,6 +47,7 @@ func _scale_to_child() -> void:
 	
 	## Smaller asteroid will shatter and destroy with half the force
 	damageable.init_health = damageable.init_health * new_scale;
+	damage_dealer.damage_dealt = damage_dealer.damage_dealt * new_scale;
 	
 	# TODO: Change sprites;
 	var collision_shape: CircleShape2D = collision.shape;
@@ -66,16 +67,11 @@ func _physics_process(_delta: float) -> void:
 	
 func _on_body_entered(body: Node) -> void:
 	# TODO: Players don't cause _on_body_entered
-	if body is Asteroid:
-		var asteroid: Asteroid = body;
-		# Handle Asteroid Collision
-		asteroid.on_damage(collision_damage);
+	damage_dealer.damage(body);
 
 func on_damage(damage: float) -> void:
 	damageable.on_damage(damage);
 	
 func _destroy() -> void:
-	if (debug_logs):
-		print("DESTROY");
 	call_deferred("queue_free");
 	# TODO: Destroy animation
