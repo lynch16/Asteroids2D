@@ -41,6 +41,7 @@ enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 [global_group]
 
 enemy=""
+player_weapon="Weapons controlled by PC"
 
 [input]
 

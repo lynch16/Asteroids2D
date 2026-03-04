@@ -35,7 +35,7 @@ radius = 16.0
 resource_local_to_scene = true
 radius = 311.07877
 
-[node name="Asteroid" type="RigidBody2D" unique_id=1301110429]
+[node name="Asteroid" type="RigidBody2D" unique_id=1301110429 groups=["enemy"]]
 mass = 1000000.0
 gravity_scale = 0.0
 contact_monitor = true
@@ -81,6 +81,7 @@ shape = SubResource("CircleShape2D_kufyc")
 
 [node name="Damageable" type="Node" parent="." unique_id=1658148519]
 script = ExtResource("4_p7nbn")
+init_health = null
 metadata/_custom_type_script = "uid://c4l6k6583jbr6"
 
 [node name="InvincibleFramesDamageResult" type="Node" parent="Damageable" unique_id=1941184799]
