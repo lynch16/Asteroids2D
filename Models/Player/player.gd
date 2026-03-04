@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-@export var thrust = 100;
+@export var thrust = 1000;
 @export var mass = 2;
 @export var rotation_speed = 5;
 @export var max_speed = 400; # m/s

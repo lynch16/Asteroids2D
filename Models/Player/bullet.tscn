@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://clmhgemf6tliu"]
 
 [ext_resource type="Script" uid="uid://dxr82xds2no31" path="res://Models/Player/bullet.gd" id="1_s1b55"]
+[ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="2_dn27l"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vsjsl"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAAA0AAAAUklGRiwAAABXRUJQVlA4TCAAAAAvH8AHEA8wwYM+cPMf8FCQtgGzOZ/7ayCi/xOAfdG5Bw==")
@@ -10,8 +11,8 @@ size_override = Vector2(32, 32)
 radius = 1.0
 height = 4.0
 
-[node name="Bullet" type="RigidBody2D" unique_id=1934145494]
-mass = 0.1
+[node name="Bullet" type="RigidBody2D" unique_id=1934145494 groups=["enemy"]]
+mass = 1000.0
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 1
@@ -49,3 +50,8 @@ shape = SubResource("CapsuleShape2D_vsjsl")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1132118516]
 rect = Rect2(-1, -2, 2, 4)
+
+[node name="DealDamage" type="Node" parent="." unique_id=1569094452]
+script = ExtResource("2_dn27l")
+damage_dealt = 10.0
+metadata/_custom_type_script = "uid://c4u0g4nfqocub"

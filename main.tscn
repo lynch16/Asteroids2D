@@ -8,6 +8,7 @@
 [node name="Main" type="Node2D" unique_id=1095716515]
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1674633673]
+visible = false
 position = Vector2(399, 135)
 polygon = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
 uv = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
@@ -15,21 +16,19 @@ uv = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84
 [node name="Player" parent="." unique_id=818107462 instance=ExtResource("1_ig7tw")]
 position = Vector2(562, 582)
 
-[node name="Asteroid" parent="." unique_id=1301110429 instance=ExtResource("2_0xm2m")]
-visible = false
-position = Vector2(514, 231)
-
-[node name="Asteroid2" parent="." unique_id=1838451310 instance=ExtResource("2_0xm2m")]
-visible = false
-position = Vector2(1028, 462)
-
-[node name="Asteroid3" parent="." unique_id=560364578 instance=ExtResource("2_0xm2m")]
-visible = false
-position = Vector2(317, 400)
-
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("3_h2yge")]
-asteroid_scene = ExtResource("2_0xm2m")
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3
 visible = false
+
+[node name="DebugAsteroids" type="Node2D" parent="." unique_id=388349782]
+
+[node name="Asteroid" parent="DebugAsteroids" unique_id=1301110429 instance=ExtResource("2_0xm2m")]
+position = Vector2(562, 231)
+
+[node name="Asteroid2" parent="DebugAsteroids" unique_id=1838451310 instance=ExtResource("2_0xm2m")]
+position = Vector2(1028, 400)
+
+[node name="Asteroid3" parent="DebugAsteroids" unique_id=560364578 instance=ExtResource("2_0xm2m")]
+position = Vector2(317, 400)
