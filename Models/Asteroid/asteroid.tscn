@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/Entities/Damage/damageable.gd" id="4_p7nbn"]
 [ext_resource type="Script" uid="uid://ce60si5dg5lkl" path="res://Models/Asteroid/asteroid_shatter_damage_result.gd" id="5_vpx2v"]
+[ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/Entities/Damage/apply_damage_result.gd" id="6_aasjb"]
 [ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/Entities/Damage/invincible_frames_damage_result.gd" id="6_j8b8u"]
 [ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="7_57j71"]
 
@@ -81,12 +82,15 @@ shape = SubResource("CircleShape2D_kufyc")
 
 [node name="Damageable" type="Node" parent="." unique_id=1658148519]
 script = ExtResource("4_p7nbn")
-init_health = null
 metadata/_custom_type_script = "uid://c4l6k6583jbr6"
 
 [node name="InvincibleFramesDamageResult" type="Node" parent="Damageable" unique_id=1941184799]
 script = ExtResource("6_j8b8u")
 metadata/_custom_type_script = "uid://l6occnfuxuon"
+
+[node name="ApplyDamageResult" type="Node" parent="Damageable" unique_id=1544029734]
+script = ExtResource("6_aasjb")
+metadata/_custom_type_script = "uid://dhchi74lu51yr"
 
 [node name="AsteroidShatterDamageResult" type="Node" parent="Damageable" unique_id=1960299606]
 script = ExtResource("5_vpx2v")

@@ -1,3 +1,4 @@
+class_name HUD
 extends Node
 
 @export var _debug_mode := false;
@@ -5,7 +6,8 @@ extends Node
 var viewport_size: Vector2;
 
 @onready var debug_controls: Node = get_node("DebugHUD");
-@onready var score_value: Label = get_node("VBoxContainer/MarginContainer/HBoxContainer/Score_Value");
+@onready var score_value: Label = get_node("RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/Score_Value");
+@onready var health_value: Label = get_node("RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/Health_Value");
 
 func _ready() -> void:
 	# Track viewport sizes and resizes
@@ -14,10 +16,14 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_update_viewport_size);
 	
 	ScoreManager.score_updated.connect(_update_score_view);
+	SignalBus.player_health_updated.connect(_update_health_view);
 	
 func _update_score_view(new_score: int) -> void:
 	score_value.text = str(new_score);
 	
+func _update_health_view(new_health: int) -> void:
+	health_value.text = str(new_health);
+
 func _update_viewport_size() -> void:
 	viewport_size = get_viewport().get_visible_rect().size;
 	

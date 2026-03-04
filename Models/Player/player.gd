@@ -12,12 +12,20 @@ var bulletScn := preload("res://Models/Player/bullet.tscn");
 
 @onready var bullet_spawn_loc: Node2D = get_node("BulletSpawnLocation");
 @onready var bullet_timer: Timer = get_node("BulletSpawnTimer");
+@onready var damageable: Damageable = get_node("Damageable");
+@onready var apply_damage_dr: ApplyDamageResult = get_node("Damageable/ApplyDamageResult");
 
 func _ready() -> void:
 	velocity = Vector2.UP;
 	ship_direction = velocity.angle();
 	bullet_timer.timeout.connect(_spawn_bullet)
-
+	# Register broadcast handler and emit initial health state
+	apply_damage_dr.damage_applied.connect(_handle_player_damage);
+	damageable.on_destroy.connect(_die);
+	
+	# Call deferred so that handlers can connect before initial broadcast
+	SignalBus.call_deferred("_on_player_health_updated", int(damageable.curr_health));
+	
 func _physics_process(delta: float) -> void:
 	acceleration = Vector2.ZERO;
 	
@@ -40,9 +48,22 @@ func _physics_process(delta: float) -> void:
 		velocity = tmp_vel;
 	
 	move_and_slide();
+	_handle_body_collisions();
 	
 	if (Input.is_action_pressed("fire_weapon")):
 		_fire_weapon();
+
+# MUST be called after move_and_slide to register collisions
+func _handle_body_collisions() -> void:
+	for i in get_slide_collision_count():
+		var collision := get_slide_collision(i);
+		var maybe_deal_damage: Variant = collision.get_collider().get("deal_damage");
+		if maybe_deal_damage is DealDamage:
+			var deal_damager: DealDamage = maybe_deal_damage;
+			deal_damager.damage(self);
+			
+func _handle_player_damage(_dmg: float, _new_health: float) -> void:
+	SignalBus._on_player_health_updated(int(damageable.curr_health));
 
 func _move_forward() -> void:
 	# Apply acceleration to max speed in direction facing
@@ -75,3 +96,6 @@ func _spawn_bullet() -> void:
 	
 func _convert_direction_to_rotation(direction: float) -> float:
 	return direction + PI/2;
+	
+func _die() -> void:
+	GameManager.trigger_game_over();

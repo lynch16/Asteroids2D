@@ -6,50 +6,6 @@
 [node name="HUD" type="Node" unique_id=663700924]
 script = ExtResource("1_37p78")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1636059388]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 50.0
-grow_horizontal = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1528109675]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=2109216518]
-layout_mode = 2
-
-[node name="Score_Label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1692012725]
-layout_mode = 2
-text = "Score: 	"
-
-[node name="Score_Value" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1177086976]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "0"
-
-[node name="Health_Label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=9408459]
-layout_mode = 2
-text = "Health: "
-
-[node name="Health_Value" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=921327920]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "0"
-
-[node name="Lives_Label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=77087511]
-layout_mode = 2
-text = "Lives:"
-
-[node name="Lives_Value" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=627855628]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 2
-
 [node name="DebugHUD" type="Node" parent="." unique_id=1073211590]
 script = ExtResource("2_ing8j")
 
@@ -87,3 +43,49 @@ text = "Asteroids: "
 layout_mode = 2
 size_flags_horizontal = 0
 text = "0"
+
+[node name="RuntimeHUD" type="Node" parent="." unique_id=1117212003]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RuntimeHUD" unique_id=1636059388]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="RuntimeHUD/VBoxContainer" unique_id=1528109675]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer" unique_id=2109216518]
+layout_mode = 2
+
+[node name="Score_Label" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1692012725]
+layout_mode = 2
+text = "Score: 	"
+
+[node name="Score_Value" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1177086976]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="Health_Label" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=9408459]
+layout_mode = 2
+text = "Health: "
+
+[node name="Health_Value" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=921327920]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="Lives_Label" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=77087511]
+layout_mode = 2
+text = "Lives:"
+
+[node name="Lives_Value" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=627855628]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
