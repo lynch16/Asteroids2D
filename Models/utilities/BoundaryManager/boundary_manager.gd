@@ -28,17 +28,19 @@ func _keep_in_viewport() -> void:
 	
 	# Use more complex cloning process instead of repositioning in order to support both static and physics based bodies
 	if (requires_clone):
-		var clone := node.duplicate();
+		var clone: Node2D = node.duplicate();
 		node.get_parent().add_child(clone);
 		clone.transform = node.transform;
 		clone.rotation = node.rotation;
 		clone.position = new_position;
 		
-		if ("velocity" in clone):
-			clone.velocity = node.velocity;
-		elif ("linear_velocity" in clone):
-			clone.linear_velocity = node.linear_velocity;
-			if (is_zero_approx(clone.linear_velocity.length() as float)):
+		if (clone is CharacterBody2D):
+			var char_clone := clone as CharacterBody2D;
+			char_clone.velocity = (node as CharacterBody2D).velocity;
+		elif (clone is RigidBody2D):
+			var rigid_clone := clone as RigidBody2D;
+			rigid_clone.linear_velocity = (node as RigidBody2D).linear_velocity;
+			if (is_zero_approx(rigid_clone.linear_velocity.length() as float)):
 				# Kill clones that have stalled out 
-				clone.queue_free();
+				rigid_clone.queue_free();
 		node.queue_free();
