@@ -8,6 +8,7 @@
 [node name="Main" type="Node2D" unique_id=1095716515]
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1674633673]
+visible = false
 position = Vector2(399, 135)
 polygon = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
 uv = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
@@ -16,7 +17,6 @@ uv = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84
 position = Vector2(562, 582)
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("3_h2yge")]
-process_mode = 4
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3

@@ -1,7 +1,7 @@
 extends RigidBody2D
 class_name Bullet
 
-var bullet_speed = 1000;
+var bullet_speed := 1000;
 
 func _ready() -> void:
 	$VisibleOnScreenNotifier2D.screen_exited.connect(_on_visible_on_screen_notifier_2d_exited)
@@ -19,5 +19,8 @@ func fire_bullet(
 	rotation = direction + PI/2;;
 	apply_central_impulse(base_velocity + Vector2(bullet_speed, 0).rotated(direction))
 
-func _on_body_entered(_node: Node) -> void:
+func _on_body_entered(node: Node) -> void:
+	if (node.is_in_group("enemy")):
+		$DealDamage.damage(node);
+	
 	queue_free(); 
