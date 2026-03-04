@@ -12,7 +12,9 @@ func on_start() -> void:
 	game_start.emit();
 
 func trigger_game_over() -> void:
+	print("GAME OVER");
 	game_over.emit();
+	pause(true);
 
 func pause(force_set_paused: Variant = null) -> void:
 	if (force_set_paused != null):

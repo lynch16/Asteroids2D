@@ -22,12 +22,10 @@ func on_init(attached_object: Variant) -> void:
 	shatter_limit = shatter_limit * new_scale;
 
 # Break up asteroid based on sum of force applied - could come from weapons, ship or other bodies. At min size, dequeue
-func on_damage(damage_amt: float, damager_node: Node) -> bool:
-	shatter_limit -= damage_amt;
-	
+func on_damage(_damage_dealt: float, curr_health: float, damager_node: Node) -> bool:
 	var is_player_damage := damager_node.is_in_group("player_weapon");
 	
-	if (shatter_limit <= 0):
+	if (curr_health <= shatter_limit):
 		if (is_player_damage):
 			var score := shatter_score if asteroid.child_number < max_shatter_times else shatter_last_score;
 			ScoreManager._update_score(score);

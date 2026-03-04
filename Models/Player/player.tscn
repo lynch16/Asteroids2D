@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bdkr3l4m53lbd" path="res://Models/Player/player.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_ccpyr"]
+[ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/Entities/Damage/damageable.gd" id="3_cyh01"]
+[ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/Entities/Damage/invincible_frames_damage_result.gd" id="4_so11j"]
+[ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/Entities/Damage/apply_damage_result.gd" id="5_upkxw"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_sh265"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABeAAAAUklGRlYAAABXRUJQVlA4TEoAAAAvH8AHEA8wCpMwFPMf8GATyVYk9g6RgBSkgTSkIIFw7wneExHR/wkIdQqmLa4fbkR3Jvdm9xcHpsIkDRbpcMiAKCckeSHLD0XwAA==")
@@ -63,3 +66,16 @@ position = Vector2(0, -23)
 [node name="BulletSpawnTimer" type="Timer" parent="." unique_id=1532702493]
 wait_time = 0.1
 one_shot = true
+
+[node name="Damageable" type="Node" parent="." unique_id=291309782]
+script = ExtResource("3_cyh01")
+metadata/_custom_type_script = "uid://c4l6k6583jbr6"
+
+[node name="InvincibleFramesDamageResult" type="Node" parent="Damageable" unique_id=1329095173]
+script = ExtResource("4_so11j")
+restart_on_new_damage = true
+metadata/_custom_type_script = "uid://l6occnfuxuon"
+
+[node name="ApplyDamageResult" type="Node" parent="Damageable" unique_id=1803812225]
+script = ExtResource("5_upkxw")
+metadata/_custom_type_script = "uid://dhchi74lu51yr"

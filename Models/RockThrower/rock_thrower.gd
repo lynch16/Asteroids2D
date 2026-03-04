@@ -12,7 +12,7 @@ func _ready() -> void:
 func start() -> void:
 	rock_throw_timer.start();
 	
-func _on_rock_throw_timer_timeout() -> void:
+func throw_rock() -> void:
 	var rock := AsteroidManager.spawn_asteroid();
 	rock_spawn_location.progress_ratio = randf();
 	
@@ -25,4 +25,7 @@ func _on_rock_throw_timer_timeout() -> void:
 	
 	var velocity := Vector2(randf_range(min_throw_velocity, max_throw_velocity), 0.0);
 	rock.linear_velocity = velocity.rotated(direction);
+	
+func _on_rock_throw_timer_timeout() -> void:
+	throw_rock();
 	

@@ -29,10 +29,10 @@ func on_init(attached_object: Variant) -> void:
 		damage_result.on_init(attached_object);
 
 func on_damage(damage_amount: float, damager_node: Node) -> void:
-	curr_health -= damage_amount;
-
+	# This doesn't respect things like invince frames.
+	# Death should be a result
 	for damage_result in damage_result_states:
-		var check_next_result: bool = damage_result.on_damage(damage_amount, damager_node);
+		var check_next_result: bool = damage_result.on_damage(damage_amount, curr_health, damager_node);
 			
 		if !check_next_result:
 			break;

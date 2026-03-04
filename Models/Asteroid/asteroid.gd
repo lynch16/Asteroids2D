@@ -10,7 +10,7 @@ var child_number := 0;
 var collision_damage := 50.0;
 
 @onready var damageable: Damageable = get_node("Damageable");
-@onready var damage_dealer: DealDamage = get_node("DealDamage");
+@onready var deal_damage: DealDamage = get_node("DealDamage");
 @onready var invince_frames_dr: DamageResult = get_node("Damageable/InvincibleFramesDamageResult");
 @onready var shatter_dr: DamageResult = get_node("Damageable/AsteroidShatterDamageResult");
 @onready var collision: CollisionShape2D = get_node("AsteroidCollision");
@@ -47,7 +47,7 @@ func _scale_to_child() -> void:
 	
 	## Smaller asteroid will shatter and destroy with half the force
 	damageable.init_health = damageable.init_health * new_scale;
-	damage_dealer.damage_dealt = damage_dealer.damage_dealt * new_scale;
+	deal_damage.damage_dealt = deal_damage.damage_dealt * new_scale;
 	
 	# TODO: Change sprites;
 	var collision_shape: CircleShape2D = collision.shape;
@@ -67,7 +67,7 @@ func _physics_process(_delta: float) -> void:
 	
 func _on_body_entered(body: Node) -> void:
 	# TODO: Players don't cause _on_body_entered
-	damage_dealer.damage(body);
+	deal_damage.damage(body);
 
 func _destroy() -> void:
 	call_deferred("queue_free");
