@@ -3,8 +3,11 @@ class_name Bullet
 
 var bullet_speed := 1000;
 
+@onready var deal_damage: DealDamage = get_node("DealDamage");
+@onready var on_screen_notifier: VisibleOnScreenNotifier2D = get_node("VisibleOnScreenNotifier2D");
+
 func _ready() -> void:
-	$VisibleOnScreenNotifier2D.screen_exited.connect(_on_visible_on_screen_notifier_2d_exited)
+	on_screen_notifier.screen_exited.connect(_on_visible_on_screen_notifier_2d_exited)
 	body_entered.connect(_on_body_entered)
 
 func _on_visible_on_screen_notifier_2d_exited() -> void:
@@ -21,6 +24,6 @@ func fire_bullet(
 
 func _on_body_entered(node: Node) -> void:
 	if (node.is_in_group("enemy")):
-		$DealDamage.damage(node);
+		deal_damage.damage(node);
 	
 	queue_free(); 

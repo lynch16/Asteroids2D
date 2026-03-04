@@ -3,15 +3,17 @@ extends Path2D
 @export var min_throw_velocity := 50.0;
 @export var max_throw_velocity := 100.0;
 
+@onready var rock_throw_timer: Timer = get_node("RockThrowTimer");
+@onready var rock_spawn_location: PathFollow2D = get_node("RockSpawnLocation");
+
 func _ready() -> void:
-	$RockThrowTimer.timeout.connect(_on_rock_throw_timer_timeout);
+	rock_throw_timer.timeout.connect(_on_rock_throw_timer_timeout);
 
 func start() -> void:
-	$RockThrowTimer.start();
+	rock_throw_timer.start();
 	
 func _on_rock_throw_timer_timeout() -> void:
 	var rock := AsteroidManager.spawn_asteroid();
-	var rock_spawn_location: PathFollow2D = $RockSpawnLocation;
 	rock_spawn_location.progress_ratio = randf();
 	
 	rock.global_position = rock_spawn_location.global_position;

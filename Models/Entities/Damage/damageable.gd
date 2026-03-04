@@ -11,7 +11,7 @@ var attached_node: Variant;
 signal on_destroy;
 
 func _ready() -> void:
-	var node_children = get_children();
+	var node_children := get_children();
 	for child in node_children:
 		if (child is DamageResult):
 			damage_result_states.push_back(child as DamageResult);
@@ -38,4 +38,7 @@ func on_damage(damage_amount: float) -> void:
 			break;
 			
 	if (curr_health <= 0):
-		on_destroy.emit();
+		die();
+		
+func die() -> void:
+	on_destroy.emit();
