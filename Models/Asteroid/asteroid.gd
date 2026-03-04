@@ -35,7 +35,7 @@ func _disable_colliders() -> void:
 	collision.disabled = true;
 	
 func _enable_colliders() -> void:
-	$AsteroidCollision.set_deferred("disabled", false);
+	collision.set_deferred("disabled", false);
 	
 func _on_max_shatter() -> void:
 	damageable.die();
