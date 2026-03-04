@@ -14,7 +14,8 @@ func on_init(attached_object: Variant) -> void:
 	var new_scale := 1.0;
 	
 	if (attached_object is Asteroid):
-		asteroid = attached_object as Asteroid;
+		var resolved_type: Asteroid = attached_object;
+		asteroid = resolved_type;
 		new_scale = 1.0/(pow(2, asteroid.child_number));
 	
 	# Smaller asteroid will shatter and destroy with half the force
