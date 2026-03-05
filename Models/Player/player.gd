@@ -1,5 +1,5 @@
-extends CharacterBody2D
 class_name Player
+extends CharacterEntity
 
 @export var thrust := 1000;
 @export var mass := 2;

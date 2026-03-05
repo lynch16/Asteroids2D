@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dc4xstka1au80" path="res://pause_menu.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://ygio5vatco1t" path="res://UI/HUD/hud.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="6_7mycd"]
 
 [node name="Main" type="Node2D" unique_id=1095716515]
 
@@ -15,9 +16,10 @@ polygon = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 2
 uv = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
 
 [node name="Player" parent="." unique_id=818107462 instance=ExtResource("1_ig7tw")]
-position = Vector2(562, 582)
+position = Vector2(562, 507)
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("3_h2yge")]
+process_mode = 4
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3
@@ -35,3 +37,6 @@ position = Vector2(1028, 400)
 position = Vector2(317, 400)
 
 [node name="HUD" parent="." unique_id=663700924 instance=ExtResource("5_lquwl")]
+
+[node name="Enemy" parent="." unique_id=1345935966 instance=ExtResource("6_7mycd")]
+position = Vector2(566, 601)

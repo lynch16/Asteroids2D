@@ -43,6 +43,7 @@ enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
 enemy=""
 player_weapon="Weapons controlled by PC"
+player="Player"
 
 [input]
 

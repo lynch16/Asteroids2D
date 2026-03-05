@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://tjlvf8cvvy0p"]
+
+[ext_resource type="Script" uid="uid://4r5ijwuetp5l" path="res://Models/Enemy/vision.gd" id="1_ixr12"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tsauc"]
+
+[node name="VisionArea" type="Area2D" unique_id=1974026706]
+script = ExtResource("1_ixr12")
+detection_group_name = "player"
+target_acquisition_interval = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=766347636]
+shape = SubResource("CircleShape2D_tsauc")
