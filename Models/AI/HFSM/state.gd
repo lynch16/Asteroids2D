@@ -11,11 +11,11 @@ func _ready() -> void:
 		else:
 			transitions.push_back(child);
 
-func on_enter() -> void:
+func on_enter(_prior_state: FSMState) -> void:
 	pass;
 
 func on_update(_delta: float) -> void:
 	pass;
 	
-func on_exit() -> void:
-	pass;
+func on_exit() -> FSMState:
+	return self;

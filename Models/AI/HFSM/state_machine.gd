@@ -9,7 +9,7 @@ var _active_state: FSMState;
 
 func _ready() -> void:
 	_active_state = _initial_state;
-	_active_state.on_enter();
+	_active_state.on_enter(null);
 	
 	if stateful_entity is not CharacterEntity:
 		printerr("Invalid CharacterEntity assigned to StateMachine: ", stateful_entity);
@@ -27,10 +27,10 @@ func _process(delta: float) -> void:
 func update(_delta: float) -> void:
 	for transition in _active_state.transitions:
 		if transition.is_valid():
-			_active_state.on_exit();
+			var ending_state := _active_state.on_exit();
 			_active_state = transition.get_next_state();
 			transition.on_transition();
-			_active_state.on_enter();
+			_active_state.on_enter(ending_state);
 			break;
 			
 	_active_state.on_update(_delta);

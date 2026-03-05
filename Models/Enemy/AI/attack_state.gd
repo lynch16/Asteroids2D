@@ -7,13 +7,13 @@ var player: Player;
 
 var timer := 0.0;
 var player_reposition_timeout := 0.2;
-var player_last_position: Vector2;
+var last_known_position: Vector2;
 
 @onready var stateful_entity: CharacterEntity = (get_parent() as StateMachine).stateful_entity;
 
 # Transitions: If health low; if enemy dead
 
-func on_enter() -> void:
+func on_enter(_prior_state: FSMState) -> void:
 	if (vision_area.can_see_targets):
 		var targets := vision_area.targets;
 		for t in targets:
@@ -29,13 +29,13 @@ func on_update(delta: float) -> void:
 	# TODO: Entities need a "turn to function"
 	if (timer >= player_reposition_timeout && is_instance_valid(player)):
 		timer = 0.0;
-		player_last_position = player.global_position;
+		last_known_position = player.global_position;
 		
 	# Move towards target
-	if (player_last_position):
-		stateful_entity.look_at(player_last_position);
+	if (last_known_position):
+		stateful_entity.look_at(last_known_position);
 		stateful_entity.rotation += PI/2;
-		stateful_entity.position = stateful_entity.position.move_toward(player_last_position, stateful_entity.max_velocity * delta);
+		stateful_entity.position = stateful_entity.position.move_toward(last_known_position, stateful_entity.max_velocity * delta);
 	
 	stateful_entity.move_and_slide();
 
@@ -45,6 +45,6 @@ func on_update(delta: float) -> void:
 
 	# If within range, fire
 	
-func on_exit() -> void:
-	pass;
+#func on_exit() -> void:
+	#pass;
 	
