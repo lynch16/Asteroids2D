@@ -10,8 +10,6 @@ func _ready() -> void:
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	
 func set_movement_target(movement_target: Vector2) -> void:
-	look_at(movement_target);
-	rotation += PI/2;
 	nav_agent.target_position = movement_target;
 
 func _physics_process(_delta: float) -> void:
@@ -30,6 +28,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
+	rotation = velocity.angle() + PI/2
 	move_and_slide();
 	
 # Enemy Groups
