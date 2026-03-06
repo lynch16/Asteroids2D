@@ -2,7 +2,7 @@ class_name StateMachine
 extends Node
 
 @export var _initial_state: FSMState;
-@export var stateful_entity: CharacterEntity;
+@export var stateful_entity: Enemy;
 
 var _states: Array[FSMState] = [];
 var _active_state: FSMState;
@@ -11,7 +11,7 @@ func _ready() -> void:
 	_active_state = _initial_state;
 	_active_state.on_enter(null);
 	
-	if stateful_entity is not CharacterEntity:
+	if stateful_entity is not Enemy:
 		printerr("Invalid CharacterEntity assigned to StateMachine: ", stateful_entity);
 	
 	var children := get_children();

@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://tjlvf8cvvy0p" path="res://Models/Enemy/vision.tscn" id="5_mb64x"]
 [ext_resource type="Script" uid="uid://bkros6v8divjk" path="res://Models/Enemy/AI/attack_patrol_transition.gd" id="6_84prv"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="8_q6pfn"]
+[ext_resource type="Script" uid="uid://bdc2ustsvtpdh" path="res://Models/Entities/Movement/space_movement_controller.gd" id="9_utaga"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_848ye"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABcAAAAUklGRlQAAABXRUJQVlA4TEcAAAAvH8AHEB+goG0bFhfA3REIkCkJUkwREhBuSP4/FOc/AN52sUFRJEnNkt5nDpXZ4BXzBwRE9D8k1SLpggPYR+0A7PZODmB6DwA=")
@@ -98,5 +99,10 @@ path_max_distance = 400.0
 avoidance_enabled = true
 radius = 32.0
 debug_enabled = true
+
+[node name="SpaceMovementController" type="Node" parent="." unique_id=623815664 node_paths=PackedStringArray("moveable_character")]
+script = ExtResource("9_utaga")
+moveable_character = NodePath("..")
+metadata/_custom_type_script = "uid://bdc2ustsvtpdh"
 
 [connection signal="navigation_finished" from="NavigationAgent2D" to="StateMachine/PatrolState" method="get_random_next_position"]

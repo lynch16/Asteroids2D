@@ -9,7 +9,7 @@ var timer := 0.0;
 var player_reposition_timeout := 0.2;
 var last_known_position: Vector2;
 
-@onready var stateful_entity: CharacterEntity = (get_parent() as StateMachine).stateful_entity;
+@onready var stateful_entity: Enemy = (get_parent() as StateMachine).stateful_entity;
 
 # Transitions: If health low; if enemy dead
 

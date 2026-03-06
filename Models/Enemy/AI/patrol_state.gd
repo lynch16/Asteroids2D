@@ -3,7 +3,7 @@ extends FSMState
 
 @export var vision_area: VisionArea;
 @export var nav_agent: NavigationAgent2D;
-@onready var stateful_entity: CharacterEntity = (get_parent() as StateMachine).stateful_entity;
+@onready var stateful_entity: Enemy = (get_parent() as StateMachine).stateful_entity;
 
 var next_position: Vector2;
 

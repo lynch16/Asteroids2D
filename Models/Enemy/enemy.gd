@@ -1,12 +1,13 @@
 class_name Enemy
-extends CharacterEntity
+extends CharacterBody2D
 
 @onready var nav_agent: NavigationAgent2D = get_node("NavigationAgent2D");
+@onready var movement_controller: SpaceMovementController = get_node("SpaceMovementController");
 
 var movement_speed: float;
 
 func _ready() -> void:
-	movement_speed = randf_range(min_speed, max_speed);
+	movement_speed = randf_range(movement_controller.min_speed, movement_controller.max_speed);
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	
 func set_movement_target(movement_target: Vector2) -> void:
@@ -27,8 +28,7 @@ func _physics_process(_delta: float) -> void:
 		_on_velocity_computed(new_velocity)
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
-	velocity = safe_velocity
-	rotation = velocity.angle() + PI/2
-	move_and_slide();
+	movement_controller.target_velocity = safe_velocity;
+	movement_controller._apply_velocity();
 	
 # Enemy Groups
