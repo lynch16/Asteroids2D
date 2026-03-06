@@ -2,13 +2,10 @@ class_name PatrolState
 extends FSMState
 
 @export var vision_area: VisionArea;
+@export var nav_agent: NavigationAgent2D;
 @onready var stateful_entity: CharacterEntity = (get_parent() as StateMachine).stateful_entity;
 
 var next_position: Vector2;
-
-func _ready() -> void:
-	# Call deferred to make sure nav agent is setup when connecting
-	call_deferred("_wire_next_path_on_finished");
 
 func on_enter(prior_state: FSMState) -> void:
 	var last_known_position: Variant = null;
@@ -19,9 +16,6 @@ func on_enter(prior_state: FSMState) -> void:
 	
 	if (next_position == Vector2.ZERO):
 		get_random_next_position();
-	
-func _wire_next_path_on_finished() -> void:
-	(stateful_entity as Enemy).nav_agent.navigation_finished.connect(get_random_next_position);
 	
 func get_random_next_position() -> void:
 	# TODO: Should also rotate randomly within field of view
