@@ -28,8 +28,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0d2cp"]
-resource_local_to_scene = true
+[sub_resource type="CircleShape2D" id="CircleShape2D_aasjb"]
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufyc"]
@@ -70,8 +69,7 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "ee02a4283d4d8e34a621934af8b9932e"
 
 [node name="AsteroidCollision" type="CollisionShape2D" parent="." unique_id=2000207456]
-visible = false
-shape = SubResource("CircleShape2D_0d2cp")
+shape = SubResource("CircleShape2D_aasjb")
 
 [node name="GravityField" type="Area2D" parent="." unique_id=2107640775]
 script = ExtResource("3_0d2cp")
@@ -101,3 +99,7 @@ metadata/_custom_type_script = "uid://ce60si5dg5lkl"
 script = ExtResource("7_57j71")
 damage_dealt = 50.0
 metadata/_custom_type_script = "uid://c4u0g4nfqocub"
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1627727781]
+radius = 16.0
+affect_navigation_mesh = true

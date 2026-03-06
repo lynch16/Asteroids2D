@@ -95,6 +95,13 @@ func _draw_vision_cone() -> void:
 	
 	draw_polygon(cone_points_arc, [cone_color])
 
+func get_random_global_point_at_edge_of_vision(cone_points: int = 32) -> Vector2:
+	var near_angle := _normalize_rotation(rotation) + field_of_view;
+	var cone_point := randi() % cone_points;
+	var angle := -near_angle + (2 * field_of_view * cone_point / cone_points);
+	var point := _calc_max_view_point_from_angle(angle);
+	return to_global(point);
+
 func _are_target_lists_equal(targets1: Array[Node2D], targets2: Array[Node2D]) -> bool:
 	if targets1.size() != targets2.size():
 		return false;

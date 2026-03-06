@@ -5,6 +5,7 @@ class_name Asteroid extends RigidBody2D
 @export var max_velocity := 400; # m/s
 
 @export var debug_collide := false;
+@export var debug_random_movement := false;
 
 var child_number := 0;
 var collision_damage := 50.0;
@@ -14,6 +15,7 @@ var collision_damage := 50.0;
 @onready var invince_frames_dr: DamageResult = get_node("Damageable/InvincibleFramesDamageResult");
 @onready var shatter_dr: DamageResult = get_node("Damageable/AsteroidShatterDamageResult");
 @onready var collision: CollisionShape2D = get_node("AsteroidCollision");
+@onready var nav_obstacle: NavigationObstacle2D = get_node("NavigationObstacle2D");
 
 func _ready() -> void:
 	add_to_group("enemy");
@@ -25,11 +27,22 @@ func _ready() -> void:
 	damageable.on_destroy.connect(_destroy);
 	invince_frames_dr.init.connect(_disable_colliders);
 	invince_frames_dr.end.connect(_enable_colliders);
-	
 	shatter_dr.end.connect(_on_max_shatter);
 	
 	if (debug_collide):
-		linear_velocity = Vector2.LEFT * 100000
+		linear_velocity = Vector2.LEFT * 100;
+		
+	if (debug_random_movement):
+		var direction := rotation;
+		direction += randf_range(0, PI/2);
+		rotation = direction + PI/2;
+		
+		# Fly in the direction we're facing
+		var velocity := Vector2(
+			10.0, 
+			0.0
+		);
+		linear_velocity =  velocity.rotated(rotation - PI/2);
 		
 func _disable_colliders() -> void:
 	collision.disabled = true;
@@ -52,6 +65,7 @@ func _scale_to_child() -> void:
 	# TODO: Change sprites;
 	var collision_shape: CircleShape2D = collision.shape;
 	collision_shape.radius = collision_shape.radius * new_scale;
+	nav_obstacle.radius = nav_obstacle.radius * new_scale;
 	
 	var sprite: AnimatedSprite2D = $Sprite2D;
 	sprite.scale = sprite.scale * new_scale;

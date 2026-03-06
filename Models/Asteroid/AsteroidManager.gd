@@ -1,5 +1,4 @@
 extends Node
-
 # Responsible for spawning all Asteroids, including after collision when an asteroid "shatters"
 
 var asteroid_scenes: Array[PackedScene] = [
@@ -8,8 +7,11 @@ var asteroid_scenes: Array[PackedScene] = [
 	preload("uid://drhrxw7642nqd"), # Asteroid scene
 ];
 var child_angle_spread := PI/12;
-
 var asteroid_count := 0;
+var spawn_parent_node: Node;
+
+func set_spawn_parent_node(node: Node) -> void:
+	spawn_parent_node = node;
 
 func spawn_asteroid(initial_aster: Asteroid = null) -> Asteroid:
 	var child_num: int = 0 if initial_aster == null else (initial_aster.child_number + 1);
@@ -25,5 +27,6 @@ func spawn_asteroid(initial_aster: Asteroid = null) -> Asteroid:
 	return aster;
 
 func _add_asteroid(asteroid: Asteroid) -> void:
-	add_child(asteroid);
+	# Need to be added within the navigation region
+	spawn_parent_node.add_child(asteroid);
 	asteroid_count += 1;

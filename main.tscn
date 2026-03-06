@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b8soshry3wmi7"]
 
+[ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://navigable_area.gd" id="1_272bh"]
 [ext_resource type="PackedScene" uid="uid://moxkwo3nfsf4" path="res://Models/Player/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="3_h2yge"]
@@ -7,36 +8,58 @@
 [ext_resource type="PackedScene" uid="uid://ygio5vatco1t" path="res://UI/HUD/hud.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="6_7mycd"]
 
-[node name="Main" type="Node2D" unique_id=1095716515]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7mycd"]
+vertices = PackedVector2Array(1110.9375, 74.02344, 1110.0469, 612.90625, 611.1328, 230, 604.5625, 205.4375, 604.5625, 254.5625, 29.210938, 610.0781, 32.78125, 74.96875, 537.4375, 272.5625, 586.5625, 272.5625, 586.5625, 187.4375, 562, 279.1328, 562, 180.86719, 537.4375, 187.4375, 519.4375, 205.4375, 512.8672, 230, 519.4375, 254.5625)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1), PackedInt32Array(1, 5, 6, 7), PackedInt32Array(8, 4, 1), PackedInt32Array(0, 3, 9), PackedInt32Array(10, 8, 1), PackedInt32Array(0, 9, 11), PackedInt32Array(6, 0, 11), PackedInt32Array(6, 11, 12), PackedInt32Array(6, 12, 13), PackedInt32Array(6, 13, 14), PackedInt32Array(6, 14, 15), PackedInt32Array(6, 15, 7), PackedInt32Array(10, 1, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1, 43, 1143, 42, 1142, 645, -3, 642)])
+agent_radius = 32.0
 
-[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1674633673]
-visible = false
-position = Vector2(399, 135)
-polygon = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
-uv = PackedVector2Array(104, 19, -13, -1, -44, 75, 5, 78, 11, 52, 39, 55, 29, 84, 66, 88, 154, 146, 202, 98, 190, -23)
+[node name="Main" type="Node" unique_id=944017969]
 
-[node name="Player" parent="." unique_id=818107462 instance=ExtResource("1_ig7tw")]
-position = Vector2(562, 507)
+[node name="NavigableArea" type="NavigationRegion2D" parent="." unique_id=1297242672]
+navigation_polygon = SubResource("NavigationPolygon_7mycd")
+script = ExtResource("1_272bh")
 
-[node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("3_h2yge")]
-process_mode = 4
+[node name="Player" parent="NavigableArea" unique_id=818107462 instance=ExtResource("1_ig7tw")]
+position = Vector2(560, 416)
+
+[node name="RockThrower" parent="NavigableArea" unique_id=1513123556 instance=ExtResource("3_h2yge")]
+
+[node name="DebugAsteroids" type="Node2D" parent="NavigableArea" unique_id=388349782]
+
+[node name="Asteroid" parent="NavigableArea/DebugAsteroids" unique_id=1301110429 instance=ExtResource("2_0xm2m")]
+position = Vector2(562, 230)
+
+[node name="Asteroid2" parent="NavigableArea/DebugAsteroids" unique_id=1838451310 instance=ExtResource("2_0xm2m")]
+position = Vector2(1028, 400)
+debug_collide = true
+
+[node name="Asteroid3" parent="NavigableArea/DebugAsteroids" unique_id=560364578 instance=ExtResource("2_0xm2m")]
+position = Vector2(317, 400)
+
+[node name="Asteroid4" parent="NavigableArea/DebugAsteroids" unique_id=2076853331 instance=ExtResource("2_0xm2m")]
+position = Vector2(493, 489)
+
+[node name="Asteroid5" parent="NavigableArea/DebugAsteroids" unique_id=1231157876 instance=ExtResource("2_0xm2m")]
+position = Vector2(537, 489)
+
+[node name="Asteroid6" parent="NavigableArea/DebugAsteroids" unique_id=497119305 instance=ExtResource("2_0xm2m")]
+position = Vector2(581, 489)
+
+[node name="Asteroid7" parent="NavigableArea/DebugAsteroids" unique_id=308738619 instance=ExtResource("2_0xm2m")]
+position = Vector2(627, 491)
+
+[node name="Asteroid8" parent="NavigableArea/DebugAsteroids" unique_id=1668047363 instance=ExtResource("2_0xm2m")]
+position = Vector2(644, 524)
+
+[node name="Enemy" parent="NavigableArea" unique_id=1345935966 instance=ExtResource("6_7mycd")]
+position = Vector2(566, 601)
+
+[node name="Enemy2" parent="NavigableArea" unique_id=1983692498 instance=ExtResource("6_7mycd")]
+position = Vector2(445, 610)
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3
 visible = false
 
-[node name="DebugAsteroids" type="Node2D" parent="." unique_id=388349782]
-
-[node name="Asteroid" parent="DebugAsteroids" unique_id=1301110429 instance=ExtResource("2_0xm2m")]
-position = Vector2(562, 231)
-
-[node name="Asteroid2" parent="DebugAsteroids" unique_id=1838451310 instance=ExtResource("2_0xm2m")]
-position = Vector2(1028, 400)
-
-[node name="Asteroid3" parent="DebugAsteroids" unique_id=560364578 instance=ExtResource("2_0xm2m")]
-position = Vector2(317, 400)
-
 [node name="HUD" parent="." unique_id=663700924 instance=ExtResource("5_lquwl")]
-
-[node name="Enemy" parent="." unique_id=1345935966 instance=ExtResource("6_7mycd")]
-position = Vector2(566, 601)

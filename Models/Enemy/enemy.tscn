@@ -65,8 +65,9 @@ _initial_state = NodePath("PatrolState")
 stateful_entity = NodePath("..")
 metadata/_custom_type_script = "uid://t8xohr0ab8mn"
 
-[node name="PatrolState" type="Node" parent="StateMachine" unique_id=1664098020]
+[node name="PatrolState" type="Node" parent="StateMachine" unique_id=1664098020 node_paths=PackedStringArray("vision_area")]
 script = ExtResource("3_ebih1")
+vision_area = NodePath("../../VisionArea")
 metadata/_custom_type_script = "uid://c81h2p2qstl63"
 
 [node name="PatrolAttackTransition" type="Node" parent="StateMachine/PatrolState" unique_id=1642474606 node_paths=PackedStringArray("vision_area", "_next_state")]
@@ -87,7 +88,12 @@ _next_state = NodePath("../../PatrolState")
 metadata/_custom_type_script = "uid://bkros6v8divjk"
 
 [node name="VisionArea" parent="." unique_id=1974026706 instance=ExtResource("5_mb64x")]
-target_acquisition_interval = 0.5
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("8_q6pfn")]
 node = NodePath("..")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=569220736]
+path_max_distance = 400.0
+avoidance_enabled = true
+radius = 32.0
+debug_enabled = true
