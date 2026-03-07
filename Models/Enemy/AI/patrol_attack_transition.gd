@@ -1,14 +1,13 @@
 class_name PatrolAttackTransition
 extends FSMTransition
 
-@export var vision_area: VisionArea;
+@onready var move_controller: NavCharacterMovementController = (get_parent().get_parent() as StateMachine).move_controller;
 
 func is_valid() -> bool:
-	if (!vision_area):
-		printerr("No vision cone to detect opponents");
+	if (!move_controller):
 		return false;
 	
-	return vision_area.can_see_targets;
+	return move_controller.are_targets_in_sight();
 
 func get_next_state() -> FSMState:
 	return _next_state;

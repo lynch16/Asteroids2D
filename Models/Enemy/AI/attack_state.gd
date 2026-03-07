@@ -1,7 +1,7 @@
 class_name AttackState
 extends FSMState
 
-@export var vision_area: VisionArea;
+@onready var move_controller: NavCharacterMovementController = (get_parent() as StateMachine).move_controller;
 
 var player: Player;
 
@@ -9,13 +9,11 @@ var timer := 0.0;
 var player_reposition_timeout := 0.2;
 var last_known_position: Vector2;
 
-@onready var stateful_entity: Enemy = (get_parent() as StateMachine).stateful_entity;
-
 # Transitions: If health low; if enemy dead
 
 func on_enter(_prior_state: FSMState) -> void:
-	if (vision_area.can_see_targets):
-		var targets := vision_area.targets;
+	if (move_controller.are_targets_in_sight()):
+		var targets := move_controller.get_targets();
 		for t in targets:
 			if t is Player:
 				player = t;
@@ -26,14 +24,13 @@ func on_enter(_prior_state: FSMState) -> void:
 func on_update(delta: float) -> void:
 	timer += delta;
 	
-	# TODO: Entities need a "turn to function"
 	if (timer >= player_reposition_timeout && is_instance_valid(player)):
 		timer = 0.0;
 		last_known_position = player.global_position;
 		
 	# Move towards target
 	if (last_known_position):
-		(stateful_entity as Enemy).set_movement_target(last_known_position);
+		move_controller.update_nav_target(last_known_position);
 
 	# See if there is anything between enemy and player
 	# If not, fire

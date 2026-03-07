@@ -1,5 +1,5 @@
 class_name MovementController
-extends Node
+extends Node2D
 
 @export var min_speed := 10.0:
 	set(val):
@@ -9,24 +9,7 @@ extends Node
 	set(val):
 		max_speed = max(min_speed if min_speed != null else 0, val) # Ensures max doesn't go below min
 
-func _move_forward() -> void:
-	pass;
-
-func _move_backward() -> void:
-	pass;
-	
-func _brake() -> void:
-	pass;
-	
-# Rotate direction of travel to the left
-func _rotate_left(delta: float) -> void:
-	pass;
-	
-# Rotate direction of travel to the right
-func _rotate_right(delta: float) -> void:
-	pass;
-
-func constrained_speed(speed: float) -> float:
+func _constrained_speed(speed: float) -> float:
 	return max(
 		min_speed, # Constrain larger than min speed
 		min(speed, max_speed), # Constrain smaller than max speed

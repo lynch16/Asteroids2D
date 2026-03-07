@@ -2,17 +2,14 @@ class_name StateMachine
 extends Node
 
 @export var _initial_state: FSMState;
-@export var stateful_entity: Enemy;
+@export var move_controller: NavCharacterMovementController;
 
 var _states: Array[FSMState] = [];
 var _active_state: FSMState;
 
 func _ready() -> void:
-	_active_state = _initial_state;
-	_active_state.on_enter(null);
-	
-	if stateful_entity is not Enemy:
-		printerr("Invalid CharacterEntity assigned to StateMachine: ", stateful_entity);
+	if move_controller is not MovementController:
+		printerr("Invalid MoveController assigned to StateMachine: ", move_controller);
 	
 	var children := get_children();
 	for child in children:
@@ -20,6 +17,9 @@ func _ready() -> void:
 			printerr(child.name + " is not a valid FSM State");
 		else:
 			_states.push_back(child);
+			
+	_active_state = _initial_state;
+	_active_state.call_deferred("on_enter", null);
 
 func _process(delta: float) -> void:
 	update(delta);
