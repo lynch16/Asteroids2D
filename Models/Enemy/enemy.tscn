@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://bkros6v8divjk" path="res://Models/Enemy/AI/attack_patrol_transition.gd" id="6_84prv"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="8_q6pfn"]
 [ext_resource type="Script" uid="uid://bdc2ustsvtpdh" path="res://Models/Entities/Movement/nav_character_movement_controller.gd" id="9_utaga"]
+[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/Entities/Weapons/character_weapons.gd" id="10_p7ovo"]
+[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/Entities/Weapons/cannon_weapon.tscn" id="11_ae6k3"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_848ye"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABcAAAAUklGRlQAAABXRUJQVlA4TEcAAAAvH8AHEB+goG0bFhfA3REIkCkJUkwREhBuSP4/FOc/AN52sUFRJEnNkt5nDpXZ4BXzBwRE9D8k1SLpggPYR+0A7PZODmB6DwA=")
@@ -102,5 +104,12 @@ radius = 32.0
 debug_enabled = true
 
 [node name="VisionArea" parent="NavCharacterMovementController" unique_id=1974026706 instance=ExtResource("5_mb64x")]
+view_distance = 400
+
+[node name="CharacterWeapons" type="Node2D" parent="." unique_id=824293140]
+position = Vector2(0, -16)
+script = ExtResource("10_p7ovo")
+weapon_to_equip = ExtResource("11_ae6k3")
+metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
 [connection signal="navigation_finished" from="NavCharacterMovementController" to="StateMachine/PatrolState" method="get_random_next_position"]

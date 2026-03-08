@@ -23,6 +23,7 @@ func _process(delta: float) -> void:
 		_acquire_targets();
 		_timer = 0.0;
 	
+	# TODO: Should I generate a CollisionPolygon2D and use enter signals for this? 
 	queue_redraw();
 
 func _draw() -> void:
@@ -45,7 +46,7 @@ func _acquire_targets() -> void:
 				var node_angle := get_angle_to(node_2d.global_position);
 				var normalized_node_angle := _normalize_rotation(node_angle);
 				
-				if abs(normalized_node_angle) < field_of_view:
+				if abs(normalized_node_angle) <= field_of_view:
 					var blocking_intersection_point := _get_blocking_intersection_point(node_angle);
 					if (blocking_intersection_point == Vector2.INF):
 						detection_targets.append(node_2d);

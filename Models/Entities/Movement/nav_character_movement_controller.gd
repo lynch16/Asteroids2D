@@ -72,7 +72,7 @@ func are_targets_in_sight() -> bool:
 	if (!vision_area):
 		return false;
 		
-	return vision_area.can_see_targets
+	return vision_area.can_see_targets;
 
 func get_targets() -> Array[Node2D]:
 	if (!vision_area):
