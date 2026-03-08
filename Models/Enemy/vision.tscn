@@ -5,3 +5,5 @@
 [node name="VisionArea" type="Area2D" unique_id=1974026706]
 script = ExtResource("1_ixr12")
 detection_group_name = "player"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=183878285]
