@@ -1,3 +1,4 @@
+@tool 
 class_name RangedWeapon
 extends Weapon
 
@@ -14,23 +15,28 @@ func _ready() -> void:
 func _use() -> void:
 	if current_ammo_count <= 0:
 		return;
-	
+		
 	_use_ammo(shots_per_use);
 
 func _use_ammo(num_ammo: int) -> void:
 	for i in num_ammo:
 		# TODO: Ammo should be a class
-		var ammo := ammo_scene.instantiate() as RigidBody2D;
+		var ammo := ammo_scene.instantiate() as Bullet;
 		
 		# TODO: Is root the right place for these to be instantiated?
 		# Should projectile management be offloaded to a central utility that can batch?
-		get_tree().root.add_child(ammo);
+		add_child(ammo);
+		if Engine.is_editor_hint():
+			ammo.set_owner(get_tree().edited_scene_root);
 		
 		current_ammo_count -= i;
 		
 		ammo.global_position = global_position;
-		var direction := owner_character.rotation + aim_angle - PI/2;
-		ammo.rotation = owner_character.rotation;
+		ammo.global_rotation = owner_character.global_rotation;
 		
-		var base_velocity := owner_character.velocity;
-		ammo.apply_central_impulse(base_velocity + Vector2(projectile_speed, 0).rotated(direction));
+		var new_velocity := owner_character.velocity + Vector2(projectile_speed, 0).rotated(aim_angle);
+		ammo.fire_bullet(new_velocity);
+
+#func _draw() -> void:
+	#if (Engine.is_editor_hint()):
+		#draw_line(Vector2(), aim_target, Color.GREEN)

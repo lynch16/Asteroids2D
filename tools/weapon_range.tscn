@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cfwhiiy0choq0"]
+
+[ext_resource type="Script" uid="uid://c1f3nl4dl78ik" path="res://tools/weapon_range.gd" id="1_37gqi"]
+[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/Entities/Weapons/cannon_weapon.tscn" id="1_ejx1l"]
+[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/Entities/Weapons/character_weapons.gd" id="1_n5woa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_37gqi"]
+
+[node name="WeaponRange" type="Node2D" unique_id=848334101 node_paths=PackedStringArray("weapon_controller")]
+process_mode = 4
+script = ExtResource("1_37gqi")
+weapon_controller = NodePath("Shooter/CharacterWeapons")
+enabled = true
+
+[node name="Target" type="CharacterBody2D" parent="." unique_id=1159552263]
+position = Vector2(1097, 418)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Target" unique_id=1044469920]
+shape = SubResource("CircleShape2D_37gqi")
+
+[node name="Shooter" type="CharacterBody2D" parent="." unique_id=1144730966]
+position = Vector2(50, 300)
+
+[node name="CharacterWeapons" type="Node2D" parent="Shooter" unique_id=886852810 node_paths=PackedStringArray("weapon_target", "character")]
+script = ExtResource("1_n5woa")
+weapon_to_equip = ExtResource("1_ejx1l")
+weapon_target = NodePath("../../Target")
+character = NodePath("..")
+metadata/_custom_type_script = "uid://b3pdjcuaohpmm"

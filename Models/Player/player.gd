@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var max_speed := 100:
 	set(val):
 		max_speed = max(min_speed if min_speed != null else 0, val) # Ensures max doesn't go below min
-@export var thrust := 200;
+@export var thrust := 100;
 @export var rotation_speed := 5;
 @export var mass := 2;
 
