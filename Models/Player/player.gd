@@ -12,7 +12,6 @@ extends CharacterBody2D
 @export var rotation_speed := 5;
 @export var mass := 2;
 
-
 @onready var damageable: Damageable = get_node("Damageable");
 @onready var apply_damage_dr: ApplyDamageResult = get_node("Damageable/ApplyDamageResult");
 

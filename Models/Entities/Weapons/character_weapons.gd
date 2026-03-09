@@ -8,11 +8,10 @@ extends Node2D
 @export var character: CharacterBody2D;
 
 var current_weapon: Weapon;
-var last_target_positions: Array[Vector2] = [];
-var max_last_positions := 5;
-
-var target_position_recalc_rate: float = 0.5;
-var last_recalc_time: float;
+var last_target_velocities: Array[Vector2] = [];
+var max_last_velocities := 5;
+var last_velocity_check_time: float;
+var last_velocity_check_position: Vector2;
 
 func _ready() -> void:
 	if (weapon_to_equip):
@@ -24,25 +23,25 @@ func _process(_delta: float) -> void:
 func _draw() -> void:
 	if (!is_instance_valid(weapon_target)):
 		return;
-	if (Time.get_unix_time_from_system() - last_recalc_time < target_position_recalc_rate):
-			return;
 	
 	_draw_lead_tracker();
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if (weapon_targeting_enabled && current_weapon && weapon_target):
-		if (last_target_positions.size() > max_last_positions):
-			last_target_positions.pop_front();
+		if (last_target_velocities.size() > max_last_velocities):
+			last_target_velocities.pop_front();
 		
 		var target_position := weapon_target.global_position;
 		if (target_position != null):
-			last_target_positions.append(target_position)
+			var new_time := Time.get_unix_time_from_system()
+			var time := new_time - last_velocity_check_time;
+			last_velocity_check_time = new_time;
+			
+			var distance := target_position - last_velocity_check_position;
+			last_velocity_check_position = target_position;
+			
+			last_target_velocities.append(distance / time);
 		
-			 # Check if has been long enough since last used
-		if (Time.get_unix_time_from_system() - last_recalc_time < target_position_recalc_rate):
-			return;
-	
-		last_recalc_time = Time.get_unix_time_from_system();
 		current_weapon.set_aim_direction(calculate_weapon_target_aim_point());
 	
 func equip_weapon(weapon_scene: PackedScene) -> void:
@@ -67,14 +66,13 @@ func unequip_weapon() -> void:
 	
 func _calculate_target_velocity() -> Vector2:
 	var velocity_sum := Vector2.ZERO;
-	var velocity_count := 0;
-	for i in last_target_positions.size():
-		if (i > 0 && i < last_target_positions.size() - 1):
-			velocity_sum += last_target_positions[i] - last_target_positions[i-1];
-			velocity_count += 1;
+	for v in last_target_velocities:
+		velocity_sum += v;
 	
+	var velocity_count := last_target_velocities.size();
 	if (velocity_count > 0):
-		return velocity_sum/velocity_count;
+		print("AVG VEL: ", (velocity_sum / velocity_count).length())
+		return velocity_sum / velocity_count;
 	else:
 		return Vector2.ZERO;
 
@@ -87,8 +85,8 @@ func calculate_weapon_target_aim_point() -> Vector2:
 		
 	var distance := character.global_position.distance_to((weapon_target.global_position));
 	var time_to_hit := ( distance / projectile_velocity.length() );
-	var target_velocity := character.velocity + _calculate_target_velocity() * 4;
-	var aim_point := weapon_target.global_position + target_velocity * time_to_hit;
+	var target_velocity := character.velocity + _calculate_target_velocity();
+	var aim_point := weapon_target.global_position + (target_velocity * time_to_hit);
 	return aim_point;
 	
 func _draw_lead_tracker() -> void:

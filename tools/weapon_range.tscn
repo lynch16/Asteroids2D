@@ -13,13 +13,16 @@ weapon_controller = NodePath("Shooter/CharacterWeapons")
 enabled = true
 
 [node name="Target" type="CharacterBody2D" parent="." unique_id=1159552263]
-position = Vector2(1097, 418)
+position = Vector2(1269.999, 100)
+velocity = Vector2(-99.99755, 0)
+slide_on_ceiling = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Target" unique_id=1044469920]
 shape = SubResource("CircleShape2D_37gqi")
+disabled = true
 
 [node name="Shooter" type="CharacterBody2D" parent="." unique_id=1144730966]
-position = Vector2(50, 300)
+position = Vector2(645, 579)
 
 [node name="CharacterWeapons" type="Node2D" parent="Shooter" unique_id=886852810 node_paths=PackedStringArray("weapon_target", "character")]
 script = ExtResource("1_n5woa")

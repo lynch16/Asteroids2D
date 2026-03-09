@@ -11,11 +11,10 @@ var can_use: bool = true;
 var owner_character: CharacterBody2D;
 var aim_target: Vector2;
 
-#func _physics_process(delta: float) -> void:
-	#global_rotation = lerp_angle(global_rotation, aim_angle, rotation_speed * delta);
+func _physics_process(delta: float) -> void:
+	global_rotation = lerp_angle(global_rotation, aim_angle, rotation_speed * delta);
 
 func set_aim_direction(aim_dir: Vector2) -> void:
-	print("AIM DIR: ", aim_dir)
 	aim_target = aim_dir;
 	aim_angle = owner_character.get_angle_to(aim_dir)
 
