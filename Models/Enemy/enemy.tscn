@@ -94,6 +94,7 @@ position = Vector2(0, -16)
 script = ExtResource("10_p7ovo")
 weapon_to_equip = ExtResource("11_ae6k3")
 character = NodePath("..")
+draw_targeting = null
 metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
 [node name="NavCharacterMovementController" type="Node2D" parent="." unique_id=1489111489 node_paths=PackedStringArray("moveable_character")]

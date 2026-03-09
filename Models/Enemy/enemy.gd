@@ -12,10 +12,9 @@ func _physics_process(_delta: float) -> void:
 					return; 
 					
 				if (weapon_controller.current_weapon.is_target_in_sight((t.global_position)) && weapon_controller.current_weapon.is_target_in_range(t.global_position)):
-					#if (t is CharacterBody2D):
-						#var char_t: CharacterBody2D = t;
-						#weapon_controller.current_weapon.set_item_target(char_t);
-					# TODO: Need to apply firing range to enemy
+					if (t is CharacterBody2D):
+						var char_t: CharacterBody2D = t;
+						weapon_controller.set_weapon_target(char_t);
 					
 					weapon_controller.current_weapon.use();
 				else:

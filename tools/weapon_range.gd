@@ -4,6 +4,8 @@ extends Node2D
 @export var weapon_controller: CharacterWeapons;
 @export var enabled := false;
 @export var target_movement_type: TargetMovementType = TargetMovementType.Line;
+@export var target_orbit_speed := 2.0; #Radians per second
+@export var target_linear_speed := 1000.0 # m/s
 
 enum TargetMovementType {
 	Circle,
@@ -14,11 +16,8 @@ var angle := 0.0;
 var radius := 100.0
 var center := Vector2(620.0, 100.0);
 var start := Vector2(10.0, 100.0);
-var target_orbit_speed := 2.0; #Radians per second
-var target_linear_speed := 100.0 # m/s
-var linear_dir := 1;
 
-# TODO: Make target move in straight line instead of circle
+var linear_dir := 1;
 
 @export_tool_button("Pause", "Callable") var pause := _pause_tool;
 var paused := false;

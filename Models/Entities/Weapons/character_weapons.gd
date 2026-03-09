@@ -7,6 +7,8 @@ extends Node2D
 @export var weapon_targeting_enabled := true;
 @export var character: CharacterBody2D;
 
+@export var draw_targeting := false;
+
 var current_weapon: Weapon;
 var last_target_velocities: Array[Vector2] = [];
 var max_last_velocities := 5;
@@ -18,10 +20,11 @@ func _ready() -> void:
 		equip_weapon(weapon_to_equip);
 	
 func _process(_delta: float) -> void:
-	queue_redraw();
-	
+	if (draw_targeting):
+		queue_redraw();
+
 func _draw() -> void:
-	if (!is_instance_valid(weapon_target)):
+	if (!draw_targeting || !is_instance_valid(weapon_target)):
 		return;
 	
 	_draw_lead_tracker();
@@ -71,7 +74,6 @@ func _calculate_target_velocity() -> Vector2:
 	
 	var velocity_count := last_target_velocities.size();
 	if (velocity_count > 0):
-		print("AVG VEL: ", (velocity_sum / velocity_count).length())
 		return velocity_sum / velocity_count;
 	else:
 		return Vector2.ZERO;
@@ -93,3 +95,6 @@ func _draw_lead_tracker() -> void:
 	var aim_point := calculate_weapon_target_aim_point();
 	var points: PackedVector2Array = [Vector2(), to_local(weapon_target.global_position), to_local(aim_point)];
 	draw_polygon(points, [Color.RED, Color.BLUE, Color.GREEN])
+	
+func set_weapon_target(new_target: Node2D) -> void:
+	weapon_target = new_target;

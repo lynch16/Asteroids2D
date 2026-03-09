@@ -12,10 +12,6 @@ var shots_per_use := 1;
 func _ready() -> void:
 	current_ammo_count = starting_ammo_count;
 	
-func _physics_process(_delta: float) -> void:
-	if (Engine.is_editor_hint()):
-		queue_redraw();
-
 func _use() -> void:
 	if current_ammo_count <= 0:
 		return;
@@ -40,7 +36,3 @@ func _use_ammo(num_ammo: int) -> void:
 		
 		var new_velocity := owner_character.velocity + Vector2(projectile_speed, 0).rotated(aim_angle);
 		ammo.fire_bullet(new_velocity);
-
-func _draw() -> void:
-	if (Engine.is_editor_hint() && aim_target):
-		draw_line(position, to_local(aim_target), Color.GREEN)

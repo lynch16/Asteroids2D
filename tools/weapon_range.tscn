@@ -11,10 +11,11 @@ process_mode = 4
 script = ExtResource("1_37gqi")
 weapon_controller = NodePath("Shooter/CharacterWeapons")
 enabled = true
+target_linear_speed = 100.0
 
 [node name="Target" type="CharacterBody2D" parent="." unique_id=1159552263]
-position = Vector2(1269.999, 100)
-velocity = Vector2(-99.99755, 0)
+position = Vector2(926.667, 100)
+velocity = Vector2(-1000.00116, 0)
 slide_on_ceiling = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Target" unique_id=1044469920]
