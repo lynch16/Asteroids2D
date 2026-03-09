@@ -38,6 +38,7 @@ radius = 311.07877
 [node name="Asteroid" type="RigidBody2D" unique_id=1301110429 groups=["enemy"]]
 mass = 1000000.0
 gravity_scale = 0.0
+sleeping = true
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_7kvrs")
@@ -75,10 +76,6 @@ shape = SubResource("CircleShape2D_aasjb")
 script = ExtResource("3_0d2cp")
 enable_player_gravity = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityField" unique_id=265890223]
-visible = false
-shape = SubResource("CircleShape2D_kufyc")
-
 [node name="Damageable" type="Node" parent="." unique_id=1658148519]
 script = ExtResource("4_p7nbn")
 metadata/_custom_type_script = "uid://c4l6k6583jbr6"
@@ -94,6 +91,10 @@ metadata/_custom_type_script = "uid://dhchi74lu51yr"
 [node name="AsteroidShatterDamageResult" type="Node" parent="Damageable" unique_id=1960299606]
 script = ExtResource("5_vpx2v")
 metadata/_custom_type_script = "uid://ce60si5dg5lkl"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damageable" unique_id=265890223]
+visible = false
+shape = SubResource("CircleShape2D_kufyc")
 
 [node name="DealDamage" type="Node" parent="." unique_id=1803576660]
 script = ExtResource("7_57j71")

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://navigable_area.gd" id="1_272bh"]
 [ext_resource type="PackedScene" uid="uid://moxkwo3nfsf4" path="res://Models/Player/player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dc4xstka1au80" path="res://pause_menu.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://ygio5vatco1t" path="res://UI/HUD/hud.tscn" id="5_lquwl"]
@@ -26,34 +25,8 @@ position = Vector2(559, 349)
 [node name="RockThrower" parent="NavigableArea" unique_id=1513123556 instance=ExtResource("3_h2yge")]
 process_mode = 4
 
-[node name="DebugAsteroids" type="Node2D" parent="NavigableArea" unique_id=388349782]
-
-[node name="Asteroid" parent="NavigableArea/DebugAsteroids" unique_id=1301110429 instance=ExtResource("2_0xm2m")]
-position = Vector2(562, 230)
-
-[node name="Asteroid2" parent="NavigableArea/DebugAsteroids" unique_id=1838451310 instance=ExtResource("2_0xm2m")]
-position = Vector2(1028, 400)
-
-[node name="Asteroid3" parent="NavigableArea/DebugAsteroids" unique_id=560364578 instance=ExtResource("2_0xm2m")]
-position = Vector2(317, 400)
-
-[node name="Asteroid4" parent="NavigableArea/DebugAsteroids" unique_id=2076853331 instance=ExtResource("2_0xm2m")]
-position = Vector2(493, 489)
-
-[node name="Asteroid5" parent="NavigableArea/DebugAsteroids" unique_id=1231157876 instance=ExtResource("2_0xm2m")]
-position = Vector2(537, 489)
-
-[node name="Asteroid6" parent="NavigableArea/DebugAsteroids" unique_id=497119305 instance=ExtResource("2_0xm2m")]
-position = Vector2(581, 489)
-
-[node name="Asteroid7" parent="NavigableArea/DebugAsteroids" unique_id=308738619 instance=ExtResource("2_0xm2m")]
-position = Vector2(627, 491)
-
-[node name="Asteroid8" parent="NavigableArea/DebugAsteroids" unique_id=1668047363 instance=ExtResource("2_0xm2m")]
-position = Vector2(644, 524)
-
 [node name="Enemy" parent="NavigableArea" unique_id=1345935966 instance=ExtResource("6_7mycd")]
-position = Vector2(554, 570)
+position = Vector2(212, 326)
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3

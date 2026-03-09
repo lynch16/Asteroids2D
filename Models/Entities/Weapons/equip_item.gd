@@ -1,3 +1,4 @@
+@tool 
 class_name EquipItem 
 extends Node2D
 
@@ -9,11 +10,13 @@ var aim_angle: float;
 var can_use: bool = true;
 var owner_character: CharacterBody2D;
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	# TODO: Does this correctly limit rotational speed of weapons?
+	# Should this be tied to a boolean as to whether it should be tracking? Eg MissleLauncher wont need this.
 	global_rotation = lerp_angle(global_rotation, aim_angle, rotation_speed * delta);
 
 func set_aim_direction(aim_dir: Vector2) -> void:
-	aim_angle = aim_dir.angle();
+	aim_angle = get_angle_to(aim_dir)
 
 func equip() -> void:
 	pass;
@@ -39,6 +42,3 @@ func _try_use() -> bool:
 	
 func _use() -> void:
 	pass;
-
-func _aim_angle_rotation() -> float:
-	return wrapf(aim_angle - PI/2, -PI, PI);

@@ -36,6 +36,7 @@ script = ExtResource("1_4flbx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1526374553]
 texture_filter = 1
+rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_onrkg")
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
@@ -56,17 +57,11 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "89274d3e70cc8630f7b9b9aa5c35e4c5"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1160935763]
+rotation = 1.5707964
 shape = SubResource("ConvexPolygonShape2D_sh265")
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_ccpyr")]
 node = NodePath("..")
-
-[node name="BulletSpawnLocation" type="Node2D" parent="." unique_id=535632158]
-position = Vector2(0, -23)
-
-[node name="BulletSpawnTimer" type="Timer" parent="." unique_id=1532702493]
-wait_time = 0.1
-one_shot = true
 
 [node name="Damageable" type="Node" parent="." unique_id=291309782]
 script = ExtResource("3_cyh01")
@@ -81,8 +76,9 @@ metadata/_custom_type_script = "uid://l6occnfuxuon"
 script = ExtResource("5_upkxw")
 metadata/_custom_type_script = "uid://dhchi74lu51yr"
 
-[node name="PlayerWeapons" type="Node2D" parent="." unique_id=587398542]
-position = Vector2(0, -23)
+[node name="PlayerWeapons" type="Node2D" parent="." unique_id=587398542 node_paths=PackedStringArray("character")]
+position = Vector2(22, -1)
 script = ExtResource("6_47e7v")
 weapon_to_equip = ExtResource("7_mdxrt")
+character = NodePath("..")
 metadata/_custom_type_script = "uid://tw3rerqdtlqi"

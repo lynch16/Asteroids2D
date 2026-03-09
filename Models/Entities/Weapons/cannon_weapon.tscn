@@ -6,5 +6,6 @@
 [node name="CannonWeapon" type="Node2D" unique_id=1570876709]
 script = ExtResource("1_lgcxq")
 ammo_scene = ExtResource("2_pcssh")
-weapon_range = 100.0
+weapon_range = 300.0
+use_rate = 0.1
 metadata/_custom_type_script = "uid://cuqmt45sefh8k"

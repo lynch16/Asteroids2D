@@ -1,15 +1,51 @@
+@tool
 class_name CharacterWeapons
 extends Node2D
 
 @export var weapon_to_equip: PackedScene;
+@export var weapon_target: Node2D;
+@export var weapon_targeting_enabled := true;
+@export var character: CharacterBody2D;
 
-@onready var character: CharacterBody2D = get_parent();
+@export var draw_targeting := false;
 
 var current_weapon: Weapon;
+var last_target_velocities: Array[Vector2] = [];
+var max_last_velocities := 5;
+var last_velocity_check_time: float;
+var last_velocity_check_position: Vector2;
 
 func _ready() -> void:
 	if (weapon_to_equip):
 		equip_weapon(weapon_to_equip);
+	
+func _process(_delta: float) -> void:
+	if (draw_targeting):
+		queue_redraw();
+
+func _draw() -> void:
+	if (!draw_targeting || !is_instance_valid(weapon_target)):
+		return;
+	
+	_draw_lead_tracker();
+	
+func _physics_process(_delta: float) -> void:
+	if (weapon_targeting_enabled && current_weapon && weapon_target):
+		if (last_target_velocities.size() > max_last_velocities):
+			last_target_velocities.pop_front();
+		
+		var target_position := weapon_target.global_position;
+		if (target_position != null):
+			var new_time := Time.get_unix_time_from_system()
+			var time := new_time - last_velocity_check_time;
+			last_velocity_check_time = new_time;
+			
+			var distance := target_position - last_velocity_check_position;
+			last_velocity_check_position = target_position;
+			
+			last_target_velocities.append(distance / time);
+		
+		current_weapon.set_aim_direction(calculate_weapon_target_aim_point());
 	
 func equip_weapon(weapon_scene: PackedScene) -> void:
 	if (current_weapon):
@@ -20,7 +56,7 @@ func equip_weapon(weapon_scene: PackedScene) -> void:
 	add_child(current_weapon)
 	current_weapon.global_position = global_position;
 	current_weapon.owner_character = character;
-	
+
 	current_weapon.equip();
 	
 func unequip_weapon() -> void:
@@ -30,3 +66,35 @@ func unequip_weapon() -> void:
 	current_weapon.unequip();
 	current_weapon.queue_free();
 	current_weapon = null;
+	
+func _calculate_target_velocity() -> Vector2:
+	var velocity_sum := Vector2.ZERO;
+	for v in last_target_velocities:
+		velocity_sum += v;
+	
+	var velocity_count := last_target_velocities.size();
+	if (velocity_count > 0):
+		return velocity_sum / velocity_count;
+	else:
+		return Vector2.ZERO;
+
+func calculate_weapon_target_aim_point() -> Vector2:
+	var projectile_velocity := Vector2.ZERO;
+	if (current_weapon is RangedWeapon):
+		var current_ranged_weapon: RangedWeapon = current_weapon;
+		# Assume firing current weapon in direction facing
+		projectile_velocity = Vector2(current_ranged_weapon.projectile_speed, 0).rotated(global_rotation);
+		
+	var distance := character.global_position.distance_to((weapon_target.global_position));
+	var time_to_hit := ( distance / projectile_velocity.length() );
+	var target_velocity := character.velocity + _calculate_target_velocity();
+	var aim_point := weapon_target.global_position + (target_velocity * time_to_hit);
+	return aim_point;
+	
+func _draw_lead_tracker() -> void:
+	var aim_point := calculate_weapon_target_aim_point();
+	var points: PackedVector2Array = [Vector2(), to_local(weapon_target.global_position), to_local(aim_point)];
+	draw_polygon(points, [Color.RED, Color.BLUE, Color.GREEN])
+	
+func set_weapon_target(new_target: Node2D) -> void:
+	weapon_target = new_target;

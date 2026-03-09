@@ -8,10 +8,9 @@ extends CharacterBody2D
 @export var max_speed := 100:
 	set(val):
 		max_speed = max(min_speed if min_speed != null else 0, val) # Ensures max doesn't go below min
-@export var thrust := 200;
+@export var thrust := 100;
 @export var rotation_speed := 5;
 @export var mass := 2;
-
 
 @onready var damageable: Damageable = get_node("Damageable");
 @onready var apply_damage_dr: ApplyDamageResult = get_node("Damageable/ApplyDamageResult");
@@ -46,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		
 	var tmp_vel := velocity + (acceleration * delta);
 	velocity = tmp_vel.min(Vector2(max_speed, max_speed));
-	rotation = _convert_direction_to_rotation(ship_direction);
+	rotation = ship_direction;
 	
 	move_and_slide();
 	
@@ -68,12 +67,6 @@ func _handle_player_damage(_dmg: float, _new_health: float) -> void:
 	
 func _die() -> void:
 	GameManager.trigger_game_over();
-
-func _convert_direction_to_rotation(direction: float) -> float:
-	return direction + PI/2;
-	
-func _convert_rotation_to_direction(_rotation: float) -> float:
-	return _rotation - PI/2;
 
 func _move_forward() -> void:
 	# Apply acceleration to max speed in direction facing

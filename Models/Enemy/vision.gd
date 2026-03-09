@@ -33,9 +33,8 @@ func _on_body_visible(node_2d: Node2D) -> void:
 		
 	if (node_2d.is_in_group(detection_group_name)):
 		var node_angle := get_angle_to(node_2d.global_position);
-		var normalized_node_angle := _normalize_rotation(node_angle);
 				
-		if abs(normalized_node_angle) <= field_of_view:
+		if abs(node_angle) <= field_of_view:
 			var blocking_intersection_point := _get_blocking_intersection_point(node_angle);
 			if (blocking_intersection_point == Vector2.INF):
 				targets.append(node_2d);
@@ -48,9 +47,6 @@ func _on_body_exited(node_2d: Node2D) -> void:
 func _draw() -> void:
 	_draw_vision_cone();
 	
-func _normalize_rotation(base_rotation: float) -> float:
-	return base_rotation + PI/2;
-
 func _calc_max_view_point_from_angle(view_angle: float) -> Vector2:
 	return Vector2(cos(view_angle), sin(view_angle)) * view_distance;
 	
@@ -82,7 +78,7 @@ func _get_cone_polygon_points() -> PackedVector2Array:
 	var cone_points := 32;
 	var cone_points_arc := PackedVector2Array();
 	cone_points_arc.append(Vector2());
-	var near_angle := _normalize_rotation(rotation) + field_of_view;
+	var near_angle := rotation + field_of_view;
 	
 	for i in range(cone_points + 1):
 		var angle := -near_angle + (2 * field_of_view * i / cone_points);
@@ -96,7 +92,7 @@ func _get_cone_polygon_points() -> PackedVector2Array:
 	return cone_points_arc;
 
 func get_random_global_point_at_edge_of_vision(cone_points: int = 32) -> Vector2:
-	var near_angle := _normalize_rotation(rotation) + field_of_view;
+	var near_angle := rotation + field_of_view;
 	var cone_point := randi() % cone_points;
 	var angle := -near_angle + (2 * field_of_view * cone_point / cone_points);
 	var point := _calc_max_view_point_from_angle(angle);

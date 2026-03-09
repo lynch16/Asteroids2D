@@ -10,7 +10,6 @@ extends MovementController
 @onready var nav_agent: NavigationAgent2D = get_node("NavigationAgent2D");
 @onready var vision_area: VisionArea = get_node("VisionArea");
 
-var ship_direction: float;
 var movement_speed: float;
 
 signal navigation_finished;
@@ -18,7 +17,6 @@ signal navigation_finished;
 func _ready() -> void:
 	moveable_character.velocity = Vector2.UP;
 	movement_speed = moveable_character.velocity.length();
-	ship_direction = moveable_character.velocity.angle();
 	
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.navigation_finished.connect(_on_nav_finished);
@@ -48,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	var new_velocity: Vector2 = moveable_character.global_position.direction_to(next_path_position) * movement_speed;
 	var final_velocity := new_velocity.limit_length(max_speed);
 	
-	var target_rotation := _convert_direction_to_rotation(new_velocity.angle());
+	var target_rotation := new_velocity.angle();
 	var new_angle := lerp_angle(moveable_character.global_rotation, target_rotation, rotation_speed * delta);
 	moveable_character.global_rotation = new_angle;
 		
@@ -77,5 +75,5 @@ func are_targets_in_sight() -> bool:
 func get_targets() -> Array[Node2D]:
 	if (!vision_area):
 		return [];
-		
+	
 	return vision_area.targets;
