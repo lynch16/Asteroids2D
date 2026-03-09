@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/Entities/Damage/damageable.gd" id="3_cyh01"]
 [ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/Entities/Damage/invincible_frames_damage_result.gd" id="4_so11j"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/Entities/Damage/apply_damage_result.gd" id="5_upkxw"]
+[ext_resource type="Script" uid="uid://tw3rerqdtlqi" path="res://Models/Entities/Weapons/player_weapons.gd" id="6_47e7v"]
+[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/Entities/Weapons/cannon_weapon.tscn" id="7_mdxrt"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_sh265"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABeAAAAUklGRlYAAABXRUJQVlA4TEoAAAAvH8AHEA8wCpMwFPMf8GATyVYk9g6RgBSkgTSkIIFw7wneExHR/wkIdQqmLa4fbkR3Jvdm9xcHpsIkDRbpcMiAKCckeSHLD0XwAA==")
@@ -78,3 +80,9 @@ metadata/_custom_type_script = "uid://l6occnfuxuon"
 [node name="ApplyDamageResult" type="Node" parent="Damageable" unique_id=1803812225]
 script = ExtResource("5_upkxw")
 metadata/_custom_type_script = "uid://dhchi74lu51yr"
+
+[node name="PlayerWeapons" type="Node2D" parent="." unique_id=587398542]
+position = Vector2(0, -23)
+script = ExtResource("6_47e7v")
+weapon_to_equip = ExtResource("7_mdxrt")
+metadata/_custom_type_script = "uid://tw3rerqdtlqi"

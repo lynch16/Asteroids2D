@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bsfnrmutub50v"]
+
+[ext_resource type="Script" uid="uid://cuqmt45sefh8k" path="res://Models/Entities/Weapons/cannon_weapon.gd" id="1_lgcxq"]
+[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/Player/bullet.tscn" id="2_pcssh"]
+
+[node name="CannonWeapon" type="Node2D" unique_id=1570876709]
+script = ExtResource("1_lgcxq")
+ammo_scene = ExtResource("2_pcssh")
+weapon_range = 100.0
+metadata/_custom_type_script = "uid://cuqmt45sefh8k"
