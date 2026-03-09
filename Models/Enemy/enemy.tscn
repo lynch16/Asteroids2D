@@ -37,8 +37,17 @@ size = Vector2(23, 28)
 [node name="Enemy" type="CharacterBody2D" unique_id=1983692498]
 script = ExtResource("1_pipm3")
 
+[node name="CharacterWeapons" type="Node2D" parent="." unique_id=824293140 node_paths=PackedStringArray("character")]
+position = Vector2(13, -1)
+script = ExtResource("10_p7ovo")
+weapon_to_equip = ExtResource("11_ae6k3")
+character = NodePath("..")
+draw_targeting = true
+metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=554559173]
 texture_filter = 1
+rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_sgqbr")
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
@@ -59,7 +68,8 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "c56c9e95aac049837ecce06eb0bca3af"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=262450232]
-position = Vector2(-0.5, 2)
+position = Vector2(-3, 0)
+rotation = 1.5707964
 shape = SubResource("RectangleShape2D_848ye")
 
 [node name="StateMachine" type="Node" parent="." unique_id=970284980 node_paths=PackedStringArray("_initial_state", "move_controller")]
@@ -88,14 +98,6 @@ metadata/_custom_type_script = "uid://bkros6v8divjk"
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("8_q6pfn")]
 node = NodePath("..")
-
-[node name="CharacterWeapons" type="Node2D" parent="." unique_id=824293140 node_paths=PackedStringArray("character")]
-position = Vector2(0, -16)
-script = ExtResource("10_p7ovo")
-weapon_to_equip = ExtResource("11_ae6k3")
-character = NodePath("..")
-draw_targeting = null
-metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
 [node name="NavCharacterMovementController" type="Node2D" parent="." unique_id=1489111489 node_paths=PackedStringArray("moveable_character")]
 script = ExtResource("9_utaga")

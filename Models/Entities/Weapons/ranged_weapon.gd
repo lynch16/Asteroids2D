@@ -23,16 +23,18 @@ func _use_ammo(num_ammo: int) -> void:
 		# TODO: Ammo should be a class
 		var ammo := ammo_scene.instantiate() as Bullet;
 		
-		# TODO: Is root the right place for these to be instantiated?
+		# TODO: Is root the right place for these to be instantiated? YES so they dont move with children
 		# Should projectile management be offloaded to a central utility that can batch?
-		add_child(ammo);
 		if Engine.is_editor_hint():
+			get_tree().edited_scene_root.add_child(ammo);
 			ammo.set_owner(get_tree().edited_scene_root);
+		else:
+			get_tree().get_root().add_child(ammo);
 		
 		current_ammo_count -= i;
 		
 		ammo.global_position = global_position;
 		ammo.global_rotation = owner_character.global_rotation;
 		
-		var new_velocity := owner_character.velocity + Vector2(projectile_speed, 0).rotated(aim_angle);
+		var new_velocity := owner_character.velocity + Vector2(projectile_speed, 0).rotated(aim_angle + ammo.global_rotation);
 		ammo.fire_bullet(new_velocity);

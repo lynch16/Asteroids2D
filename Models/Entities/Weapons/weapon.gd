@@ -11,4 +11,4 @@ func is_target_in_range(target_position: Vector2) -> bool:
 	
 func is_target_in_sight(target_position: Vector2) -> bool:
 	var target_angle := global_position.angle_to(target_position);
-	return (global_rotation - target_angle) <= aim_variance;
+	return abs(target_angle) <= aim_variance;

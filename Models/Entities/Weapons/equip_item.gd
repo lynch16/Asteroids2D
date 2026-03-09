@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 	global_rotation = lerp_angle(global_rotation, aim_angle, rotation_speed * delta);
 
 func set_aim_direction(aim_dir: Vector2) -> void:
-	aim_angle = owner_character.get_angle_to(aim_dir)
+	aim_angle = get_angle_to(aim_dir)
 
 func equip() -> void:
 	pass;

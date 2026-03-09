@@ -22,6 +22,7 @@ script = ExtResource("1_s1b55")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=302593925]
 texture_filter = 1
 position = Vector2(0, 2)
+rotation = 1.5707964
 texture = SubResource("PortableCompressedTexture2D_vsjsl")
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
@@ -47,6 +48,7 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "61f50d2060674f055a6d4418a2a1443a"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1661704517]
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_vsjsl")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1132118516]

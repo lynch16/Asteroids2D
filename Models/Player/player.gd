@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		
 	var tmp_vel := velocity + (acceleration * delta);
 	velocity = tmp_vel.min(Vector2(max_speed, max_speed));
-	rotation = _convert_direction_to_rotation(ship_direction);
+	rotation = ship_direction;
 	
 	move_and_slide();
 	
@@ -67,12 +67,6 @@ func _handle_player_damage(_dmg: float, _new_health: float) -> void:
 	
 func _die() -> void:
 	GameManager.trigger_game_over();
-
-func _convert_direction_to_rotation(direction: float) -> float:
-	return direction + PI/2;
-	
-func _convert_rotation_to_direction(_rotation: float) -> float:
-	return _rotation - PI/2;
 
 func _move_forward() -> void:
 	# Apply acceleration to max speed in direction facing

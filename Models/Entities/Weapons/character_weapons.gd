@@ -79,11 +79,11 @@ func _calculate_target_velocity() -> Vector2:
 		return Vector2.ZERO;
 
 func calculate_weapon_target_aim_point() -> Vector2:
-	var direction := character.global_rotation + PI/2;
 	var projectile_velocity := Vector2.ZERO;
 	if (current_weapon is RangedWeapon):
 		var current_ranged_weapon: RangedWeapon = current_weapon;
-		projectile_velocity = Vector2(current_ranged_weapon.projectile_speed, 0).rotated(direction);
+		# Assume firing current weapon in direction facing
+		projectile_velocity = Vector2(current_ranged_weapon.projectile_speed, 0).rotated(global_rotation);
 		
 	var distance := character.global_position.distance_to((weapon_target.global_position));
 	var time_to_hit := ( distance / projectile_velocity.length() );

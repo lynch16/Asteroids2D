@@ -26,7 +26,7 @@ position = Vector2(559, 349)
 process_mode = 4
 
 [node name="Enemy" parent="NavigableArea" unique_id=1345935966 instance=ExtResource("6_7mycd")]
-position = Vector2(554, 570)
+position = Vector2(212, 326)
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3

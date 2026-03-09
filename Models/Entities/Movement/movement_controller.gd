@@ -14,9 +14,3 @@ func _constrained_speed(speed: float) -> float:
 		min_speed, # Constrain larger than min speed
 		min(speed, max_speed), # Constrain smaller than max speed
 	); 
-
-func _convert_direction_to_rotation(direction: float) -> float:
-	return direction + PI/2;
-	
-func _convert_rotation_to_direction(_rotation: float) -> float:
-	return _rotation - PI/2;
