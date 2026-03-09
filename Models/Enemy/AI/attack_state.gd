@@ -33,11 +33,7 @@ func on_update(delta: float) -> void:
 		
 	# Move towards target
 	if (last_known_position):
-		stateful_entity.look_at(last_known_position);
-		stateful_entity.rotation += PI/2;
-		stateful_entity.position = stateful_entity.position.move_toward(last_known_position, stateful_entity.max_velocity * delta);
-	
-	stateful_entity.move_and_slide();
+		(stateful_entity as Enemy).set_movement_target(last_known_position);
 
 	# See if there is anything between enemy and player
 	# If not, fire

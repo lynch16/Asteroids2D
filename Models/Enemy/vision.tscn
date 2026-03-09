@@ -7,7 +7,6 @@
 [node name="VisionArea" type="Area2D" unique_id=1974026706]
 script = ExtResource("1_ixr12")
 detection_group_name = "player"
-target_acquisition_interval = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=766347636]
 shape = SubResource("CircleShape2D_tsauc")

@@ -1,38 +1,28 @@
 class_name PatrolState
 extends FSMState
 
-
+@export var vision_area: VisionArea;
+@export var nav_agent: NavigationAgent2D;
 @onready var stateful_entity: CharacterEntity = (get_parent() as StateMachine).stateful_entity;
 
-# Transitions: if enemy seen
-# TODO: Patrols should move around the screen, not just fly in one direction
+var next_position: Vector2;
 
 func on_enter(prior_state: FSMState) -> void:
 	var last_known_position: Variant = null;
 	if prior_state != null:
 		last_known_position = prior_state.get("last_known_position");
 		if (last_known_position is Vector2):
-			var pos_vector: Vector2 = last_known_position;
-			stateful_entity.look_at(pos_vector);
-			stateful_entity.rotation += PI/2;
-			
-	if last_known_position == null:
-		# Start perpendicular then randomize the direction
-		var direction := stateful_entity.rotation;
-		direction += randf_range(0, PI);
-		stateful_entity.rotation = direction + PI/2;
-		
-	# Fly in the direction we're facing
-	var velocity := Vector2(
-		randf_range(stateful_entity.min_velocity, stateful_entity.max_velocity), 
-		0.0
-	);
-	stateful_entity.velocity =  velocity.rotated(stateful_entity.rotation - PI/2);
-	pass;
+			next_position = last_known_position;
+	
+	if (next_position == Vector2.ZERO):
+		get_random_next_position();
+	
+func get_random_next_position() -> void:
+	# TODO: Should also rotate randomly within field of view
+	var position_in_distance := vision_area.get_random_global_point_at_edge_of_vision();
+	if position_in_distance:
+		next_position = position_in_distance;
 
 func on_update(_delta: float) -> void:
-	# Look for enemy within cone of vision
-	stateful_entity.move_and_slide();
-	
-#func on_exit() -> void:
-	#pass;
+	if (next_position != Vector2.ZERO):
+		(stateful_entity as Enemy).set_movement_target(next_position);
