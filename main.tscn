@@ -21,9 +21,10 @@ navigation_polygon = SubResource("NavigationPolygon_7mycd")
 script = ExtResource("1_272bh")
 
 [node name="Player" parent="NavigableArea" unique_id=818107462 instance=ExtResource("1_ig7tw")]
-position = Vector2(560, 416)
+position = Vector2(559, 349)
 
 [node name="RockThrower" parent="NavigableArea" unique_id=1513123556 instance=ExtResource("3_h2yge")]
+process_mode = 4
 
 [node name="DebugAsteroids" type="Node2D" parent="NavigableArea" unique_id=388349782]
 
@@ -32,7 +33,6 @@ position = Vector2(562, 230)
 
 [node name="Asteroid2" parent="NavigableArea/DebugAsteroids" unique_id=1838451310 instance=ExtResource("2_0xm2m")]
 position = Vector2(1028, 400)
-debug_collide = true
 
 [node name="Asteroid3" parent="NavigableArea/DebugAsteroids" unique_id=560364578 instance=ExtResource("2_0xm2m")]
 position = Vector2(317, 400)
@@ -53,10 +53,7 @@ position = Vector2(627, 491)
 position = Vector2(644, 524)
 
 [node name="Enemy" parent="NavigableArea" unique_id=1345935966 instance=ExtResource("6_7mycd")]
-position = Vector2(566, 601)
-
-[node name="Enemy2" parent="NavigableArea" unique_id=1983692498 instance=ExtResource("6_7mycd")]
-position = Vector2(445, 610)
+position = Vector2(554, 570)
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3
