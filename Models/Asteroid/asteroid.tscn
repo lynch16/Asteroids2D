@@ -70,6 +70,7 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "ee02a4283d4d8e34a621934af8b9932e"
 
 [node name="AsteroidCollision" type="CollisionShape2D" parent="." unique_id=2000207456]
+visible = false
 shape = SubResource("CircleShape2D_0d2cp")
 
 [node name="GravityField" type="Area2D" parent="." unique_id=2107640775]

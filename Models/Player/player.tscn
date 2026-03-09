@@ -28,7 +28,7 @@ animations = [{
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_sh265"]
 points = PackedVector2Array(-15, 15, 0, -15, 15, 15)
 
-[node name="Player" type="CharacterBody2D" unique_id=818107462]
+[node name="Player" type="CharacterBody2D" unique_id=818107462 groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_4flbx")
 mass = 20000
