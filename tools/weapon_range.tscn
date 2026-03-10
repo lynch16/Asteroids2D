@@ -14,8 +14,8 @@ enabled = true
 target_linear_speed = 100.0
 
 [node name="Target" type="CharacterBody2D" parent="." unique_id=1159552263]
-position = Vector2(281.66684, 100)
-velocity = Vector2(99.99938, 0)
+position = Vector2(701.6677, 100)
+velocity = Vector2(100.00121, 0)
 slide_on_ceiling = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Target" unique_id=1044469920]
@@ -25,12 +25,10 @@ disabled = true
 [node name="Shooter" type="CharacterBody2D" parent="." unique_id=1144730966]
 position = Vector2(645, 579)
 
-[node name="CharacterWeapons" type="Node2D" parent="Shooter" unique_id=886852810 node_paths=PackedStringArray("weapon_target", "character")]
+[node name="CharacterWeapons" type="Node2D" parent="Shooter" unique_id=886852810 node_paths=PackedStringArray("character")]
 script = ExtResource("1_n5woa")
 weapon_to_equip = ExtResource("1_ejx1l")
-weapon_target = NodePath("../../Target")
 character = NodePath("..")
-draw_targeting = true
 metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
 [node name="Line2D" type="Line2D" parent="Shooter" unique_id=1937151380]

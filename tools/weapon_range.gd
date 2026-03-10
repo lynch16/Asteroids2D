@@ -27,6 +27,8 @@ var paused := false;
 func _ready() -> void:
 	PhysicsServer2D.set_active(true);
 	if (target):
+		weapon_controller.set_weapon_target(target);
+		
 		if (target_movement_type == TargetMovementType.Line):
 			target.global_position = start;
 		elif (target_movement_type == TargetMovementType.Circle):
