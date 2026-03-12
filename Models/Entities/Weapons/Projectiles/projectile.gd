@@ -14,7 +14,7 @@ var target: Node2D;
 func _ready() -> void:
 	collision_area_2d.body_entered.connect(_on_body_entered);
 	
-func on_enter(
+func on_create(
 	weapon: Weapon,
 	weapon_aim_point: Vector2,
 ) -> void:
@@ -28,16 +28,23 @@ func on_start(
 ) -> void:
 	target = launch_target;
 	
-	var new_velocity := base_velocity + Vector2(speed, 0).rotated(get_angle_to(aim_point));
+	var new_velocity := base_velocity + Vector2(speed, 0).rotated(global_rotation + get_angle_to(aim_point));
 	velocity = new_velocity;
 	
+func update(delta: float) -> void:
+	global_rotation = velocity.angle();
+	position += velocity * delta;
+	
+func on_hit(hit_node: Node) -> void:
+	deal_damage.damage(hit_node);
+		
 func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint() || self != get_tree().edited_scene_root:
 		_cull_offscreen();
 		
 func _physics_process(delta: float) -> void:
-	global_rotation = velocity.angle();
-	position += velocity * delta;
+	if !Engine.is_editor_hint() || self != get_tree().edited_scene_root:
+		update(delta);
 	
 func _cull_offscreen() -> void:
 	var viewport := get_viewport_rect().size;
@@ -48,6 +55,5 @@ func _cull_offscreen() -> void:
 		queue_free();
 
 func _on_body_entered(node: Node) -> void:
-	deal_damage.damage(node);
-	
+	on_hit(node);
 	queue_free(); 

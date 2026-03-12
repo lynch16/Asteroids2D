@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://clmhgemf6tliu"]
 
-[ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/Entities/Weapons/projectile.gd" id="1_n771q"]
+[ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/Entities/Weapons/Projectiles/projectile.gd" id="1_n771q"]
 [ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="2_xqbbw"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vsjsl"]

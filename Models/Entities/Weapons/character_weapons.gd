@@ -19,6 +19,7 @@ func equip_weapon(weapon_scene: PackedScene) -> void:
 	current_weapon = new_weapon;
 	add_child(current_weapon)
 	current_weapon.global_position = global_position;
+	current_weapon.rotation = rotation;
 	current_weapon.owner_character = character;
 
 	current_weapon.equip();
@@ -32,4 +33,4 @@ func unequip_weapon() -> void:
 	current_weapon = null;
 	
 func set_weapon_target(new_target: Node2D) -> void:
-	current_weapon.use_target = new_target;
+	current_weapon.set_target(new_target);

@@ -21,9 +21,10 @@ func _use() -> void:
 	_send_projectile(shots_per_use);
 
 func _set_action_speed() -> void:
+	# Generate projectile, read properties and release
 	var projectile := projectile_scene.instantiate() as Projectile;
 	action_speed = projectile.speed;
-	
+	projectile.queue_free();
 
 func _send_projectile(num_projectile: int) -> void:
 	for i in num_projectile:
@@ -37,15 +38,14 @@ func _send_projectile(num_projectile: int) -> void:
 			get_tree().get_root().add_child(projectile);
 		
 		current_projectile_count -= i;
-		var aim_point := calculate_target_aim_point();
 		
-		projectile.on_enter(
+		projectile.on_create(
 			self,
-			aim_point
+			intercepter.calculate_target_aim_point()
 		);
 		
 		projectile.on_start(
 			# Using owner_character velocity b/c this node does not directly track velocity
 			owner_character.velocity,
-			use_target
+			intercepter.use_target
 		);

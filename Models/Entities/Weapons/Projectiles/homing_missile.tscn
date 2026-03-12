@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cxl1kyhkdp88q"]
+
+[ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/Entities/Weapons/Projectiles/projectile.gd" id="1_vpixh"]
+[ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="2_on45b"]
+[ext_resource type="Script" uid="uid://dlaq44o6nfb1r" path="res://Models/Entities/Weapons/intercepter.gd" id="3_on45b"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oqfp6"]
+
+[node name="HomingMissile" type="Node2D" unique_id=286395788]
+script = ExtResource("1_vpixh")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1796706372]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1001448420]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_oqfp6")
+
+[node name="DealDamage" type="Node" parent="." unique_id=1817434675]
+script = ExtResource("2_on45b")
+damage_dealt = 100.0
+metadata/_custom_type_script = "uid://c4u0g4nfqocub"
+
+[node name="Intercepter" type="Node2D" parent="." unique_id=2036769588]
+script = ExtResource("3_on45b")
+metadata/_custom_type_script = "uid://dlaq44o6nfb1r"
