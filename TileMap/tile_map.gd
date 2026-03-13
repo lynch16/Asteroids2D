@@ -15,7 +15,7 @@ const DOT_BUTTON_RADIUS = 2.0;
 const ALL_CORNERS = 15 # 1111 in binary
 
 @export var noise: FastNoiseLite;
-@export_tool_button("Generate", "Callable") var generate := _generate_mesh;
+@export_tool_button("Generate", "Callable") var generate := _sample_viewport;
 
 var corner_sample_tracker: Dictionary[Vector2, int] = {};
 var surface_array := [];
@@ -31,6 +31,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	queue_redraw()
 	
+	# TODO: Put this into a window to limit interactions until in use
+	# TODO: Save resulting mesh as resource
+	# TODO: Add Collision
 	if Input.is_action_just_pressed("left_click"):
 		_handle_mouse_click();
 				
@@ -55,6 +58,7 @@ func _get_position_tile_corner_coord(mouse_position: Vector2) -> Vector2:
 	return last_corner_hover;
 	
 func _sample_viewport() -> void:
+	corner_sample_tracker = {};
 	_for_each_tile(_save_corner_samples);
 	_generate_mesh();
 	
@@ -77,11 +81,13 @@ func _generate_mesh() -> void:
 	
 	surface_array[Mesh.ARRAY_VERTEX] = PackedVector2Array();
 	surface_array[Mesh.ARRAY_INDEX] = PackedInt32Array();
+	surface_array[Mesh.ARRAY_TEX_UV] = PackedVector2Array();
+	surface_array[Mesh.ARRAY_NORMAL] = PackedVector3Array();
 	
 	_for_each_tile(_generate_tile_from_corners);
-			
+	
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array);
-
+	
 func _generate_tile_from_corners(center: Vector2) -> void:
 	var tile_index := 0;
 	for i: int in CORNERS.size():
@@ -94,6 +100,7 @@ func _generate_tile_from_corners(center: Vector2) -> void:
 	_add_tile(center, tile_index);
 
 func _add_tile(center: Vector2, tile_index: int) -> void:
+	var texture: CompressedTexture2D = ($MeshInstance2D as MeshInstance2D).texture;
 	var verticies := MSMeshes.VERTEX_ARRAYS[tile_index].duplicate();
 	var indicies := MSMeshes.INDEX_ARRAYS[tile_index].duplicate();
 	var total_verticies: int = 0;
@@ -104,11 +111,24 @@ func _add_tile(center: Vector2, tile_index: int) -> void:
 		for i: int in verticies.size():
 			var vertex := verticies[i];
 			vertex = vertex * float(HALF_TILE_SIZE) + center;
-			
 			verticies[i] = vertex;
 	
 		array_vertex.append_array(verticies);
+	
+	if (surface_array[Mesh.ARRAY_TEX_UV] is PackedVector2Array):
+		var texSize := texture.get_size();
+		var uv_array: PackedVector2Array = surface_array[Mesh.ARRAY_TEX_UV];
+		for i: int in verticies.size():
+			uv_array.append(Vector2.ONE / (texSize/verticies[i]));
+			
+	if (surface_array[Mesh.ARRAY_NORMAL] is PackedVector3Array):
+		var tile_normal_array := PackedVector3Array();
 		
+		var normal_array: PackedVector3Array = surface_array[Mesh.ARRAY_NORMAL];
+		tile_normal_array.resize(verticies.size());
+		tile_normal_array.fill(Vector3.FORWARD);
+		normal_array.append_array(tile_normal_array)
+	
 	if (surface_array[Mesh.ARRAY_INDEX] is PackedInt32Array):
 		var array_index: PackedInt32Array = surface_array[Mesh.ARRAY_INDEX];
 	
