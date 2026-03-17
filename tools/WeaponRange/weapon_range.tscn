@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://cfwhiiy0choq0"]
 
-[ext_resource type="Script" uid="uid://c1f3nl4dl78ik" path="res://tools/weapon_range.gd" id="1_37gqi"]
+[ext_resource type="Script" uid="uid://c1f3nl4dl78ik" path="res://tools/WeaponRange/weapon_range.gd" id="1_37gqi"]
 [ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/Entities/Weapons/cannon_weapon.tscn" id="1_ejx1l"]
 [ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/Entities/Weapons/character_weapons.gd" id="1_n5woa"]
+[ext_resource type="Script" uid="uid://bpbntljb3rfef" path="res://tools/WeaponRange/range_actor.gd" id="2_4wfoo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_37gqi"]
 
@@ -11,29 +12,37 @@ process_mode = 4
 script = ExtResource("1_37gqi")
 weapon_controller = NodePath("Shooter/CharacterWeapons")
 enabled = true
-target_linear_speed = 100.0
 
-[node name="Target" type="CharacterBody2D" parent="." unique_id=1159552263]
-position = Vector2(281.66684, 100)
-velocity = Vector2(99.99938, 0)
+[node name="Target" type="CharacterBody2D" parent="." unique_id=1281433027]
+position = Vector2(1185.0005, 100)
+velocity = Vector2(249.99754, 0)
 slide_on_ceiling = false
+script = ExtResource("2_4wfoo")
+linear_speed = 250.0
+metadata/_custom_type_script = "uid://bpbntljb3rfef"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Target" unique_id=1044469920]
 shape = SubResource("CircleShape2D_37gqi")
 disabled = true
 
-[node name="Shooter" type="CharacterBody2D" parent="." unique_id=1144730966]
-position = Vector2(645, 579)
+[node name="Shooter" type="CharacterBody2D" parent="." unique_id=1107455802]
+position = Vector2(590.0002, 400)
+rotation = 3.1415927
+velocity = Vector2(-199.99876, 0)
+script = ExtResource("2_4wfoo")
+linear_speed = 200.0
+vertical_offset = 300.0
+metadata/_custom_type_script = "uid://bpbntljb3rfef"
 
-[node name="CharacterWeapons" type="Node2D" parent="Shooter" unique_id=886852810 node_paths=PackedStringArray("weapon_target", "character")]
+[node name="CharacterWeapons" type="Node2D" parent="Shooter" unique_id=886852810 node_paths=PackedStringArray("character")]
+position = Vector2(8, 0)
 script = ExtResource("1_n5woa")
 weapon_to_equip = ExtResource("1_ejx1l")
-weapon_target = NodePath("../../Target")
 character = NodePath("..")
-draw_targeting = true
 metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
 [node name="Line2D" type="Line2D" parent="Shooter" unique_id=1937151380]
+z_index = -1
 rotation = 1.5707964
 points = PackedVector2Array(0, 50, 0, 0)
 end_cap_mode = 2

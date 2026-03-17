@@ -42,7 +42,6 @@ position = Vector2(13, -1)
 script = ExtResource("10_p7ovo")
 weapon_to_equip = ExtResource("11_ae6k3")
 character = NodePath("..")
-draw_targeting = true
 metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=554559173]

@@ -25,7 +25,7 @@ func _ready() -> void:
 	apply_damage_dr.damage_applied.connect(_handle_player_damage);
 	damageable.on_destroy.connect(_die);
 	
-	# Call deferred so that handlers can connect before initial broadcast
+	# Call deferred so that Damageble handlers can connect before initial broadcast to HUD
 	SignalBus.call_deferred("_on_player_health_updated", int(damageable.curr_health));
 	
 func _physics_process(delta: float) -> void:
@@ -48,7 +48,6 @@ func _physics_process(delta: float) -> void:
 	rotation = ship_direction;
 	
 	move_and_slide();
-	
 	_handle_body_collisions();
 	
 
@@ -62,8 +61,8 @@ func _handle_body_collisions() -> void:
 			var deal_damager: DealDamage = maybe_deal_damage;
 			deal_damager.damage(self);
 			
-func _handle_player_damage(_dmg: float, _new_health: float) -> void:
-	SignalBus._on_player_health_updated(int(damageable.curr_health));
+func _handle_player_damage(_dmg: float, new_health: float) -> void:
+	SignalBus._on_player_health_updated(int(new_health));
 	
 func _die() -> void:
 	GameManager.trigger_game_over();
