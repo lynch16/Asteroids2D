@@ -28,9 +28,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_aasjb"]
-radius = 16.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufyc"]
 resource_local_to_scene = true
 radius = 311.07877
@@ -47,6 +44,7 @@ script = ExtResource("1_7kvrs")
 node = NodePath("..")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1692611401]
+visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_p7nbn")
 metadata/_aseprite_wizard_interface_config_ = {
@@ -69,8 +67,10 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ee02a4283d4d8e34a621934af8b9932e"
 
-[node name="AsteroidCollision" type="CollisionShape2D" parent="." unique_id=2000207456]
-shape = SubResource("CircleShape2D_aasjb")
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1320132721]
+
+[node name="AsteroidCollision" type="CollisionPolygon2D" parent="." unique_id=1480759532]
+polygon = PackedVector2Array(-12, -10, -3, -16, 3, -16, 11, -12, 16, -3, 16, 3, 7, 14, 2, 15, -4, 15, -10, 12, -16, 4, -16, -3)
 
 [node name="GravityField" type="Area2D" parent="." unique_id=2107640775]
 script = ExtResource("3_0d2cp")

@@ -5,12 +5,20 @@ extends Node2D
 var dots_lookup: Dictionary[Vector2, bool] = {};
 var last_corner_hover: Vector2;
 
-@onready var proc_gen_utils: TileMapProcGen = get_node("..");
+@export var draw_center_points := false;
+@export var draw_corner_points := true;
+@export var draw_edge_tracker_squares := false;
+
 @onready var mesh_controls: TileMapMeshControls = get_node("../MeshControls");
 @onready var mouse_pos_label: Label = get_node("Label");
 
+var last_draw_time: float;
+var draw_interval := 1.0; # 1 second
+
 func _process(_delta: float) -> void:
-	if (visible):
+	var curr_time := Time.get_unix_time_from_system();
+	if (visible && curr_time - last_draw_time > draw_interval):
+		last_draw_time = curr_time;
 		_track_mouse_hover();
 		mouse_pos_label.text = str(get_viewport().get_mouse_position());
 		queue_redraw();
@@ -18,40 +26,43 @@ func _process(_delta: float) -> void:
 # Draw dots at each vertex, colored whether the mouse is hovering
 func _draw() -> void:
 	_draw_dots()
+	
+	if (!draw_edge_tracker_squares): return;
 	for k: Vector2 in mesh_controls.tracked_verts.keys():
-		var rect := Rect2(k.x - proc_gen_utils.HALF_TILE_SIZE, k.y - proc_gen_utils.HALF_TILE_SIZE, proc_gen_utils.TILE_SIZE, proc_gen_utils.TILE_SIZE);
+		var rect := Rect2(k.x - TileMapProcGen.HALF_TILE_SIZE, k.y - TileMapProcGen.HALF_TILE_SIZE, TileMapProcGen.TILE_SIZE, TileMapProcGen.TILE_SIZE);
 		draw_rect(rect, Color.ORANGE, false);
 		
 func _draw_dots() -> void:
 	dots_lookup = {};
-	proc_gen_utils._for_each_tile(_draw_dot);
+	var viewport_size := get_viewport_rect().size;
+	TileMapProcGen.for_each_tile(viewport_size, _draw_dot);
 
 func _draw_corner_dot(corner: Vector2) -> void:
-	if (dots_lookup.has(corner)):
+	if (!draw_corner_points || dots_lookup.has(corner) || !mesh_controls):
 		return;
 			
 	var color := Color.RED;
-	var corner_sample: int = mesh_controls._get_sample_int_from_vertex(corner);
+	var corner_sample: int = TileMapProcGen.get_sample_int_from_vertex(corner, mesh_controls.corner_sample_tracker);
 	if (corner_sample > 0):
 		color = Color.GREEN;
 		
 	if (corner == last_corner_hover):
 		color = Color.BLUE;
 			
-	dots_lookup.set(corner, mesh_controls._get_sample_int_from_vertex(corner));
-	draw_circle(corner, proc_gen_utils.DOT_BUTTON_RADIUS, color);
+	dots_lookup.set(corner, TileMapProcGen.get_sample_int_from_vertex(corner, mesh_controls.corner_sample_tracker));
+	draw_circle(corner, TileMapProcGen.DOT_BUTTON_RADIUS, color);
 
 func _draw_center_dot(center: Vector2) -> void:
-	draw_circle(center, proc_gen_utils.DOT_BUTTON_RADIUS, Color.PURPLE);
+	if (!draw_center_points): return;
+	draw_circle(center, TileMapProcGen.DOT_BUTTON_RADIUS, Color.PURPLE);
 	
 func _draw_dot(center: Vector2) -> void:
 	_draw_center_dot(center);
-	proc_gen_utils._for_each_corner(center, _draw_corner_dot)
+	TileMapProcGen.for_each_corner(center, _draw_corner_dot)
 	
-
 func _track_mouse_hover() -> void:
 	var mouse_position := get_viewport().get_mouse_position();
-	var corner := proc_gen_utils._get_position_tile_corner_coord(mouse_position);
+	var corner := TileMapProcGen.get_position_tile_corner_coord(mouse_position);
 	
 	if (!last_corner_hover || last_corner_hover != corner):
 		last_corner_hover = corner;

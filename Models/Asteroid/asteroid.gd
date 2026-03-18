@@ -6,6 +6,7 @@ class_name Asteroid extends RigidBody2D
 
 @export var debug_collide := false;
 @export var debug_random_movement := false;
+@export var asteroid_mesh: AsteroidMesh;
 
 var child_number := 0;
 var collision_damage := 50.0;
@@ -14,8 +15,9 @@ var collision_damage := 50.0;
 @onready var deal_damage: DealDamage = get_node("DealDamage");
 @onready var invince_frames_dr: DamageResult = get_node("Damageable/InvincibleFramesDamageResult");
 @onready var shatter_dr: DamageResult = get_node("Damageable/AsteroidShatterDamageResult");
-@onready var collision: CollisionShape2D = get_node("AsteroidCollision");
-@onready var nav_obstacle: NavigationObstacle2D = get_node("NavigationObstacle2D");
+@onready var collision: CollisionPolygon2D = get_node("AsteroidCollision");
+@onready var mesh_instance: MeshInstance2D = get_node("MeshInstance2D");
+#@onready var nav_obstacle: NavigationObstacle2D = get_node("NavigationObstacle2D");
 
 func _ready() -> void:
 	add_to_group("enemy");
@@ -44,6 +46,21 @@ func _ready() -> void:
 		);
 		linear_velocity =  velocity.rotated(rotation - PI/2);
 		
+	_populate_mesh();
+
+
+func _load_collision_polygon() -> void:
+	var edge_verts := PackedVector2Array(asteroid_mesh.edge_verticies.keys().map(
+		func(key: Vector2) -> Vector2:
+			return _calculate_weighted_vertex(key, asteroid_mesh.edge_verticies[key])
+	))
+	collision.polygon = edge_verts;
+	
+func _populate_mesh() -> void:
+	var mesh := ArrayMesh.new();
+	mesh_instance.mesh = mesh;
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, asteroid_mesh.mesh_surface_array);
+		
 func _disable_colliders() -> void:
 	collision.disabled = true;
 	
@@ -61,19 +78,12 @@ func _scale_to_child() -> void:
 	## Smaller asteroid will shatter and destroy with half the force
 	damageable.init_health = damageable.init_health * new_scale;
 	deal_damage.damage_dealt = deal_damage.damage_dealt * new_scale;
+	scale = Vector2(new_scale, new_scale);
 	
-	# TODO: Change sprites;
-	var collision_shape: CircleShape2D = collision.shape;
-	collision_shape.radius = collision_shape.radius * new_scale;
-	nav_obstacle.radius = nav_obstacle.radius * new_scale;
-	
-	var sprite: AnimatedSprite2D = $Sprite2D;
-	sprite.scale = sprite.scale * new_scale;
-	
-	if (child_number == 1):
-		sprite.modulate = Color(200, 0, 150, 1);;
-	elif (child_number == 2):
-		sprite.modulate = Color(0, 200, 150, 1);;
+	#if (child_number == 1):
+		#sprite.modulate = Color(200, 0, 150, 1);
+	#elif (child_number == 2):
+		#sprite.modulate = Color(0, 200, 150, 1);
 
 func _physics_process(_delta: float) -> void:
 	# Clamp velocity to reasonable playable value
