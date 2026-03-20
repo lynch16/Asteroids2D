@@ -113,7 +113,7 @@ static func _add_tile(
 		var uv_array: PackedVector2Array = surface_array[Mesh.ARRAY_TEX_UV];
 		for i: int in verticies.size():
 			uv_array.append(Vector2.ONE / (texSize/verticies[i]));
-			
+
 	if (surface_array[Mesh.ARRAY_NORMAL] is PackedVector3Array):
 		var tile_normal_array := PackedVector3Array();
 		

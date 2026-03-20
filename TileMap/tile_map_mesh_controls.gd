@@ -7,8 +7,6 @@ extends Node2D
 @export_tool_button("Generate", "Callable") var generate := _sample_viewport;
 
 var corner_sample_tracker: Dictionary[Vector2, float] = {};
-# Track center and normalized vertex
-var tracked_verts: Dictionary[Vector2, Vector2] = {};
 
 var recursion := 0;
 var max_recur := 500;
@@ -21,10 +19,7 @@ func _ready() -> void:
 	_sample_viewport();
 				
 func _process(_delta: float) -> void:
-	# TODO: Put this into a window to limit interactions until in use
 	# TODO: Save resulting mesh as resource
-	# TODO: Add Collision
-	# TODO: Make dots a separate resource to limit redraws
 	var mouse_down_position := get_viewport().get_mouse_position();
 	var viewport_rect := get_viewport_rect();
 	if (visible && viewport_rect.has_point(mouse_down_position)):
@@ -34,10 +29,13 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("right_click"):
 			_handle_mouse_right_click();
 
-func _track_verts(tile_center: Vector2) -> void:
+func _track_edge_verticies(
+	tile_center: Vector2, 
+	# Track center and normalized vertex
+	tracked_verticies: Dictionary[Vector2, Vector2] = {}
+) -> Dictionary[Vector2, Vector2]:
 	recursion += 1;
-	print("recursion: ", recursion)
-	if (recursion > max_recur): return;
+	if (recursion > max_recur): return tracked_verticies;
 	
 	var viewport_rect := get_viewport_rect();
 	var tile_index := TileMapProcGen.get_tile_index_from_corners(tile_center, corner_sample_tracker);
@@ -58,11 +56,12 @@ func _track_verts(tile_center: Vector2) -> void:
 		var next_tile_dirs := MSMeshes.NEXT_VERTEX_ARRAYS[tile_index];
 		for i in next_tile_dirs.size():
 			var next_tile := next_tile_dirs[i] * TileMapProcGen.TILE_SIZE + tile_center;
-			if (viewport_rect.has_point(next_tile) && !tracked_verts.has(next_tile)):
-				tracked_verts.set(tile_center, next_tile_dirs[i]);
-				_track_verts(next_tile);
-				# TODO: I am sometimes losing a vertix between index 0-1
+			if (viewport_rect.has_point(next_tile) && !tracked_verticies.has(next_tile)):
+				tracked_verticies.set(tile_center, next_tile_dirs[i]);
+				return _track_edge_verticies(next_tile, tracked_verticies);
 
+	return tracked_verticies;
+	
 #func _get_next_edge(tile_index: int, tile_center: Vector2) -> Vector2:
 	#var next_tile_dirs := MSMeshes.NEXT_VERTEX_ARRAYS[tile_index];
 	#for i in next_tile_dirs.size():
@@ -72,44 +71,100 @@ func _track_verts(tile_center: Vector2) -> void:
 			#return next_tile;
 	#
 	#return Vector2(-1.0, -1.0);
+	
+func _isolate_polygon_from_mesh(tile_center: Vector2) -> PackedVector2Array:
+	var tracked_verts := _track_edge_verticies(tile_center);
+	return PackedVector2Array(tracked_verts.keys().map(
+		func(key: Vector2) -> Vector2:
+			return TileMapProcGen.calculate_weighted_vertex(corner_sample_tracker, key, tracked_verts[key])
+	));
+	
+func _filter_corner_samples_by_polygon(polygon: PackedVector2Array) -> Dictionary[Vector2, float]:
+	var polygon_corner_tracker: Dictionary[Vector2, float] = {}
+	
+	return corner_sample_tracker.keys().reduce(
+		func(tracker: Dictionary[Vector2, float], key: Vector2) -> Dictionary[Vector2, float]:
+			if (Geometry2D.is_point_in_polygon(key, polygon)):
+				tracker.set(key, corner_sample_tracker[key]);
+				# Expand out to include all connected tiles
+				for i in TileMapProcGen.CORNERS.size():
+					var center := key - TileMapProcGen.CORNERS[i] * float(TileMapProcGen.HALF_TILE_SIZE);
+					# Gather all corners of connected tiles
+					for j in TileMapProcGen.CORNERS.size():
+						TileMapProcGen.for_each_corner(center, 
+							func(corner: Vector2) -> void:
+								if (!tracker.has(corner)):
+									tracker.set(corner, corner_sample_tracker[corner]);
+						);
+	
+			return tracker;,
+		polygon_corner_tracker
+	);
 
 func _handle_mouse_right_click() -> void:
 	var mouse_down_position := get_viewport().get_mouse_position();
+	# Determine which tile mouse click is on
 	var tile_center := TileMapProcGen.get_position_tile_center_coord(mouse_down_position);
-	_track_verts(tile_center);
-	print(tracked_verts)
+	# Get polygon of outer edges connected to that tile
+	var polygon := _isolate_polygon_from_mesh(tile_center);
+	# Filter overall corner sample data into just what applies to tiles touching polygon
+	var new_corner_samples := _filter_corner_samples_by_polygon(polygon);
+	
+	var new_mesh_inst := MeshInstance2D.new();
+	new_mesh_inst.mesh = TileMapProcGen.generate_mesh(
+		get_viewport_rect().size,
+		new_corner_samples,
+		texture
+	);
+	new_mesh_inst.texture = texture;
+	new_mesh_inst.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED;
+	add_child(new_mesh_inst);
+	new_mesh_inst.owner = get_tree().edited_scene_root
+	
+	var convex_3d_polygon := new_mesh_inst.mesh.create_convex_shape();
+	var cX := 0.0;
+	var cY := 0.0;
+	
+	for point in convex_3d_polygon.points:
+		cX += point.x;
+		cY += point.y;
+		
+	var center_polygon_point := Vector2(cX / convex_3d_polygon.points.size(), cY / convex_3d_polygon.points.size())
+	
+	var normalized_points := [];
+	for point in convex_3d_polygon.points:
+		normalized_points.append(Vector2(point.x - center_polygon_point.x, point.y - center_polygon_point.y));
+	
+	normalized_points.sort_custom(
+		func(a: Vector2, b: Vector2) -> bool:
+			var angle_a := center_polygon_point.angle_to(a);
+			var angle_b := center_polygon_point.angle_to(b);
+			
+			if (angle_a > angle_b):
+				return true;
+			
+			if (angle_a == angle_b):
+				var distance_a := center_polygon_point.distance_to(a);
+				var distance_b := center_polygon_point.distance_to(b);
+				
+				return distance_a < distance_b;
+			else:
+				return false;
+	);
+	
+	var final_points := normalized_points.map(
+		func(p: Vector2) -> Vector2:
+			return p + center_polygon_point;
+	)
+	
 	var collision := CollisionPolygon2D.new();
-	var edge_verts := PackedVector2Array(tracked_verts.keys().map(
-		func(key: Vector2) -> Vector2:
-			return TileMapProcGen.calculate_weighted_vertex(corner_sample_tracker, key, tracked_verts[key])
-	))
-	collision.polygon = edge_verts;
+	collision.polygon = final_points;
 	add_child(collision);
 	collision.owner = get_tree().edited_scene_root
+	
 	# TODO: Instantiate Asteroid (Need to reconfigure asteroid to be polygon instead of sprite)
 	# I think the Asteroid actually needs to be using a mesh so that I can apply marching squares on impact instead of subtraction against a Polygon2D
-	# Set Polygon2D.polygon = edge_verts;
-	# Polygon2D.texture = mesh_instance.texture;
-	# Set CollisionPolygon2D.polygon = edge_verts;
 	
-	
-		# Null = END
-		# Only SW == One down, one left
-		# Only SE == One Down, one right
-		# SW + SE == One left, one right (NO DOWN AS FULL)
-		# Only NE == One Up, One right
-		# NE + SW == One Up, One right, one down, one left
-		# NE+SE = One Up, one down, (NO RIGHT AS FULL)
-		# NE, SE, SW = One UP, one left (NO DOWN or RIGHT AS FULL)
-		# Only NW = One UP, ONe left
-		# NW + SW = One Up, One down (NO LEFT AS FULL)
-		# NW + SW = One Up, One RIght, One Down, One left
-		# NW, SW, SE = One Up, One Right (NO DOWN OR LEFT AS FULL)
-		# NW + NE = One Right, One Left
-		# NW, NE, SW = One Right, One Down (NO UP OR LEFT AS FULL)
-		# NW, NE, SE = One Left, One Down (NO UP OR RIGHT AS FULL)
-		# ALL FULL = SKIP
-		
 		
 	# TODO: Open a mouse dropdown to select the action
 	# 1. Track what type of tile each tile is
@@ -125,7 +180,6 @@ func _handle_mouse_right_click() -> void:
 func _handle_mouse_click() -> void:
 	var mouse_down_position := get_viewport().get_mouse_position();
 	var corner := TileMapProcGen.get_position_tile_corner_coord(mouse_down_position);
-	var viewport_size := get_viewport_rect().size;
 	
 	if (corner_sample_tracker.has(corner)):
 		var curr_val: int = TileMapProcGen.get_sample_int_from_vertex(corner, corner_sample_tracker);
@@ -140,8 +194,7 @@ func _sample_viewport() -> void:
 	
 func _generate_mesh() -> void:
 	var viewport_size := get_viewport_rect().size;
-	var new_mesh := TileMapProcGen.generate_mesh(viewport_size, corner_sample_tracker, texture);
-	mesh_instance.mesh = new_mesh;
+	mesh_instance.mesh = TileMapProcGen.generate_mesh(viewport_size, corner_sample_tracker, texture);
 	
 func _save_corner_samples(center: Vector2) -> void:
 	for i: int in TileMapProcGen.CORNERS.size():

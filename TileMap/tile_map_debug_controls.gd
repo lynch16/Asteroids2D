@@ -26,11 +26,6 @@ func _process(_delta: float) -> void:
 # Draw dots at each vertex, colored whether the mouse is hovering
 func _draw() -> void:
 	_draw_dots()
-	
-	if (!draw_edge_tracker_squares): return;
-	for k: Vector2 in mesh_controls.tracked_verts.keys():
-		var rect := Rect2(k.x - TileMapProcGen.HALF_TILE_SIZE, k.y - TileMapProcGen.HALF_TILE_SIZE, TileMapProcGen.TILE_SIZE, TileMapProcGen.TILE_SIZE);
-		draw_rect(rect, Color.ORANGE, false);
 		
 func _draw_dots() -> void:
 	dots_lookup = {};
