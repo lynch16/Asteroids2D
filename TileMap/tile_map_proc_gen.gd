@@ -25,6 +25,16 @@ const DOT_BUTTON_RADIUS = 2.0;
 const ALL_CORNERS = 15 # 1111 in binary
 const NO_CORNERS = 0 # 0000 in binary
 
+const MAX_RECURSION := 500;
+
+# Externally this needs to:
+# 1. (Re)Generate mesh because:
+# 	1a. We want to hand sculpt asteroids in the editor and save for use in scenes
+#		1ai. This involves generating from noise and using keyboard keys to manage sculpting
+# 	1b. Asteroids will break during gameplay and should result in distinct physics bodies
+# 2. Apply a collision shape to result in breaking the current mesh apart
+# 3. Apply textures to the mesh
+
 static func generate_mesh(
 	viewport_size: Vector2, 
 	corner_samples: Dictionary[Vector2, float],
@@ -145,6 +155,149 @@ static func calculate_weighted_vertex(corner_sample: Dictionary[Vector2, float],
 	
 	return vertex;
 	
+
+# Filters a Dictionary of corner samples to what is contained within the polygon
+# Reduces the polygon to tile size in order to gather corners for full tiles involved in the polygon
+# Returns a new Dictonary with the filtered samples
+static func _filter_corner_samples_by_polygon(
+	polygon: PackedVector2Array,
+	corner_samples: Dictionary[Vector2, float]
+) -> Dictionary[Vector2, float]:
+	var polygon_corner_tracker: Dictionary[Vector2, float] = {}
+	
+	return corner_samples.keys().reduce(
+		func(tracker: Dictionary[Vector2, float], key: Vector2) -> Dictionary[Vector2, float]:
+			if (Geometry2D.is_point_in_polygon(key, polygon)):
+				tracker.set(key, corner_samples[key]);
+				# Expand out to include all connected tiles
+				for i in CORNERS.size():
+					var center := key - CORNERS[i] * float(HALF_TILE_SIZE);
+					# Gather all corners of connected tiles
+					for j in CORNERS.size():
+						for_each_corner(center, 
+							func(corner: Vector2) -> void:
+								if (!tracker.has(corner)):
+									tracker.set(corner, corner_samples[corner]);
+						);
+	
+			return tracker;,
+		polygon_corner_tracker
+	);
+
+# Recursive function to gather all tile centers and normalized vertex to corner from that center
+# 
+static func _track_edge_verticies(
+	tile_center: Vector2, 
+	viewport_rect: Rect2,
+	corner_samples: Dictionary[Vector2, float],
+	recursion: int = 0,
+	# Track center and normalized vertex
+	tracked_verticies: Dictionary[Vector2, Vector2] = {},
+) -> Dictionary[Vector2, Vector2]:
+	recursion += 1;
+	if (recursion > MAX_RECURSION): return tracked_verticies;
+	
+	var tile_index := TileMapProcGen.get_tile_index_from_corners(tile_center, corner_samples);
+	
+	if (tile_index == TileMapProcGen.ALL_CORNERS):
+		if (
+			(tile_center.x + TileMapProcGen.TILE_SIZE > viewport_rect.size.x) || \
+			(tile_center.y + TileMapProcGen.TILE_SIZE > viewport_rect.size.y) || \
+			(tile_center.x - TileMapProcGen.TILE_SIZE < 0) || \
+			(tile_center.y - TileMapProcGen.TILE_SIZE < 0)
+		):
+			print("INCLUDE");
+			# TODO: Edges not yet included automatically. The tile walker never moves into this block
+		print("ALL_CORNERS");
+	elif (tile_index == TileMapProcGen.NO_CORNERS):
+		print("NO CORNERS");
+	else:
+		var next_tile_dirs := MSMeshes.NEXT_VERTEX_ARRAYS[tile_index];
+		for i in next_tile_dirs.size():
+			var next_tile := next_tile_dirs[i] * TileMapProcGen.TILE_SIZE + tile_center;
+			if (viewport_rect.has_point(next_tile) && !tracked_verticies.has(next_tile)):
+				tracked_verticies.set(tile_center, next_tile_dirs[i]);
+				return _track_edge_verticies(next_tile, viewport_rect, corner_samples, recursion, tracked_verticies);
+
+	return tracked_verticies;
+
+# Recurrsively crawls from given Vector2, collecting all weighted verticies from connected edge
+static func _isolate_polygon_from_mesh(
+	tile_center: Vector2, 
+	viewport_rect: Rect2,
+	corner_samples: Dictionary[Vector2, float],
+) -> PackedVector2Array:
+	var tracked_verts := _track_edge_verticies(tile_center, viewport_rect, corner_samples);
+	return PackedVector2Array(tracked_verts.keys().map(
+		func(key: Vector2) -> Vector2:
+			return calculate_weighted_vertex(corner_samples, key, tracked_verts[key])
+	));
+
+# Create or update a MeshInstance2D based on the providered corner samples and texture
+# This is set to repeat the texture across the mesh
+static func _upsert_new_mesh_instance(
+	viewport_rect: Rect2,
+	corner_samples: Dictionary[Vector2, float],
+	texture: Texture2D,
+	mesh_instance: MeshInstance2D = MeshInstance2D.new()
+) -> MeshInstance2D:
+	mesh_instance.mesh = TileMapProcGen.generate_mesh(
+		viewport_rect.size,
+		corner_samples,
+		texture
+	);
+	mesh_instance.texture = texture;
+	mesh_instance.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED;
+	
+	return mesh_instance;
+
+# Create or Update a CollisionPolygon2D based on provided MeshInstance2D
+# Parses the MeshInstance2D for a ConvexPolygonShape3D before converting to 2D
+# To determine the order of verticies, function compares angle then distance from centroid in clockwise order
+static func _upsert_collision_polygon_from_mesh(
+	mesh_instance: MeshInstance2D,
+	collision: CollisionPolygon2D = CollisionPolygon2D.new()
+) -> CollisionPolygon2D:
+	var convex_3d_polygon := mesh_instance.mesh.create_convex_shape();
+	var cX := 0.0;
+	var cY := 0.0;
+	
+	for point in convex_3d_polygon.points:
+		cX += point.x;
+		cY += point.y;
+		
+	var center_polygon_point := Vector2(cX / convex_3d_polygon.points.size(), cY / convex_3d_polygon.points.size())
+	
+	var normalized_points := [];
+	for point in convex_3d_polygon.points:
+		normalized_points.append(Vector2(point.x - center_polygon_point.x, point.y - center_polygon_point.y));
+	
+	normalized_points.sort_custom(
+		func(a: Vector2, b: Vector2) -> bool:
+			var angle_a := center_polygon_point.angle_to(a);
+			var angle_b := center_polygon_point.angle_to(b);
+			
+			if (angle_a > angle_b):
+				return true;
+			
+			if (angle_a == angle_b):
+				var distance_a := center_polygon_point.distance_to(a);
+				var distance_b := center_polygon_point.distance_to(b);
+				
+				return distance_a < distance_b;
+			else:
+				return false;
+	);
+	
+	var final_points := normalized_points.map(
+		func(p: Vector2) -> Vector2:
+			return p + center_polygon_point;
+	)
+	
+	collision.polygon = final_points;
+	
+	return collision;
+
 # TODO: These utilities assume the mesh spans the whole viewport
 static func get_position_tile_center_coord(mouse_position: Vector2) -> Vector2:
 	var tile_pos := Vector2(floori(mouse_position.x / TILE_SIZE), floori(mouse_position.y / TILE_SIZE)); 
