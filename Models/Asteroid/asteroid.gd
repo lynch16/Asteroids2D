@@ -23,6 +23,9 @@ func _ready() -> void:
 	add_to_group("enemy");
 	_scale_to_child();
 	
+	if (asteroid_mesh):
+		asteroid_mesh.apply(self, to_global);
+	
 	body_entered.connect(_on_body_entered);
 	
 	damageable.on_init(self);
@@ -31,6 +34,7 @@ func _ready() -> void:
 	invince_frames_dr.end.connect(_enable_colliders);
 	shatter_dr.end.connect(_on_max_shatter);
 	
+	# TODO: This should be part of _integrate_forces
 	if (debug_collide):
 		linear_velocity = Vector2.LEFT * 100;
 		
@@ -46,21 +50,12 @@ func _ready() -> void:
 		);
 		linear_velocity =  velocity.rotated(rotation - PI/2);
 		
-	_populate_mesh();
+func get_mesh_instance() -> MeshInstance2D:
+	return mesh_instance;
 
+func get_collider() -> CollisionPolygon2D:
+	return collision;
 
-func _load_collision_polygon() -> void:
-	var edge_verts := PackedVector2Array(asteroid_mesh.edge_verticies.keys().map(
-		func(key: Vector2) -> Vector2:
-			return _calculate_weighted_vertex(key, asteroid_mesh.edge_verticies[key])
-	))
-	collision.polygon = edge_verts;
-	
-func _populate_mesh() -> void:
-	var mesh := ArrayMesh.new();
-	mesh_instance.mesh = mesh;
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, asteroid_mesh.mesh_surface_array);
-		
 func _disable_colliders() -> void:
 	collision.disabled = true;
 	
@@ -86,6 +81,7 @@ func _scale_to_child() -> void:
 		#sprite.modulate = Color(0, 200, 150, 1);
 
 func _physics_process(_delta: float) -> void:
+	# TODO: This should be part of _integrate_forces
 	# Clamp velocity to reasonable playable value
 	linear_velocity = linear_velocity.normalized() * min(linear_velocity.length(), max_velocity);
 	

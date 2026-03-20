@@ -259,18 +259,16 @@ static func _upsert_collision_polygon_from_mesh(
 	collision: CollisionPolygon2D = CollisionPolygon2D.new()
 ) -> CollisionPolygon2D:
 	var convex_3d_polygon := mesh_instance.mesh.create_convex_shape();
-	var cX := 0.0;
-	var cY := 0.0;
-	
+	var convex_2d_polygon: Array[Vector2] = [];
 	for point in convex_3d_polygon.points:
-		cX += point.x;
-		cY += point.y;
+		convex_2d_polygon.append(Vector2(point.x, point.y));
 		
-	var center_polygon_point := Vector2(cX / convex_3d_polygon.points.size(), cY / convex_3d_polygon.points.size())
-	
-	var normalized_points := [];
-	for point in convex_3d_polygon.points:
-		normalized_points.append(Vector2(point.x - center_polygon_point.x, point.y - center_polygon_point.y));
+	var center_polygon_point := _get_center_point_of_polygon(convex_2d_polygon);
+
+	var normalized_points := convex_2d_polygon.map(
+		func(point: Vector2) -> Vector2:
+			return Vector2(point.x - center_polygon_point.x, point.y - center_polygon_point.y);
+	);
 	
 	normalized_points.sort_custom(
 		func(a: Vector2, b: Vector2) -> bool:
@@ -297,6 +295,16 @@ static func _upsert_collision_polygon_from_mesh(
 	collision.polygon = final_points;
 	
 	return collision;
+	
+static func _get_center_point_of_polygon(polygon_points: Array[Vector2]) -> Vector2:
+	var cX := 0.0;
+	var cY := 0.0;
+	
+	for point in polygon_points:
+		cX += point.x;
+		cY += point.y;
+		
+	return Vector2(cX / polygon_points.size(), cY / polygon_points.size())
 
 # TODO: These utilities assume the mesh spans the whole viewport
 static func get_position_tile_center_coord(mouse_position: Vector2) -> Vector2:

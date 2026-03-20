@@ -15,6 +15,8 @@ var last_corner_hover: Vector2;
 var last_draw_time: float;
 var draw_interval := 1.0; # 1 second
 
+# TODO: Only draw dots around where I am hovering, like a 9 square from there
+# TODO: When I click on something, I want to be able to highlight the cell I clicked
 func _process(_delta: float) -> void:
 	var curr_time := Time.get_unix_time_from_system();
 	if (visible && curr_time - last_draw_time > draw_interval):
@@ -37,14 +39,14 @@ func _draw_corner_dot(corner: Vector2) -> void:
 		return;
 			
 	var color := Color.RED;
-	var corner_sample: int = TileMapProcGen.get_sample_int_from_vertex(corner, mesh_controls.corner_sample_tracker);
+	var corner_sample: int = TileMapProcGen.get_sample_int_from_vertex(corner, mesh_controls.saved_corner_samples);
 	if (corner_sample > 0):
 		color = Color.GREEN;
 		
 	if (corner == last_corner_hover):
 		color = Color.BLUE;
 			
-	dots_lookup.set(corner, TileMapProcGen.get_sample_int_from_vertex(corner, mesh_controls.corner_sample_tracker));
+	dots_lookup.set(corner, TileMapProcGen.get_sample_int_from_vertex(corner, mesh_controls.saved_corner_samples));
 	draw_circle(corner, TileMapProcGen.DOT_BUTTON_RADIUS, color);
 
 func _draw_center_dot(center: Vector2) -> void:

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_kufyc"]
+[ext_resource type="Resource" uid="uid://dsbnv5i7wbw3m" path="res://TileMap/AsteroidMesh/round_med_asteroid.tres" id="2_tsxo3"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/Entities/Damage/damageable.gd" id="4_p7nbn"]
 [ext_resource type="Script" uid="uid://ce60si5dg5lkl" path="res://Models/Asteroid/asteroid_shatter_damage_result.gd" id="5_vpx2v"]
@@ -39,12 +40,12 @@ sleeping = true
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_7kvrs")
+asteroid_mesh = ExtResource("2_tsxo3")
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_kufyc")]
 node = NodePath("..")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1692611401]
-visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_p7nbn")
 metadata/_aseprite_wizard_interface_config_ = {
