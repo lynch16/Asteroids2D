@@ -73,8 +73,6 @@ static func get_tile_index_from_corners(
 		
 	return tile_index;
 	
-# TODO: This can be used to recalculate the tile_index so that centers_lookup isn't strictly needed
-# This can reduce state to just corner_sample_tracker for the mesh
 static func _generate_tile_from_corners(
 	center: Vector2, 
 	corner_samples: Dictionary[Vector2, float],
@@ -253,49 +251,22 @@ static func _upsert_new_mesh_instance(
 
 # Create or Update a CollisionPolygon2D based on provided MeshInstance2D
 # Parses the MeshInstance2D for a ConvexPolygonShape3D before converting to 2D
-# To determine the order of verticies, function compares angle then distance from centroid in clockwise order
-static func _upsert_collision_polygon_from_mesh(
+static func _upsert_collision_shape_from_mesh(
 	mesh_instance: MeshInstance2D,
-	collision: CollisionPolygon2D = CollisionPolygon2D.new()
-) -> CollisionPolygon2D:
+	collision: CollisionShape2D = CollisionShape2D.new()
+) -> CollisionShape2D:
 	var convex_3d_polygon := mesh_instance.mesh.create_convex_shape();
-	var convex_2d_polygon: Array[Vector2] = [];
+	var convex_2d_polygon := PackedVector2Array();
 	for point in convex_3d_polygon.points:
 		convex_2d_polygon.append(Vector2(point.x, point.y));
-		
-	var center_polygon_point := _get_center_point_of_polygon(convex_2d_polygon);
-
-	var normalized_points := convex_2d_polygon.map(
-		func(point: Vector2) -> Vector2:
-			return Vector2(point.x - center_polygon_point.x, point.y - center_polygon_point.y);
-	);
 	
-	normalized_points.sort_custom(
-		func(a: Vector2, b: Vector2) -> bool:
-			var angle_a := center_polygon_point.angle_to(a);
-			var angle_b := center_polygon_point.angle_to(b);
-			
-			if (angle_a > angle_b):
-				return true;
-			
-			if (angle_a == angle_b):
-				var distance_a := center_polygon_point.distance_to(a);
-				var distance_b := center_polygon_point.distance_to(b);
-				
-				return distance_a < distance_b;
-			else:
-				return false;
-	);
-	
-	var final_points := normalized_points.map(
-		func(p: Vector2) -> Vector2:
-			return p + center_polygon_point;
-	)
-	
-	collision.polygon = final_points;
+	var convex_shape := ConvexPolygonShape2D.new();
+	convex_shape.points = Geometry2D.convex_hull(convex_2d_polygon);
+	collision.call_deferred("set_shape", convex_shape)
 	
 	return collision;
-	
+
+## @deprecated
 static func _get_center_point_of_polygon(polygon_points: Array[Vector2]) -> Vector2:
 	var cX := 0.0;
 	var cY := 0.0;

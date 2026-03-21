@@ -3,31 +3,40 @@ extends Resource
 
 @export var texture: Texture2D;
 @export var corner_sampling: Dictionary[Vector2, float];
-# Track center and normalized vertex
-@export var polygon_points: PackedVector2Array;
+@export var collider_shape: Shape2D;
 @export var mesh: ArrayMesh;
+
+var mesh_instance: MeshInstance2D;
+var collider: CollisionShape2D;
 
 func _init(
 	p_mesh: ArrayMesh = ArrayMesh.new(), 
 	p_texture: Texture2D = Texture2D.new(), 
 	p_corner_sampling: Dictionary[Vector2, float] = {},
-	p_polygon_points: PackedVector2Array = PackedVector2Array(),
+	p_collider_shape: Shape2D = CircleShape2D.new()
 ) -> void:
 	mesh = p_mesh;
 	texture = p_texture;
 	corner_sampling = p_corner_sampling;
-	polygon_points = p_polygon_points;
+	collider_shape = p_collider_shape;
 
 func apply(asteroid: Asteroid, to_global: Callable) -> void:
-	var mesh_instance := asteroid.get_mesh_instance()
+	mesh_instance = asteroid.get_mesh_instance()
 	mesh_instance.mesh = mesh;
 	mesh_instance.texture = texture;
 	mesh_instance.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED;
 	
-	var collider := asteroid.get_collider();
-	collider.polygon = polygon_points;
-
-	var curr_mesh_center := TileMapProcGen._get_center_point_of_polygon(polygon_points);
-	var mesh_offset: Vector2 = asteroid.global_position - to_global.call(curr_mesh_center);
+	collider = asteroid.get_collider();
+	collider.shape = collider_shape;
+	
+	var mesh_offset: Vector2 = asteroid.global_position - to_global.call(collider_shape.get_rect().get_center());
 	mesh_instance.position = mesh_offset;
 	collider.position = mesh_offset;
+
+func update(asteroid: Asteroid, new_corner_samples: Dictionary[Vector2, float], viewport_rect: Rect2) -> void:
+	corner_sampling = new_corner_samples
+	TileMapProcGen._upsert_new_mesh_instance(viewport_rect, corner_sampling, texture, asteroid.get_mesh_instance())
+	TileMapProcGen._upsert_collision_shape_from_mesh(asteroid.get_mesh_instance(), asteroid.get_collider());
+	collider_shape = asteroid.get_collider().shape;
+	mesh = asteroid.get_mesh_instance().mesh;
+	

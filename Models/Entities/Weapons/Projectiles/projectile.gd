@@ -3,6 +3,7 @@ class_name Projectile
 extends Node2D
 
 @export var speed := 1000.0;
+@export var damage_shapes: Array[DamageShape];
 
 @onready var collision_area_2d: Area2D = get_node("Area2D");
 @onready var deal_damage: DealDamage = get_node("DealDamage");
@@ -13,7 +14,8 @@ var target: Node2D;
 
 func _ready() -> void:
 	collision_area_2d.body_entered.connect(_on_body_entered);
-	
+	collision_area_2d.body_shape_entered.connect(_on_body_shape_entered);
+
 func on_create(
 	weapon: Weapon,
 	weapon_aim_point: Vector2,
@@ -37,6 +39,9 @@ func update(delta: float) -> void:
 	
 func on_hit(hit_node: Node) -> void:
 	deal_damage.damage(hit_node);
+	
+func get_collider() -> CollisionShape2D:
+	return get_node("Area2D/CollisionShape2D");
 		
 func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint() || self != get_tree().edited_scene_root:
@@ -57,3 +62,14 @@ func _cull_offscreen() -> void:
 func _on_body_entered(node: Node) -> void:
 	on_hit(node);
 	queue_free(); 
+	
+func _on_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, _local_shape_index: int) -> void:
+	var collision_shape: CollisionShape2D = collision_area_2d.get_node("CollisionShape2D");
+	if (body is Asteroid):
+		var asteroid: Asteroid = body;
+		asteroid.handle_projectile(
+			collision_shape,
+			damage_shapes
+		)
+		
+	

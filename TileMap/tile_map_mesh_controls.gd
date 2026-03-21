@@ -9,7 +9,7 @@ extends Node2D
 var saved_corner_samples: Dictionary[Vector2, float] = {};
 var staged_corner_samples: Dictionary[Vector2, float] = {};
 var staged_mesh_inst: MeshInstance2D;
-var staged_collision: CollisionPolygon2D;
+var staged_collision: CollisionShape2D;
 var staged_tile_center_generate_point: Vector2;
 
 @onready var seed_mesh_inst: MeshInstance2D = get_node("../../SeedMeshInstance2D");
@@ -34,7 +34,7 @@ func _save_asteroid_mesh(filename: String) -> void:
 		staged_mesh_inst.mesh as ArrayMesh,
 		texture,
 		staged_corner_samples,
-		staged_collision.polygon
+		staged_collision.shape
 	);
 	
 	ResourceSaver.save(asteroid_mesh, "res://TileMap/AsteroidMesh/" + filename + ".tres");
@@ -67,17 +67,13 @@ func _handle_mouse_right_click() -> void:
 	add_child(staged_mesh_inst);
 	staged_mesh_inst.owner = get_tree().edited_scene_root
 	
-	staged_collision = CollisionPolygon2D.new();
-	staged_collision = TileMapProcGen._upsert_collision_polygon_from_mesh(staged_mesh_inst, staged_collision);
+	staged_collision = CollisionShape2D.new();
+	staged_collision = TileMapProcGen._upsert_collision_shape_from_mesh(staged_mesh_inst, staged_collision);
 	add_child(staged_collision);
 	staged_collision.owner = get_tree().edited_scene_root
 	
 	_save_asteroid_mesh("test")
 	
-	# TODO: Instantiate Asteroid (Need to reconfigure asteroid to be polygon instead of sprite)
-	# I think the Asteroid actually needs to be using a mesh so that I can apply marching squares on impact instead of subtraction against a Polygon2D
-	
-		
 	# TODO: Open a mouse dropdown to select the action
 	# 1. Track what type of tile each tile is
 	# 2. When selecting a tile, get the tile type,

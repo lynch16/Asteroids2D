@@ -1,7 +1,24 @@
 [gd_scene format=4 uid="uid://clmhgemf6tliu"]
 
 [ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/Entities/Weapons/Projectiles/projectile.gd" id="1_n771q"]
+[ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/AsteroidMesh/damage_shape.gd" id="2_8flxw"]
 [ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="2_xqbbw"]
+[ext_resource type="Resource" uid="uid://botn3f05du0ih" path="res://Models/Entities/Weapons/Projectiles/circle_damage_shape.tres" id="3_8flxw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8flxw"]
+
+[sub_resource type="Resource" id="Resource_mfnos"]
+script = ExtResource("2_8flxw")
+damage = 1.0
+shape = SubResource("CircleShape2D_8flxw")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3hjq"]
+radius = 18.0
+
+[sub_resource type="Resource" id="Resource_vk77h"]
+script = ExtResource("2_8flxw")
+damage = 0.5
+shape = SubResource("CircleShape2D_m3hjq")
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vsjsl"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAAA0AAAAUklGRiwAAABXRUJQVlA4TCAAAAAvH8AHEA8wwYM+cPMf8FCQtgGzOZ/7ayCi/xOAfdG5Bw==")
@@ -13,6 +30,7 @@ height = 4.0
 
 [node name="Bullet" type="Node2D" unique_id=1149596407 groups=["player_weapon"]]
 script = ExtResource("1_n771q")
+damage_shapes = Array[ExtResource("2_8flxw")]([SubResource("Resource_mfnos"), SubResource("Resource_vk77h"), ExtResource("3_8flxw")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=302593925]
 texture_filter = 1
