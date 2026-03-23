@@ -6,7 +6,7 @@ extends Node2D
 @export var noise: FastNoiseLite;
 @export var texture: Texture2D;
 @export_range(0, 3, 1, "suffix:corners") var cursor_radius := 2;
-@export_range(-1.0, 1.0, 0.1) var cursor_strength := 0.5;
+@export_range(0.0, 1.0, 0.1) var cursor_strength := 0.5;
 @export var gradual_change := true;
 @export_tool_button("Generate", "EditKey") var generate := _generate_resources;
 @export_custom(PROPERTY_HINT_NONE, "suffix:.tres") var file_name: String = "test";
@@ -55,28 +55,29 @@ func _process(delta: float) -> void:
 	
 	var viewport_rect := get_viewport_rect();
 	if (visible && viewport_rect.has_point(mouse_down_position) && mode == EditorMode.EDIT_MESH):
-		#if Input.is_action_just_pressed("left_click"):
-			#left_click_start_time = Time.get_unix_time_from_system();
-			#left_click_position = mouse_down_position;
-			#
-		#if Input.is_action_just_released("left_click"):
-			#is_left_held = false;
-			#
+		if Input.is_action_just_pressed("left_click"):
+			left_click_start_time = Time.get_unix_time_from_system();
+			left_click_position = mouse_down_position;
+			
+		if Input.is_action_just_released("left_click"):
+			is_left_held = false;
+			
 		if (gradual_change):
-			if Input.is_action_pressed("left_click"):
+			if Input.is_action_pressed("shift_left_click"):
+				_handle_mouse_click(delta, true);
+			elif Input.is_action_pressed("left_click"):
 				_handle_mouse_click(delta, false);
 				
-				#if (Time.get_unix_time_from_system() - left_click_start_time >= click_held_threshold):
-					#is_left_held = true;
-				#else:
-					#is_left_held = false;
-					
+				if (Time.get_unix_time_from_system() - left_click_start_time >= click_held_threshold):
+					is_left_held = true;
+				else:
+					is_left_held = false;
+				
 		else:
-			if Input.is_action_just_pressed("left_click"):
+			if Input.is_action_just_released("shift_left_click"):
+				_handle_mouse_click(delta, true);	
+			elif Input.is_action_just_released("left_click"):
 				_handle_mouse_click(delta, false);
-					
-		if Input.is_action_pressed("shift_left_click"):
-			_handle_mouse_click(delta, true);
 	
 	_track_mouse_hover();
 	queue_redraw();
@@ -99,7 +100,6 @@ func _handle_mouse_click(delta: float, shift_held: bool) -> void:
 			var modified_corner := corner + dir * MarchingSquaresUtility.TILE_SIZE * cursor_extension;
 			if (!all_modified_corners.has(modified_corner)):
 				all_modified_corners.append(modified_corner);
-
 	for modified_corner in all_modified_corners:
 		if (saved_corner_samples.has(modified_corner)):
 			var current_val: float = saved_corner_samples.get(modified_corner);
@@ -108,9 +108,9 @@ func _handle_mouse_click(delta: float, shift_held: bool) -> void:
 			if !gradual_change:
 				new_val = -1.0 if shift_held else 1.0;
 			elif shift_held:
-				new_val = current_val - cursor_strength_delta;
+				new_val -= cursor_strength_delta;
 			else:
-				new_val = current_val + cursor_strength_delta;
+				new_val += cursor_strength_delta;
 			new_val = clamp(new_val, -1.0, 1.0);
 			saved_corner_samples.set(modified_corner, new_val);
 			

@@ -251,6 +251,7 @@ static func _upsert_new_mesh_instance(
 
 # Create or Update a CollisionPolygon2D based on provided MeshInstance2D
 # Parses the MeshInstance2D for a ConvexPolygonShape3D before converting to 2D
+# TODO: This requires viewport rect to be the full screen currently
 static func _generate_collision_shapes(
 	viewport_rect: Rect2,
 	corner_samples: Dictionary[Vector2, float],
