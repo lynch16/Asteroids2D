@@ -88,18 +88,28 @@ func _track_mouse_hover() -> void:
 	
 	if (!last_corner_hover || last_corner_hover != corner):
 		last_corner_hover = corner;
+
+# TODO: Can be moved to utility?
+func _get_points_in_circle(circle_center: Vector2) -> Array[Vector2]:
+	var included_points: Array[Vector2] = [];
+	var viewport_rect := get_viewport_rect().size;
+	var check_each_corner := func (corner: Vector2) -> void:
+		if (Geometry2D.is_point_in_circle(corner, circle_center, MarchingSquaresUtility.TILE_SIZE * cursor_radius)):
+			included_points.append(corner);
 			
+	var check_each_tile := func (center: Vector2) -> void:
+		MarchingSquaresUtility.for_each_corner(center, check_each_corner);
+		
+	MarchingSquaresUtility.for_each_tile(viewport_rect, check_each_tile)
+	
+	return included_points;
+
 func _handle_mouse_click(delta: float, shift_held: bool) -> void:
 	var mouse_down_position := get_viewport().get_mouse_position();
 	var corner := MarchingSquaresUtility.get_position_tile_corner_coord(mouse_down_position);
 	
-	var all_modified_corners: Array[Vector2] = [corner];
-	# TODO: This misses a corner when radius is big enough
-	for dir: Vector2 in DIRS:
-		for cursor_extension in range(0, cursor_radius + 1):
-			var modified_corner := corner + dir * MarchingSquaresUtility.TILE_SIZE * cursor_extension;
-			if (!all_modified_corners.has(modified_corner)):
-				all_modified_corners.append(modified_corner);
+	var all_modified_corners: Array[Vector2] = _get_points_in_circle(corner);
+
 	for modified_corner in all_modified_corners:
 		if (saved_corner_samples.has(modified_corner)):
 			var current_val: float = saved_corner_samples.get(modified_corner);
@@ -210,28 +220,31 @@ func _draw() -> void:
 		
 func _draw_dots() -> void:
 	var viewport_size := get_viewport_rect().size;
-	MarchingSquaresUtility.for_each_tile(viewport_size, _draw_dot);
-
-func _draw_corner_dot(corner: Vector2) -> void:
-	if (!saved_corner_samples.has(corner)):
-		return;
+	var circle_points: Array[Vector2] = [];
+	if last_corner_hover:
+		circle_points = _get_points_in_circle(last_corner_hover);
+	var draw_corner_dot := func(corner: Vector2) -> void:
+		if (!saved_corner_samples.has(corner)):
+			return;
 			
-	var color := Color.RED;
-	var corner_val: float = saved_corner_samples.get(corner);
-	#var corner_sample: int = MarchingSquaresUtility.get_sample_int_from_vertex(corner, mesh_controls.saved_corner_samples);
+		var color := Color.RED;
+		var corner_val: float = saved_corner_samples.get(corner);
+		#var corner_sample: int = MarchingSquaresUtility.get_sample_int_from_vertex(corner, mesh_controls.saved_corner_samples);
 	
-	if (last_corner_hover && last_corner_hover.distance_to(corner) > MarchingSquaresUtility.TILE_SIZE * cursor_radius):
-		return;
+		if (circle_points.find(corner) == -1):
+			return;
 	
-	if (corner_val > 0.0):
-		color = Color.GREEN;
+		if (corner_val > 0.0):
+			color = Color.GREEN;
 		
-	if (corner == last_corner_hover):
-		color = Color.BLUE;
+		if (corner == last_corner_hover):
+			color = Color.BLUE;
 	
-	color.a = abs(corner_val);
+		color.a = abs(corner_val);
 	
-	draw_circle(corner, MarchingSquaresUtility.DOT_BUTTON_RADIUS, color);
-
-func _draw_dot(center: Vector2) -> void:
-	MarchingSquaresUtility.for_each_corner(center, _draw_corner_dot)
+		draw_circle(corner, MarchingSquaresUtility.DOT_BUTTON_RADIUS, color);
+	
+	var draw_dot := func draw_dot(center: Vector2) -> void:
+		MarchingSquaresUtility.for_each_corner(center, draw_corner_dot)
+	
+	MarchingSquaresUtility.for_each_tile(viewport_size, draw_dot);
