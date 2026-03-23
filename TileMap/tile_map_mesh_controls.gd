@@ -9,32 +9,33 @@ extends Node2D
 var saved_corner_samples: Dictionary[Vector2, float] = {};
 var staged_corner_samples: Dictionary[Vector2, float] = {};
 var staged_mesh_inst: MeshInstance2D;
-var staged_collision: CollisionShape2D;
+var staged_collisions: Array[CollisionShape2D];
 var staged_tile_center_generate_point: Vector2;
 
 @onready var seed_mesh_inst: MeshInstance2D = get_node("../../SeedMeshInstance2D");
 	
-func _ready() -> void:
-	InputMap.load_from_project_settings();
-	
-	_sample_viewport();
-				
-func _process(_delta: float) -> void:
-	var mouse_down_position := get_viewport().get_mouse_position();
-	var viewport_rect := get_viewport_rect();
-	if (visible && viewport_rect.has_point(mouse_down_position)):
-		if Input.is_action_just_pressed("left_click"):
-			_handle_mouse_click();
-	
-		if Input.is_action_just_pressed("right_click"):
-			_handle_mouse_right_click();
+#func _ready() -> void:
+	##InputMap.load_from_project_settings();
+	#
+	#_sample_viewport();
+				#
+#func _process(_delta: float) -> void:
+	#var mouse_down_position := get_viewport().get_mouse_position();
+	#var viewport_rect := get_viewport_rect();
+	#if (visible && viewport_rect.has_point(mouse_down_position)):
+		#if Input.is_action_just_pressed("left_click"):
+			#_handle_mouse_click();
 
 func _save_asteroid_mesh(filename: String) -> void:
+	var collision_shapes: Array[Shape2D] = [];
+	for collision in staged_collisions:
+		collision_shapes.append(collision.shape);
+	
 	var asteroid_mesh := AsteroidMesh.new(
 		staged_mesh_inst.mesh as ArrayMesh,
 		texture,
 		staged_corner_samples,
-		staged_collision.shape
+		collision_shapes
 	);
 	
 	ResourceSaver.save(asteroid_mesh, "res://TileMap/AsteroidMesh/" + filename + ".tres");
@@ -51,6 +52,8 @@ func _handle_mouse_right_click() -> void:
 		rough_polygon,
 		saved_corner_samples
 	);
+	
+	print("staged_corner_samples: ", staged_corner_samples)
 
 	# TODO: Normalize all new verticies around Vector2.ZERO to simplfiy positioning downstream
 	#var rough_center_point := TileMapProcGen._get_center_point_of_polygon(rough_polygon);
@@ -67,11 +70,23 @@ func _handle_mouse_right_click() -> void:
 	add_child(staged_mesh_inst);
 	staged_mesh_inst.owner = get_tree().edited_scene_root
 	
-	staged_collision = CollisionShape2D.new();
-	staged_collision = TileMapProcGen._upsert_collision_shape_from_mesh(staged_mesh_inst, staged_collision);
-	add_child(staged_collision);
-	staged_collision.owner = get_tree().edited_scene_root
+	var collision_shapes := TileMapProcGen._generate_collision_shapes(
+		viewport_rect,
+		staged_corner_samples
+	)
 	
+	for shape in collision_shapes:
+		var collision := CollisionShape2D.new();
+		collision.shape = shape;
+		add_child(collision);
+		collision.owner = get_tree().edited_scene_root
+
+	
+	#staged_collision = CollisionShape2D.new();
+	#staged_collision = TileMapProcGen._upsert_collision_shape_from_mesh(staged_mesh_inst, staged_collision);
+	#add_child(staged_collision);
+	#staged_collision.owner = get_tree().edited_scene_root
+	#
 	_save_asteroid_mesh("test")
 	
 	# TODO: Open a mouse dropdown to select the action
@@ -97,6 +112,7 @@ func _handle_mouse_click() -> void:
 func _sample_viewport() -> void:
 	saved_corner_samples.clear();
 	var viewport_size := get_viewport_rect().size;
+	
 	TileMapProcGen.for_each_tile(viewport_size, _save_corner_samples);
 	_generate_mesh_from_saved_samples();
 	

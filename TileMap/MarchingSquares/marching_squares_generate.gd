@@ -1,29 +1,5 @@
 @tool
-class_name TileMapProcGen
-
-const CORNER_NW = Vector2(-1,1);
-const CORNER_NE = Vector2(1,1);
-const CORNER_SE = Vector2(1,-1);
-const CORNER_SW = Vector2(-1,-1);
-
-const CORNERS: PackedVector2Array = [
-	CORNER_NW,
-	CORNER_NE,
-	CORNER_SE,
-	CORNER_SW,
-];
-const NEXT_CHECK: PackedVector2Array = [
-	Vector2.UP,
-	Vector2.RIGHT,
-	Vector2.DOWN,
-	Vector2.LEFT
-]
-const TILE_SIZE = 16;
-const HALF_TILE_SIZE = TILE_SIZE/2;
-const BLOCK_DIVISION = 0.5;
-const DOT_BUTTON_RADIUS = 2.0;
-const ALL_CORNERS = 15 # 1111 in binary
-const NO_CORNERS = 0 # 0000 in binary
+class_name MarchingSquaresGenerate
 
 const MAX_RECURSION := 500;
 
@@ -56,7 +32,7 @@ static func _calculate_surface_array(
 	surface_array[Mesh.ARRAY_INDEX] = PackedInt32Array();
 	surface_array[Mesh.ARRAY_TEX_UV] = PackedVector2Array();
 	surface_array[Mesh.ARRAY_NORMAL] = PackedVector3Array();
-	for_each_tile(viewport_size, _generate_tile_from_corners.bind(corner_samples, surface_array, texture));
+	MarchingSquaresUtility.for_each_tile(viewport_size, _generate_tile_from_corners.bind(corner_samples, surface_array, texture));
 	return surface_array;
 
 static func get_tile_index_from_corners(
@@ -64,8 +40,8 @@ static func get_tile_index_from_corners(
 	corner_samples: Dictionary[Vector2, float],
 ) -> int:
 	var tile_index := 0;
-	for i: int in CORNERS.size():
-		var corner := center + CORNERS[i] * float(HALF_TILE_SIZE);
+	for i: int in MarchingSquaresUtility.CORNERS.size():
+		var corner := center + MarchingSquaresUtility.CORNERS[i] * float(MarchingSquaresUtility.HALF_TILE_SIZE);
 		if (!corner_samples.has(corner)):
 			continue;
 		
@@ -142,13 +118,13 @@ static func calculate_weighted_vertex(corner_sample: Dictionary[Vector2, float],
 	var is_edge := absf(normalized_vertex.x) + absf(normalized_vertex.y) == 1.0;
 	var direction := Vector2.UP if normalized_vertex.x != 0.0 else Vector2.RIGHT;
 			
-	var vertex := normalized_vertex * float(HALF_TILE_SIZE) + center;
+	var vertex := normalized_vertex * float(MarchingSquaresUtility.HALF_TILE_SIZE) + center;
 	if (is_edge):
-		var corner_1 := vertex + direction * HALF_TILE_SIZE;
-		var corner_2 := vertex - direction * HALF_TILE_SIZE;
+		var corner_1 := vertex + direction * MarchingSquaresUtility.HALF_TILE_SIZE;
+		var corner_2 := vertex - direction * MarchingSquaresUtility.HALF_TILE_SIZE;
 		var value_1: float = corner_sample.get(corner_1);
 		var value_2: float = corner_sample.get(corner_2);
-		var weight := (value_1 + value_2)/(value_1 - value_2) / 2.0;
+		var weight := (value_1 + value_2)/(value_1 - value_2) / 2.0 + 0.5;
 		vertex = corner_1.lerp(corner_2, weight);
 	
 	return vertex;
@@ -168,11 +144,11 @@ static func _filter_corner_samples_by_polygon(
 			if (Geometry2D.is_point_in_polygon(key, polygon)):
 				tracker.set(key, corner_samples[key]);
 				# Expand out to include all connected tiles
-				for i in CORNERS.size():
-					var center := key - CORNERS[i] * float(HALF_TILE_SIZE);
+				for i in MarchingSquaresUtility.CORNERS.size():
+					var center := key - MarchingSquaresUtility.CORNERS[i] * float(MarchingSquaresUtility.HALF_TILE_SIZE);
 					# Gather all corners of connected tiles
-					for j in CORNERS.size():
-						for_each_corner(center, 
+					for j in MarchingSquaresUtility.CORNERS.size():
+						MarchingSquaresUtility.for_each_corner(center, 
 							func(corner: Vector2) -> void:
 								if (!tracker.has(corner)):
 									tracker.set(corner, corner_samples[corner]);
@@ -280,47 +256,3 @@ static func _generate_collision_shapes(
 		collision_shapes.append(convex_shape);
 
 	return collision_shapes;
-
-## @deprecated
-static func _get_center_point_of_polygon(polygon_points: Array[Vector2]) -> Vector2:
-	var cX := 0.0;
-	var cY := 0.0;
-	
-	for point in polygon_points:
-		cX += point.x;
-		cY += point.y;
-		
-	return Vector2(cX / polygon_points.size(), cY / polygon_points.size())
-
-# TODO: These utilities assume the mesh spans the whole viewport
-static func get_position_tile_center_coord(mouse_position: Vector2) -> Vector2:
-	var tile_pos := Vector2(floori(mouse_position.x / TILE_SIZE), floori(mouse_position.y / TILE_SIZE)); 
-	var center := Vector2(tile_pos.x + BLOCK_DIVISION, tile_pos.y + BLOCK_DIVISION) * float(TILE_SIZE);
-
-	return center;
-		
-static func get_position_tile_corner_coord(mouse_position: Vector2) -> Vector2:
-	var center := get_position_tile_center_coord(mouse_position);
-	
-	for i: int in CORNERS.size():
-		var corner := center + CORNERS[i] * float(HALF_TILE_SIZE);
-		if (mouse_position.distance_to(corner) < HALF_TILE_SIZE):
-			return corner;
-			
-	return Vector2(-1.0, -1.0); # Off screen
-
-# Utility function to get normalized tile coordinates from viewport
-static func for_each_tile(viewport_size: Vector2, callable: Callable) -> void:
-	# Determine how many tiles will fit across X and Y
-	var x_viewport_tiles := int(viewport_size.x/TILE_SIZE);
-	var y_viewport_tiles := int(viewport_size.y/TILE_SIZE);
-	
-	for x: int in range(0, x_viewport_tiles):
-		for y: int in range(0, y_viewport_tiles + 1):
-			var center := Vector2(x + BLOCK_DIVISION, y + BLOCK_DIVISION) * float(TILE_SIZE);
-			callable.call(center);
-			
-static func for_each_corner(center: Vector2, callable: Callable) -> void:
-	for i: int in CORNERS.size():
-		var corner := center + CORNERS[i] * float(HALF_TILE_SIZE);
-		callable.call(corner);

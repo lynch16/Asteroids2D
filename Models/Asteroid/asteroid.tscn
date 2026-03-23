@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://drhrxw7642nqd"]
 
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
+[ext_resource type="Resource" uid="uid://c6s4en6iud7gg" path="res://TileMap/AsteroidMesh/test.tres" id="2_aasjb"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_kufyc"]
-[ext_resource type="Resource" uid="uid://dsbnv5i7wbw3m" path="res://TileMap/AsteroidMesh/round_med_asteroid.tres" id="2_tsxo3"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/Entities/Damage/damageable.gd" id="4_p7nbn"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/Entities/Damage/apply_damage_result.gd" id="6_aasjb"]
@@ -20,7 +20,7 @@ sleeping = true
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_7kvrs")
-asteroid_mesh = ExtResource("2_tsxo3")
+asteroid_mesh = ExtResource("2_aasjb")
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_kufyc")]
 node = NodePath("..")
@@ -30,6 +30,7 @@ node = NodePath("..")
 [node name="AsteroidCollision" type="CollisionShape2D" parent="." unique_id=953490836]
 
 [node name="GravityField" type="Area2D" parent="." unique_id=2107640775]
+process_mode = 4
 visible = false
 script = ExtResource("3_0d2cp")
 enable_player_gravity = true

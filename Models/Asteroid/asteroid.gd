@@ -14,8 +14,10 @@ var collision_damage := 50.0;
 @onready var damageable: Damageable = get_node("Damageable");
 @onready var deal_damage: DealDamage = get_node("DealDamage");
 @onready var invince_frames_dr: DamageResult = get_node("Damageable/InvincibleFramesDamageResult");
-@onready var collision: CollisionShape2D = get_node("AsteroidCollision");
+#@onready var collision: CollisionShape2D = get_node("AsteroidCollision");
 @onready var mesh_instance: MeshInstance2D = get_node("MeshInstance2D");
+
+var collisions: Array[CollisionShape2D] = [];
 
 func _ready() -> void:
 	add_to_group("enemy");
@@ -50,14 +52,26 @@ func _ready() -> void:
 func get_mesh_instance() -> MeshInstance2D:
 	return mesh_instance;
 
-func get_collider() -> CollisionShape2D:
-	return collision;
+func get_colliders() -> Array[CollisionShape2D]:
+	return collisions;
+	
+func init_colliders(collider_shapes: Array[Shape2D]) -> void:
+	for collider in collisions:
+		collider.queue_free();
+		
+	for shape in collider_shapes:
+		var collision := CollisionShape2D.new();
+		collision.shape = shape;
+		add_child(collision);
+		collisions.append(collision);
 
 func _disable_colliders() -> void:
-	collision.disabled = true;
+	for collision in collisions:
+		collision.set_deferred("disabled", true);
 	
 func _enable_colliders() -> void:
-	collision.set_deferred("disabled", false);
+	for collision in collisions:
+		collision.set_deferred("disabled", false);
 	
 func _physics_process(_delta: float) -> void:
 	# TODO: This should be part of _integrate_forces
@@ -68,28 +82,55 @@ func _destroy() -> void:
 	call_deferred("queue_free");
 	# TODO: Destroy animation
 	
-func handle_projectile(projectile_collision: CollisionShape2D, damage_shapes: Array[DamageShape]) -> void:
-	var body_collision_shape := get_collider();
-	var collision_points := projectile_collision.shape.collide_and_get_contacts(
-		projectile_collision.global_transform,
-		body_collision_shape.shape,
-		body_collision_shape.global_transform
-	);
+func handle_projectile(
+	last_projectile_position: Vector2, 
+	projectile_collision: CollisionShape2D, 
+	damage_shapes: Array[DamageShape]
+) -> void:
+	var colliders := get_colliders();
+	var first_collision_points: Array[Vector2] = [];
+	var space_state := get_world_2d().direct_space_state;
 	
+	for collider in colliders:
+		var collision_points := projectile_collision.shape.collide_and_get_contacts(
+			projectile_collision.global_transform,
+			collider.shape,
+			collider.global_transform
+		);
+		
+		for point in collision_points:
+			var ray_query := PhysicsRayQueryParameters2D.create(
+				last_projectile_position,
+				point
+			);
+			ray_query.exclude = [projectile_collision];
+			var result := space_state.intersect_ray(ray_query);
+			if (result.has("position")):
+				first_collision_points.append(result.get("position"));
+		
 	var cX := 0.0;
 	var cY := 0.0;
+	
+	print("first_collision_points: ", first_collision_points)
 
-	for point in collision_points:
+	for point in first_collision_points:
 		cX += point.x;
 		cY += point.y;
 		
-	var center := Vector2(cX / collision_points.size(), cY / collision_points.size());
-	
+	var center := Vector2(cX / first_collision_points.size(), cY / first_collision_points.size());
+	var orig_samples := asteroid_mesh.corner_sampling;
 	var damage_result_samples := TileMapGameControls._apply_damage_shape_to_corner_samples(
 		center,
 		damage_shapes,
 		asteroid_mesh.corner_sampling
 	);
+	
+	var diff_samples: Dictionary[Vector2, Array] = {};
+	for key in orig_samples:
+		if (damage_result_samples[key] != orig_samples[key]):
+			diff_samples[key] = [damage_result_samples[key], orig_samples[key]];
+	
+	print("DIFF: ", diff_samples);
 
 	asteroid_mesh.update(
 		self,

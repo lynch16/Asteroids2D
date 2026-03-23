@@ -24,12 +24,15 @@ script = ExtResource("1_272bh")
 position = Vector2(559, 349)
 
 [node name="RockThrower" parent="NavigableArea" unique_id=1513123556 instance=ExtResource("3_h2yge")]
+process_mode = 4
 
 [node name="Enemy" parent="NavigableArea" unique_id=1345935966 instance=ExtResource("6_7mycd")]
+process_mode = 4
+visible = false
 position = Vector2(212, 326)
 
 [node name="Asteroid" parent="NavigableArea" unique_id=1301110429 instance=ExtResource("5_272bh")]
-position = Vector2(636.1239, 417.9223)
+position = Vector2(739, 421)
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3

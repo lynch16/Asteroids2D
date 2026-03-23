@@ -3,7 +3,7 @@ extends Resource
 
 @export var texture: Texture2D;
 @export var corner_sampling: Dictionary[Vector2, float];
-@export var collider_shape: Shape2D;
+@export var collider_shapes: Array[Shape2D];
 @export var mesh: ArrayMesh;
 
 var mesh_instance: MeshInstance2D;
@@ -13,12 +13,12 @@ func _init(
 	p_mesh: ArrayMesh = ArrayMesh.new(), 
 	p_texture: Texture2D = Texture2D.new(), 
 	p_corner_sampling: Dictionary[Vector2, float] = {},
-	p_collider_shape: Shape2D = CircleShape2D.new()
+	p_collider_shapes: Array[Shape2D] = []
 ) -> void:
 	mesh = p_mesh;
 	texture = p_texture;
 	corner_sampling = p_corner_sampling;
-	collider_shape = p_collider_shape;
+	collider_shapes = p_collider_shapes;
 
 func apply(asteroid: Asteroid, to_global: Callable) -> void:
 	mesh_instance = asteroid.get_mesh_instance()
@@ -26,17 +26,23 @@ func apply(asteroid: Asteroid, to_global: Callable) -> void:
 	mesh_instance.texture = texture;
 	mesh_instance.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED;
 	
-	collider = asteroid.get_collider();
-	collider.shape = collider_shape;
+	asteroid.init_colliders(collider_shapes);
 	
-	var mesh_offset: Vector2 = asteroid.global_position - to_global.call(collider_shape.get_rect().get_center());
-	mesh_instance.position = mesh_offset;
-	collider.position = mesh_offset;
+	#collider = asteroid.get_collider();
+	#collider.shape = collider_shape;
+	#
+	#var mesh_offset: Vector2 = asteroid.global_position - to_global.call(collider_shape.get_rect().get_center());
+	#mesh_instance.position = mesh_offset;
+	#collider.position = mesh_offset;
 
 func update(asteroid: Asteroid, new_corner_samples: Dictionary[Vector2, float], viewport_rect: Rect2) -> void:
 	corner_sampling = new_corner_samples
 	TileMapProcGen._upsert_new_mesh_instance(viewport_rect, corner_sampling, texture, asteroid.get_mesh_instance())
-	TileMapProcGen._upsert_collision_shape_from_mesh(asteroid.get_mesh_instance(), asteroid.get_collider());
-	collider_shape = asteroid.get_collider().shape;
+	
+	collider_shapes = TileMapProcGen._generate_collision_shapes(
+		viewport_rect,
+		corner_sampling
+	)
+	asteroid.init_colliders(collider_shapes);
 	mesh = asteroid.get_mesh_instance().mesh;
 	

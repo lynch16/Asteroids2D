@@ -11,6 +11,7 @@ extends Node2D
 var velocity: Vector2 = Vector2.RIGHT;
 var aim_point: Vector2 = Vector2.RIGHT;
 var target: Node2D;
+var last_position: Vector2;
 
 func _ready() -> void:
 	collision_area_2d.body_entered.connect(_on_body_entered);
@@ -35,6 +36,7 @@ func on_start(
 	
 func update(delta: float) -> void:
 	global_rotation = velocity.angle();
+	last_position = global_position;
 	position += velocity * delta;
 	
 func on_hit(hit_node: Node) -> void:
@@ -68,6 +70,7 @@ func _on_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, 
 	if (body is Asteroid):
 		var asteroid: Asteroid = body;
 		asteroid.handle_projectile(
+			last_position,
 			collision_shape,
 			damage_shapes
 		)

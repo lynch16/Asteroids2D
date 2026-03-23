@@ -5,25 +5,18 @@ extends Node2D
 var dots_lookup: Dictionary[Vector2, bool] = {};
 var last_corner_hover: Vector2;
 
-@export var draw_center_points := false;
 @export var draw_corner_points := true;
-@export var draw_edge_tracker_squares := false;
 
 @onready var mesh_controls: TileMapMeshControls = get_node("../MeshControls");
 @onready var mouse_pos_label: Label = get_node("Label");
 
-var last_draw_time: float;
-var draw_interval := 1.0; # 1 second
+var num_hover_dots := 3.0;
 
-# TODO: Only draw dots around where I am hovering, like a 9 square from there
 # TODO: When I click on something, I want to be able to highlight the cell I clicked
 func _process(_delta: float) -> void:
-	var curr_time := Time.get_unix_time_from_system();
-	if (visible && curr_time - last_draw_time > draw_interval):
-		last_draw_time = curr_time;
-		_track_mouse_hover();
-		mouse_pos_label.text = str(get_viewport().get_mouse_position());
-		queue_redraw();
+	_track_mouse_hover();
+	mouse_pos_label.text = str(get_viewport().get_mouse_position());
+	queue_redraw();
 
 # Draw dots at each vertex, colored whether the mouse is hovering
 func _draw() -> void:
@@ -32,6 +25,7 @@ func _draw() -> void:
 func _draw_dots() -> void:
 	dots_lookup = {};
 	var viewport_size := get_viewport_rect().size;
+	
 	TileMapProcGen.for_each_tile(viewport_size, _draw_dot);
 
 func _draw_corner_dot(corner: Vector2) -> void:
@@ -40,6 +34,10 @@ func _draw_corner_dot(corner: Vector2) -> void:
 			
 	var color := Color.RED;
 	var corner_sample: int = TileMapProcGen.get_sample_int_from_vertex(corner, mesh_controls.saved_corner_samples);
+	
+	if (last_corner_hover && last_corner_hover.distance_to(corner) > TileMapProcGen.TILE_SIZE * num_hover_dots):
+		return;
+	
 	if (corner_sample > 0):
 		color = Color.GREEN;
 		
@@ -49,12 +47,7 @@ func _draw_corner_dot(corner: Vector2) -> void:
 	dots_lookup.set(corner, TileMapProcGen.get_sample_int_from_vertex(corner, mesh_controls.saved_corner_samples));
 	draw_circle(corner, TileMapProcGen.DOT_BUTTON_RADIUS, color);
 
-func _draw_center_dot(center: Vector2) -> void:
-	if (!draw_center_points): return;
-	draw_circle(center, TileMapProcGen.DOT_BUTTON_RADIUS, Color.PURPLE);
-	
 func _draw_dot(center: Vector2) -> void:
-	_draw_center_dot(center);
 	TileMapProcGen.for_each_corner(center, _draw_corner_dot)
 	
 func _track_mouse_hover() -> void:
