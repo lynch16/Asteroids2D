@@ -11,6 +11,7 @@ const MAX_RECURSION := 500;
 # 2. Apply a collision shape to result in breaking the current mesh apart
 # 3. Apply textures to the mesh
 
+
 static func generate_mesh(
 	viewport_size: Vector2, 
 	corner_samples: Dictionary[Vector2, float],
@@ -34,20 +35,6 @@ static func _calculate_surface_array(
 	surface_array[Mesh.ARRAY_NORMAL] = PackedVector3Array();
 	MarchingSquaresUtility.for_each_tile(viewport_size, _generate_tile_from_corners.bind(corner_samples, surface_array, texture));
 	return surface_array;
-
-static func get_tile_index_from_corners(
-	center: Vector2, 
-	corner_samples: Dictionary[Vector2, float],
-) -> int:
-	var tile_index := 0;
-	for i: int in MarchingSquaresUtility.CORNERS.size():
-		var corner := center + MarchingSquaresUtility.CORNERS[i] * float(MarchingSquaresUtility.HALF_TILE_SIZE);
-		if (!corner_samples.has(corner)):
-			continue;
-		
-		tile_index += get_sample_int_from_vertex(corner, corner_samples) << i;
-		
-	return tile_index;
 	
 static func _generate_tile_from_corners(
 	center: Vector2, 
@@ -57,19 +44,11 @@ static func _generate_tile_from_corners(
 ) -> void:
 	_add_tile(
 		center, 
-		get_tile_index_from_corners(center, corner_samples), 
+		MarchingSquaresUtility.get_tile_index_from_corners(center, corner_samples), 
 		corner_samples, 
 		surface_array, 
 		texture
 	);
-
-static func get_sample_int_from_vertex(
-	corner_vector: Vector2, 
-	corner_samples: Dictionary[Vector2, float]
-) -> int:
-	if (!corner_samples.has(corner_vector)): return 0;
-	var corner_sample: float = corner_samples.get(corner_vector);
-	return int(corner_sample > 0.0)
 
 static func _add_tile(
 	center: Vector2, 
@@ -87,7 +66,7 @@ static func _add_tile(
 	
 		for i: int in verticies.size():
 			var vertex := verticies[i];
-			verticies[i] = calculate_weighted_vertex(
+			verticies[i] = _calculate_weighted_vertex(
 				corner_samples, center, vertex);
 	
 		array_vertex.append_array(verticies);
@@ -114,7 +93,7 @@ static func _add_tile(
 		
 		array_index.append_array(indicies);
 
-static func calculate_weighted_vertex(corner_sample: Dictionary[Vector2, float], center: Vector2, normalized_vertex: Vector2) -> Vector2:
+static func _calculate_weighted_vertex(corner_sample: Dictionary[Vector2, float], center: Vector2, normalized_vertex: Vector2) -> Vector2:
 	var is_edge := absf(normalized_vertex.x) + absf(normalized_vertex.y) == 1.0;
 	var direction := Vector2.UP if normalized_vertex.x != 0.0 else Vector2.RIGHT;
 			
@@ -122,133 +101,71 @@ static func calculate_weighted_vertex(corner_sample: Dictionary[Vector2, float],
 	if (is_edge):
 		var corner_1 := vertex + direction * MarchingSquaresUtility.HALF_TILE_SIZE;
 		var corner_2 := vertex - direction * MarchingSquaresUtility.HALF_TILE_SIZE;
-		var value_1: float = corner_sample.get(corner_1);
-		var value_2: float = corner_sample.get(corner_2);
+		var value_1: float = 1.0;
+		if (corner_sample.has(corner_1)):
+			value_1 = corner_sample.get(corner_1);
+		
+		var value_2: float = 1.0;
+		if (corner_sample.has(corner_2)):
+			value_2 = corner_sample.get(corner_2);
+				
 		var weight := (value_1 + value_2)/(value_1 - value_2) / 2.0 + 0.5;
 		vertex = corner_1.lerp(corner_2, weight);
 	
 	return vertex;
 	
-
-# Filters a Dictionary of corner samples to what is contained within the polygon
-# Reduces the polygon to tile size in order to gather corners for full tiles involved in the polygon
-# Returns a new Dictonary with the filtered samples
-static func _filter_corner_samples_by_polygon(
-	polygon: PackedVector2Array,
-	corner_samples: Dictionary[Vector2, float]
-) -> Dictionary[Vector2, float]:
-	var polygon_corner_tracker: Dictionary[Vector2, float] = {}
+# Create or update a MeshInstance2D
+# This is set to repeat the texture across the mesh
+static func upsert_mesh_instance(
+	mesh: ArrayMesh,
+	texture: Texture2D,
+	mesh_instance: MeshInstance2D = MeshInstance2D.new()
+) -> MeshInstance2D:
+	mesh_instance.mesh = mesh;
+	mesh_instance.texture = texture;
+	mesh_instance.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED;
 	
-	return corner_samples.keys().reduce(
-		func(tracker: Dictionary[Vector2, float], key: Vector2) -> Dictionary[Vector2, float]:
-			if (Geometry2D.is_point_in_polygon(key, polygon)):
-				tracker.set(key, corner_samples[key]);
-				# Expand out to include all connected tiles
-				for i in MarchingSquaresUtility.CORNERS.size():
-					var center := key - MarchingSquaresUtility.CORNERS[i] * float(MarchingSquaresUtility.HALF_TILE_SIZE);
-					# Gather all corners of connected tiles
-					for j in MarchingSquaresUtility.CORNERS.size():
-						MarchingSquaresUtility.for_each_corner(center, 
-							func(corner: Vector2) -> void:
-								if (!tracker.has(corner)):
-									tracker.set(corner, corner_samples[corner]);
-						);
+	return mesh_instance;
 	
-			return tracker;,
-		polygon_corner_tracker
-	);
-
-# Recursive function to gather all tile centers and normalized vertex to corner from that center
-# TODO: Check that the two verts form an edge? Avoid capturing a disconnected vert
-static func _track_edge_verticies(
-	tile_center: Vector2, 
-	viewport_rect: Rect2,
-	corner_samples: Dictionary[Vector2, float],
-	recursion: int = 0,
-	# Track center and normalized vertex
-	tracked_verticies: Dictionary[Vector2, Vector2] = {},
-) -> Dictionary[Vector2, Vector2]:
-	recursion += 1;
-	if (recursion > MAX_RECURSION): return tracked_verticies;
-	
-	var tile_index := TileMapProcGen.get_tile_index_from_corners(tile_center, corner_samples);
-	
-	if (tile_index == TileMapProcGen.ALL_CORNERS):
-		if (
-			(tile_center.x + TileMapProcGen.TILE_SIZE > viewport_rect.size.x) || \
-			(tile_center.y + TileMapProcGen.TILE_SIZE > viewport_rect.size.y) || \
-			(tile_center.x - TileMapProcGen.TILE_SIZE < 0) || \
-			(tile_center.y - TileMapProcGen.TILE_SIZE < 0)
-		):
-			print("INCLUDE");
-			# TODO: Edges not yet included automatically. The tile walker never moves into this block
-		print("ALL_CORNERS");
-	elif (tile_index == TileMapProcGen.NO_CORNERS):
-		print("NO CORNERS");
-	else:
-		var next_tile_dirs := MSMeshes.NEXT_VERTEX_ARRAYS[tile_index];
-		for i in next_tile_dirs.size():
-			var next_tile := next_tile_dirs[i] * TileMapProcGen.TILE_SIZE + tile_center;
-			if (viewport_rect.has_point(next_tile) && !tracked_verticies.has(next_tile)):
-				tracked_verticies.set(tile_center, next_tile_dirs[i]);
-				return _track_edge_verticies(next_tile, viewport_rect, corner_samples, recursion, tracked_verticies);
-
-	return tracked_verticies;
-
-# Recurrsively crawls from given Vector2, collecting all weighted verticies from connected edge
-static func _isolate_polygon_from_mesh(
-	tile_center: Vector2, 
-	viewport_rect: Rect2,
-	corner_samples: Dictionary[Vector2, float],
-) -> PackedVector2Array:
-	var tracked_verts := _track_edge_verticies(tile_center, viewport_rect, corner_samples);
-	return PackedVector2Array(tracked_verts.keys().map(
-		func(key: Vector2) -> Vector2:
-			return calculate_weighted_vertex(corner_samples, key, tracked_verts[key])
-	));
-
 # Create or update a MeshInstance2D based on the providered corner samples and texture
 # This is set to repeat the texture across the mesh
-static func _upsert_new_mesh_instance(
+static func upsert_generated_mesh_instance(
 	viewport_rect: Rect2,
 	corner_samples: Dictionary[Vector2, float],
 	texture: Texture2D,
 	mesh_instance: MeshInstance2D = MeshInstance2D.new()
 ) -> MeshInstance2D:
-	mesh_instance.mesh = TileMapProcGen.generate_mesh(
+	var mesh := MarchingSquaresGenerate.generate_mesh(
 		viewport_rect.size,
 		corner_samples,
 		texture
 	);
-	mesh_instance.texture = texture;
-	mesh_instance.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED;
-	
-	return mesh_instance;
+	return upsert_mesh_instance(mesh, texture, mesh_instance)
 
 # Create or Update a CollisionPolygon2D based on provided MeshInstance2D
 # Parses the MeshInstance2D for a ConvexPolygonShape3D before converting to 2D
-static func _generate_collision_shapes(
+static func generate_collision_shapes(
 	viewport_rect: Rect2,
 	corner_samples: Dictionary[Vector2, float],
-) -> Array[Shape2D]:
-	var x_viewport_tiles := int(viewport_rect.size.x/TileMapProcGen.TILE_SIZE);
-	var y_viewport_tiles := int(viewport_rect.size.y/TileMapProcGen.TILE_SIZE);
+) -> Array[ConvexPolygonShape2D]:
+	var x_viewport_tiles := int(viewport_rect.size.x/MarchingSquaresUtility.TILE_SIZE);
+	var y_viewport_tiles := int(viewport_rect.size.y/MarchingSquaresUtility.TILE_SIZE);
 	var bitmap := BitMap.new();
 	bitmap.create(Vector2i(x_viewport_tiles, y_viewport_tiles));
 	for vector in corner_samples:
-		var x_as_tile := clampi(floori(vector.x / TileMapProcGen.TILE_SIZE), 0, x_viewport_tiles - 1)
-		var y_as_tile := clampi(floori(vector.y / TileMapProcGen.TILE_SIZE), 0, y_viewport_tiles - 1)
+		var x_as_tile := clampi(floori(vector.x / MarchingSquaresUtility.TILE_SIZE), 0, x_viewport_tiles - 1)
+		var y_as_tile := clampi(floori(vector.y / MarchingSquaresUtility.TILE_SIZE), 0, y_viewport_tiles - 1)
 		var bit_vector := Vector2(x_as_tile, y_as_tile); 
 		bitmap.set_bitv(bit_vector, corner_samples[vector] > 0.0);
 	
 	var polygons := bitmap.opaque_to_polygons(Rect2(Vector2(), Vector2(x_viewport_tiles, y_viewport_tiles)), 0.5);
-	var collision_shapes: Array[Shape2D] = [];
+	var collision_shapes: Array[ConvexPolygonShape2D] = [];
 	
 	for polygon in polygons:
 		var resized_polygon := PackedVector2Array();
 		for point in polygon:
 			resized_polygon.append(
-				Vector2(point.x * TileMapProcGen.TILE_SIZE, point.y * TileMapProcGen.TILE_SIZE)
+				Vector2(point.x * MarchingSquaresUtility.TILE_SIZE, point.y * MarchingSquaresUtility.TILE_SIZE)
 			);
 			
 		var convex_shape := ConvexPolygonShape2D.new();
@@ -256,3 +173,21 @@ static func _generate_collision_shapes(
 		collision_shapes.append(convex_shape);
 
 	return collision_shapes;
+
+# Need to have a func to get cluster center and pass it to two below funcs
+static func _get_collider_cluster_center(collider_shapes: Array[ConvexPolygonShape2D]) -> Vector2:
+	var all_polygon_points: Array[Vector2] = [];
+	for shape in collider_shapes:
+		all_polygon_points.append_array(shape.points);
+	
+	return MarchingSquaresUtility.get_center_point_of_polygon(all_polygon_points);
+
+# Reposition the internal Shape2D Resource and MeshInstance2D node so that cluster is positioned at Vector2.ZERO
+static func _reposition_colliders(collider_shapes: Array[ConvexPolygonShape2D], mesh_instances: Array[MeshInstance2D]) -> void:
+	var cluster_center := _get_collider_cluster_center(collider_shapes);
+	for i: int in collider_shapes.size():
+		var new_points: Array[Vector2] = [];
+		for point in collider_shapes[i].points:
+			new_points.append(point - cluster_center);
+		collider_shapes[i].set_points(new_points);
+		mesh_instances[i].position = mesh_instances[i].position - cluster_center;

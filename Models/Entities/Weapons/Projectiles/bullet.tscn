@@ -1,11 +1,12 @@
 [gd_scene format=4 uid="uid://clmhgemf6tliu"]
 
 [ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/Entities/Weapons/Projectiles/projectile.gd" id="1_n771q"]
-[ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/AsteroidMesh/damage_shape.gd" id="2_8flxw"]
+[ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://Models/Asteroid/AsteroidMesh/damage_shape.gd" id="2_8flxw"]
 [ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="2_xqbbw"]
 [ext_resource type="Resource" uid="uid://botn3f05du0ih" path="res://Models/Entities/Weapons/Projectiles/circle_damage_shape.tres" id="3_8flxw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8flxw"]
+radius = 100.0
 
 [sub_resource type="Resource" id="Resource_mfnos"]
 script = ExtResource("2_8flxw")

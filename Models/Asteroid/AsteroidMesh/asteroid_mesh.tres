@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AsteroidMesh" format=3 uid="uid://btnvvhtiof80"]
 
-[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/AsteroidMesh/asteroid_mesh.gd" id="1_gciqc"]
+[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://Models/Asteroid/AsteroidMesh/asteroid_mesh.gd" id="1_gciqc"]
 
 [resource]
 script = ExtResource("1_gciqc")

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="AsteroidMesh" format=4 uid="uid://dsbnv5i7wbw3m"]
 
-[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/AsteroidMesh/asteroid_mesh.gd" id="1_miwre"]
-[ext_resource type="Texture2D" uid="uid://bhc3r2bpo42ly" path="res://TileMap/Ground_50_scaled.png" id="2_1avx6"]
+[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://Models/Asteroid/AsteroidMesh/asteroid_mesh.gd" id="1_miwre"]
+[ext_resource type="Texture2D" uid="uid://bhc3r2bpo42ly" path="res://TileMap/Textures/Ground_50_scaled.png" id="2_1avx6"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_svrvf"]
 points = PackedVector2Array(548.90283, 383.99365, 607.98914, 357.63876, 635.9774, 383.99365, 665.27563, 415.99954, 639.9985, 445.09583, 636.0002, 447.99554, 607.98914, 458.74335, 575.99115, 436.03046, 551.9329, 415.99954, 548.90283, 383.99365)

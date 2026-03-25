@@ -26,6 +26,28 @@ const DOT_BUTTON_RADIUS = 2.0;
 const ALL_CORNERS = 15 # 1111 in binary
 const NO_CORNERS = 0 # 0000 in binary
 
+static func get_tile_index_from_corners(
+	center: Vector2, 
+	corner_samples: Dictionary[Vector2, float],
+) -> int:
+	var tile_index := 0;
+	for i: int in MarchingSquaresUtility.CORNERS.size():
+		var corner := center + MarchingSquaresUtility.CORNERS[i] * float(MarchingSquaresUtility.HALF_TILE_SIZE);
+		if (!corner_samples.has(corner)):
+			continue;
+		
+		tile_index += get_sample_int_from_vertex(corner, corner_samples) << i;
+		
+	return tile_index;
+	
+static func get_sample_int_from_vertex(
+	corner_vector: Vector2, 
+	corner_samples: Dictionary[Vector2, float]
+) -> int:
+	if (!corner_samples.has(corner_vector)): return 0;
+	var corner_sample: float = corner_samples.get(corner_vector);
+	return int(corner_sample > 0.0)
+
 static func get_center_point_of_polygon(polygon_points: Array[Vector2]) -> Vector2:
 	var cX := 0.0;
 	var cY := 0.0;
