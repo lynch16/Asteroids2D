@@ -26,6 +26,33 @@ const DOT_BUTTON_RADIUS = 2.0;
 const ALL_CORNERS = 15 # 1111 in binary
 const NO_CORNERS = 0 # 0000 in binary
 
+# Reduces the polygon to tile size in order to gather corners for full tiles involved in the polygon
+# Returns a new Dictonary with the filtered samples
+static func filter_corner_samples_by_polygon(
+	polygon: PackedVector2Array,
+	corner_samples: Dictionary[Vector2, float]
+) -> Dictionary[Vector2, float]:
+	var polygon_corner_tracker: Dictionary[Vector2, float] = {}
+	
+	return corner_samples.keys().reduce(
+		func(tracker: Dictionary[Vector2, float], key: Vector2) -> Dictionary[Vector2, float]:
+			if (Geometry2D.is_point_in_polygon(key, polygon)):
+				tracker.set(key, corner_samples[key]);
+				# Expand out to include all connected tiles
+				for i in MarchingSquaresUtility.CORNERS.size():
+					var center := key - MarchingSquaresUtility.CORNERS[i] * float(MarchingSquaresUtility.HALF_TILE_SIZE);
+					# Gather all corners of connected tiles
+					for j in MarchingSquaresUtility.CORNERS.size():
+						MarchingSquaresUtility.for_each_corner(center, 
+							func(corner: Vector2) -> void:
+								if (!tracker.has(corner) && corner_samples.has(corner)):
+									tracker.set(corner, corner_samples[corner]);
+						);
+	
+			return tracker;,
+		polygon_corner_tracker
+	);
+	
 static func get_tile_index_from_corners(
 	center: Vector2, 
 	corner_samples: Dictionary[Vector2, float],

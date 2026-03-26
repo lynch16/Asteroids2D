@@ -43,6 +43,7 @@ const DIRS = [
 
 var seed_corner_samples: Dictionary[Vector2, float] = {};
 var staged_corner_samples: Array[Dictionary] = [];
+var staged_viewport_samples: Dictionary[Vector2, float] = {};
 var staged_collision_shapes: Array[CollisionShape2D] = [];
 var staged_mesh_instances: Array[MeshInstance2D] = [];
 var mode: EditorMode;
@@ -119,33 +120,7 @@ func _get_points_in_circle(circle_center: Vector2) -> Array[Vector2]:
 	return included_points;
 	
 # Filters a Dictionary of corner samples to what is contained within the polygon
-# Reduces the polygon to tile size in order to gather corners for full tiles involved in the polygon
-# Returns a new Dictonary with the filtered samples
-static func _filter_corner_samples_by_polygon(
-	polygon: PackedVector2Array,
-	corner_samples: Dictionary[Vector2, float]
-) -> Dictionary[Vector2, float]:
-	var polygon_corner_tracker: Dictionary[Vector2, float] = {}
-	
-	return corner_samples.keys().reduce(
-		func(tracker: Dictionary[Vector2, float], key: Vector2) -> Dictionary[Vector2, float]:
-			if (Geometry2D.is_point_in_polygon(key, polygon)):
-				tracker.set(key, corner_samples[key]);
-				# Expand out to include all connected tiles
-				for i in MarchingSquaresUtility.CORNERS.size():
-					var center := key - MarchingSquaresUtility.CORNERS[i] * float(MarchingSquaresUtility.HALF_TILE_SIZE);
-					# Gather all corners of connected tiles
-					for j in MarchingSquaresUtility.CORNERS.size():
-						MarchingSquaresUtility.for_each_corner(center, 
-							func(corner: Vector2) -> void:
-								if (!tracker.has(corner) && corner_samples.has(corner)):
-									tracker.set(corner, corner_samples[corner]);
-						);
-	
-			return tracker;,
-		polygon_corner_tracker
-	);
-	
+
 func _handle_mouse_click(delta: float, shift_held: bool) -> void:
 	if (edit_tool_mode != ToolMode.EDIT_MESH): 
 		return;
@@ -185,14 +160,14 @@ func _generate_resources() -> void:
 	staged_collision_shapes.clear();
 	staged_mesh_instances.clear();
 	
-	var selected_corner_samples: Dictionary[Vector2, float] = {};
+	staged_viewport_samples.clear();
 	for corner in seed_corner_samples:
 		if (selected_area.has_point(corner)):
-			selected_corner_samples.set(corner, seed_corner_samples[corner]);
+			staged_viewport_samples.set(corner, seed_corner_samples[corner]);
 	
 	var convex_shapes := MarchingSquaresGenerate.generate_collision_shapes(
 		get_viewport_rect(),
-		selected_corner_samples
+		staged_viewport_samples
 	)
 	
 	for shape in convex_shapes:
@@ -202,7 +177,7 @@ func _generate_resources() -> void:
 		collision.owner = get_tree().edited_scene_root
 		staged_collision_shapes.append(collision);
 		
-		var collision_corners := _filter_corner_samples_by_polygon(shape.points, selected_corner_samples);
+		var collision_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(shape.points, staged_viewport_samples);
 		staged_corner_samples.append(collision_corners);
 		
 		var mesh := MarchingSquaresGenerate.generate_mesh(
@@ -242,6 +217,7 @@ func _sample(input: Vector2) -> float:
 	
 func _reset() -> void:
 	seed_corner_samples.clear();
+	staged_viewport_samples.clear();
 	_clear_staging_area();
 	staged_collision_shapes.clear();
 	staged_corner_samples.clear();
@@ -250,19 +226,33 @@ func _reset() -> void:
 	mode = EditorMode.READY;
 	_sample_viewport();
 
+# TODO: Dont save these as separate AsteroidMeshes since I may need to construct a single astroid from many
 func _save() -> void:
+	var final_meshes: Array[ArrayMesh] = [];
+	var final_instances: Array[MeshInstance2D] = [];
+	var final_shapes: Array[ConvexPolygonShape2D] = [];
+	var final_textures: Array[Texture2D] = [];
+	var final_sampling: Array[Dictionary] = [];
+	var final_offsets: Array[Vector2] = [];
+	
 	for i: int in staged_collision_shapes.size():
 		if (is_instance_valid(staged_collision_shapes[i]) && staged_collision_shapes[i].is_inside_tree()):
-			# TODO: Overwrite protection
-			var asteroid_mesh := AsteroidMesh.new(
-				staged_mesh_instances[i].mesh as ArrayMesh,
-				staged_mesh_instances[i].texture,
-				staged_mesh_instances[i].position,
-				staged_corner_samples[i],
-				staged_collision_shapes[i].shape as ConvexPolygonShape2D
-			);
-		
-			ResourceSaver.save(asteroid_mesh, FOLDER_NAME + file_name + "_" + str(i) + ".tres");
+			final_meshes.append(staged_mesh_instances[i].mesh as ArrayMesh);
+			final_textures.append(staged_mesh_instances[i].texture);
+			final_sampling.append(staged_corner_samples[i]);
+			final_shapes.append(staged_collision_shapes[i].shape as ConvexPolygonShape2D);
+			final_offsets.append(staged_mesh_instances[i].position);
+	
+	var asteroid_mesh := AsteroidMesh.new(
+		final_meshes,
+		final_textures,
+		final_offsets,
+		final_sampling,
+		staged_viewport_samples,
+		final_shapes,
+	);
+	
+	ResourceSaver.save(asteroid_mesh, FOLDER_NAME + file_name + ".tres");
 
 # Draw dots at each vertex, colored whether the mouse is hovering
 func _draw() -> void:
