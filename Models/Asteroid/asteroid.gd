@@ -135,7 +135,7 @@ func handle_projectile(
 			asteroid_mesh.apply_damage_shape_to_corner_samples(
 				center,
 				damage_shapes,
-				asteroid_mesh.per_collision_corner_samplings[i],
+				i,
 			);
 			asteroid_mesh.update_collider(i, get_viewport_rect());
 	

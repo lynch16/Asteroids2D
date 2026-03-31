@@ -2,78 +2,38 @@
 class_name AsteroidMesh
 extends Resource
 
-@export var textures: Array[Texture2D];
-@export var per_collision_corner_samplings: Array[Dictionary]; # Array[Dictionary[Vector2, float]]
-# TODO: do I need this global tracker?
+@export var asteroid_collisions: Array[AsteroidCollision];
 @export var viewport_corner_sampling: Dictionary[Vector2, float];
-@export var convex_shapes: Array[ConvexPolygonShape2D];
-@export var meshes: Array[ArrayMesh];
-@export var mesh_instance_position_offsets: Array[Vector2];
 
 var collision_shapes: Array[CollisionShape2D];
-var mesh_instances: Array[MeshInstance2D];
 var asteroid: Asteroid;
 
 func _init(
-	p_meshes: Array[ArrayMesh] = [], 
-	p_textures: Array[Texture2D] = [], 
-	p_mesh_instance_position_offsets: Array[Vector2] = [],
-	p_per_collision_corner_samplings: Array[Dictionary] = [],
+	p_asteroid_collisions: Array[AsteroidCollision] = [], 
 	p_viewport_corner_sampling: Dictionary[Vector2, float] = {},
-	p_convex_shapes: Array[ConvexPolygonShape2D] = [],
-	p_asteroid: Asteroid = Asteroid.new(),
 ) -> void:
-	meshes = p_meshes;
-	textures = p_textures;
-	mesh_instance_position_offsets = p_mesh_instance_position_offsets
-	per_collision_corner_samplings = p_per_collision_corner_samplings;
+	asteroid_collisions = p_asteroid_collisions;
 	viewport_corner_sampling = p_viewport_corner_sampling;
-	convex_shapes = p_convex_shapes;
 	
 	collision_shapes = [];
-	mesh_instances = [];
-	asteroid = p_asteroid;
+	asteroid = Asteroid.new();
 
-func apply(asteroid: Asteroid) -> void:
-	for i: int in convex_shapes.size():
+func apply(attach_asteroid: Asteroid) -> void:
+	asteroid = attach_asteroid;
+	for i: int in asteroid_collisions.size():
 		var collision := CollisionShape2D.new();
-		collision.shape = convex_shapes[i];
+		collision.shape = asteroid_collisions[i].convex_shape;
 		collision_shapes.append(collision);
 		asteroid.add_child(collision);
 	
-		var mesh_instance := MarchingSquaresGenerate.upsert_mesh_instance(meshes[i], textures[i]);
+		var mesh_instance := MarchingSquaresGenerate.upsert_mesh_instance(asteroid_collisions[i].mesh, asteroid_collisions[i].texture);
 		collision.add_child(mesh_instance);
-		mesh_instance.position = mesh_instance_position_offsets[i];
-		mesh_instances.append(mesh_instance);
-
-# TODO: Update should be updating specific colliders
-func update(new_corner_samples: Dictionary[Vector2, float], viewport_rect: Rect2) -> void:
-	viewport_corner_sampling = new_corner_samples
-	
-	var new_convex_shapes := MarchingSquaresGenerate.generate_collision_shapes(
-		viewport_rect,
-		viewport_corner_sampling
-	);
-	if (new_convex_shapes.size() == collision_shapes.size()):
-		# No shatter; Update shapes and mesh
-		print("NO SHATTER");
-		for i:int in collision_shapes.size():
-			var shape_center := MarchingSquaresUtility.get_center_point_of_polygon(new_convex_shapes[i].points);
-			var new_points: Array[Vector2] = [];
-			for point in new_convex_shapes[i].points:
-				new_points.append(point - shape_center);
-			collision_shapes[i].call_deferred("set_shape", new_convex_shapes[i]);
-
-		collision_shapes[0].position = mesh_instances[0].position;
-		mesh_instances[0].position = Vector2.ZERO;
-		#MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, corner_sampling, texture, mesh_instances[0]);
-	else:
-		print("SHATTER from -> to: ", collision_shapes.size(), " -> ", new_convex_shapes.size());
+		mesh_instance.position = asteroid_collisions[i].position_offset;
 
 func update_collider(collider_index: int, viewport_rect: Rect2) -> void:
 	var new_convex_shapes := MarchingSquaresGenerate.generate_collision_shapes(
 		viewport_rect,
-		per_collision_corner_samplings[collider_index]
+		asteroid_collisions[collider_index].corner_sampling
 	);
 	if (new_convex_shapes.size() == 0):
 		print("DESTROY");
@@ -82,21 +42,20 @@ func update_collider(collider_index: int, viewport_rect: Rect2) -> void:
 		
 		if (new_convex_shapes.size() > 1):
 			var new_max_index := max_index + new_convex_shapes.size();
-			mesh_instance_position_offsets.resize(new_max_index);
-			textures.resize(new_max_index);
-			mesh_instances.resize(new_max_index);
-			per_collision_corner_samplings.resize(new_max_index);
+			asteroid_collisions.resize(new_max_index);
 		
 		for i: int in new_convex_shapes.size():
-			var index := collider_index if i == 0 else max_index + i;
+			var index := collider_index;
+			if i > 0:
+				index = max_index + 1;
+				var new_asteroid_collision := AsteroidCollision.new();
+				asteroid_collisions[index] = new_asteroid_collision;
+				
 			var convex_shape := new_convex_shapes[i];
-			print("INDEX: ", index);
-			print("new_convex_shapes: ", new_convex_shapes.size());
-			print("mesh_instance_position_offsets: ", mesh_instance_position_offsets.size());
-			mesh_instance_position_offsets[index] = MarchingSquaresUtility.get_center_point_of_polygon(convex_shape.points);
+			asteroid_collisions[index].position_offset = MarchingSquaresUtility.get_center_point_of_polygon(convex_shape.points);
 			var new_points: Array[Vector2] = [];
 			for point in convex_shape.points:
-				new_points.append(point -  mesh_instance_position_offsets[index]);
+				new_points.append(_apply_position_offset(asteroid_collisions[index].position_offset, point));
 			convex_shape.points = new_points;
 			
 			if i == 0:
@@ -106,12 +65,11 @@ func update_collider(collider_index: int, viewport_rect: Rect2) -> void:
 			else:
 				var collision := CollisionShape2D.new();
 				collision.shape = convex_shape;
-				asteroid.add_child(collision);
-				textures[index] = textures[collider_index];
-				mesh_instances[index] = MeshInstance2D.new();
-				per_collision_corner_samplings[index] = MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, per_collision_corner_samplings[collider_index]);
-				
-			MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, per_collision_corner_samplings[index], textures[index], mesh_instances[index]);
+				asteroid.call_deferred("add_child", collision);
+				asteroid_collisions[index].texture = asteroid_collisions[collider_index].texture;
+				asteroid_collisions[index].corner_sampling = MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, asteroid_collisions[collider_index].corner_sampling);
+			
+			MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, asteroid_collisions[index].corner_sampling, asteroid_collisions[index].texture);
 			
 			
 			# TODO: This is working enough to deform collision and mesh shapes. The mesh becomes offset though over collisions and collisions still are not accurate
@@ -142,35 +100,43 @@ func update_collider(collider_index: int, viewport_rect: Rect2) -> void:
 	#else:
 		#print("SHATTER to: ", new_convex_shapes.size(), " pieces");
 		#var collision_shape := collision_shapes[collider_index];
-		#mesh_instance_position_offsets[collider_index] = MarchingSquaresUtility.get_center_point_of_polygon(new_convex_shapes[0].points);
+		#position_offsets[collider_index] = MarchingSquaresUtility.get_center_point_of_polygon(new_convex_shapes[0].points);
 		#var new_points: Array[Vector2] = [];
 		#for point in new_convex_shapes[0].points:
-			#new_points.append(point -  mesh_instance_position_offsets[collider_index]);
+			#new_points.append(point -  position_offsets[collider_index]);
 		#new_convex_shapes[0].points = new_points;
 		#collision_shape.call_deferred("set_shape", new_convex_shapes[0]);
 		#var convex_shape := collision_shape.shape as ConvexPolygonShape2D;
 		#var collision_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, per_collision_corner_samplings[collider_index]);
 		#MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, collision_corners, textures[collider_index], mesh_instances[collider_index]);
 		#
-		
+func _apply_position_offset(offset: Vector2, position: Vector2) -> Vector2:
+	return position - offset;
+
+func _revert_position_offset(offset: Vector2, position: Vector2) -> Vector2:
+	return position + offset;
+
 # Corner sample values are reapplied by applying each damage_shape
 # to intersecting corners with the shapes centered around the collision_point
 func apply_damage_shape_to_corner_samples(
 	collision_point: Vector2,
 	damage_shapes: Array[DamageShape],
-	corner_sampling: Dictionary[Vector2, float],
+	collider_index: int,
 ) -> void:
+	var corner_sampling := asteroid_collisions[collider_index].corner_sampling;
+	var collider_position_offset := asteroid_collisions[collider_index].position_offset;
+	var normalized_collision_point := collision_point + collider_position_offset
 	for key: Vector2 in corner_sampling:
 		for damage_shape in damage_shapes:
 			if (damage_shape.shape is CircleShape2D):
 				var circle_damage_shape: CircleShape2D = damage_shape.shape;
 				if (Geometry2D.is_point_in_circle(key, collision_point, circle_damage_shape.radius)):
-					var new_sample := corner_sampling[key] - damage_shape.damage;
+					var new_sample: float = corner_sampling[key] - damage_shape.damage;
 					corner_sampling[key] = new_sample;
 			elif (damage_shape.shape is ConvexPolygonShape2D):
 				var convex_shape: ConvexPolygonShape2D = damage_shape.shape;
 				if (Geometry2D.is_point_in_polygon(collision_point, convex_shape.points)):
-					var new_sample := corner_sampling[key] - damage_shape.damage;
+					var new_sample: float = corner_sampling[key] - damage_shape.damage;
 					corner_sampling[key] = new_sample;
 			else:
 				printerr("Unsupported DamageShape Shape2D: " + type_string(typeof(damage_shape.shape)));

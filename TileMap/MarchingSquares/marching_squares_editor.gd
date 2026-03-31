@@ -42,10 +42,8 @@ const DIRS = [
 ]
 
 var seed_corner_samples: Dictionary[Vector2, float] = {};
-var staged_corner_samples: Array[Dictionary] = [];
+var staged_ms_colliders: Array[MS_Collider] = [];
 var staged_viewport_samples: Dictionary[Vector2, float] = {};
-var staged_collision_shapes: Array[CollisionShape2D] = [];
-var staged_mesh_instances: Array[MeshInstance2D] = [];
 var mode: EditorMode;
 var last_corner_hover: Vector2;
 
@@ -155,12 +153,12 @@ func _clear_staging_area() -> void:
 		child.queue_free();
 		
 func _generate_resources() -> void:
+	var staged_mesh_instances: Array[MeshInstance2D] = [];
 	var selected_area := _get_drag_square();
-	staged_corner_samples.clear();
-	staged_collision_shapes.clear();
-	staged_mesh_instances.clear();
-	
+	_clear_staging_area();
+	staged_ms_colliders.clear();
 	staged_viewport_samples.clear();
+	
 	for corner in seed_corner_samples:
 		if (selected_area.has_point(corner)):
 			staged_viewport_samples.set(corner, seed_corner_samples[corner]);
@@ -175,10 +173,8 @@ func _generate_resources() -> void:
 		collision.shape = shape;
 		staging_area.add_child(collision);
 		collision.owner = get_tree().edited_scene_root
-		staged_collision_shapes.append(collision);
 		
 		var collision_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(shape.points, staged_viewport_samples);
-		staged_corner_samples.append(collision_corners);
 		
 		var mesh := MarchingSquaresGenerate.generate_mesh(
 			get_viewport_rect().size,
@@ -187,10 +183,18 @@ func _generate_resources() -> void:
 		);
 
 		var collision_mesh := MarchingSquaresGenerate.upsert_mesh_instance(mesh, texture);
+		staged_mesh_instances.append(collision_mesh);
 		collision.add_child(collision_mesh);
 		if Engine.is_editor_hint():
 			collision_mesh.owner = get_tree().edited_scene_root
-		staged_mesh_instances.append(collision_mesh)
+		
+		staged_ms_colliders.append(
+			MS_Collider.new(
+				collision,
+				collision_mesh,
+				collision_corners
+			)
+		)
 
 	MarchingSquaresGenerate._reposition_colliders(convex_shapes, staged_mesh_instances);
 
@@ -219,37 +223,35 @@ func _reset() -> void:
 	seed_corner_samples.clear();
 	staged_viewport_samples.clear();
 	_clear_staging_area();
-	staged_collision_shapes.clear();
-	staged_corner_samples.clear();
-	staged_mesh_instances.clear();
+	staged_ms_colliders.clear();
 	left_release_position = Vector2.ZERO;
 	mode = EditorMode.READY;
 	_sample_viewport();
 
-# TODO: Dont save these as separate AsteroidMeshes since I may need to construct a single astroid from many
 func _save() -> void:
-	var final_meshes: Array[ArrayMesh] = [];
-	var final_instances: Array[MeshInstance2D] = [];
-	var final_shapes: Array[ConvexPolygonShape2D] = [];
-	var final_textures: Array[Texture2D] = [];
-	var final_sampling: Array[Dictionary] = [];
-	var final_offsets: Array[Vector2] = [];
+	var final_collisions: Array[AsteroidCollision] = [];
+	var children := staging_area.get_children();
 	
-	for i: int in staged_collision_shapes.size():
-		if (is_instance_valid(staged_collision_shapes[i]) && staged_collision_shapes[i].is_inside_tree()):
-			final_meshes.append(staged_mesh_instances[i].mesh as ArrayMesh);
-			final_textures.append(staged_mesh_instances[i].texture);
-			final_sampling.append(staged_corner_samples[i]);
-			final_shapes.append(staged_collision_shapes[i].shape as ConvexPolygonShape2D);
-			final_offsets.append(staged_mesh_instances[i].position);
+	for i: int in children.size():
+		var associated_stage_index := staged_ms_colliders.find_custom(
+			func(ms_collider: MS_Collider) -> bool:
+				return ms_collider.collision == children[i];
+		);
+		var associated_stage := staged_ms_colliders[associated_stage_index];
+		
+		var asteroid_collision := AsteroidCollision.new(
+			associated_stage.mesh_instance.texture,
+			associated_stage.corner_sampling,
+			associated_stage.collision.shape as ConvexPolygonShape2D,
+			associated_stage.mesh_instance.mesh as ArrayMesh,
+			associated_stage.mesh_instance.position,
+			
+		);
+		final_collisions.append(asteroid_collision);
 	
 	var asteroid_mesh := AsteroidMesh.new(
-		final_meshes,
-		final_textures,
-		final_offsets,
-		final_sampling,
+		final_collisions,
 		staged_viewport_samples,
-		final_shapes,
 	);
 	
 	ResourceSaver.save(asteroid_mesh, FOLDER_NAME + file_name + ".tres");
@@ -272,7 +274,6 @@ func _draw_dots() -> void:
 			
 		var color := Color.RED;
 		var corner_val: float = seed_corner_samples.get(corner);
-		#var corner_sample: int = MarchingSquaresUtility.get_sample_int_from_vertex(corner, mesh_controls.seed_corner_samples);
 	
 		if (corner == last_corner_hover):
 			color = Color.BLUE;
