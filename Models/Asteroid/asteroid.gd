@@ -19,6 +19,7 @@ var collision_damage := 50.0;
 #@onready var mesh_instance: MeshInstance2D = get_node("MeshInstance2D");
 
 #var collisions: Array[CollisionShape2D] = [];
+var impact_points: Array[Vector2] = [];
 
 func _ready() -> void:
 	add_to_group("enemy");
@@ -111,35 +112,21 @@ func handle_projectile(
 			collider.global_transform
 		);
 		
-		var cX := 0.0;
-		var cY := 0.0;
-		var include_collider: bool = false;
-	
-		var ray_collision_points: Array[Vector2] = [];
 		
-		for point in collision_points:
-			var ray_query := PhysicsRayQueryParameters2D.create(
-				last_projectile_position,
-				point
-			);
-			ray_query.exclude = [projectile_collision];
-			var result := space_state.intersect_ray(ray_query);
-			if (result.has("position")):
-				include_collider = true;
-				ray_collision_points.append(result.get("position"));
-				cX += point.x;
-				cY += point.y;
-		var center := Vector2(cX / ray_collision_points.size(), cY / ray_collision_points.size());
-		
-		if (include_collider):
+		if (collision_points.size() > 0):
+			var impact_point: Vector2 = collision_points.get(0);
+			var collider_position_offset := asteroid_mesh.asteroid_collisions[i].position_offset;
+			impact_points.append(to_local(impact_point));
+			queue_redraw();
+			
 			asteroid_mesh.apply_damage_shape_to_corner_samples(
-				center,
+				to_local(impact_point) - collider_position_offset,
 				damage_shapes,
 				i,
 			);
 			asteroid_mesh.update_collider(i, get_viewport_rect());
 	
-			first_collision_points.set(collider, center);
+			first_collision_points.set(collider, impact_point);
 		
 	print("first_collision_points: ", first_collision_points)
 
@@ -158,3 +145,7 @@ func handle_projectile(
 		#damage_result_samples,
 		#get_viewport_rect()
 	#);
+
+func _draw() -> void:
+	for point in impact_points:
+		draw_circle(point, 10, Color.BLUE);

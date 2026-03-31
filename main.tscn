@@ -32,7 +32,7 @@ visible = false
 position = Vector2(212, 326)
 
 [node name="Asteroid" parent="NavigableArea" unique_id=1301110429 instance=ExtResource("5_272bh")]
-position = Vector2(739, 421)
+position = Vector2(400, 120)
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3
