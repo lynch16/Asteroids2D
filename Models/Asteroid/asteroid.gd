@@ -93,15 +93,11 @@ func handle_projectile(
 	projectile_collision: CollisionShape2D, 
 	damage_shapes: Array[DamageShape]
 ) -> void:
-	# TODO: Identify which colliders the projectile hit and where they were hit
-	# Pass those to update:
-	# Update will apply corner updates to the respective colliders and generate new collision / mesh
-	# If more than one collision shape is generated from a single collider, shatter
 	var colliders := get_colliders();
-	var first_collision_points: Dictionary[CollisionShape2D, Vector2] = {};
-	var space_state := get_world_2d().direct_space_state;
+	var release_indicies: Array[int] = [];
 	
 	for i: int in colliders.size():
+		print("I: ", i, " ", colliders.size())
 		var collider := colliders[i];
 		if (!is_instance_valid(collider)): 
 			continue;
@@ -112,39 +108,26 @@ func handle_projectile(
 			collider.global_transform
 		);
 		
-		
 		if (collision_points.size() > 0):
 			var impact_point: Vector2 = collision_points.get(0);
-			var collider_position_offset := asteroid_mesh.asteroid_collisions[i].position_offset;
 			impact_points.append(to_local(impact_point));
 			queue_redraw();
 			
+			if (!asteroid_mesh.asteroid_collisions.get(i)):
+				continue;
+			
 			asteroid_mesh.apply_damage_shape_to_corner_samples(
-				to_local(impact_point) - collider_position_offset,
+				to_local(impact_point),
 				damage_shapes,
 				i,
 			);
-			asteroid_mesh.update_collider(i, get_viewport_rect());
-	
-			first_collision_points.set(collider, impact_point);
-		
-	print("first_collision_points: ", first_collision_points)
+			var result: = asteroid_mesh.update_collider(i, get_viewport_rect());
+			if (result == AsteroidMesh.REMOVE_COLLIDER):
+				release_indicies.append(i);
+			
+	for idx in release_indicies:
+		asteroid_mesh.release_collider(idx);
 
-	#var orig_samples := asteroid_mesh.corner_sampling;
-	#var damage_result_samples := asteroid_mesh.apply_damage_shape_to_corner_samples(
-		#center,
-		#damage_shapes,
-	#);
-	#
-	#var diff_samples: Dictionary[Vector2, Array] = {};
-	#for key in orig_samples:
-		#if (damage_result_samples[key] != orig_samples[key]):
-			#diff_samples[key] = [damage_result_samples[key], orig_samples[key]];
-#
-	#asteroid_mesh.update(
-		#damage_result_samples,
-		#get_viewport_rect()
-	#);
 
 func _draw() -> void:
 	for point in impact_points:

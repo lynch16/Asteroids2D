@@ -153,7 +153,7 @@ func _clear_staging_area() -> void:
 		child.queue_free();
 		
 func _generate_resources() -> void:
-	var staged_mesh_instances: Array[MeshInstance2D] = [];
+	var staged_colliders: Array[CollisionShape2D] = [];
 	var selected_area := _get_drag_square();
 	_clear_staging_area();
 	staged_ms_colliders.clear();
@@ -173,6 +173,7 @@ func _generate_resources() -> void:
 		collision.shape = shape;
 		staging_area.add_child(collision);
 		collision.owner = get_tree().edited_scene_root
+		staged_colliders.append(collision);
 		
 		var collision_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(shape.points, staged_viewport_samples);
 		
@@ -183,7 +184,6 @@ func _generate_resources() -> void:
 		);
 
 		var collision_mesh := MarchingSquaresGenerate.upsert_mesh_instance(mesh, texture);
-		staged_mesh_instances.append(collision_mesh);
 		collision.add_child(collision_mesh);
 		if Engine.is_editor_hint():
 			collision_mesh.owner = get_tree().edited_scene_root
@@ -196,7 +196,7 @@ func _generate_resources() -> void:
 			)
 		)
 
-	MarchingSquaresGenerate._reposition_colliders(convex_shapes, staged_mesh_instances);
+	MarchingSquaresGenerate._reposition_colliders(convex_shapes, staged_colliders);
 
 func _sample_viewport() -> void:
 	seed_corner_samples.clear();
@@ -244,7 +244,7 @@ func _save() -> void:
 			associated_stage.corner_sampling,
 			associated_stage.collision.shape as ConvexPolygonShape2D,
 			associated_stage.mesh_instance.mesh as ArrayMesh,
-			associated_stage.mesh_instance.position,
+			associated_stage.collision.position,
 			
 		);
 		final_collisions.append(asteroid_collision);

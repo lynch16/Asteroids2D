@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_mfnos"]
 script = ExtResource("3_8flxw")
-radius = 8.0
+radius = 100.0
 damage = 1.0
 metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
 
@@ -20,7 +20,6 @@ metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
 [sub_resource type="Resource" id="Resource_vk77h"]
 script = ExtResource("3_8flxw")
 radius = 32.0
-damage = 0.25
 metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vsjsl"]

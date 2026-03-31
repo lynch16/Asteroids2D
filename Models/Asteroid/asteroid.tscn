@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://drhrxw7642nqd"]
 
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
-[ext_resource type="Resource" uid="uid://ddrmraqluemat" path="res://Models/Asteroid/AsteroidMesh/test5.tres" id="2_aasjb"]
+[ext_resource type="Resource" uid="uid://cnwcwvji8q0nh" path="res://Models/Asteroid/AsteroidMesh/test1.tres" id="2_aasjb"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_kufyc"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/Entities/Damage/damageable.gd" id="4_p7nbn"]
@@ -24,10 +24,6 @@ asteroid_mesh = ExtResource("2_aasjb")
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_kufyc")]
 node = NodePath("..")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1320132721]
-
-[node name="AsteroidCollision" type="CollisionShape2D" parent="." unique_id=953490836]
 
 [node name="GravityField" type="Area2D" parent="." unique_id=2107640775]
 process_mode = 4

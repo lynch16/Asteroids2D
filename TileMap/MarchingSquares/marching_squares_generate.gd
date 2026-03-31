@@ -183,11 +183,11 @@ static func _get_collider_cluster_center(collider_shapes: Array[ConvexPolygonSha
 	return MarchingSquaresUtility.get_center_point_of_polygon(all_polygon_points);
 
 # Reposition the internal Shape2D Resource and MeshInstance2D node so that cluster is positioned at Vector2.ZERO
-static func _reposition_colliders(collider_shapes: Array[ConvexPolygonShape2D], mesh_instances: Array[MeshInstance2D]) -> void:
+static func _reposition_colliders(collider_shapes: Array[ConvexPolygonShape2D], colliders: Array[CollisionShape2D]) -> void:
 	var cluster_center := _get_collider_cluster_center(collider_shapes);
 	for i: int in collider_shapes.size():
-		var new_points: Array[Vector2] = [];
-		for point in collider_shapes[i].points:
-			new_points.append(point - cluster_center);
-		collider_shapes[i].set_points(new_points);
-		mesh_instances[i].position = mesh_instances[i].position - cluster_center;
+		#var new_points: Array[Vector2] = [];
+		#for point in collider_shapes[i].points:
+			#new_points.append(point - cluster_center);
+		#collider_shapes[i].set_points(new_points);
+		colliders[i].position = colliders[i].position - cluster_center;
