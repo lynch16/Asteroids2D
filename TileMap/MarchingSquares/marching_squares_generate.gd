@@ -158,7 +158,7 @@ static func generate_collision_shapes(
 		var bit_vector := Vector2(x_as_tile, y_as_tile); 
 		bitmap.set_bitv(bit_vector, corner_samples[vector] > 0.0);
 	
-	var polygons := bitmap.opaque_to_polygons(Rect2(Vector2(), Vector2(x_viewport_tiles, y_viewport_tiles)), 0.5);
+	var polygons := bitmap.opaque_to_polygons(Rect2(Vector2(), Vector2(x_viewport_tiles, y_viewport_tiles)), 1.0);
 	var collision_shapes: Array[ConvexPolygonShape2D] = [];
 	
 	for polygon in polygons:

@@ -6,6 +6,7 @@ extends Node2D
 @export var noise: FastNoiseLite;
 @export var texture: Texture2D;
 @export_tool_button("Reset", "Eraser") var reset := _reset;
+@export_tool_button("Seed", "InsertAfter") var seed_map := _seed;
 @export_category("Edit Mesh")
 @export_range(0, 10, 1, "suffix:corners") var cursor_radius := 2;
 @export_range(0.0, 1.0, 0.1) var cursor_strength := 0.5;
@@ -57,6 +58,10 @@ var left_click_start_time := 0.0;
 @onready var mouse_position_label: Label = get_node("MousePosition");
 @onready var staging_area: Node2D = get_node("StagingArea");
 
+## As an editor script, we dont want to use the editor viewport
+## This size will scale evenly from 720p - 4k
+@onready var viewport_rect: Rect2 = Rect2(Vector2(), Vector2(640, 360));
+
 func _ready() -> void:
 	InputMap.load_from_project_settings();
 	_reset();
@@ -65,7 +70,6 @@ func _process(delta: float) -> void:
 	var mouse_down_position := get_viewport().get_mouse_position();
 	mouse_position_label.text = str(mouse_down_position);
 	
-	var viewport_rect := get_viewport_rect();
 	if (visible && viewport_rect.has_point(mouse_down_position) && mode == EditorMode.EDIT_MESH):
 		if Input.is_action_just_pressed("left_click"):
 			left_click_start_time = Time.get_unix_time_from_system();
@@ -100,12 +104,12 @@ func _track_mouse_hover() -> void:
 	var mouse_position := get_viewport().get_mouse_position();
 	var corner := MarchingSquaresUtility.get_position_tile_corner_coord(mouse_position);
 	
-	if (!last_corner_hover || last_corner_hover != corner):
+	if (!last_corner_hover || !corner == MarchingSquaresUtility.OFF_SCREEN && last_corner_hover != corner):
 		last_corner_hover = corner;
 
 func _get_points_in_circle(circle_center: Vector2) -> Array[Vector2]:
 	var included_points: Array[Vector2] = [];
-	var viewport_rect := get_viewport_rect().size;
+	var viewport_size := viewport_rect.size;
 	var check_each_corner := func (corner: Vector2) -> void:
 		if (Geometry2D.is_point_in_circle(corner, circle_center, MarchingSquaresUtility.TILE_SIZE * cursor_radius)):
 			included_points.append(corner);
@@ -113,18 +117,20 @@ func _get_points_in_circle(circle_center: Vector2) -> Array[Vector2]:
 	var check_each_tile := func (center: Vector2) -> void:
 		MarchingSquaresUtility.for_each_corner(center, check_each_corner);
 		
-	MarchingSquaresUtility.for_each_tile(viewport_rect, check_each_tile)
+	MarchingSquaresUtility.for_each_tile(viewport_size, check_each_tile)
 	
 	return included_points;
 	
 # Filters a Dictionary of corner samples to what is contained within the polygon
-
 func _handle_mouse_click(delta: float, shift_held: bool) -> void:
 	if (edit_tool_mode != ToolMode.EDIT_MESH): 
 		return;
 	
 	var mouse_down_position := get_viewport().get_mouse_position();
 	var corner := MarchingSquaresUtility.get_position_tile_corner_coord(mouse_down_position);
+	
+	if (corner == MarchingSquaresUtility.OFF_SCREEN):
+		return;
 	
 	var all_modified_corners: Array[Vector2] = _get_points_in_circle(corner);
 
@@ -164,21 +170,21 @@ func _generate_resources() -> void:
 			staged_viewport_samples.set(corner, seed_corner_samples[corner]);
 	
 	var convex_shapes := MarchingSquaresGenerate.generate_collision_shapes(
-		get_viewport_rect(),
+		viewport_rect,
 		staged_viewport_samples
 	)
 	
 	for shape in convex_shapes:
+		var collision_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(shape.points, staged_viewport_samples);
 		var collision := CollisionShape2D.new();
 		collision.shape = shape;
 		staging_area.add_child(collision);
 		collision.owner = get_tree().edited_scene_root
 		staged_colliders.append(collision);
 		
-		var collision_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(shape.points, staged_viewport_samples);
 		
 		var mesh := MarchingSquaresGenerate.generate_mesh(
-			get_viewport_rect().size,
+			viewport_rect.size,
 			collision_corners,
 			texture
 		);
@@ -200,14 +206,13 @@ func _generate_resources() -> void:
 
 func _sample_viewport() -> void:
 	seed_corner_samples.clear();
-	var viewport_size := get_viewport_rect().size;
+	var viewport_size := viewport_rect.size;
 	
 	MarchingSquaresUtility.for_each_tile(viewport_size, _save_corner_samples);
 	_generate_mesh_from_saved_samples();
 	mode = EditorMode.EDIT_MESH;
 	
 func _generate_mesh_from_saved_samples() -> void:
-	var viewport_rect := get_viewport_rect();
 	MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, seed_corner_samples, texture, seed_mesh_instance)
 	
 func _save_corner_samples(center: Vector2) -> void:
@@ -215,17 +220,34 @@ func _save_corner_samples(center: Vector2) -> void:
 		var corner := center + MarchingSquaresUtility.CORNERS[i] * float(MarchingSquaresUtility.HALF_TILE_SIZE);
 		if (!seed_corner_samples.has(corner)):
 			seed_corner_samples.set(corner, _sample(corner));
+
+func _instantiate_viewport() -> void:
+	seed_corner_samples.clear();
+	var viewport_size := viewport_rect.size;
+	
+	MarchingSquaresUtility.for_each_tile(viewport_size, _instantiate_corner_samples);
+	mode = EditorMode.EDIT_MESH;
+	
+func _instantiate_corner_samples(center: Vector2) -> void:
+	for i: int in MarchingSquaresUtility.CORNERS.size():
+		var corner := center + MarchingSquaresUtility.CORNERS[i] * float(MarchingSquaresUtility.HALF_TILE_SIZE);
+		if (!seed_corner_samples.has(corner)):
+			seed_corner_samples.set(corner, -1.0);
 	
 func _sample(input: Vector2) -> float:
 	return noise.get_noise_2dv(input);
 	
 func _reset() -> void:
+	seed_mesh_instance.mesh = null;
 	seed_corner_samples.clear();
 	staged_viewport_samples.clear();
 	_clear_staging_area();
 	staged_ms_colliders.clear();
 	left_release_position = Vector2.ZERO;
 	mode = EditorMode.READY;
+	_instantiate_viewport();
+
+func _seed() -> void:
 	_sample_viewport();
 
 func _save() -> void:
@@ -251,7 +273,6 @@ func _save() -> void:
 	
 	var asteroid_mesh := AsteroidMesh.new(
 		final_collisions,
-		staged_viewport_samples,
 	);
 	
 	ResourceSaver.save(asteroid_mesh, FOLDER_NAME + file_name + ".tres");
@@ -262,7 +283,7 @@ func _draw() -> void:
 	_draw_drag_square();
 		
 func _draw_dots() -> void:
-	var viewport_size := get_viewport_rect().size;
+	var viewport_size := viewport_rect.size;
 	var drag_square := _get_drag_square();
 	var circle_points: Array[Vector2] = [];
 	if last_corner_hover:
@@ -307,7 +328,7 @@ func _get_drag_square() -> Rect2:
 		)
 		return Rect2(start_position, rect_size);
 	else:
-		return get_viewport_rect();
+		return viewport_rect;
 
 func _show_drag_square() -> bool:
 	return edit_tool_mode == ToolMode.SELECT_FOR_EXPORT && \

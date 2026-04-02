@@ -13,13 +13,15 @@ var spawn_parent_node: Node;
 func set_spawn_parent_node(node: Node) -> void:
 	spawn_parent_node = node;
 
-func spawn_asteroid(initial_aster: Asteroid = null) -> Asteroid:
+func spawn_asteroid(initial_aster: Asteroid = null, asteroid_mesh: AsteroidMesh = null) -> Asteroid:
 	var child_num: int = 0 if initial_aster == null else (initial_aster.child_number + 1);
 	if (child_num >= asteroid_scenes.size()):
 		return;
 		
 	var scene := asteroid_scenes[child_num];
 	var aster: Asteroid = scene.instantiate();
+	if (asteroid_mesh):
+		aster.asteroid_mesh = asteroid_mesh;
 	aster.child_number = child_num;
 
 	call_deferred("_add_asteroid", aster);

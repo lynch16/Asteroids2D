@@ -7,17 +7,14 @@ const KEEP_COLLIDER = 0;
 const REMOVE_COLLIDER = 1;
 
 @export var asteroid_collisions: Array[AsteroidCollision];
-@export var viewport_corner_sampling: Dictionary[Vector2, float];
 
 var collision_shapes: Array[CollisionShape2D];
 var asteroid: Asteroid;
 
 func _init(
 	p_asteroid_collisions: Array[AsteroidCollision] = [], 
-	p_viewport_corner_sampling: Dictionary[Vector2, float] = {},
 ) -> void:
 	asteroid_collisions = p_asteroid_collisions;
-	viewport_corner_sampling = p_viewport_corner_sampling;
 	
 	collision_shapes = [];
 	asteroid = Asteroid.new();
@@ -25,6 +22,9 @@ func _init(
 func apply(attach_asteroid: Asteroid) -> void:
 	asteroid = attach_asteroid;
 	for i: int in asteroid_collisions.size():
+		if (MarchingSquaresUtility.count_positive_corners(asteroid_collisions[i].corner_sampling) < MIN_CORNERS):
+			continue;
+		
 		var collision := CollisionShape2D.new();
 		collision.shape = asteroid_collisions[i].convex_shape;
 		collision_shapes.append(collision);
@@ -47,11 +47,7 @@ func update_collider(collider_index: int, viewport_rect: Rect2) -> int:
 	var filtered_shapes: Array[ConvexPolygonShape2D] = new_convex_shapes.filter(
 		func(convex_shape: ConvexPolygonShape2D) -> bool:
 			var new_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, asteroid_collisions[collider_index].corner_sampling);
-			var active_corners := new_corners.values().filter(
-				func(val: float) -> bool:
-					return val > 0.0;
-			)
-			return active_corners.size() >= MIN_CORNERS;
+			return MarchingSquaresUtility.count_positive_corners(new_corners) >= MIN_CORNERS;
 	);
 	
 	if (filtered_shapes.size() == 0):
@@ -65,37 +61,31 @@ func update_collider(collider_index: int, viewport_rect: Rect2) -> int:
 			asteroid_collisions.resize(new_max_index);
 		#
 		for i: int in filtered_shapes.size():
-			var index := collider_index;
-			
-			# If Shatter, create a new collision resource to populate
-			if i > 0:
-				index = max_index + 1;
-				var new_asteroid_collision := AsteroidCollision.new();
-				asteroid_collisions[index] = new_asteroid_collision;
-			
 			var convex_shape := filtered_shapes[i];
-			asteroid_collisions[index].position_offset = asteroid_collisions[collider_index].position_offset;
 			
-			if i == 0:
-				var collision_shape := collision_shapes[index];
+			if (i == 0):
+				asteroid_collisions[collider_index].position_offset = asteroid_collisions[collider_index].position_offset;
+				var collision_shape := collision_shapes[collider_index];
 				collision_shape.call_deferred("set_shape", convex_shape);
-				var mesh_instance: MeshInstance2D = collision_shapes[index].get_child(0);
-				MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, asteroid_collisions[index].corner_sampling, asteroid_collisions[index].texture, mesh_instance);
-				
+				var mesh_instance: MeshInstance2D = collision_shapes[collider_index].get_child(0);
+				MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, asteroid_collisions[collider_index].corner_sampling, asteroid_collisions[collider_index].texture, mesh_instance);
 			else:
-				var collision := CollisionShape2D.new();
-				collision.shape = convex_shape;
-				collision_shapes.append(collision);
-				
 				var new_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, asteroid_collisions[collider_index].corner_sampling);
-				asteroid_collisions[index].position_offset = asteroid_collisions[collider_index].position_offset;
-				asteroid_collisions[index].texture = asteroid_collisions[collider_index].texture;
-				asteroid_collisions[index].corner_sampling = new_corners;
-
-				var new_instance := MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, asteroid_collisions[index].corner_sampling, asteroid_collisions[collider_index].texture);
-				collision.position = asteroid_collisions[index].position_offset;
-				collision.add_child(new_instance);
-				asteroid.call_deferred("add_child", collision);
+				var mesh := MarchingSquaresGenerate.generate_mesh(
+					viewport_rect.size,
+					new_corners,
+					asteroid_collisions[collider_index].texture
+				);
+				var new_asteroid_collision := AsteroidCollision.new(
+					asteroid_collisions[collider_index].texture,
+					new_corners,
+					convex_shape,
+					mesh,
+					asteroid_collisions[collider_index].position_offset
+				);
+				var new_asteroid_mesh := AsteroidMesh.new([new_asteroid_collision]);
+				AsteroidManager.spawn_asteroid(asteroid, new_asteroid_mesh);
+			
 			
 		return KEEP_COLLIDER;
 			

@@ -25,6 +25,7 @@ const BLOCK_DIVISION = 0.5;
 const DOT_BUTTON_RADIUS = 2.0;
 const ALL_CORNERS = 15 # 1111 in binary
 const NO_CORNERS = 0 # 0000 in binary
+const OFF_SCREEN = Vector2(-1.0, -1.0);
 
 # Reduces the polygon to tile size in order to gather corners for full tiles involved in the polygon
 # Returns a new Dictonary with the filtered samples
@@ -99,7 +100,15 @@ static func get_position_tile_corner_coord(mouse_position: Vector2) -> Vector2:
 		if (mouse_position.distance_to(corner) < HALF_TILE_SIZE):
 			return corner;
 			
-	return Vector2(-1.0, -1.0); # Off screen
+	return OFF_SCREEN; # Off screen
+
+static func count_positive_corners(corner_sampling: Dictionary[Vector2, float]) -> int:
+	return corner_sampling.keys().reduce(
+		func(count: int, corner: Vector2) -> int:
+			if (corner_sampling[corner] > 0.0):
+				count += 1;
+			return count;, 0
+	);
 
 # Utility function to get normalized tile coordinates from viewport
 static func for_each_tile(viewport_size: Vector2, callable: Callable) -> void:
@@ -108,7 +117,7 @@ static func for_each_tile(viewport_size: Vector2, callable: Callable) -> void:
 	var y_viewport_tiles := int(viewport_size.y/TILE_SIZE);
 	
 	for x: int in range(0, x_viewport_tiles):
-		for y: int in range(0, y_viewport_tiles + 1):
+		for y: int in range(0, y_viewport_tiles):
 			var center := Vector2(x + BLOCK_DIVISION, y + BLOCK_DIVISION) * float(TILE_SIZE);
 			callable.call(center);
 			
