@@ -33,6 +33,7 @@ func apply(attach_asteroid: Asteroid) -> void:
 		var mesh_instance := MarchingSquaresGenerate.upsert_mesh_instance(asteroid_collisions[i].mesh, asteroid_collisions[i].texture);
 		collision.add_child(mesh_instance);
 		collision.position = asteroid_collisions[i].position_offset;
+		mesh_instance.position = mesh_instance.position + Vector2(MarchingSquaresUtility.HALF_TILE_SIZE, MarchingSquaresUtility.HALF_TILE_SIZE);
 
 func release_collider(collider_index: int) -> void:
 	collision_shapes[collider_index].call_deferred("queue_free");
@@ -68,7 +69,8 @@ func update_collider(collider_index: int, viewport_rect: Rect2) -> int:
 				var collision_shape := collision_shapes[collider_index];
 				collision_shape.call_deferred("set_shape", convex_shape);
 				var mesh_instance: MeshInstance2D = collision_shapes[collider_index].get_child(0);
-				MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, asteroid_collisions[collider_index].corner_sampling, asteroid_collisions[collider_index].texture, mesh_instance);
+				var new_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, asteroid_collisions[collider_index].corner_sampling);
+				MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, new_corners, asteroid_collisions[collider_index].texture, mesh_instance);
 			else:
 				var new_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, asteroid_collisions[collider_index].corner_sampling);
 				var mesh := MarchingSquaresGenerate.generate_mesh(

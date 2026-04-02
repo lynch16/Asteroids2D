@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://drhrxw7642nqd"]
 
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
-[ext_resource type="Resource" uid="uid://bid0ut2d48v7a" path="res://Models/Asteroid/AsteroidMesh/small_round.tres" id="2_aasjb"]
+[ext_resource type="Resource" uid="uid://bvr84c40jy3fn" path="res://Models/Asteroid/AsteroidMesh/long_turd.tres" id="2_aasjb"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_kufyc"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/Entities/Damage/damageable.gd" id="4_p7nbn"]
@@ -14,6 +14,7 @@ resource_local_to_scene = true
 radius = 311.07877
 
 [node name="Asteroid" type="RigidBody2D" unique_id=1301110429 groups=["enemy"]]
+position = Vector2(66, 38)
 mass = 1000000.0
 gravity_scale = 0.0
 sleeping = true

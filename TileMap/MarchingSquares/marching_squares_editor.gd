@@ -25,6 +25,8 @@ enum ToolMode {
 	SELECT_FOR_EXPORT
 }
 
+const MIN_CORNERS = 8;
+
 enum EditorMode {
 	READY,
 	EDIT_MESH,
@@ -213,6 +215,8 @@ func _sample_viewport() -> void:
 	mode = EditorMode.EDIT_MESH;
 	
 func _generate_mesh_from_saved_samples() -> void:
+	if (MarchingSquaresUtility.count_positive_corners(seed_corner_samples) < MIN_CORNERS):
+		return;
 	MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, seed_corner_samples, texture, seed_mesh_instance)
 	
 func _save_corner_samples(center: Vector2) -> void:

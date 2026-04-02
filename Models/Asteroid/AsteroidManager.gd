@@ -23,6 +23,11 @@ func spawn_asteroid(initial_aster: Asteroid = null, asteroid_mesh: AsteroidMesh 
 	if (asteroid_mesh):
 		aster.asteroid_mesh = asteroid_mesh;
 	aster.child_number = child_num;
+	
+	if initial_aster:
+		aster.position = initial_aster.position; # TODO: Move off center??
+		aster.rotation = initial_aster.rotation;
+		aster.linear_velocity = initial_aster.linear_velocity;
 
 	call_deferred("_add_asteroid", aster);
 	
