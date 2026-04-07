@@ -51,25 +51,9 @@ func _ready() -> void:
 		);
 		linear_velocity =  velocity.rotated(rotation - PI/2);
 		
-#func get_mesh_instances() -> Array[MeshInstance2D]:
-	#return asteroid_mesh.mesh_instances;
-
 func get_colliders() -> Array[CollisionShape2D]:
 	return asteroid_mesh.collision_shapes;
 	
-#func _calculate_offset_from_global_position(collider_shapes: Array[ConvexPolygonShape2D]) -> Vector2:
-	#var cX := 0.0;
-	#var cY := 0.0;
-	#
-	#for shape in collider_shapes:
-		#var center := shape.get_rect().get_center();
-		#cX += center.x;
-		#cY += center.y;
-		#
-	#cX = cX / collider_shapes.size();
-	#cY = cY / collider_shapes.size();
-	#
-	#return global_position - to_global(Vector2(cX, cY));
 
 func _disable_colliders() -> void:
 	for collision in get_colliders():
@@ -78,9 +62,8 @@ func _disable_colliders() -> void:
 func _enable_colliders() -> void:
 	for collision in get_colliders():
 		collision.set_deferred("disabled", false);
-	
-func _physics_process(_delta: float) -> void:
-	# TODO: This should be part of _integrate_forces
+		
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# Clamp velocity to reasonable playable value
 	linear_velocity = linear_velocity.normalized() * min(linear_velocity.length(), max_velocity);
 
@@ -97,7 +80,6 @@ func handle_projectile(
 	var release_indicies: Array[int] = [];
 	
 	for i: int in colliders.size():
-		print("I: ", i, " ", colliders.size())
 		var collider := colliders[i];
 		if (!is_instance_valid(collider)): 
 			continue;
@@ -116,8 +98,11 @@ func handle_projectile(
 			if (!asteroid_mesh.asteroid_collisions.get(i)):
 				continue;
 			
+			var impact_angle := last_projectile_position.angle_to(impact_point)
+			
 			asteroid_mesh.apply_damage_shape_to_corner_samples(
 				to_local(impact_point),
+				impact_angle,
 				damage_shapes,
 				i,
 			);

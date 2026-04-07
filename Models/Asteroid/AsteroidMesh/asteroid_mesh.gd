@@ -100,17 +100,19 @@ func _revert_position_offset(offset: Vector2, position: Vector2) -> Vector2:
 # Corner sample values are reapplied by applying each damage_shape
 # to intersecting corners with the shapes centered around the collision_point
 func apply_damage_shape_to_corner_samples(
-	raw_collider: Vector2,
+	raw_collidion_point: Vector2,
+	collision_angle: float,
 	damage_shapes: Array[DamageShape],
 	collider_index: int,
 ) -> void:
 	var corner_sampling := asteroid_collisions[collider_index].corner_sampling;
 	var collider_position_offset := asteroid_collisions[collider_index].position_offset;
-	var normalized_collision_point := _apply_position_offset(collider_position_offset, raw_collider);
+	var normalized_collision_point := _apply_position_offset(collider_position_offset, raw_collidion_point);
 	for key: Vector2 in corner_sampling:
 		for damage_shape in damage_shapes:
 			var new_corner_sample := damage_shape.apply_vector(
 				normalized_collision_point,
+				collision_angle,
 				key,
 				corner_sampling[key]
 			);

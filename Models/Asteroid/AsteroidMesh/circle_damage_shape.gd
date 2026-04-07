@@ -14,6 +14,7 @@ func _init(
 
 func apply_vector(
 	collision_point: Vector2,
+	_collision_angle: float,
 	ms_corner: Vector2,
 	corner_value: float,
 ) -> float:
