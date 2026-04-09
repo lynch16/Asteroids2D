@@ -16,4 +16,5 @@ script = ExtResource("1_tmv8i")
 position = Vector2(-239, 790)
 
 [node name="RockThrowTimer" type="Timer" parent="." unique_id=1682102670]
+wait_time = 3.0
 autostart = true

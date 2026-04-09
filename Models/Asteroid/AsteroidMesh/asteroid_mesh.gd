@@ -17,12 +17,13 @@ func _init(
 	asteroid_collisions = p_asteroid_collisions;
 	
 	collision_shapes = [];
+	resource_local_to_scene = true;
 	asteroid = Asteroid.new();
 
 func apply(attach_asteroid: Asteroid) -> void:
 	asteroid = attach_asteroid;
 	for i: int in asteroid_collisions.size():
-		if (MarchingSquaresUtility.count_positive_corners(asteroid_collisions[i].corner_sampling) < MIN_CORNERS):
+		if (!asteroid_collisions[i] || MarchingSquaresUtility.count_positive_corners(asteroid_collisions[i].corner_sampling) < MIN_CORNERS):
 			continue;
 		
 		var collision := CollisionShape2D.new();

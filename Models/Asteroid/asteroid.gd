@@ -108,9 +108,12 @@ func handle_projectile(
 			var result: = asteroid_mesh.update_collider(i, get_viewport_rect());
 			if (result == AsteroidMesh.REMOVE_COLLIDER):
 				release_indicies.append(i);
-			
-	for idx in release_indicies:
-		asteroid_mesh.release_collider(idx);
+	
+	if release_indicies.size() == colliders.size():
+		call_deferred("queue_free")
+	else:
+		for idx in release_indicies:
+			asteroid_mesh.release_collider(idx);
 
 
 func _draw() -> void:

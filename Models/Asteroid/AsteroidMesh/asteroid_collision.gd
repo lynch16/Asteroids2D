@@ -19,3 +19,4 @@ func _init(
 	convex_shape = p_convex_shape;
 	mesh = p_mesh;
 	position_offset = p_position_offset;
+	resource_local_to_scene = true;
