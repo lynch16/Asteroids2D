@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cxl1kyhkdp88q"]
 
-[ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/Entities/Weapons/Projectiles/projectile.gd" id="1_vpixh"]
-[ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="2_on45b"]
-[ext_resource type="Script" uid="uid://dlaq44o6nfb1r" path="res://Models/Entities/Weapons/intercepter.gd" id="3_on45b"]
+[ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/EntityModules/Weapons/Projectiles/projectile.gd" id="1_vpixh"]
+[ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/EntityModules/Damage/deal_damage.gd" id="2_on45b"]
+[ext_resource type="Script" uid="uid://dlaq44o6nfb1r" path="res://Models/EntityModules/Weapons/intercepter.gd" id="3_on45b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oqfp6"]
 

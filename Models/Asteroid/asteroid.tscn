@@ -4,10 +4,10 @@
 [ext_resource type="Resource" uid="uid://bvr84c40jy3fn" path="res://Models/Asteroid/AsteroidMesh/long_turd.tres" id="2_aasjb"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_kufyc"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
-[ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/Entities/Damage/damageable.gd" id="4_p7nbn"]
-[ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/Entities/Damage/apply_damage_result.gd" id="6_aasjb"]
-[ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/Entities/Damage/invincible_frames_damage_result.gd" id="6_j8b8u"]
-[ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="7_57j71"]
+[ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/EntityModules/Damage/damageable.gd" id="4_p7nbn"]
+[ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/apply_damage_result.gd" id="6_aasjb"]
+[ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/invincible_frames_damage_result.gd" id="6_j8b8u"]
+[ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/EntityModules/Damage/deal_damage.gd" id="7_57j71"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufyc"]
 resource_local_to_scene = true

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cfwhiiy0choq0"]
 
 [ext_resource type="Script" uid="uid://c1f3nl4dl78ik" path="res://tools/WeaponRange/weapon_range.gd" id="1_37gqi"]
-[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/Entities/Weapons/cannon_weapon.tscn" id="1_ejx1l"]
-[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/Entities/Weapons/character_weapons.gd" id="1_n5woa"]
+[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/cannon_weapon.tscn" id="1_ejx1l"]
+[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/character_weapons.gd" id="1_n5woa"]
 [ext_resource type="Script" uid="uid://bpbntljb3rfef" path="res://tools/WeaponRange/range_actor.gd" id="2_4wfoo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_37gqi"]

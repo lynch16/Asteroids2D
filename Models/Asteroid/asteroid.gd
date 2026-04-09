@@ -15,10 +15,6 @@ var collision_damage := 50.0;
 @onready var damageable: Damageable = get_node("Damageable");
 @onready var deal_damage: DealDamage = get_node("DealDamage");
 @onready var invince_frames_dr: DamageResult = get_node("Damageable/InvincibleFramesDamageResult");
-#@onready var collision: CollisionShape2D = get_node("AsteroidCollision");
-#@onready var mesh_instance: MeshInstance2D = get_node("MeshInstance2D");
-
-#var collisions: Array[CollisionShape2D] = [];
 var impact_points: Array[Vector2] = [];
 
 func _ready() -> void:
@@ -30,6 +26,7 @@ func _ready() -> void:
 	# TODO: Players don't cause _on_body_entered
 	body_entered.connect(deal_damage.damage);
 	
+	# TODO: None of damageable works with the new mesh based damage
 	#damageable.on_init(self);
 	damageable.on_destroy.connect(_destroy);
 	invince_frames_dr.init.connect(_disable_colliders);
@@ -63,7 +60,7 @@ func _enable_colliders() -> void:
 	for collision in get_colliders():
 		collision.set_deferred("disabled", false);
 		
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:
 	# Clamp velocity to reasonable playable value
 	linear_velocity = linear_velocity.normalized() * min(linear_velocity.length(), max_velocity);
 
@@ -92,8 +89,10 @@ func handle_projectile(
 		
 		if (collision_points.size() > 0):
 			var impact_point: Vector2 = collision_points.get(0);
-			impact_points.append(to_local(impact_point));
-			queue_redraw();
+			
+			if (debug_collide):
+				impact_points.append(to_local(impact_point));
+				queue_redraw();
 			
 			if (!asteroid_mesh.asteroid_collisions.get(i)):
 				continue;
