@@ -20,8 +20,9 @@ func spawn_asteroid(initial_aster: Asteroid = null, asteroid_mesh: MS_CollisionM
 		
 	var scene := asteroid_scenes[child_num];
 	var aster: Asteroid = scene.instantiate();
+	# TODO: Hook up signals for spawning from new mesh
 	if (asteroid_mesh):
-		aster.collision_mesh_group = asteroid_mesh;
+		aster._collision_mesh_group = asteroid_mesh;
 	aster.child_number = child_num;
 	
 	if initial_aster:

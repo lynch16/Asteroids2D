@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://drhrxw7642nqd"]
 
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
-[ext_resource type="Resource" uid="uid://b7e8v7dqyxo0j" path="res://Models/Asteroid/AsteroidMesh/peanut_collision_mesh_group.tres" id="2_aasjb"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_kufyc"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
+[ext_resource type="Resource" uid="uid://b7e8v7dqyxo0j" path="res://Models/Asteroid/AsteroidMesh/peanut_collision_mesh_group.tres" id="3_tsxo3"]
 [ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/EntityModules/Damage/damageable.gd" id="4_p7nbn"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/apply_damage_result.gd" id="6_aasjb"]
 [ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/invincible_frames_damage_result.gd" id="6_j8b8u"]
 [ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/EntityModules/Damage/deal_damage.gd" id="7_57j71"]
+[ext_resource type="Script" uid="uid://bjaigggvlf2m6" path="res://TileMap/MarchingSquares/GameObjects/deformable_mesh_2d.gd" id="8_aasjb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufyc"]
 resource_local_to_scene = true
@@ -20,7 +21,11 @@ sleeping = true
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_7kvrs")
-collision_mesh_group = ExtResource("2_aasjb")
+
+[node name="DeformableMesh2D" type="Node2D" parent="." unique_id=1042869803]
+script = ExtResource("8_aasjb")
+_collision_mesh_group = ExtResource("3_tsxo3")
+metadata/_custom_type_script = "uid://bjaigggvlf2m6"
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_kufyc")]
 node = NodePath("..")
@@ -36,7 +41,6 @@ shape = SubResource("CircleShape2D_kufyc")
 
 [node name="Damageable" type="Node" parent="." unique_id=1658148519]
 script = ExtResource("4_p7nbn")
-init_health = 100000000000.0
 metadata/_custom_type_script = "uid://c4l6k6583jbr6"
 
 [node name="InvincibleFramesDamageResult" type="Node" parent="Damageable" unique_id=1941184799]

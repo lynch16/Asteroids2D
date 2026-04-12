@@ -11,6 +11,8 @@ const REMOVE_COLLIDER = 1;
 var collision_shapes: Array[CollisionShape2D];
 var owner: Node2D;
 
+signal spawn_new_group(new_collision_mesh_group: MS_CollisionMeshGroup);
+
 func _init(
 	p_collision_meshes: Array[MS_CollisionMesh] = [], 
 ) -> void:
@@ -91,9 +93,7 @@ func update_collider(collider_index: int, viewport_rect: Rect2) -> int:
 					collision_meshes[collider_index].position_offset
 				);
 				var new_collision_mesh_group := MS_CollisionMeshGroup.new([new_collision_mesh]);
-				# TODO: Emit signals to destroy colliders, create new group, etc;
-				AsteroidManager.spawn_asteroid(owner as Asteroid, new_collision_mesh_group);
-			
+				spawn_new_group.emit(new_collision_mesh_group);
 			
 		return KEEP_COLLIDER;
 			
