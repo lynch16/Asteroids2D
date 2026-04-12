@@ -7,7 +7,7 @@ class_name Asteroid extends RigidBody2D
 
 @export var debug_collide := false;
 @export var debug_random_movement := false;
-@export var asteroid_mesh: AsteroidMesh;
+@export var collision_mesh_group: MS_CollisionMeshGroup;
 
 var child_number := 0;
 var collision_damage := 50.0;
@@ -20,8 +20,8 @@ var impact_points: Array[Vector2] = [];
 func _ready() -> void:
 	add_to_group("enemy");
 	
-	if (asteroid_mesh):
-		asteroid_mesh.apply(self);
+	if (collision_mesh_group):
+		collision_mesh_group.apply(self);
 	
 	# TODO: Players don't cause _on_body_entered
 	body_entered.connect(deal_damage.damage);
@@ -49,7 +49,7 @@ func _ready() -> void:
 		linear_velocity =  velocity.rotated(rotation - PI/2);
 		
 func get_colliders() -> Array[CollisionShape2D]:
-	return asteroid_mesh.collision_shapes;
+	return collision_mesh_group.collision_shapes;
 	
 
 func _disable_colliders() -> void:
@@ -94,26 +94,27 @@ func handle_projectile(
 				impact_points.append(to_local(impact_point));
 				queue_redraw();
 			
-			if (!asteroid_mesh.asteroid_collisions.get(i)):
+			# TODO: Move this into collision mesh group logic
+			if (!collision_mesh_group.collision_meshes.get(i)):
 				continue;
 			
 			var impact_angle := last_projectile_position.angle_to(impact_point)
 			
-			asteroid_mesh.apply_damage_shape_to_corner_samples(
+			collision_mesh_group.apply_damage_shape_to_corner_samples(
 				to_local(impact_point),
 				impact_angle,
 				damage_shapes,
 				i,
 			);
-			var result: = asteroid_mesh.update_collider(i, get_viewport_rect());
-			if (result == AsteroidMesh.REMOVE_COLLIDER):
+			var result: = collision_mesh_group.update_collider(i, get_viewport_rect());
+			if (result == MS_CollisionMeshGroup.REMOVE_COLLIDER):
 				release_indicies.append(i);
 	
 	if release_indicies.size() == colliders.size():
 		call_deferred("queue_free")
 	else:
 		for idx in release_indicies:
-			asteroid_mesh.release_collider(idx);
+			collision_mesh_group.release_collider(idx);
 
 
 func _draw() -> void:

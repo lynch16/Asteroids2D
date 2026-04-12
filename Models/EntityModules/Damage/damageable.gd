@@ -1,13 +1,15 @@
 class_name Damageable
 extends Node
 
+# TODO: Convert to stats resource
 @export var init_health := 100.0;
 
 var curr_health := init_health;
 var damage_result_states: Array[DamageResult];
+# TODO: Convert to using "owner"
 var attached_node: Variant;
 
-# TODO: Make destroy a regular damage result
+# TODO: Destroy is a result of health reaching zero
 signal on_destroy;
 
 func _ready() -> void:

@@ -148,13 +148,13 @@ static func generate_collision_shapes(
 	viewport_rect: Rect2,
 	corner_samples: Dictionary[Vector2, float],
 ) -> Array[ConvexPolygonShape2D]:
-	var x_viewport_tiles := int(viewport_rect.size.x/MarchingSquaresUtility.TILE_SIZE);
-	var y_viewport_tiles := int(viewport_rect.size.y/MarchingSquaresUtility.TILE_SIZE);
+	var x_viewport_tiles := int(viewport_rect.size.x/MarchingSquaresUtility.TILE_SIZE) - 1;
+	var y_viewport_tiles := int(viewport_rect.size.y/MarchingSquaresUtility.TILE_SIZE) - 1;
 	var bitmap := BitMap.new();
 	bitmap.create(Vector2i(x_viewport_tiles, y_viewport_tiles));
 	for vector in corner_samples:
-		var x_as_tile := clampi(floori(vector.x / MarchingSquaresUtility.TILE_SIZE), 0, x_viewport_tiles - 1)
-		var y_as_tile := clampi(floori(vector.y / MarchingSquaresUtility.TILE_SIZE), 0, y_viewport_tiles - 1)
+		var x_as_tile := clampi(floori(vector.x / MarchingSquaresUtility.TILE_SIZE), 0, x_viewport_tiles)
+		var y_as_tile := clampi(floori(vector.y / MarchingSquaresUtility.TILE_SIZE), 0, y_viewport_tiles)
 		var bit_vector := Vector2(x_as_tile, y_as_tile); 
 		bitmap.set_bitv(bit_vector, corner_samples[vector] > 0.0);
 	

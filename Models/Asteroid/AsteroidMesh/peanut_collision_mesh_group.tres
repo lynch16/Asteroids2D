@@ -1,21 +1,8 @@
-[gd_scene format=4 uid="uid://b8soshry3wmi7"]
+[gd_resource type="Resource" script_class="MS_CollisionMeshGroup" format=4 uid="uid://b7e8v7dqyxo0j"]
 
-[ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://navigable_area.gd" id="1_272bh"]
-[ext_resource type="PackedScene" uid="uid://moxkwo3nfsf4" path="res://Models/Player/player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://dc4xstka1au80" path="res://pause_menu.tscn" id="4_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="5_272bh"]
-[ext_resource type="PackedScene" uid="uid://ygio5vatco1t" path="res://UI/HUD/hud.tscn" id="5_lquwl"]
-[ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/ms_collision_mesh.gd" id="6_4c57u"]
-[ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="6_7mycd"]
-[ext_resource type="Texture2D" uid="uid://bhc3r2bpo42ly" path="res://TileMap/Textures/Ground_50_scaled.png" id="7_efxa6"]
-[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/ms_collision_mesh_group.gd" id="8_dg77c"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_7mycd"]
-vertices = PackedVector2Array(602.1875, 68.35156, 603.7969, 330.7422, 538.1328, 183, 531.5625, 158.4375, 531.5625, 207.5625, 513.5625, 225.5625, 513.5625, 140.4375, 33, 326.25, 33, 74.64844, 464.4375, 225.5625, 489, 232.13281, 489, 133.86719, 464.4375, 140.4375, 446.4375, 158.4375, 439.8672, 183, 446.4375, 207.5625)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1), PackedInt32Array(5, 4, 1), PackedInt32Array(0, 3, 6), PackedInt32Array(1, 7, 8, 9), PackedInt32Array(10, 5, 1), PackedInt32Array(0, 6, 11), PackedInt32Array(8, 0, 11, 12), PackedInt32Array(8, 12, 13), PackedInt32Array(8, 13, 14), PackedInt32Array(8, 14, 15), PackedInt32Array(8, 15, 9), PackedInt32Array(10, 1, 9)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1, 43, 634, 36, 636, 363, 1, 358)])
-agent_radius = 32.0
+[ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/ms_collision_mesh.gd" id="1_r7rlj"]
+[ext_resource type="Texture2D" uid="uid://bhc3r2bpo42ly" path="res://TileMap/Textures/Ground_50_scaled.png" id="2_xkwwi"]
+[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/ms_collision_mesh_group.gd" id="3_6qfp7"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_kby45"]
 points = PackedVector2Array(304, 32, 272, 32, 256, 96, 240, 96, 240, 192, 240, 208, 256, 224, 288, 224, 288, 208, 352, 208, 368, 176, 384, 176, 352, 112, 336, 112, 352, 96, 352, 32, 304, 16)
@@ -33,12 +20,11 @@ _surfaces = [{
 "vertex_count": 400,
 "vertex_data": PackedByteArray("AABwQ7lKsUJQ8m1DAADAQgAAcEMAAMBCUPJtQwAAwEJ6qGJDAADgQgAAcEMAAOBCAABwQwAAwEJ6qGJDAADgQnPpaEMAAABDAABwQwAAAEMAAHBDAADgQgAAcENKhQdDAABwQwAAAENz6WhDAAAAQwAAcEO3bTNDIiJqQwAAQEMAAHBDAABAQwAAcEPe3UVDAABwQwAAQEMiImpDAABAQwAAgEPuUoVCaVxyQwAAoEIAAIBDAACgQgAAgEMAAMBCAACAQwAAoEJpXHJDAACgQgAAcEO5SrFCAABwQwAAwEIAAHBDAADAQgAAcEMAAOBCAACAQwAA4EIAAIBDAADAQgAAcEMAAOBCAABwQwAAAEMAAIBDAAAAQwAAgEMAAOBCAACAQwAAEEMAAIBDAAAAQwAAcEMAAABDAABwQ0qFB0O+MHtDAAAQQ74we0MAABBDAAB8QwAAIEMAAIBDAAAgQwAAgEMAABBDAAB8QwAAIEOe2HFDAAAwQwAAgEMAADBDAACAQwAAIEMAAIBDAABAQwAAgEMAADBDnthxQwAAMEMAAHBDt20zQwAAcEMAAEBDAACAQwAAUEMAAIBDAABAQwAAcEMAAEBDAABwQ97dRUM7sXtDAABQQwAAgEPFTlRDAACAQwAAUEM7sXtDAABQQwAAiEOdluFBRbiFQwAAAEIAAIhDAAAAQkW4hUMAAABCj52BQwAAQEIAAIhDAABAQgAAiEMAAABCj52BQwAAQEK7VIFDAACAQgAAiEMAAIBCAACIQwAAQEIAAIhDAACgQgAAiEMAAIBCu1SBQwAAgEIAAIBD7lKFQgAAgEMAAKBCAACAQwAAoEIAAIBDAADAQgAAiEMAAMBCAACIQwAAoEIAAIBDAADAQgAAgEMAAOBCAACIQwAA4EIAAIhDAADAQgAAgEMAAOBCAACAQwAAAEMAAIhDAAAAQwAAiEMAAOBCAACAQwAAAEMAAIBDAAAQQwAAiEMAABBDAACIQwAAAEMAAIBDAAAQQwAAgEMAACBDAACIQwAAIEMAAIhDAAAQQwAAgEMAACBDAACAQwAAMEMAAIhDAAAwQwAAiEMAACBDAACAQwAAMEMAAIBDAABAQwAAiEMAAEBDAACIQwAAMEMAAIBDAABAQwAAgEMAAFBDAACIQwAAUEMAAIhDAABAQwAAgEMAAFBDAACAQ8VOVEMAAIhDAABSQwAAiEMAAFBDAACIQ52W4UEAAIhDAAAAQgAAkEMAAABCAACQQxT6hEEAAIhDAAAAQgAAiEMAAEBCAACQQwAAQEIAAJBDAAAAQgAAiEMAAEBCAACIQwAAgEIAAJBDAACAQgAAkEMAAEBCAACIQwAAgEIAAIhDAACgQgAAkEMAAKBCAACQQwAAgEIAAIhDAACgQgAAiEMAAMBCAACQQwAAwEIAAJBDAACgQgAAiEMAAMBCAACIQwAA4EIAAJBDAADgQgAAkEMAAMBCAACIQwAA4EIAAIhDAAAAQwAAkEMAAABDAACQQwAA4EIAAIhDAAAAQwAAiEMAABBDAACQQwAAEEMAAJBDAAAAQwAAiEMAABBDAACIQwAAIEMAAJBDAAAgQwAAkEMAABBDAACIQwAAIEMAAIhDAAAwQwAAkEMAADBDAACQQwAAIEMAAIhDAAAwQwAAiEMAAEBDAACQQwAAQEMAAJBDAAAwQwAAkEOclU5DAACQQwAAQEMAAIhDAABAQwAAiEMAAFBDNq+MQwAAUEM2r4xDAABQQwAAiEMAAFBDAACIQwAAUkMAAJhDswY+QXMMkUMAAIBBAACYQwAAgEEAAJhDAAAAQgAAmEMAAIBBcwyRQwAAgEEAAJBDFPqEQQAAkEMAAABCAACQQwAAAEIAAJBDAABAQgAAmEMAAEBCAACYQwAAAEIAAJBDAABAQgAAkEMAAIBCAACYQwAAgEIAAJhDAABAQgAAkEMAAIBCAACQQwAAoEIAAJhDAACgQgAAmEMAAIBCAACQQwAAoEIAAJBDAADAQgAAmEMAAMBCAACYQwAAoEIAAJBDAADAQgAAkEMAAOBCAACYQwAA4EIAAJhDAADAQgAAkEMAAOBCAACQQwAAAEMAAJhDAAAAQwAAmEMAAOBCAACQQwAAAEMAAJBDAAAQQwAAmEMAABBDAACYQwAAAEMAAJBDAAAQQwAAkEMAACBDAACYQwAAIEMAAJhDAAAQQwAAkEMAACBDAACQQwAAMEMAAJhDAAAwQwAAmEMAACBDAACQQwAAMEMAAJBDAABAQwAAmEMAAEBDAACYQwAAMEMAAJBDAABAQwAAkEOclU5DAACYQ+R7RkMAAJhDAABAQwAAmEOzBj5BAACYQwAAgEEAAKBDAACAQQAAoEMxOzFBAACYQwAAgEEAAJhDAAAAQgAAoEMAAABCAACgQwAAgEEAAJhDAAAAQgAAmEMAAEBCAACgQwAAQEIAAKBDAAAAQgAAmEMAAEBCAACYQwAAgEIAAKBDAACAQgAAoEMAAEBCAACYQwAAgEIAAJhDAACgQgAAoEMAAKBCAACgQwAAgEIAAJhDAACgQgAAmEMAAMBCAACgQwAAwEIAAKBDAACgQgAAmEMAAMBCAACYQwAA4EIAAKBDAADgQgAAoEMAAMBCAACYQwAA4EIAAJhDAAAAQwAAoEMAAABDAACgQwAA4EIAAJhDAAAAQwAAmEMAABBDAACgQwAAEEMAAKBDAAAAQwAAmEMAABBDAACYQwAAIEMAAKBDAAAgQwAAoEMAABBDAACYQwAAIEMAAJhDAAAwQwAAoEMAADBDAACgQwAAIEMAAJhDAAAwQwAAmEMAAEBDAACgQwAAQEMAAKBDAAAwQwAAmEMAAEBDAACYQ+R7RkMAAKBDfLxKQwAAoEMAAEBDAACgQzE7MUEAAKBDAACAQUftokMAAIBBAACoQ5Yr0UFH7aJDAACAQQAAoEMAAIBBAACgQwAAAEIAAKhDAAAAQgAAoEMAAABCAACgQwAAQEIAAKhDAABAQgAAqEMAAABCAACgQwAAQEIAAKBDAACAQgAAqEMAAIBCAACoQwAAQEIAAKBDAACAQgAAoEMAAKBCAACoQwAAoEIAAKhDAACAQgAAqEMuRapCAACoQwAAoEIAAKBDAACgQgAAoEMAAMBCpYqmQwAAwEIAAKhDqfbLQqWKpkMAAMBCAACgQwAAwEIAAKBDAADgQgAAqEMAAOBCAACgQwAA4EIAAKBDAAAAQwAAqEMAAABDAACoQwAA4EIAAKBDAAAAQwAAoEMAABBDAACoQwAAEEMAAKhDAAAAQwAAoEMAABBDAACgQwAAIEMAAKhDAAAgQwAAqEMAABBDAACgQwAAIEMAAKBDAAAwQwAAqEMAADBDAACoQwAAIEMAAKBDAAAwQwAAoEMAAEBDAACoQwAAQEMAAKhDAAAwQwAAoEMAAEBDAACgQ3y8SkMAAKhDa61JQwAAqEMAAEBDAACoQ5Yr0UEAAKhDAAAAQkftqkMAAABCR+2qQwAAAEIAAKhDAAAAQgAAqEMAAEBC/JasQwAAQEL8lqxDAABAQgAAqEMAAEBCAACoQwAAgEIAAKxDAACAQgAArEMAAIBCAACoQwAAgEIAAKhDAACgQqV8qUMAAKBCpXypQwAAoEIAAKhDAACgQgAAqEMuRapCAACoQ6n2y0IAAKhDAADgQrdzq0MAAOBCAACwQ+1Z6kK3c6tDAADgQgAAqEMAAOBCAACoQwAAAEMAALBDAAAAQwAAqEMAAABDAACoQwAAEEMAALBDAAAQQwAAsEMAAABDAACoQwAAEEMAAKhDAAAgQwAAsEMAACBDAACwQwAAEEMAAKhDAAAgQwAAqEMAADBDAACwQwAAMEMAALBDAAAgQwAAsENrrTlDAACwQwAAMEMAAKhDAAAwQwAAqEMAAEBDttasQwAAQEO21qxDAABAQwAAqEMAAEBDAACoQ2utSUMAALBD7VnqQgAAsEMAAABDc7u2QwAAAEMAALhDzfIEQ3O7tkMAAABDAACwQwAAAEMAALBDAAAQQwAAuEMAABBDAACwQwAAEEMAALBDAAAgQwAAuEMAACBDAAC4QwAAEEMAALhDa60pQwAAuEMAACBDAACwQwAAIEMAALBDAAAwQ7bWtEMAADBDtta0QwAAMEMAALBDAAAwQwAAsENrrTlDAAC4Q83yBEMAALhDAAAQQygju0MAABBDKCO7QwAAEEMAALhDAAAQQwAAuEMAACBDAAC9QwAAIEMAAL1DAAAgQwAAuEMAACBDAAC4Q2utKUP//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgA==")
 }]
-custom_aabb = AABB(240, 16, 0, 144, 208, 0)
 
-[sub_resource type="Resource" id="Resource_ycdy4"]
+[sub_resource type="Resource" id="Resource_88py4"]
 resource_local_to_scene = true
-script = ExtResource("6_4c57u")
-texture = ExtResource("7_efxa6")
+script = ExtResource("1_r7rlj")
+texture = ExtResource("2_xkwwi")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(224, 80): -0.7066666666666648,
 Vector2(224, 96): -1.0,
@@ -193,33 +179,7 @@ convex_shape = SubResource("ConvexPolygonShape2D_kby45")
 mesh = SubResource("ArrayMesh_2lfie")
 position_offset = Vector2(-304.94116, -131.76471)
 
-[sub_resource type="Resource" id="Resource_w48qg"]
+[resource]
 resource_local_to_scene = true
-script = ExtResource("8_dg77c")
-collision_meshes = Array[ExtResource("6_4c57u")]([SubResource("Resource_ycdy4")])
-
-[node name="Main" type="Node" unique_id=944017969]
-
-[node name="NavigableArea" type="NavigationRegion2D" parent="." unique_id=1297242672]
-navigation_polygon = SubResource("NavigationPolygon_7mycd")
-script = ExtResource("1_272bh")
-
-[node name="Player" parent="NavigableArea" unique_id=818107462 instance=ExtResource("1_ig7tw")]
-position = Vector2(95, 163)
-
-[node name="RockThrower" parent="NavigableArea" unique_id=1513123556 instance=ExtResource("3_h2yge")]
-
-[node name="Enemy" parent="NavigableArea" unique_id=1345935966 instance=ExtResource("6_7mycd")]
-process_mode = 4
-visible = false
-position = Vector2(212, 326)
-
-[node name="Asteroid" parent="NavigableArea" unique_id=1301110429 instance=ExtResource("5_272bh")]
-position = Vector2(489, 183)
-collision_mesh_group = SubResource("Resource_w48qg")
-
-[node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
-process_mode = 3
-visible = false
-
-[node name="HUD" parent="." unique_id=663700924 instance=ExtResource("5_lquwl")]
+script = ExtResource("3_6qfp7")
+collision_meshes = Array[ExtResource("1_r7rlj")]([SubResource("Resource_88py4")])

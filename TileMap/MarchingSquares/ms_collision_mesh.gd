@@ -1,4 +1,4 @@
-class_name AsteroidCollision
+class_name MS_CollisionMesh
 extends Resource
 
 @export var texture: Texture2D;

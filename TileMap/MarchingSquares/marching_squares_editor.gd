@@ -15,11 +15,11 @@ extends Node2D
 @export_tool_button("Generate for Export", "EditKey") var generate := _generate_resources;
 @export_tool_button("Clear", "EditKey") var clear := _clear_staging_area;
 @export_tool_button("Regenerate", "EditKey") var regenerate := _regenerate_resources;
-@export_category("Save Asteroid Mesh")
+@export_category("Save Collision Mesh Group")
 @export_custom(PROPERTY_HINT_NONE, "suffix:.tres") var file_name: String = "test";
 @export_tool_button("Export", "Save") var save := _save;
 
-const FOLDER_NAME =  "res://Models/Asteroid/AsteroidMesh/"
+const FOLDER_NAME =  "res://TileMap/MarchingSquares/exports/";
 enum ToolMode {
 	EDIT_MESH,
 	SELECT_FOR_EXPORT
@@ -255,7 +255,7 @@ func _seed() -> void:
 	_sample_viewport();
 
 func _save() -> void:
-	var final_collisions: Array[AsteroidCollision] = [];
+	var final_collisions: Array[MS_CollisionMesh] = [];
 	var children := staging_area.get_children();
 	
 	for i: int in children.size():
@@ -265,7 +265,7 @@ func _save() -> void:
 		);
 		var associated_stage := staged_ms_colliders[associated_stage_index];
 		
-		var asteroid_collision := AsteroidCollision.new(
+		var collision_mesh := MS_CollisionMesh.new(
 			associated_stage.mesh_instance.texture,
 			associated_stage.corner_sampling,
 			associated_stage.collision.shape as ConvexPolygonShape2D,
@@ -273,13 +273,13 @@ func _save() -> void:
 			associated_stage.collision.position,
 			
 		);
-		final_collisions.append(asteroid_collision);
+		final_collisions.append(collision_mesh);
 	
-	var asteroid_mesh := AsteroidMesh.new(
+	var collision_mesh_group := MS_CollisionMeshGroup.new(
 		final_collisions,
 	);
 	
-	ResourceSaver.save(asteroid_mesh, FOLDER_NAME + file_name + ".tres");
+	ResourceSaver.save(collision_mesh_group, FOLDER_NAME + file_name + ".tres");
 
 # Draw dots at each vertex, colored whether the mouse is hovering
 func _draw() -> void:
