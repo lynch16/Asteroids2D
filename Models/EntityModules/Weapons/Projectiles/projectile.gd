@@ -3,7 +3,7 @@ class_name Projectile
 extends Node2D
 
 @export var speed := 1000.0;
-@export var damage_shapes: Array[DamageShape];
+@export var mesh_deformation_shapes: Array[MeshDeformationShape];
 
 # TODO: This should be a HitBox and created by the weapon on firing
 @onready var collision_area_2d: Area2D = get_node("Area2D");
@@ -89,5 +89,5 @@ func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int,
 				mesh_collider.apply_mesh_deformation(
 					to_local(impact_point),
 					impact_angle,
-					damage_shapes,
+					mesh_deformation_shapes,
 				);

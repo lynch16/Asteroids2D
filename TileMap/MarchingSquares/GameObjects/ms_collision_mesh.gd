@@ -21,23 +21,20 @@ func _init(
 	position_offset = p_position_offset;
 	resource_local_to_scene = true;
 
-# Corner sample values are reapplied by applying each damage_shape
+# Corner sample values are reapplied by applying each mesh_deformation_shapes
 # to intersecting corners with the shapes centered around the collision_point
-func apply_damage_shape_to_corner_samples(
-	raw_collidion_point: Vector2,
+func apply_mesh_deformation_shapes_to_corner_samples(
+	collidion_point: Vector2,
 	collision_angle: float,
-	damage_shapes: Array[DamageShape],
+	mesh_deformation_shapes: Array[MeshDeformationShape],
 ) -> void:
-	var normalized_collision_point := _apply_position_offset(position_offset, raw_collidion_point);
 	for key: Vector2 in corner_sampling:
-		for damage_shape in damage_shapes:
-			var new_corner_sample := damage_shape.apply_vector(
-				normalized_collision_point,
+		for mesh_deformation_shape in mesh_deformation_shapes:
+			var new_corner_sample := mesh_deformation_shape.apply_vector(
+				collidion_point,
 				collision_angle,
 				key,
 				corner_sampling[key]
 			);
 			corner_sampling[key] = new_corner_sample;
 			
-func _apply_position_offset(offset: Vector2, position: Vector2) -> Vector2:
-	return position - offset;

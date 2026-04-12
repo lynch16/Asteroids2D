@@ -30,6 +30,7 @@ func _get_collision_mesh() -> MS_CollisionMesh:
 	return _collision_mesh;
 
 func _release_collider() -> void:
+	print("RELEASE");
 	queue_free();
 
 func update_collider() -> void:
@@ -77,11 +78,11 @@ func update_collider() -> void:
 func apply_mesh_deformation(
 	collidion_point: Vector2,
 	collision_angle: float,
-	damage_shapes: Array[DamageShape],
+	mesh_deformation_shapes: Array[MeshDeformationShape],
 ) -> void:
-	_get_collision_mesh().apply_damage_shape_to_corner_samples(
+	_get_collision_mesh().apply_mesh_deformation_shapes_to_corner_samples(
 		collidion_point,
 		collision_angle,
-		damage_shapes
+		mesh_deformation_shapes
 	);
 	update_collider();

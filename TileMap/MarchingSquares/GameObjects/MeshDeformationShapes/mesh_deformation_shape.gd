@@ -1,4 +1,4 @@
-class_name DamageShape
+class_name MeshDeformationShape
 extends Resource
 
 @export var damage: float;

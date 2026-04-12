@@ -1,5 +1,5 @@
-class_name CircleDamageShape
-extends DamageShape
+class_name CircleMeshDeformationShape
+extends MeshDeformationShape
 
 @export var radius: float;
 
@@ -8,9 +8,8 @@ func _init(
 	p_shape: CircleShape2D = CircleShape2D.new(),
 	p_radius: float = 1.0,
 ) -> void:
-	shape = p_shape;
+	super._init(p_damage, p_shape);
 	radius = p_radius;
-	damage = p_damage;
 
 func apply_vector(
 	collision_point: Vector2,
