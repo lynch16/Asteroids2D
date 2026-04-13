@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvqcm5evkukx6"
-path="res://.godot/imported/MS_TilesSet.png-9e86f03ccc4089ea638589a30c6fc113.ctex"
+uid="uid://bhc3r2bpo42ly"
+path="res://.godot/imported/Ground_50_scaled.png-b6b19354d90982f43aaf90784bb24d7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileMap/MarchingSquares/MS_TilesSet.png"
-dest_files=["res://.godot/imported/MS_TilesSet.png-9e86f03ccc4089ea638589a30c6fc113.ctex"]
+source_file="res://TileMap/Textures/Ground_50_scaled.png"
+dest_files=["res://.godot/imported/Ground_50_scaled.png-b6b19354d90982f43aaf90784bb24d7d.ctex"]
 
 [params]
 

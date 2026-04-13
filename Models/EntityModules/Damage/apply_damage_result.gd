@@ -10,7 +10,7 @@ func on_damage(dmg: float, _curr_health: float, _damager_node: Node) -> bool:
 	var maybe_damageable := get_parent();
 	if (maybe_damageable is Damageable):
 		var damageable: Damageable = maybe_damageable;
-		damageable.curr_health -= dmg;
+		#damageable.curr_health -= dmg;
 		
 		damage_applied.emit(dmg, damageable.curr_health);
 	else:

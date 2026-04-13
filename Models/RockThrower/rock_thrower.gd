@@ -16,12 +16,13 @@ func throw_rock() -> void:
 	var rock := AsteroidManager.spawn_asteroid();
 	rock_spawn_location.progress_ratio = randf();
 	
+	# TODO: This positioning should be contained within spawn_asteroid
 	rock.global_position = rock_spawn_location.global_position;
 	
 	# Start perpendicular then randomize the direction
 	var direction := rock_spawn_location.rotation + PI/2;
-	direction += randf_range(-PI/4, PI/4)
-	rock.rotation = direction;
+	direction += randf_range(0, PI)
+	rock.global_rotation = direction;
 	
 	var velocity := Vector2(randf_range(min_throw_velocity, max_throw_velocity), 0.0);
 	rock.linear_velocity = velocity.rotated(direction);

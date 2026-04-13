@@ -43,8 +43,9 @@ func on_damage(_damage_dealt: float, curr_health: float, damager_node: Node) -> 
 	
 	
 	return false;
-#
+
 func _apply_parent_force_to_child(parent_aster: Asteroid, child_aster: Asteroid) -> void:
+	# TODO: Why is this not part of spawn asteroid since the parent asteroid is already applied to it?
 	child_aster.position = parent_aster.position;
 	child_aster.global_position = parent_aster.global_position;
 	child_aster.linear_velocity = parent_aster.linear_velocity;

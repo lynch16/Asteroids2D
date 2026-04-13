@@ -28,7 +28,8 @@ func _set_action_speed() -> void:
 
 func _send_projectile(num_projectile: int) -> void:
 	for i in num_projectile:
-		var projectile := projectile_scene.instantiate() as Projectile;
+		# TODO: Improve this to be more robust
+		var projectile: Projectile = projectile_scene.instantiate();
 		
 		# TODO: Should projectile management be offloaded to a central utility that can batch?
 		if Engine.is_editor_hint():

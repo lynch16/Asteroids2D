@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://bsfnrmutub50v"]
 
-[ext_resource type="Script" uid="uid://cuqmt45sefh8k" path="res://Models/Entities/Weapons/cannon_weapon.gd" id="1_lgcxq"]
-[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/Entities/Weapons/Projectiles/bullet.tscn" id="2_lgcxq"]
-[ext_resource type="Script" uid="uid://dlaq44o6nfb1r" path="res://Models/Entities/Weapons/intercepter.gd" id="3_pcssh"]
+[ext_resource type="Script" uid="uid://cuqmt45sefh8k" path="res://Models/EntityModules/Weapons/cannon_weapon.gd" id="1_lgcxq"]
+[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="2_lgcxq"]
+[ext_resource type="Script" uid="uid://dlaq44o6nfb1r" path="res://Models/EntityModules/Weapons/intercepter.gd" id="3_pcssh"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_pcssh"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABMAAAAUklGRkQAAABXRUJQVlA4TDcAAAAvH8AHEBcgFkzxIDoTCCQhLL+vQCDFKUzw/AfUP1DTthHUwjk2P38wp47dI/o/ATCedxQh+NwCAA==")

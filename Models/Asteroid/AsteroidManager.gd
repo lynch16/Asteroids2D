@@ -13,14 +13,22 @@ var spawn_parent_node: Node;
 func set_spawn_parent_node(node: Node) -> void:
 	spawn_parent_node = node;
 
-func spawn_asteroid(initial_aster: Asteroid = null) -> Asteroid:
+func spawn_asteroid(initial_aster: Asteroid = null, asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
 	var child_num: int = 0 if initial_aster == null else (initial_aster.child_number + 1);
 	if (child_num >= asteroid_scenes.size()):
 		return;
 		
 	var scene := asteroid_scenes[child_num];
 	var aster: Asteroid = scene.instantiate();
+	# TODO: Hook up signals for spawning from new mesh
+	if (asteroid_mesh):
+		aster._collision_mesh_group = asteroid_mesh;
 	aster.child_number = child_num;
+	
+	if initial_aster:
+		aster.position = initial_aster.position; # TODO: Move off center??
+		aster.rotation = initial_aster.rotation;
+		aster.linear_velocity = initial_aster.linear_velocity;
 
 	call_deferred("_add_asteroid", aster);
 	
