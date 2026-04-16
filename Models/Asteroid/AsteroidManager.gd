@@ -13,6 +13,7 @@ var spawn_parent_node: Node;
 func set_spawn_parent_node(node: Node) -> void:
 	spawn_parent_node = node;
 
+# TODO: Get rid of child_num, change scenes to meshes, make "maybe_spawn_asteroid", differentiate between spawn from and spawn brand new, add impulse to both initial  and new to push them away from each other
 func spawn_asteroid(initial_aster: Asteroid = null, asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
 	var child_num: int = 0 if initial_aster == null else (initial_aster.child_number + 1);
 	if (child_num >= asteroid_scenes.size()):
@@ -20,13 +21,12 @@ func spawn_asteroid(initial_aster: Asteroid = null, asteroid_mesh: MS_CollisionM
 		
 	var scene := asteroid_scenes[child_num];
 	var aster: Asteroid = scene.instantiate();
-	# TODO: Hook up signals for spawning from new mesh
 	if (asteroid_mesh):
 		aster._collision_mesh_group = asteroid_mesh;
 	aster.child_number = child_num;
 	
 	if initial_aster:
-		aster.position = initial_aster.position; # TODO: Move off center??
+		aster.position = initial_aster.position;
 		aster.rotation = initial_aster.rotation;
 		aster.linear_velocity = initial_aster.linear_velocity;
 

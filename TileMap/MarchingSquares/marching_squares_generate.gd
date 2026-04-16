@@ -161,6 +161,7 @@ static func generate_collision_shapes(
 	var polygons := bitmap.opaque_to_polygons(Rect2(Vector2(), Vector2(x_viewport_tiles, y_viewport_tiles)), 1.0);
 	var collision_shapes: Array[ConvexPolygonShape2D] = [];
 	
+	# TODO: Can this be done without resizing polygons
 	for polygon in polygons:
 		var resized_polygon := PackedVector2Array();
 		for point in polygon:

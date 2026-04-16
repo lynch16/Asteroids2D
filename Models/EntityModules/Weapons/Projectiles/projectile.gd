@@ -86,8 +86,8 @@ func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int,
 				var impact_point: Vector2 = collision_points.get(0);
 				var impact_angle := last_position.angle_to(impact_point);
 			
-				mesh_collider.apply_mesh_deformation(
-					to_local(impact_point),
+				mesh_collider.apply_group_deformation(
+					mesh_collider.to_local(impact_point),
 					impact_angle,
 					mesh_deformation_shapes,
 				);

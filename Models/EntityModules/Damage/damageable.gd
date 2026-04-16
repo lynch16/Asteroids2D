@@ -1,46 +1,39 @@
 class_name Damageable
 extends Node
 
-# TODO: Convert to stats resource
-@export var init_health := 100.0;
-
-var curr_health := init_health;
+var combat_stats: CombatStats;
 var damage_result_states: Array[DamageResult];
-# TODO: Convert to using "owner"
-var attached_node: Variant;
+var initialized := false;
 
-# TODO: Destroy is a result of health reaching zero
-signal on_destroy;
+static func get_damageable_node(_owner: Node) -> Damageable:
+	var damageable: Damageable;
+	var maybe_damageable: Variant = _owner.get("damageable");
+	if (maybe_damageable is Damageable):
+		damageable = maybe_damageable;
+	
+	return damageable;
 
 func _ready() -> void:
 	var node_children := get_children();
 	for child in node_children:
 		if (child is DamageResult):
 			damage_result_states.push_back(child as DamageResult);
-	if on_destroy.get_connections().size() == 0:
-		printerr("Damageable has no destroy action connected");
 
 func _process(_delta:float) -> void:
 	for damage_result in damage_result_states:
 		damage_result.update(_delta);
 
-func on_init(attached_object: Variant) -> void:
-	attached_node = attached_object;
-	
+func on_init(_combat_stats: CombatStats) -> void:
+	initialized = true;
+	combat_stats = _combat_stats;
 	for damage_result in damage_result_states:
-		damage_result.on_init(attached_object);
+		damage_result.on_init();
 
 func on_damage(damage_amount: float, damager_node: Node) -> void:
-	# This doesn't respect things like invince frames.
-	# Death should be a result
+	if (!initialized):
+		printerr("Damageable node for " + owner.name + " never initialized");
 	for damage_result in damage_result_states:
-		var check_next_result: bool = damage_result.on_damage(damage_amount, curr_health, damager_node);
+		var check_next_result: bool = damage_result.on_damage(damage_amount, damager_node);
 			
 		if !check_next_result:
 			break;
-			
-	if (curr_health <= 0):
-		die();
-		
-func die() -> void:
-	on_destroy.emit();

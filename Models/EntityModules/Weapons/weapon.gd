@@ -3,6 +3,7 @@
 class_name Weapon extends EquipItem
 
 @export var weapon_range: float = 200.0;
+@export var base_damage: float = 1.0;
 
 var aim_variance := deg_to_rad(15);
 

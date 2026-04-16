@@ -28,13 +28,9 @@ func apply_mesh_deformation_shapes_to_corner_samples(
 	collision_angle: float,
 	mesh_deformation_shapes: Array[MeshDeformationShape],
 ) -> void:
-	for key: Vector2 in corner_sampling:
-		for mesh_deformation_shape in mesh_deformation_shapes:
-			var new_corner_sample := mesh_deformation_shape.apply_vector(
-				collidion_point,
-				collision_angle,
-				key,
-				corner_sampling[key]
-			);
-			corner_sampling[key] = new_corner_sample;
-			
+	for mesh_deformation_shape in mesh_deformation_shapes:
+		corner_sampling = mesh_deformation_shape.apply_shape(
+			collidion_point,
+			collision_angle,
+			corner_sampling	
+		);

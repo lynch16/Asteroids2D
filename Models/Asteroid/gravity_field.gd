@@ -26,7 +26,7 @@ func _apply_gravity(delta: float) -> void:
 		
 		if node is Player:
 			var player_node := node as Player;
-			node_mass = player_node.mass;
+			node_mass = player_node.movement_stats.mass;
 		elif node is Asteroid:
 			var aster_node := node as Asteroid;
 			node_mass = aster_node.mass;

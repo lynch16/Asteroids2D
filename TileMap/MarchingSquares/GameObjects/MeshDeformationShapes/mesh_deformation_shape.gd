@@ -11,12 +11,10 @@ func _init(
 	damage = p_damage;
 	shape = p_shape;
 	
-## Applies the shape impact on the given MarchingSquares corner vector
-func apply_vector(
-	_collision_point: Vector2,
+func apply_shape(
+		_collision_point: Vector2,
 	_collision_angle: float,
-	_ms_corner: Vector2,
-	corner_value: float,
-) -> float:
-	return corner_value;
+	_corner_sampling: Dictionary[Vector2, float],
+) -> Dictionary[Vector2, float]:
+	return _corner_sampling;
 	
