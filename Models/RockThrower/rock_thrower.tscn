@@ -17,4 +17,5 @@ position = Vector2(-238, 1276)
 rotation = -0.0016920457
 
 [node name="RockThrowTimer" type="Timer" parent="." unique_id=1682102670]
+wait_time = 3.0
 autostart = true

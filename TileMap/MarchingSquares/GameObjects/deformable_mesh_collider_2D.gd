@@ -41,10 +41,17 @@ func update_collider() -> void:
 		viewport_rect,
 		collision_mesh.corner_sampling
 	);
+	
+	var filtered_corners: Array[Dictionary] = [];
+	
 	var filtered_shapes: Array[ConvexPolygonShape2D] = new_convex_shapes.filter(
 		func(convex_shape: ConvexPolygonShape2D) -> bool:
 			var new_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, collision_mesh.corner_sampling);
-			return MarchingSquaresUtility.count_positive_corners(new_corners) >= MIN_CORNERS;
+			if (MarchingSquaresUtility.count_positive_corners(new_corners) >= MIN_CORNERS):
+				filtered_corners.append(new_corners);
+				return true;
+			else:
+				return false;
 	);
 	
 	if (filtered_shapes.size() == 0):
@@ -53,15 +60,13 @@ func update_collider() -> void:
 	else:
 		for i: int in filtered_shapes.size():
 			var convex_shape := filtered_shapes[i];
+			var new_corners := filtered_corners[i];
 			
 			if (i == 0):
 				collision_mesh.position_offset = collision_mesh.position_offset;
 				call_deferred("set_shape", convex_shape);
-				# TODO: new_corners calculated 3x
-				var new_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, collision_mesh.corner_sampling);
 				MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, new_corners, collision_mesh.texture, mesh_instance);
 			else:
-				var new_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, collision_mesh.corner_sampling);
 				var mesh := MarchingSquaresGenerate.generate_mesh(
 					viewport_rect.size,
 					new_corners,
@@ -77,30 +82,17 @@ func update_collider() -> void:
 				var new_collision_mesh_group := MS_CollisionMeshGroup.new([new_collision_mesh]);
 				spawn_new_group.emit(new_collision_mesh_group);
 
-var point: Vector2;
-var angle: float;
-
 func apply_mesh_deformation(
 	collidion_point: Vector2,
 	collision_angle: float,
 	mesh_deformation_shapes: Array[MeshDeformationShape],
 ) -> void:
-	point = collidion_point;
-	angle = collision_angle;
 	_get_collision_mesh().apply_mesh_deformation_shapes_to_corner_samples(
 		collidion_point,
 		collision_angle,
 		mesh_deformation_shapes
 	);
 	update_collider();
-	#queue_redraw();
-#
-#func _draw() -> void:
-	#if (point && angle):
-		#var hit_line := PackedVector2Array([point, (point * 5000).rotated(angle)]);
-		#var hitbox := Geometry2D.offset_polyline(hit_line, 16)[0];
-		#print("HITBOX SIZE: ", Geometry2D.offset_polyline(hit_line, 16).size());
-		#draw_colored_polygon(hitbox, Color.WHITE);
 
 func apply_group_deformation(
 	collidion_point: Vector2,

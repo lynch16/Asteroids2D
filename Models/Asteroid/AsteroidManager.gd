@@ -14,6 +14,7 @@ func set_spawn_parent_node(node: Node) -> void:
 	spawn_parent_node = node;
 
 # TODO: Get rid of child_num, change scenes to meshes, make "maybe_spawn_asteroid", differentiate between spawn from and spawn brand new, add impulse to both initial  and new to push them away from each other
+# TODO: Build launch queue
 func spawn_asteroid(initial_aster: Asteroid = null, asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
 	var child_num: int = 0 if initial_aster == null else (initial_aster.child_number + 1);
 	if (child_num >= asteroid_scenes.size()):
