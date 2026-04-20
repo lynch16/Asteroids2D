@@ -41,26 +41,20 @@ func _on_body_entered(node: Node2D) -> void:
 	
 		
 func _shatter(new_mesh_group: MS_CollisionMeshGroup) -> void:
-	var new_asteroid := AsteroidManager.spawn_asteroid(self, new_mesh_group);
-		# Launch child off in semi-random direction
-	var impact_force := Vector2(
-		randf_range(0, 100),
-		randf_range(0, 100),
-	)
-	var rand_rotation := randf_range(-PI/4, PI/4);
-	var rotated_force := impact_force.rotated((impact_force.angle() + rand_rotation)) ;
-	new_asteroid.apply_central_impulse(rotated_force); 
+	AsteroidManager.shatter_asteroid(self, new_mesh_group);
 		
 func get_colliders() -> Array[DeformableMeshCollider2D]:
 	return deformable_mesh.get_colliders();
 	
 func _disable_colliders() -> void:
 	for collision in get_colliders():
-		collision.set_deferred("disabled", true);
+		if (is_instance_valid(collision)):
+			collision.set_deferred("disabled", true);
 	
 func _enable_colliders() -> void:
 	for collision in get_colliders():
-		collision.set_deferred("disabled", false);
+		if (is_instance_valid(collision)):
+			collision.set_deferred("disabled", false);
 		
 func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:
 	# Clamp velocity to reasonable playable value

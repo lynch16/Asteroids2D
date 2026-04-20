@@ -19,7 +19,6 @@
 [sub_resource type="Resource" id="Resource_gw6yr"]
 resource_local_to_scene = true
 script = ExtResource("3_jywkw")
-metadata/_custom_type_script = "uid://dcnjijdgd4kkl"
 
 [sub_resource type="Resource" id="Resource_ssro7"]
 script = ExtResource("5_rr1y8")
@@ -222,7 +221,7 @@ script = ExtResource("8_aasjb")
 _collision_mesh_group = ExtResource("3_tsxo3")
 metadata/_custom_type_script = "uid://bjaigggvlf2m6"
 
-[node name="@CollisionShape2D@19254" type="CollisionShape2D" parent="DeformableMesh2D" unique_id=1492825845]
+[node name="@CollisionShape2D@19402" type="CollisionShape2D" parent="DeformableMesh2D" unique_id=1235975368]
 position = Vector2(-304.94116, -131.76471)
 shape = SubResource("ConvexPolygonShape2D_kby45")
 script = ExtResource("10_qdhb0")

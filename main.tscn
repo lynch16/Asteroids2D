@@ -194,12 +194,12 @@ convex_shape = SubResource("ConvexPolygonShape2D_kby45")
 mesh = SubResource("ArrayMesh_2lfie")
 position_offset = Vector2(-304.94116, -131.76471)
 
-[sub_resource type="Resource" id="Resource_2cqfq"]
+[sub_resource type="Resource" id="Resource_efxa6"]
 resource_local_to_scene = true
 script = ExtResource("8_ycdy4")
 collision_meshes = Array[ExtResource("6_efxa6")]([SubResource("Resource_vivmo")])
 
-[sub_resource type="Resource" id="Resource_yaehf"]
+[sub_resource type="Resource" id="Resource_dg77c"]
 resource_local_to_scene = true
 script = ExtResource("9_w48qg")
 metadata/_custom_type_script = "uid://dcnjijdgd4kkl"
@@ -222,8 +222,8 @@ position = Vector2(212, 326)
 
 [node name="Asteroid" parent="NavigableArea" unique_id=1301110429 instance=ExtResource("5_272bh")]
 position = Vector2(489, 183)
-_collision_mesh_group = SubResource("Resource_2cqfq")
-_combat_stats = SubResource("Resource_yaehf")
+_collision_mesh_group = SubResource("Resource_efxa6")
+_combat_stats = SubResource("Resource_dg77c")
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3
