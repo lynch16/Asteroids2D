@@ -27,17 +27,16 @@ func _process(_delta: float) -> void:
 	var asteroid_to_launch: AsteroidLaunch = asteroid_launcher.pop_front();
 	if (asteroid_to_launch):
 		var new_asteroid := spawn_asteroid(asteroid_to_launch.asteroid_mesh);
-		new_asteroid.linear_velocity = asteroid_to_launch.launch_velocity;
+		new_asteroid.velocity = asteroid_to_launch.launch_velocity;
 		new_asteroid.rotation = asteroid_to_launch.launch_angle;
-		
 
 func set_spawn_parent_node(node: Node) -> void:
 	spawn_parent_node = node;
 
 func shatter_asteroid(initial_aster: Asteroid, new_mesh: MS_CollisionMeshGroup) -> void:
 	var direction := randf_range(0, PI);
-	var speed := initial_aster.linear_velocity.length() * randf_range(0.5, 2.0);
-	initial_aster.linear_velocity = initial_aster.linear_velocity.rotated(-direction);
+	var speed := initial_aster.velocity.length() * randf_range(0.5, 2.0);
+	initial_aster.velocity = initial_aster.velocity.rotated(-direction);
 	
 	var asteroid_launch := AsteroidLaunch.new(
 		new_mesh,
@@ -46,8 +45,6 @@ func shatter_asteroid(initial_aster: Asteroid, new_mesh: MS_CollisionMeshGroup) 
 	)
 	asteroid_launcher.append(asteroid_launch);
 
-# TODO: Get rid of child_num, change scenes to meshes, make "maybe_spawn_asteroid", differentiate between spawn from and spawn brand new, add impulse to both initial  and new to push them away from each other
-# TODO: Build launch queue
 func spawn_asteroid(asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
 	var aster: Asteroid = _create_asteroid(asteroid_mesh);
 	call_deferred("_add_asteroid", aster);
@@ -56,10 +53,10 @@ func spawn_asteroid(asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
 func _create_asteroid(asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
 	var aster: Asteroid = astreroid_scene.instantiate();
 	if (asteroid_mesh):
-		aster._collision_mesh_group = asteroid_mesh;
+		aster.collision_mesh_group = asteroid_mesh;
 	else:
 		var rand_mesh_idx := randi() % asteroid_meshes.size();
-		aster._collision_mesh_group = asteroid_meshes[rand_mesh_idx];
+		aster.collision_mesh_group = asteroid_meshes[rand_mesh_idx];
 	
 	return aster;
 

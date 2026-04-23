@@ -1,22 +1,31 @@
 @tool
-class_name Asteroid extends RigidBody2D
+class_name Asteroid extends CharacterBody2D
 
 @export var max_velocity := 400; # m/s
-@export var _collision_mesh_group: MS_CollisionMeshGroup;
+@export var collision_mesh_group: MS_CollisionMeshGroup;
 @export var _combat_stats: CombatStats;
 
 # TODO: Make rail gun style deformation shape (blast through object until end of screeen)
 @export var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
+var mass := 10000;
 var child_number := 0;
 var collision_damage := 50.0;
 
-@onready var deformable_mesh: DeformableMesh2D = get_node("DeformableMesh2D");
+var deformable_mesh: DeformableMesh2D;
 @onready var damageable: Damageable = get_node("Damageable");
 @onready var deal_damage: DealDamage = get_node("DealDamage");
 @onready var invince_frames_dr: DamageResult = get_node("Damageable/InvincibleFramesDamageResult");
+
+# TODO: Temp
+@onready var area_2d: Area2D = get_node("Area2D");
+
 var impact_points: Array[Vector2] = [];
 var last_position: Vector2;
+
+func _enter_tree() -> void:
+	deformable_mesh = get_node("DeformableMesh2D");
+	deformable_mesh._collision_mesh_group = collision_mesh_group.duplicate(true);
 
 func _ready() -> void:
 	add_to_group("enemy");
@@ -25,15 +34,20 @@ func _ready() -> void:
 	deformable_mesh.spawn_new_group.connect(_shatter);
 	
 	# TODO: Players don't cause _on_body_entered
-	body_entered.connect(deal_damage.damage);
-	body_shape_entered.connect(_on_body_shape_entered)
+	area_2d.body_entered.connect(deal_damage.damage);
+	area_2d.area_entered.connect(deal_damage.damage);
+	area_2d.body_shape_entered.connect(_on_body_shape_entered)
+	area_2d.area_shape_entered.connect(_on_body_shape_entered)
 	
 	# TODO: Need a way to damage when asteroids hit each other or player
 	damageable.on_init(_combat_stats);
 	invince_frames_dr.init.connect(_disable_colliders);
 	invince_frames_dr.end.connect(_enable_colliders);
-	
-func _process(_delta: float) -> void:
+
+func _physics_process(_delta: float) -> void:
+	# Clamp velocity to reasonable playable value
+	velocity = velocity.normalized() * min(velocity.length(), max_velocity);
+	move_and_slide();
 	last_position = global_position;
 
 func _on_body_entered(node: Node2D) -> void:
@@ -45,7 +59,7 @@ func _shatter(new_mesh_group: MS_CollisionMeshGroup) -> void:
 		
 func get_colliders() -> Array[DeformableMeshCollider2D]:
 	return deformable_mesh.get_colliders();
-	
+
 func _disable_colliders() -> void:
 	for collision in get_colliders():
 		if (is_instance_valid(collision)):
@@ -56,22 +70,22 @@ func _enable_colliders() -> void:
 		if (is_instance_valid(collision)):
 			collision.set_deferred("disabled", false);
 		
-func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:
-	# Clamp velocity to reasonable playable value
-	linear_velocity = linear_velocity.normalized() * min(linear_velocity.length(), max_velocity);
 
 func _destroy() -> void:
 	call_deferred("queue_free");
 	# TODO: Destroy animation
 
+# TODO: Need a minimum velocity difference for when to shatter
+# TODO: Try converting these to CharacterBody2D instead of physics objects
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if (body is PhysicsBody2D):
-		var physics_body: PhysicsBody2D = body;
-		var body_shape_owner := physics_body.shape_find_owner(body_shape_index);
-		var body_collider := physics_body.shape_owner_get_owner(body_shape_owner);
+	if (body is Area2D):
+		var collision_body: Area2D = body;
+		var body_shape_owner := collision_body.shape_find_owner(body_shape_index);
+		var body_collider := collision_body.shape_owner_get_owner(body_shape_owner);
 		
-		var local_shape_owner := shape_find_owner(local_shape_index);
-		var local_collider := shape_owner_get_owner(local_shape_owner);
+		# TODO: area_2d is temp
+		var local_shape_owner := area_2d.shape_find_owner(local_shape_index);
+		var local_collider := area_2d.shape_owner_get_owner(local_shape_owner);
 		
 		if (body_collider is DeformableMeshCollider2D && local_collider is DeformableMeshCollider2D):
 			print("ASTEROID COLLISION");
@@ -92,5 +106,10 @@ func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int,
 					impact_angle,
 					mesh_deformation_shapes,
 				);
+
+				# TODO: This should not be exactly the same bounce velocity
+				var new_speed := velocity.length() * randf_range(0.5, 2.0);
+				velocity = (new_speed * velocity.normalized()).rotated(PI/2);
+
 		else:
 			print("OTHER COLLISION");

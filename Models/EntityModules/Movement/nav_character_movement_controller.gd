@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 	if nav_agent.avoidance_enabled:
 		nav_agent.set_velocity(final_velocity)
 	else:
-		_on_velocity_computed(new_velocity)
+		_on_velocity_computed(final_velocity);
 
 func update_nav_target(movement_target: Vector2) -> void:
 	nav_agent.target_position = movement_target;

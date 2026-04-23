@@ -16,7 +16,9 @@ var last_position: Vector2;
 
 func _ready() -> void:
 	collision_area_2d.body_entered.connect(_on_body_entered);
+	collision_area_2d.area_entered.connect(_on_body_entered);
 	collision_area_2d.body_shape_entered.connect(_on_body_shape_entered);
+	collision_area_2d.area_shape_entered.connect(_on_body_shape_entered);
 
 func on_create(
 	weapon: Weapon,
@@ -65,13 +67,23 @@ func _cull_offscreen() -> void:
 func _on_body_entered(node: Node) -> void:
 	on_hit(node);
 	queue_free(); 
-	
+
+
+
+#### TODO NEXT ####
+# Need to make a standard hitbox for damagable Area2Ds
+## They should be enabled with a timer or not
+## Encapulate Damagable into them. Adding DamageResults as a child will work here.
+## Abstract collision mesh hitbox into it
+
 # TODO: Make mesh deformation configurable for HitBox (if deformation shapes exist)
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, _local_shape_index: int) -> void:
-	if (body is PhysicsBody2D):
-		var physics_body: PhysicsBody2D = body;
-		var body_shape_owner := physics_body.shape_find_owner(body_shape_index);
-		var body_collider := physics_body.shape_owner_get_owner(body_shape_owner);
+	print("HIT", body)
+	# Body is an Area2D - need to check if it is a hitbox
+	if (body is Area2D):
+		var collision_body: Area2D = body;
+		var body_shape_owner := collision_body.shape_find_owner(body_shape_index);
+		var body_collider := collision_body.shape_owner_get_owner(body_shape_owner);
 		
 		if (body_collider is DeformableMeshCollider2D):
 			var mesh_collider: DeformableMeshCollider2D = body_collider;
