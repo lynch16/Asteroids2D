@@ -27,6 +27,8 @@ var current_defense := 1.0;
 
 @export var god_mode_enabled: bool = false;
 
+@export var damage_dealt := 10.0;
+
 signal on_health_depleted;
 signal on_health_changed(old_value: float, new_value: float);
 
@@ -48,11 +50,11 @@ func take_damage(damage: float) -> void:
 func heal(heal_amt: float) -> void:
 	current_health += heal_amt;
 
-func calculate_damage(base_dmg: float) -> float:
-	return _apply_attack_power(base_dmg);
+func get_damage() -> float:
+	return _apply_attack_power(damage_dealt);
 
 func _apply_attack_power(attack_dmg: float) -> float:
 	return current_attack_power * attack_dmg;
 
 func _apply_defense(attack_dmg: float) -> float:
-	return current_defense * attack_dmg;
+	return (1.0/current_defense) * attack_dmg;

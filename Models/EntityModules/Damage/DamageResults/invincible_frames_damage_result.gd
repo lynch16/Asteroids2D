@@ -7,8 +7,8 @@ extends DamageResult
 var curr_inv_frame_count := 0;
 var start_inv_frame_count := 0;
 
-func on_init() -> void:
-	super();
+func on_init(p_damageable: Damageable) -> void:
+	super(p_damageable);
 	_start_inv();
 	
 func update(_delta: float) -> void:
@@ -22,13 +22,13 @@ func on_damage(_damage_dealt: float, _dmgr: Node) -> bool:
 		return false;
 		
 	if (restart_on_new_damage):
-		on_init();
+		_start_inv();
 		
 	return true;
 
 func on_end() -> void:
-	_reset_inv();
 	super();
+	_reset_inv();
 	
 func _is_inv() -> bool:
 	return curr_inv_frame_count > 0;

@@ -6,15 +6,14 @@
 [ext_resource type="Script" uid="uid://dcnjijdgd4kkl" path="res://Models/EntityModules/Damage/combat_stats.gd" id="3_jywkw"]
 [ext_resource type="Resource" uid="uid://b7e8v7dqyxo0j" path="res://Models/Asteroid/AsteroidMesh/peanut_collision_mesh_group.tres" id="3_tsxo3"]
 [ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="4_gw6yr"]
-[ext_resource type="Script" uid="uid://c4l6k6583jbr6" path="res://Models/EntityModules/Damage/damageable.gd" id="4_p7nbn"]
 [ext_resource type="Script" uid="uid://deqvt75qdcfcl" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/slice_mesh_deformation_shape.gd" id="5_rr1y8"]
-[ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/apply_damage_result.gd" id="6_aasjb"]
-[ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/invincible_frames_damage_result.gd" id="6_j8b8u"]
-[ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/EntityModules/Damage/deal_damage.gd" id="7_57j71"]
+[ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/DamageResults/invincible_frames_damage_result.gd" id="6_j8b8u"]
 [ext_resource type="Script" uid="uid://bjaigggvlf2m6" path="res://TileMap/MarchingSquares/GameObjects/deformable_mesh_2d.gd" id="8_aasjb"]
 [ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="9_rr1y8"]
 [ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh.gd" id="11_jywkw"]
 [ext_resource type="Texture2D" uid="uid://bhc3r2bpo42ly" path="res://TileMap/Textures/Ground_50_scaled.png" id="12_gw6yr"]
+[ext_resource type="Script" uid="uid://bvqt4s5uy7wep" path="res://Models/EntityModules/Damage/Hurt/mesh_deform_hurtbox_2d.gd" id="16_ssro7"]
+[ext_resource type="Script" uid="uid://cao55je0ipsqj" path="res://Models/EntityModules/Damage/DamageResults/damage_result.gd" id="17_p0vjf"]
 
 [sub_resource type="Resource" id="Resource_gw6yr"]
 resource_local_to_scene = true
@@ -25,10 +24,10 @@ script = ExtResource("5_rr1y8")
 damage = 1.0
 metadata/_custom_type_script = "uid://deqvt75qdcfcl"
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ssro7"]
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_p0vjf"]
 points = PackedVector2Array(304, 32, 272, 32, 256, 96, 240, 96, 240, 192, 240, 208, 256, 224, 288, 224, 288, 208, 352, 208, 368, 176, 384, 176, 352, 112, 336, 112, 352, 96, 352, 32, 304, 16)
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_p0vjf"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_2ffjv"]
 _surfaces = [{
 "2d": true,
 "aabb": AABB(226.65811, 11.076951, 0, 151.34189, 201.23073, 0),
@@ -43,7 +42,7 @@ _surfaces = [{
 }]
 custom_aabb = AABB(240, 16, 0, 144, 208, 0)
 
-[sub_resource type="Resource" id="Resource_2ffjv"]
+[sub_resource type="Resource" id="Resource_i4x4e"]
 resource_local_to_scene = true
 script = ExtResource("11_jywkw")
 texture = ExtResource("12_gw6yr")
@@ -197,18 +196,22 @@ Vector2(400, 160): -0.5999999999999974,
 Vector2(400, 176): -1.0,
 Vector2(400, 192): -1.0
 })
-convex_shape = SubResource("ConvexPolygonShape2D_ssro7")
-mesh = SubResource("ArrayMesh_p0vjf")
+convex_shape = SubResource("ConvexPolygonShape2D_p0vjf")
+mesh = SubResource("ArrayMesh_2ffjv")
 position_offset = Vector2(-304.94116, -131.76471)
 
-[sub_resource type="Resource" id="Resource_i4x4e"]
+[sub_resource type="Resource" id="Resource_1xflu"]
 resource_local_to_scene = true
 script = ExtResource("9_rr1y8")
-collision_meshes = Array[ExtResource("11_jywkw")]([SubResource("Resource_2ffjv")])
+collision_meshes = Array[ExtResource("11_jywkw")]([SubResource("Resource_i4x4e")])
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufyc"]
 resource_local_to_scene = true
 radius = 311.07877
+
+[sub_resource type="Resource" id="Resource_2ffjv"]
+script = ExtResource("6_j8b8u")
+metadata/_custom_type_script = "uid://l6occnfuxuon"
 
 [node name="Asteroid" type="CharacterBody2D" unique_id=328524540 groups=["enemy"]]
 script = ExtResource("1_7kvrs")
@@ -216,10 +219,10 @@ collision_mesh_group = ExtResource("3_tsxo3")
 _combat_stats = SubResource("Resource_gw6yr")
 mesh_deformation_shapes = Array[ExtResource("4_gw6yr")]([SubResource("Resource_ssro7")])
 
-[node name="DeformableMesh2D" type="Node2D" parent="." unique_id=1042869803 node_paths=PackedStringArray("_physics_node")]
+[node name="DeformableMesh2D" type="Node2D" parent="." unique_id=1042869803 node_paths=PackedStringArray("physics_node")]
 script = ExtResource("8_aasjb")
-_collision_mesh_group = SubResource("Resource_i4x4e")
-_physics_node = NodePath("../Area2D")
+_collision_mesh_group = SubResource("Resource_1xflu")
+physics_node = NodePath("../MeshDeformHurtbox2D")
 metadata/_custom_type_script = "uid://bjaigggvlf2m6"
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_kufyc")]
@@ -234,25 +237,12 @@ enable_player_gravity = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GravityField" unique_id=265890223]
 shape = SubResource("CircleShape2D_kufyc")
 
-[node name="Damageable" type="Node" parent="." unique_id=1658148519]
-script = ExtResource("4_p7nbn")
-metadata/_custom_type_script = "uid://c4l6k6583jbr6"
-
-[node name="InvincibleFramesDamageResult" type="Node" parent="Damageable" unique_id=1941184799]
-script = ExtResource("6_j8b8u")
-metadata/_custom_type_script = "uid://l6occnfuxuon"
-
-[node name="ApplyDamageResult" type="Node" parent="Damageable" unique_id=1544029734]
-script = ExtResource("6_aasjb")
-metadata/_custom_type_script = "uid://dhchi74lu51yr"
-
-[node name="DealDamage" type="Node" parent="." unique_id=1803576660]
-script = ExtResource("7_57j71")
-damage_dealt = 50.0
-metadata/_custom_type_script = "uid://c4u0g4nfqocub"
-
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1627727781]
 radius = 16.0
 affect_navigation_mesh = true
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1881427443]
+[node name="MeshDeformHurtbox2D" type="Area2D" parent="." unique_id=1994436035]
+script = ExtResource("16_ssro7")
+collision_mesh_group = ExtResource("3_tsxo3")
+damage_results = Array[ExtResource("17_p0vjf")]([SubResource("Resource_2ffjv")])
+metadata/_custom_type_script = "uid://bvqt4s5uy7wep"

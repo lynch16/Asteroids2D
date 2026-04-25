@@ -2,10 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 @export var movement_stats: MovementStats;
-# TODO: Need god mode to disable asteroid collisions
 @export var combat_stats: CombatStats;
-@onready var damageable: Damageable = get_node("Damageable");
-@onready var apply_damage_dr: ApplyDamageResult = get_node("Damageable/ApplyDamageResult");
+@onready var hurtbox: Hurtbox2D = get_node("Hurtbox2D");
 
 var ship_direction: float;
 var acceleration := Vector2();
@@ -14,9 +12,9 @@ func _ready() -> void:
 	velocity = Vector2.UP;
 	ship_direction = velocity.angle();
 	# Register broadcast handler and emit initial health state
+	hurtbox.combat_stats = combat_stats;
 	combat_stats.on_health_changed.connect(_handle_player_damage);
 	combat_stats.on_health_depleted.connect(_die);
-	damageable.on_init(combat_stats);
 	
 	# Call deferred so that Damageble handlers can connect before initial broadcast to HUD
 	SignalBus._on_player_health_updated(int(combat_stats.current_health));

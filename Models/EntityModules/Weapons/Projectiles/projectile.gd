@@ -3,11 +3,9 @@ class_name Projectile
 extends Node2D
 
 @export var speed := 1000.0;
+@export var _combat_stats: CombatStats;
 @export var mesh_deformation_shapes: Array[MeshDeformationShape];
-
-# TODO: This should be a HitBox and created by the weapon on firing
-@onready var collision_area_2d: Area2D = get_node("Area2D");
-@onready var deal_damage: DealDamage = get_node("DealDamage");
+@export var collision_shape: Shape2D;
 
 var velocity: Vector2 = Vector2.RIGHT;
 var aim_point: Vector2 = Vector2.RIGHT;
@@ -15,10 +13,14 @@ var target: Node2D;
 var last_position: Vector2;
 
 func _ready() -> void:
-	collision_area_2d.body_entered.connect(_on_body_entered);
-	collision_area_2d.area_entered.connect(_on_body_entered);
-	collision_area_2d.body_shape_entered.connect(_on_body_shape_entered);
-	collision_area_2d.area_shape_entered.connect(_on_body_shape_entered);
+	var hitbox: MeshDeformHitbox2D = MeshDeformHitbox2D.new(
+		_combat_stats,
+		0.0, 
+		collision_shape,
+		mesh_deformation_shapes,
+	);
+	add_child(hitbox);
+	hitbox.owner = self;
 
 func on_create(
 	weapon: Weapon,
@@ -42,12 +44,6 @@ func update(delta: float) -> void:
 	last_position = global_position;
 	position += velocity * delta;
 	
-func on_hit(hit_node: Node) -> void:
-	deal_damage.damage(hit_node);
-	
-func get_collider() -> CollisionShape2D:
-	return get_node("Area2D/CollisionShape2D");
-		
 func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint() || self != get_tree().edited_scene_root:
 		_cull_offscreen();
@@ -63,43 +59,3 @@ func _cull_offscreen() -> void:
 		global_position.y >= viewport.y || global_position.y <= 0.0
 	):
 		queue_free();
-
-func _on_body_entered(node: Node) -> void:
-	on_hit(node);
-	queue_free(); 
-
-
-
-#### TODO NEXT ####
-# Need to make a standard hitbox for damagable Area2Ds
-## They should be enabled with a timer or not
-## Encapulate Damagable into them. Adding DamageResults as a child will work here.
-## Abstract collision mesh hitbox into it
-
-# TODO: Make mesh deformation configurable for HitBox (if deformation shapes exist)
-func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, _local_shape_index: int) -> void:
-	print("HIT", body)
-	# Body is an Area2D - need to check if it is a hitbox
-	if (body is Area2D):
-		var collision_body: Area2D = body;
-		var body_shape_owner := collision_body.shape_find_owner(body_shape_index);
-		var body_collider := collision_body.shape_owner_get_owner(body_shape_owner);
-		
-		if (body_collider is DeformableMeshCollider2D):
-			var mesh_collider: DeformableMeshCollider2D = body_collider;
-			var projectile_collision := get_collider();
-			var collision_points := projectile_collision.shape.collide_and_get_contacts(
-				projectile_collision.global_transform,
-				mesh_collider.shape,
-				mesh_collider.global_transform
-			);
-			
-			if (collision_points.size() > 0):
-				var impact_point: Vector2 = collision_points.get(0);
-				var impact_angle := last_position.angle_to(impact_point);
-			
-				mesh_collider.apply_group_deformation(
-					mesh_collider.to_local(impact_point),
-					impact_angle,
-					mesh_deformation_shapes,
-				);
