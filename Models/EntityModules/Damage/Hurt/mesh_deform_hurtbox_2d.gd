@@ -12,10 +12,10 @@ signal all_colliders_destroyed;
 
 func _init(
 	p_combat_stats: CombatStats = CombatStats.new(),
-	p_damage_results: Array[DamageResult] = [],
+	p_owner_node: Node = null,
 	p_collision_mesh_group: MS_CollisionMeshGroup = null,
 ) -> void:
-	super(p_combat_stats, p_damage_results);
+	super(p_combat_stats, null, p_owner_node);
 	collision_mesh_group = p_collision_mesh_group;
 
 func _enter_tree() -> void:
@@ -44,6 +44,7 @@ func _all_colliders_destroyed() -> void:
 func get_colliders() -> Array[DeformableMeshCollider2D]:
 	return deformable_mesh_2d.get_colliders();
 
+# TODO: This should be a damage result to apply invincibility frames
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if (body is Area2D):
 		var collision_body: Area2D = body;

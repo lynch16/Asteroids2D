@@ -7,13 +7,13 @@ var deal_damage: DealDamage;
 
 func _init(
 	p_combat_stats: CombatStats = CombatStats.new(),
-	p_damage_results: Array[DamageResult] = [],
+	p_owner_node: Node = null,
 	p_collision_mesh_group: MS_CollisionMeshGroup = null,
 	p_mesh_deformation_shapes: Array[MeshDeformationShape] = [],
 	p_lifetime: float = 0.0,
 	p_hitlog: HitLog = null,
 ) -> void:
-	super(p_combat_stats, p_damage_results, p_collision_mesh_group);
+	super(p_combat_stats, p_owner_node, p_collision_mesh_group);
 	collision_mesh_group = p_collision_mesh_group;
 	mesh_deformation_shapes = p_mesh_deformation_shapes;
 	lifetime = p_lifetime;
@@ -24,7 +24,7 @@ func _ready() -> void:
 	super();
 	monitoring = true;
 	monitorable = true;
-	area_shape_entered.connect(_on_body_shape_entered);
+	area_shape_entered.connect(_on_mesh_shape_entered);
 
 	deal_damage = DealDamage.new(
 		combat_stats,
@@ -40,7 +40,7 @@ func _ready() -> void:
 		add_child(timer);
 		timer.start();
 
-func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_mesh_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if (body is Area2D):
 		var collision_body: Area2D = body;
 		var body_shape_owner := collision_body.shape_find_owner(body_shape_index);

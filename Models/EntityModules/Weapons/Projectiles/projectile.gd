@@ -11,17 +11,7 @@ var velocity: Vector2 = Vector2.RIGHT;
 var aim_point: Vector2 = Vector2.RIGHT;
 var target: Node2D;
 var last_position: Vector2;
-
-func _ready() -> void:
-	var hitbox: MeshDeformHitbox2D = MeshDeformHitbox2D.new(
-		_combat_stats,
-		0.0, 
-		collision_shape,
-		null,
-		mesh_deformation_shapes,
-	);
-	add_child(hitbox);
-	hitbox.owner = self;
+var hitbox: MeshDeformHitbox2D;
 
 func on_create(
 	weapon: Weapon,
@@ -30,6 +20,15 @@ func on_create(
 	global_position = weapon.global_position;
 	global_rotation = weapon.global_rotation;
 	aim_point = weapon_aim_point;
+	hitbox = MeshDeformHitbox2D.new(
+		_combat_stats,
+		0.0, 
+		collision_shape,
+		null,
+		weapon.owner_character,
+		mesh_deformation_shapes,
+	);
+	add_child(hitbox);
 		
 func on_start(
 	base_velocity: Vector2,

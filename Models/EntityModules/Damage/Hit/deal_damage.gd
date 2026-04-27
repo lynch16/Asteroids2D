@@ -2,6 +2,7 @@ class_name DealDamage
 extends Node
 
 @export var combat_stats: CombatStats;
+@export var owner_node: Node;
 var hit_log: HitLog;
 
 func _init(
@@ -11,8 +12,8 @@ func _init(
 	combat_stats = p_combat_stats;
 	hit_log = p_hit_log;
 
-func damage(node: Node, hit_position: Vector2) -> void:
-	var damageable := Damageable.get_damageable(node);
+func damage(target_node: Node, hit_position: Vector2) -> void:
+	var damageable := Damageable.get_damageable(target_node);
 	if (damageable):
 		if (hit_log != null):
 			if (hit_log.has_hit(damageable)):
@@ -20,4 +21,4 @@ func damage(node: Node, hit_position: Vector2) -> void:
 			else:
 				hit_log.log_hit(damageable);
 
-		damageable.on_damage(combat_stats.get_damage(), owner, hit_position);
+		damageable.on_damage(combat_stats.get_damage(), owner_node, hit_position);

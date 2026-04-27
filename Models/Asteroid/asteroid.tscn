@@ -7,6 +7,9 @@
 [ext_resource type="Resource" uid="uid://b7e8v7dqyxo0j" path="res://Models/Asteroid/AsteroidMesh/peanut_collision_mesh_group.tres" id="3_tsxo3"]
 [ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="4_gw6yr"]
 [ext_resource type="Script" uid="uid://deqvt75qdcfcl" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/slice_mesh_deformation_shape.gd" id="5_rr1y8"]
+[ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/Hurt/DamageResults/invincible_frames_damage_result.gd" id="8_tsxo3"]
+[ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="9_h8hu4"]
+[ext_resource type="Script" uid="uid://yp8x320gf3ox" path="res://Models/EntityModules/Damage/Hurt/DamageResults/score_damage_result.gd" id="10_h8hu4"]
 
 [sub_resource type="Resource" id="Resource_gw6yr"]
 resource_local_to_scene = true
@@ -42,3 +45,18 @@ shape = SubResource("CircleShape2D_kufyc")
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1627727781]
 radius = 16.0
 affect_navigation_mesh = true
+
+[node name="DamageResults" type="Node" parent="." unique_id=506394133]
+unique_name_in_owner = true
+
+[node name="InvincibleFramesDamageResult" type="Node" parent="DamageResults" unique_id=781789187]
+script = ExtResource("8_tsxo3")
+metadata/_custom_type_script = "uid://l6occnfuxuon"
+
+[node name="ScoreDamageResult" type="Node" parent="DamageResults" unique_id=319275542]
+script = ExtResource("10_h8hu4")
+metadata/_custom_type_script = "uid://yp8x320gf3ox"
+
+[node name="ApplyDamageResult" type="Node" parent="DamageResults" unique_id=1966450679]
+script = ExtResource("9_h8hu4")
+metadata/_custom_type_script = "uid://dhchi74lu51yr"

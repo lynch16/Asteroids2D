@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cciwnal7tktjm"]
+
+[ext_resource type="Script" uid="uid://tjo0p6nx0e5j" path="res://Models/EntityModules/Score/score_popup.gd" id="1_56j76"]
+
+[node name="ScorePopup" type="Node2D" unique_id=1406814558]
+script = ExtResource("1_56j76")
+
+[node name="Label" type="Label" parent="." unique_id=795557638]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Timer" type="Timer" parent="." unique_id=93887523]

@@ -6,18 +6,20 @@ var lifetime: float;
 var shape: Shape2D;
 var hit_log: HitLog;
 var deal_damage: DealDamage;
+var owner_node: Node;
 
 func _init(
 	p_attacker_combat_stats: CombatStats = CombatStats.new(),
 	p_lifetime: float = 0.0,
 	p_shape: Shape2D = null,
 	p_hit_log: HitLog = null,
+	p_owner_node: Node = null,
 ) -> void:
 	attacker_combat_stats = p_attacker_combat_stats;
 	lifetime = p_lifetime;
 	shape = p_shape;
 	hit_log = p_hit_log;
-
+	owner_node = p_owner_node;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,7 +31,7 @@ func _ready() -> void:
 		hit_log
 	);
 	add_child(deal_damage);
-	deal_damage.owner = self;
+	deal_damage.owner_node = owner_node;
 
 	if (lifetime > 0.0):
 		var timer := Timer.new();
@@ -43,7 +45,6 @@ func _ready() -> void:
 		var collision_shape := CollisionShape2D.new();
 		collision_shape.shape = shape;
 		add_child(collision_shape);
-
 
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if (body is Area2D):

@@ -1,5 +1,5 @@
 class_name DamageResult
-extends Resource # TODO: SHould this be a node?
+extends Node
 
 var damageable: Damageable = null;
 var initialized: bool = false;
@@ -14,7 +14,7 @@ func on_init(p_damageable: Damageable) -> void:
 	pass;
 	
 func update(_delta: float) -> void:
-	assert(initialized);
+	assert(initialized, "DamageResult " + name + " must be initialized before calling update");
 	pass;
 
 func on_damage(_damage_dealt: float, _damager_node: Node, _hit_position: Vector2) -> bool: 

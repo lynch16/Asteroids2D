@@ -10,30 +10,30 @@ var mass := 10000;
 var damageable: Damageable;
 
 func _enter_tree() -> void:
+	var invincible_damage_result := InvincibleFramesDamageResult.new();
+	var damage_results := [
+		invincible_damage_result,
+		ApplyDamageResult.new(),
+		ScoreDamageResult.new()
+	];
+
 	hurtbox = MeshDeformHitHurtbox2D.new(
 		_combat_stats,
-		[
-			InvincibleFramesDamageResult.new(),
-			ApplyDamageResult.new(),
-		],
+		self,
 		collision_mesh_group.duplicate(true) as MS_CollisionMeshGroup, # Duplicate to avoid modifying the original resource which is shared between instances
 		mesh_deformation_shapes,
 		0.0,
 		HitLog.new(),
 	);
 	add_child(hurtbox);
-	hurtbox.owner = self;
+	for damage_result: DamageResult in damage_results:
+		hurtbox.add_child(damage_result);
+
 	hurtbox.spawn_new_group.connect(_shatter);
 	hurtbox.all_colliders_destroyed.connect(_destroy);
 
-	var invincible_damage_result_idx := hurtbox.damage_results.find_custom(
-		func (dr: DamageResult) -> bool: 
-			return dr is InvincibleFramesDamageResult
-	);
-	if (invincible_damage_result_idx != -1):
-		var invincible_damage_result: InvincibleFramesDamageResult = hurtbox.damage_results[invincible_damage_result_idx];	
-		invincible_damage_result.init.connect(_disable_colliders);
-		invincible_damage_result.end.connect(_enable_colliders);
+	invincible_damage_result.init.connect(_disable_colliders);
+	invincible_damage_result.end.connect(_enable_colliders);
 
 	_combat_stats.on_health_depleted.connect(_destroy);
 	
@@ -61,7 +61,6 @@ func _enable_colliders() -> void:
 	for collision in get_colliders():
 		if (is_instance_valid(collision)):
 			collision.set_deferred("disabled", false);
-		
 
 func _destroy() -> void:
 	call_deferred("queue_free");

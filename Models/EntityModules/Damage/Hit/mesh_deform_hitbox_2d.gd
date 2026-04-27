@@ -9,20 +9,20 @@ func _init(
 	p_lifetime: float = 0.0,
 	p_shape: Shape2D = null,
 	p_hitlog: HitLog = null,
+	p_owner_node: Node = null,
 	p_mesh_deformation_shapes: Array[MeshDeformationShape] = [],
 ) -> void:
-	super(p_attacker_combat_stats, p_lifetime, p_shape, p_hitlog);
+	super(p_attacker_combat_stats, p_lifetime, p_shape, p_hitlog, p_owner_node);
 	mesh_deformation_shapes = p_mesh_deformation_shapes;
 
 func _ready() -> void:
 	super();
-	area_shape_entered.connect(_on_body_shape_entered);
+	area_shape_entered.connect(_on_mesh_shape_entered);
 
 func _physics_process(_delta: float) -> void:
 	last_position = global_position;
 
-func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	print("HITBOX SHAPE ENTERED: ", body);
+func _on_mesh_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if (body is Area2D):
 		var collision_body: Area2D = body;
 		var body_shape_owner := collision_body.shape_find_owner(body_shape_index);
