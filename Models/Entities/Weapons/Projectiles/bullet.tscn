@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://clmhgemf6tliu"]
 
-[ext_resource type="Script" uid="uid://dxr82xds2no31" path="res://Models/Player/bullet.gd" id="1_s1b55"]
-[ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="2_dn27l"]
+[ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/Entities/Weapons/Projectiles/projectile.gd" id="1_n771q"]
+[ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/Entities/Damage/deal_damage.gd" id="2_xqbbw"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vsjsl"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAAA0AAAAUklGRiwAAABXRUJQVlA4TCAAAAAvH8AHEA8wwYM+cPMf8FCQtgGzOZ/7ayCi/xOAfdG5Bw==")
@@ -11,19 +11,15 @@ size_override = Vector2(32, 32)
 radius = 1.0
 height = 4.0
 
-[node name="Bullet" type="RigidBody2D" unique_id=1934145494 groups=["player_weapon"]]
-mass = 1000.0
-gravity_scale = 0.0
-sleeping = true
-contact_monitor = true
-max_contacts_reported = 1
-script = ExtResource("1_s1b55")
+[node name="Bullet" type="Node2D" unique_id=1149596407 groups=["player_weapon"]]
+script = ExtResource("1_n771q")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=302593925]
 texture_filter = 1
-position = Vector2(0, 2)
 rotation = 1.5707964
 texture = SubResource("PortableCompressedTexture2D_vsjsl")
+region_enabled = true
+region_rect = Rect2(15, 12, 2, 4)
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
 }
@@ -47,14 +43,13 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "61f50d2060674f055a6d4418a2a1443a"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1661704517]
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_vsjsl")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1132118516]
-rect = Rect2(-1, -2, 2, 4)
-
 [node name="DealDamage" type="Node" parent="." unique_id=1569094452]
-script = ExtResource("2_dn27l")
+script = ExtResource("2_xqbbw")
 damage_dealt = 10.0
 metadata/_custom_type_script = "uid://c4u0g4nfqocub"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1924892796]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1661704517]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_vsjsl")

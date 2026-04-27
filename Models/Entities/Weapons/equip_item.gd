@@ -9,15 +9,23 @@ var last_use_time: float;
 var aim_angle: float;
 var can_use: bool = true;
 var owner_character: CharacterBody2D;
+var action_speed: float; # Speed at which contact is made. ie projectile speed, swing speed
+
+@onready var intercepter: Intercepter = get_node("Intercepter");
 
 func _physics_process(delta: float) -> void:
 	# TODO: Does this correctly limit rotational speed of weapons?
 	# Should this be tied to a boolean as to whether it should be tracking? Eg MissleLauncher wont need this.
-	global_rotation = lerp_angle(global_rotation, aim_angle, rotation_speed * delta);
+	#global_rotation = lerp_angle(global_rotation, aim_angle, rotation_speed * delta);
+	intercepter.action_speed = action_speed;
 
 func set_aim_direction(aim_dir: Vector2) -> void:
+	# Used to physically rotate the weapon towards an aim direction
 	aim_angle = get_angle_to(aim_dir)
 
+func set_target(new_target: Node2D) -> void:
+	intercepter.use_target = new_target;
+	
 func equip() -> void:
 	pass;
 	
@@ -42,3 +50,4 @@ func _try_use() -> bool:
 	
 func _use() -> void:
 	pass;
+	
