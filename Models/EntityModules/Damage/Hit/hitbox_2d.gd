@@ -8,7 +8,7 @@ var hit_log: HitLog;
 var deal_damage: DealDamage;
 
 func _init(
-	p_attacker_combat_stats: CombatStats,
+	p_attacker_combat_stats: CombatStats = CombatStats.new(),
 	p_lifetime: float = 0.0,
 	p_shape: Shape2D = null,
 	p_hit_log: HitLog = null,

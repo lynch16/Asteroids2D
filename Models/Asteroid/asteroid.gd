@@ -1,4 +1,3 @@
-@tool
 class_name Asteroid extends CharacterBody2D
 
 @export var max_velocity := 400; # m/s
@@ -11,14 +10,13 @@ var mass := 10000;
 var damageable: Damageable;
 
 func _enter_tree() -> void:
-	
 	hurtbox = MeshDeformHitHurtbox2D.new(
 		_combat_stats,
 		[
 			InvincibleFramesDamageResult.new(),
 			ApplyDamageResult.new(),
 		],
-		collision_mesh_group,
+		collision_mesh_group.duplicate(true) as MS_CollisionMeshGroup, # Duplicate to avoid modifying the original resource which is shared between instances
 		mesh_deformation_shapes,
 		0.0,
 		HitLog.new(),
@@ -26,6 +24,7 @@ func _enter_tree() -> void:
 	add_child(hurtbox);
 	hurtbox.owner = self;
 	hurtbox.spawn_new_group.connect(_shatter);
+	hurtbox.all_colliders_destroyed.connect(_destroy);
 
 	var invincible_damage_result_idx := hurtbox.damage_results.find_custom(
 		func (dr: DamageResult) -> bool: 

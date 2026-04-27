@@ -11,7 +11,7 @@ signal spawn_new_group(new_collision_mesh_group: MS_CollisionMeshGroup);
 signal all_colliders_destroyed;
 
 func _init(
-	p_combat_stats: CombatStats,
+	p_combat_stats: CombatStats = CombatStats.new(),
 	p_damage_results: Array[DamageResult] = [],
 	p_collision_mesh_group: MS_CollisionMeshGroup = null,
 ) -> void:
@@ -45,7 +45,6 @@ func get_colliders() -> Array[DeformableMeshCollider2D]:
 	return deformable_mesh_2d.get_colliders();
 
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	print("HITBOX SHAPE ENTERED: ", body);
 	if (body is Area2D):
 		var collision_body: Area2D = body;
 		var body_shape_owner := collision_body.shape_find_owner(body_shape_index);

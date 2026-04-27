@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://dlaq44o6nfb1r"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1353719102]
 texture_filter = 1
-position = Vector2(-7, -1)
+position = Vector2(2, -0.9999999)
 texture = SubResource("PortableCompressedTexture2D_pcssh")
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}

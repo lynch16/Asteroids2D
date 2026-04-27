@@ -6,7 +6,7 @@ var hit_log: HitLog;
 var deal_damage: DealDamage;
 
 func _init(
-	p_combat_stats: CombatStats,
+	p_combat_stats: CombatStats = CombatStats.new(),
 	p_damage_results: Array[DamageResult] = [],
 	p_collision_mesh_group: MS_CollisionMeshGroup = null,
 	p_mesh_deformation_shapes: Array[MeshDeformationShape] = [],

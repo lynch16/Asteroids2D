@@ -5,8 +5,8 @@ var last_position: Vector2;
 var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
 func _init(
-	p_attacker_combat_stats: CombatStats,
-	p_lifetime: float,
+	p_attacker_combat_stats: CombatStats = CombatStats.new(),
+	p_lifetime: float = 0.0,
 	p_shape: Shape2D = null,
 	p_hitlog: HitLog = null,
 	p_mesh_deformation_shapes: Array[MeshDeformationShape] = [],

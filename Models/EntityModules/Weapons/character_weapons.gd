@@ -18,8 +18,6 @@ func equip_weapon(weapon_scene: PackedScene) -> void:
 	var new_weapon := weapon_scene.instantiate() as Weapon;
 	current_weapon = new_weapon;
 	add_child(current_weapon)
-	current_weapon.global_position = global_position;
-	current_weapon.rotation = rotation;
 	current_weapon.owner_character = character;
 
 	current_weapon.equip();
