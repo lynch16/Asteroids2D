@@ -1,7 +1,6 @@
 class_name MeshDeformHitbox2D
 extends Hitbox2D
 
-var last_position: Vector2;
 var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
 func _init(
@@ -18,9 +17,6 @@ func _init(
 func _ready() -> void:
 	super();
 	area_shape_entered.connect(_on_mesh_shape_entered);
-
-func _physics_process(_delta: float) -> void:
-	last_position = global_position;
 
 func _on_mesh_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if (body is Area2D):

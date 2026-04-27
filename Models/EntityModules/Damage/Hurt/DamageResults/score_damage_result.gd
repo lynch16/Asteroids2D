@@ -10,7 +10,7 @@ extends DamageResult
 var score_label: Label;
 var score_timer: Timer;
 
-func on_damage(_damage_dealt: float, _damager_node: Node, _hit_position: Vector2) -> bool: 
+func on_damage(_damage_dealt: float, _damager_node: Node, _hit_position: Vector2, _hit_angle: float) -> bool: 
 	if (_damager_node && _damager_node.is_in_group("player")):
 		ScoreManager.add_score(score_value);
 		var score_popup := ScorePopup.new();

@@ -10,6 +10,9 @@
 [ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/Hurt/DamageResults/invincible_frames_damage_result.gd" id="8_tsxo3"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="9_h8hu4"]
 [ext_resource type="Script" uid="uid://yp8x320gf3ox" path="res://Models/EntityModules/Damage/Hurt/DamageResults/score_damage_result.gd" id="10_h8hu4"]
+[ext_resource type="Script" uid="uid://wuycf5ewttof" path="res://Models/Asteroid/particles_damage_result.gd" id="11_jywkw"]
+[ext_resource type="Material" uid="uid://clbg8ojd63j4i" path="res://Models/Asteroid/asteroid_particle_process_material.tres" id="11_qdhb0"]
+[ext_resource type="Script" uid="uid://cus0x6vu8yvl2" path="res://Models/Asteroid/asteroid_damage_particles.gd" id="12_jywkw"]
 
 [sub_resource type="Resource" id="Resource_gw6yr"]
 resource_local_to_scene = true
@@ -57,6 +60,19 @@ metadata/_custom_type_script = "uid://l6occnfuxuon"
 script = ExtResource("10_h8hu4")
 metadata/_custom_type_script = "uid://yp8x320gf3ox"
 
+[node name="ParticlesDamageResult" type="Node" parent="DamageResults" unique_id=1166773443]
+script = ExtResource("11_jywkw")
+metadata/_custom_type_script = "uid://wuycf5ewttof"
+
 [node name="ApplyDamageResult" type="Node" parent="DamageResults" unique_id=1966450679]
 script = ExtResource("9_h8hu4")
 metadata/_custom_type_script = "uid://dhchi74lu51yr"
+
+[node name="AsteroidDamageParticles" type="GPUParticles2D" parent="." unique_id=382904738]
+visible = false
+amount = 50
+lifetime = 2.0
+explosiveness = 1.0
+process_material = ExtResource("11_qdhb0")
+script = ExtResource("12_jywkw")
+metadata/_custom_type_script = "uid://cus0x6vu8yvl2"

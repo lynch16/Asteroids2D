@@ -65,5 +65,7 @@ func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int,
 			);
 
 			if (collision_points.size() > 0):
-				var impact_point: Vector2 = collision_points.get(0);
-				deal_damage.damage(body, impact_point);
+				var mesh_impact_point: Vector2 = collision_points.get(0);
+				var local_impact_point: Vector2 = collision_points.get(1);
+				var impact_angle := (local_impact_point - mesh_impact_point).normalized();
+				deal_damage.damage(body, mesh_impact_point, impact_angle.angle());

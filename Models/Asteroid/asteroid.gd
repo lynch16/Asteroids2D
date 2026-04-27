@@ -13,8 +13,9 @@ func _enter_tree() -> void:
 	var invincible_damage_result := InvincibleFramesDamageResult.new();
 	var damage_results := [
 		invincible_damage_result,
+		ScoreDamageResult.new(),
+		ParticlesDamageResult.new(),
 		ApplyDamageResult.new(),
-		ScoreDamageResult.new()
 	];
 
 	hurtbox = MeshDeformHitHurtbox2D.new(

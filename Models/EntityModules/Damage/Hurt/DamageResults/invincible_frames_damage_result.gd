@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 		if (curr_inv_frame_count >= invicible_frames):
 			on_end();
 
-func on_damage(_damage_dealt: float, _dmgr: Node, _hit_position: Vector2) -> bool:
+func on_damage(_damage_dealt: float, _dmgr: Node, _hit_position: Vector2, _hit_angle: float) -> bool:
 	if (_is_inv()):
 		return false;
 		
