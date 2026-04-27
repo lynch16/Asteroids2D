@@ -4,7 +4,7 @@ extends Area2D
 @export var enable_player_gravity := false;
 @export var debug_grav_force := false;
 
-@onready var parent_node: RigidBody2D = get_parent();
+@onready var parent_node: PhysicsBody2D = get_parent();
 
 var gravity_objects: Array[Node2D] = [];
 
@@ -26,13 +26,21 @@ func _apply_gravity(delta: float) -> void:
 		
 		if node is Player:
 			var player_node := node as Player;
-			node_mass = player_node.mass;
+			node_mass = player_node.movement_stats.mass;
 		elif node is Asteroid:
 			var aster_node := node as Asteroid;
 			node_mass = aster_node.mass;
+
+		var parent_node_mass := 0.0;
+		if parent_node is Player:
+			var player_node := parent_node as Player;
+			node_mass = player_node.movement_stats.mass;
+		elif parent_node is Asteroid:
+			var aster_node := parent_node as Asteroid;
+			node_mass = aster_node.mass;
 		
 		var radius := node.global_position.distance_to(parent_node.global_position);
-		var grav_force: float = grav_const * ((node_mass * parent_node.mass)/(radius ** 2)) # G(m1m2/r^2) = F
+		var grav_force: float = grav_const * ((node_mass * parent_node_mass)/(radius ** 2)) # G(m1m2/r^2) = F
 		var node_vect: Vector2 = parent_node.global_position - node.global_position;
 		if (grav_force > 0 && grav_force < INF):
 			var grav_force_vector_delta := grav_force * node_vect * delta;

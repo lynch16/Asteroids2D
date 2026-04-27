@@ -4,13 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://moxkwo3nfsf4" path="res://Models/Player/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dc4xstka1au80" path="res://pause_menu.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="5_272bh"]
 [ext_resource type="PackedScene" uid="uid://ygio5vatco1t" path="res://UI/HUD/hud.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="6_7mycd"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7mycd"]
-vertices = PackedVector2Array(1110.9375, 74.02344, 1110.0469, 612.90625, 611.1328, 230, 604.5625, 205.4375, 604.5625, 254.5625, 29.210938, 610.0781, 32.78125, 74.96875, 537.4375, 272.5625, 586.5625, 272.5625, 586.5625, 187.4375, 562, 279.1328, 562, 180.86719, 537.4375, 187.4375, 519.4375, 205.4375, 512.8672, 230, 519.4375, 254.5625)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1), PackedInt32Array(1, 5, 6, 7), PackedInt32Array(8, 4, 1), PackedInt32Array(0, 3, 9), PackedInt32Array(10, 8, 1), PackedInt32Array(0, 9, 11), PackedInt32Array(6, 0, 11), PackedInt32Array(6, 11, 12), PackedInt32Array(6, 12, 13), PackedInt32Array(6, 13, 14), PackedInt32Array(6, 14, 15), PackedInt32Array(6, 15, 7), PackedInt32Array(10, 1, 7)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1, 43, 1143, 42, 1142, 645, -3, 642)])
+vertices = PackedVector2Array(602.1875, 68.35156, 603.7969, 330.7422, 538.1328, 183, 531.5625, 158.4375, 531.5625, 207.5625, 513.5625, 225.5625, 513.5625, 140.4375, 33, 326.25, 33, 74.64844, 464.4375, 225.5625, 489, 232.13281, 489, 133.86719, 464.4375, 140.4375, 446.4375, 158.4375, 439.8672, 183, 446.4375, 207.5625)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1), PackedInt32Array(5, 4, 1), PackedInt32Array(0, 3, 6), PackedInt32Array(1, 7, 8, 9), PackedInt32Array(10, 5, 1), PackedInt32Array(0, 6, 11), PackedInt32Array(8, 0, 11, 12), PackedInt32Array(8, 12, 13), PackedInt32Array(8, 13, 14), PackedInt32Array(8, 14, 15), PackedInt32Array(8, 15, 9), PackedInt32Array(10, 1, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1, 43, 634, 36, 636, 363, 1, 358)])
 agent_radius = 32.0
 
 [node name="Main" type="Node" unique_id=944017969]
@@ -20,13 +21,18 @@ navigation_polygon = SubResource("NavigationPolygon_7mycd")
 script = ExtResource("1_272bh")
 
 [node name="Player" parent="NavigableArea" unique_id=818107462 instance=ExtResource("1_ig7tw")]
-position = Vector2(559, 349)
+position = Vector2(95, 163)
 
 [node name="RockThrower" parent="NavigableArea" unique_id=1513123556 instance=ExtResource("3_h2yge")]
-process_mode = 4
 
 [node name="Enemy" parent="NavigableArea" unique_id=1345935966 instance=ExtResource("6_7mycd")]
+process_mode = 4
+visible = false
 position = Vector2(212, 326)
+
+[node name="Asteroid" parent="NavigableArea" unique_id=1301110429 instance=ExtResource("5_272bh")]
+position = Vector2(489, 183)
+script = null
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 process_mode = 3

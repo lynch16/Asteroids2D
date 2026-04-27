@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://tjlvf8cvvy0p" path="res://Models/Enemy/vision.tscn" id="5_mb64x"]
 [ext_resource type="Script" uid="uid://bkros6v8divjk" path="res://Models/Enemy/AI/attack_patrol_transition.gd" id="6_84prv"]
 [ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="8_q6pfn"]
-[ext_resource type="Script" uid="uid://bdc2ustsvtpdh" path="res://Models/Entities/Movement/nav_character_movement_controller.gd" id="9_utaga"]
-[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/Entities/Weapons/character_weapons.gd" id="10_p7ovo"]
-[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/Entities/Weapons/cannon_weapon.tscn" id="11_ae6k3"]
+[ext_resource type="Script" uid="uid://bdc2ustsvtpdh" path="res://Models/EntityModules/Movement/nav_character_movement_controller.gd" id="9_utaga"]
+[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/character_weapons.gd" id="10_p7ovo"]
+[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/cannon_weapon.tscn" id="11_ae6k3"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_848ye"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABcAAAAUklGRlQAAABXRUJQVlA4TEcAAAAvH8AHEB+goG0bFhfA3REIkCkJUkwREhBuSP4/FOc/AN52sUFRJEnNkt5nDpXZ4BXzBwRE9D8k1SLpggPYR+0A7PZODmB6DwA=")

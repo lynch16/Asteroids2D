@@ -1,0 +1,70 @@
+[gd_scene format=4 uid="uid://clmhgemf6tliu"]
+
+[ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/EntityModules/Weapons/Projectiles/projectile.gd" id="1_n771q"]
+[ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="2_8flxw"]
+[ext_resource type="Script" uid="uid://dcnjijdgd4kkl" path="res://Models/EntityModules/Damage/combat_stats.gd" id="2_mo7ir"]
+[ext_resource type="Script" uid="uid://bvo0xe0yh18n3" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/circle_mesh_deformation_shape.gd" id="3_mo7ir"]
+
+[sub_resource type="Resource" id="Resource_m6ula"]
+script = ExtResource("2_mo7ir")
+metadata/_custom_type_script = "uid://dcnjijdgd4kkl"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mo7ir"]
+
+[sub_resource type="Resource" id="Resource_mo7ir"]
+script = ExtResource("3_mo7ir")
+radius = 64.0
+damage = 1.0
+shape = SubResource("CircleShape2D_mo7ir")
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m6ula"]
+
+[sub_resource type="Resource" id="Resource_d8d6v"]
+script = ExtResource("3_mo7ir")
+radius = 128.0
+damage = 0.5
+shape = SubResource("CircleShape2D_m6ula")
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mo7ir"]
+radius = 1.0
+height = 4.0
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vsjsl"]
+_data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAAA0AAAAUklGRiwAAABXRUJQVlA4TCAAAAAvH8AHEA8wwYM+cPMf8FCQtgGzOZ/7ayCi/xOAfdG5Bw==")
+size_override = Vector2(32, 32)
+
+[node name="Bullet" type="Node2D" unique_id=1149596407 groups=["player_weapon"]]
+script = ExtResource("1_n771q")
+_combat_stats = SubResource("Resource_m6ula")
+mesh_deformation_shapes = Array[ExtResource("2_8flxw")]([SubResource("Resource_mo7ir"), SubResource("Resource_d8d6v")])
+collision_shape = SubResource("CapsuleShape2D_mo7ir")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=302593925]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_vsjsl")
+region_enabled = true
+region_rect = Rect2(15, 12, 2, 4)
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://sprites/ship-bullet.aseprite",
+"source_uid": 1495322395040648801
+}
+metadata/_aseprite_wizard_source_file_hash_ = "61f50d2060674f055a6d4418a2a1443a"

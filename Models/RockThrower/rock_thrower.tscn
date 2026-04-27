@@ -4,7 +4,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_2cb26"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -239, 790, 0, 0, 0, 0, 1289, 790, 0, 0, 0, 0, 1284, -141, 0, 0, 0, 0, -234, -139, 0, 0, 0, 0, -226, 785)
+"points": PackedVector2Array(0, 0, 0, 0, -238, 1276, 0, 0, 0, 0, 2126, 1272, 0, 0, 0, 0, 2126, -161, 0, 0, 0, 0, -238, -161, 0, 0, 0, 0, -237, 1270)
 }
 point_count = 5
 
@@ -13,7 +13,9 @@ curve = SubResource("Curve2D_2cb26")
 script = ExtResource("1_tmv8i")
 
 [node name="RockSpawnLocation" type="PathFollow2D" parent="." unique_id=632312024]
-position = Vector2(-239, 790)
+position = Vector2(-238, 1276)
+rotation = -0.0016920457
 
 [node name="RockThrowTimer" type="Timer" parent="." unique_id=1682102670]
+wait_time = 3.0
 autostart = true
