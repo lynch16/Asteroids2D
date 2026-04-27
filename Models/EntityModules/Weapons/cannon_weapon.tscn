@@ -9,6 +9,7 @@ _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABMAAAAUklGRkQAAABXRUJQVlA4TDc
 size_override = Vector2(32, 32)
 
 [node name="CannonWeapon" type="Node2D" unique_id=1570876709]
+rotation = -1.5707964
 script = ExtResource("1_lgcxq")
 projectile_scene = ExtResource("2_lgcxq")
 weapon_range = 300.0

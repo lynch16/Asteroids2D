@@ -17,6 +17,7 @@ func _ready() -> void:
 		_combat_stats,
 		0.0, 
 		collision_shape,
+		null,
 		mesh_deformation_shapes,
 	);
 	add_child(hitbox);

@@ -7,6 +7,13 @@ extends DamageResult
 var curr_inv_frame_count := 0;
 var start_inv_frame_count := 0;
 
+func _init(
+	p_invicible_frames: int = 30,
+	p_restart_on_new_damage: bool = false
+) -> void:
+	invicible_frames = p_invicible_frames;
+	restart_on_new_damage = p_restart_on_new_damage;
+
 func on_init(p_damageable: Damageable) -> void:
 	super(p_damageable);
 	_start_inv();

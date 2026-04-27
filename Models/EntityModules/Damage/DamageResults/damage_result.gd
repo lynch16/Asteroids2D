@@ -1,5 +1,5 @@
 class_name DamageResult
-extends Resource
+extends Resource # TODO: SHould this be a node?
 
 var damageable: Damageable = null;
 var initialized: bool = false;

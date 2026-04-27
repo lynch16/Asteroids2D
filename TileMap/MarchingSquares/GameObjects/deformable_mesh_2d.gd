@@ -2,20 +2,27 @@
 class_name DeformableMesh2D
 extends Node2D
 
-@export var _collision_mesh_group: MS_CollisionMeshGroup;
+@export var collision_mesh_group: MS_CollisionMeshGroup;
 
 # Node where collisions will be attached
 @export var physics_node: Node = owner;
 
-signal spawn_new_group(new_collision_mesh_group: MS_CollisionMeshGroup);
+signal spawn_new_group(newcollision_mesh_group: MS_CollisionMeshGroup);
 signal all_colliders_destroyed;
 
 var _deformable_mesh_collisions: Array[DeformableMeshCollider2D] = [];
 
+func _init(
+	pcollision_mesh_group: MS_CollisionMeshGroup = null,
+	p_physics_node: Node = owner
+) -> void:
+	collision_mesh_group = pcollision_mesh_group;
+	physics_node = p_physics_node;
+
 func _enter_tree() -> void:
 	_remove_editor_collisions();
 
-	var collision_meshes := _collision_mesh_group.collision_meshes;
+	var collision_meshes := collision_mesh_group.collision_meshes;
 	for i: int in collision_meshes.size():
 		var collision := DeformableMeshCollider2D.new();
 		collision._collision_mesh = collision_meshes[i];

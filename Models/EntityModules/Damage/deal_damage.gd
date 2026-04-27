@@ -14,7 +14,6 @@ func _init(
 func damage(node: Node) -> void:
 	var damageable := Damageable.get_damageable(node);
 	if (damageable):
-
 		if (hit_log != null):
 			if (hit_log.has_hit(damageable)):
 				return;

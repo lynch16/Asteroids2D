@@ -1,35 +1,36 @@
-class_name Hitbox2D
-extends Area2D
+class_name MeshDeformHitHurtbox2D
+extends MeshDeformHurtbox2D
 
-var attacker_combat_stats: CombatStats;
 var lifetime: float;
-var shape: Shape2D;
 var hit_log: HitLog;
 var deal_damage: DealDamage;
 
 func _init(
-	p_attacker_combat_stats: CombatStats,
+	p_combat_stats: CombatStats,
+	p_damage_results: Array[DamageResult] = [],
+	p_collision_mesh_group: MS_CollisionMeshGroup = null,
+	p_mesh_deformation_shapes: Array[MeshDeformationShape] = [],
 	p_lifetime: float = 0.0,
-	p_shape: Shape2D = null,
-	p_hit_log: HitLog = null,
+	p_hitlog: HitLog = null,
 ) -> void:
-	attacker_combat_stats = p_attacker_combat_stats;
+	super(p_combat_stats, p_damage_results, p_collision_mesh_group);
+	collision_mesh_group = p_collision_mesh_group;
+	mesh_deformation_shapes = p_mesh_deformation_shapes;
 	lifetime = p_lifetime;
-	shape = p_shape;
-	hit_log = p_hit_log;
-
+	hit_log = p_hitlog;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	monitorable = false;
+	super();
+	monitoring = true;
+	monitorable = true;
 	area_entered.connect(_on_body_entered);
 
 	deal_damage = DealDamage.new(
-		attacker_combat_stats,
+		combat_stats,
 		hit_log
 	);
 	add_child(deal_damage);
-	deal_damage.owner = self;
 
 	if (lifetime > 0.0):
 		var timer := Timer.new();
@@ -38,12 +39,6 @@ func _ready() -> void:
 		timer.timeout.connect(queue_free);
 		add_child(timer);
 		timer.start();
-
-	if (shape != null):
-		var collision_shape := CollisionShape2D.new();
-		collision_shape.shape = shape;
-		add_child(collision_shape);
-
 
 func _on_body_entered(node: Node) -> void:
 	deal_damage.damage(node);

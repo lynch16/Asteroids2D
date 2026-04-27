@@ -3,13 +3,18 @@ extends CharacterBody2D
 
 @export var movement_stats: MovementStats;
 @export var combat_stats: CombatStats;
-@onready var hurtbox: Hurtbox2D = get_node("Hurtbox2D");
+@onready var hurtbox: Hurtbox2D = %Hurtbox2D;
 
+var damageable: Damageable;
 var ship_direction: float;
 var acceleration := Vector2();
 
+func _enter_tree() -> void:
+	hurtbox = %Hurtbox2D;
+	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
+	hurtbox.shape = collision_shape.shape;
+
 func _ready() -> void:
-	velocity = Vector2.UP;
 	ship_direction = velocity.angle();
 	# Register broadcast handler and emit initial health state
 	hurtbox.combat_stats = combat_stats;

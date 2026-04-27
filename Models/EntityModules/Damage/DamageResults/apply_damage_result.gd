@@ -1,6 +1,6 @@
 class_name ApplyDamageResult
 extends DamageResult
 
-func on_damage(dmg: float, damager_node: Node) -> bool: 
-	damageable.on_damage(dmg, damager_node);
+func on_damage(dmg: float, _damager_node: Node) -> bool: 
+	damageable.combat_stats.take_damage(dmg);
 	return true;
