@@ -29,9 +29,9 @@ func _process(_delta: float) -> void:
 		assert(owner.get("damageable") == self, "Owner " + owner.name + " node must have a 'damageable' property set to this node");
 		checked_owner_setup = true;
 
-func on_damage(damage_amount: float, damager_node: Node) -> void:
+func on_damage(damage_amount: float, damager_node: Node, hit_position: Vector2) -> void:
 	for damage_result in damage_result_states:
-		var check_next_result: bool = damage_result.on_damage(damage_amount, damager_node);
+		var check_next_result: bool = damage_result.on_damage(damage_amount, damager_node, hit_position);
 			
 		if !check_next_result:
 			break;

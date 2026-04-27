@@ -2,5 +2,6 @@ class_name ApplyDamageResult
 extends DamageResult
 
 func on_damage(dmg: float, _damager_node: Node) -> bool: 
-	damageable.combat_stats.take_damage(dmg);
+	if (_damager_node.is_in_group("player")):
+		ScoreManager.add_score(dmg);
 	return true;

@@ -11,7 +11,7 @@ func _init(
 	combat_stats = p_combat_stats;
 	hit_log = p_hit_log;
 
-func damage(node: Node) -> void:
+func damage(node: Node, hit_position: Vector2) -> void:
 	var damageable := Damageable.get_damageable(node);
 	if (damageable):
 		if (hit_log != null):
@@ -20,4 +20,4 @@ func damage(node: Node) -> void:
 			else:
 				hit_log.log_hit(damageable);
 
-		damageable.on_damage(combat_stats.get_damage(), owner);
+		damageable.on_damage(combat_stats.get_damage(), owner, hit_position);

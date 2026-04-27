@@ -17,7 +17,7 @@ func update(_delta: float) -> void:
 	assert(initialized);
 	pass;
 
-func on_damage(_damage_dealt: float, _damager_node: Node) -> bool: 
+func on_damage(_damage_dealt: float, _damager_node: Node, _hit_position: Vector2) -> bool: 
 	return false;
 
 func on_end() -> void:
