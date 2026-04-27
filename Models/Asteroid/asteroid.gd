@@ -1,87 +1,67 @@
-class_name Asteroid extends RigidBody2D
-
-# Change impact spead to use DealDamage
+class_name Asteroid extends CharacterBody2D
 
 @export var max_velocity := 400; # m/s
+@export var collision_mesh_group: MS_CollisionMeshGroup;
+@export var _combat_stats: CombatStats;
+@export var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
-@export var debug_collide := false;
-@export var debug_random_movement := false;
+var hurtbox: MeshDeformHurtbox2D;
+var mass := 10000;
+var damageable: Damageable;
 
-var child_number := 0;
-var collision_damage := 50.0;
+func _enter_tree() -> void:
+	hurtbox = MeshDeformHitHurtbox2D.new(
+		_combat_stats,
+		[
+			InvincibleFramesDamageResult.new(),
+			ApplyDamageResult.new(),
+		],
+		collision_mesh_group.duplicate(true) as MS_CollisionMeshGroup, # Duplicate to avoid modifying the original resource which is shared between instances
+		mesh_deformation_shapes,
+		0.0,
+		HitLog.new(),
+	);
+	add_child(hurtbox);
+	hurtbox.owner = self;
+	hurtbox.spawn_new_group.connect(_shatter);
+	hurtbox.all_colliders_destroyed.connect(_destroy);
 
-@onready var damageable: Damageable = get_node("Damageable");
-@onready var deal_damage: DealDamage = get_node("DealDamage");
-@onready var invince_frames_dr: DamageResult = get_node("Damageable/InvincibleFramesDamageResult");
-@onready var shatter_dr: DamageResult = get_node("Damageable/AsteroidShatterDamageResult");
-@onready var collision: CollisionShape2D = get_node("AsteroidCollision");
-@onready var nav_obstacle: NavigationObstacle2D = get_node("NavigationObstacle2D");
+	var invincible_damage_result_idx := hurtbox.damage_results.find_custom(
+		func (dr: DamageResult) -> bool: 
+			return dr is InvincibleFramesDamageResult
+	);
+	if (invincible_damage_result_idx != -1):
+		var invincible_damage_result: InvincibleFramesDamageResult = hurtbox.damage_results[invincible_damage_result_idx];	
+		invincible_damage_result.init.connect(_disable_colliders);
+		invincible_damage_result.end.connect(_enable_colliders);
 
+	_combat_stats.on_health_depleted.connect(_destroy);
+	
 func _ready() -> void:
 	add_to_group("enemy");
-	_scale_to_child();
+	_combat_stats.resource_local_to_scene = true;
 	
-	body_entered.connect(_on_body_entered);
-	
-	damageable.on_init(self);
-	damageable.on_destroy.connect(_destroy);
-	invince_frames_dr.init.connect(_disable_colliders);
-	invince_frames_dr.end.connect(_enable_colliders);
-	shatter_dr.end.connect(_on_max_shatter);
-	
-	if (debug_collide):
-		linear_velocity = Vector2.LEFT * 100;
-		
-	if (debug_random_movement):
-		var direction := rotation;
-		direction += randf_range(0, PI/2);
-		rotation = direction + PI/2;
-		
-		# Fly in the direction we're facing
-		var velocity := Vector2(
-			10.0, 
-			0.0
-		);
-		linear_velocity =  velocity.rotated(rotation - PI/2);
-		
-func _disable_colliders() -> void:
-	collision.disabled = true;
-	
-func _enable_colliders() -> void:
-	collision.set_deferred("disabled", false);
-	
-func _on_max_shatter() -> void:
-	damageable.die();
-	
-func _scale_to_child() -> void:
-	
-	# TEMP: Should be included in the scene details
-	var new_scale := 1.0/(pow(2, child_number));
-	
-	## Smaller asteroid will shatter and destroy with half the force
-	damageable.init_health = damageable.init_health * new_scale;
-	deal_damage.damage_dealt = deal_damage.damage_dealt * new_scale;
-	
-	# TODO: Change sprites;
-	var collision_shape: CircleShape2D = collision.shape;
-	collision_shape.radius = collision_shape.radius * new_scale;
-	nav_obstacle.radius = nav_obstacle.radius * new_scale;
-	
-	var sprite: AnimatedSprite2D = $Sprite2D;
-	sprite.scale = sprite.scale * new_scale;
-	
-	if (child_number == 1):
-		sprite.modulate = Color(200, 0, 150, 1);;
-	elif (child_number == 2):
-		sprite.modulate = Color(0, 200, 150, 1);;
-
 func _physics_process(_delta: float) -> void:
 	# Clamp velocity to reasonable playable value
-	linear_velocity = linear_velocity.normalized() * min(linear_velocity.length(), max_velocity);
+	velocity = velocity.normalized() * min(velocity.length(), max_velocity);
+	move_and_slide();
+
+func _shatter(new_mesh_group: MS_CollisionMeshGroup) -> void:
+	AsteroidManager.shatter_asteroid(self, new_mesh_group);
+		
+func get_colliders() -> Array[DeformableMeshCollider2D]:
+	return hurtbox.get_colliders();
+
+func _disable_colliders() -> void:
+	for collision in get_colliders():
+		if (is_instance_valid(collision)):
+			collision.set_deferred("disabled", true);
 	
-func _on_body_entered(body: Node) -> void:
-	# TODO: Players don't cause _on_body_entered
-	deal_damage.damage(body);
+func _enable_colliders() -> void:
+	for collision in get_colliders():
+		if (is_instance_valid(collision)):
+			collision.set_deferred("disabled", false);
+		
 
 func _destroy() -> void:
 	call_deferred("queue_free");

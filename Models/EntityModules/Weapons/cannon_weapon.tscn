@@ -1,0 +1,49 @@
+[gd_scene format=4 uid="uid://bsfnrmutub50v"]
+
+[ext_resource type="Script" uid="uid://cuqmt45sefh8k" path="res://Models/EntityModules/Weapons/cannon_weapon.gd" id="1_lgcxq"]
+[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="2_lgcxq"]
+[ext_resource type="Script" uid="uid://dlaq44o6nfb1r" path="res://Models/EntityModules/Weapons/intercepter.gd" id="3_pcssh"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_pcssh"]
+_data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABMAAAAUklGRkQAAABXRUJQVlA4TDcAAAAvH8AHEBcgFkzxIDoTCCQhLL+vQCDFKUzw/AfUP1DTthHUwjk2P38wp47dI/o/ATCedxQh+NwCAA==")
+size_override = Vector2(32, 32)
+
+[node name="CannonWeapon" type="Node2D" unique_id=1570876709]
+rotation = -1.5707964
+script = ExtResource("1_lgcxq")
+projectile_scene = ExtResource("2_lgcxq")
+weapon_range = 300.0
+use_rate = 0.1
+metadata/_custom_type_script = "uid://cuqmt45sefh8k"
+
+[node name="Intercepter" type="Node2D" parent="." unique_id=1006460942]
+script = ExtResource("3_pcssh")
+draw_targeting = true
+metadata/_custom_type_script = "uid://dlaq44o6nfb1r"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1353719102]
+texture_filter = 1
+position = Vector2(2, -0.9999999)
+texture = SubResource("PortableCompressedTexture2D_pcssh")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://sprites/cannon.aseprite",
+"source_uid": 1373450124250721281
+}
+metadata/_aseprite_wizard_source_file_hash_ = "8c9d0ff6dda9b930dcaf058f4312b42e"
