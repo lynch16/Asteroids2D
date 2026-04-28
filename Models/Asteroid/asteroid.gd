@@ -14,6 +14,7 @@ func _enter_tree() -> void:
 	var damage_results := [
 		invincible_damage_result,
 		ScoreDamageResult.new(),
+		MeshDeformDamageResult.new(),
 		ParticlesDamageResult.new(),
 		ApplyDamageResult.new(),
 	];
@@ -66,3 +67,10 @@ func _enable_colliders() -> void:
 func _destroy() -> void:
 	call_deferred("queue_free");
 	# TODO: Destroy animation
+
+func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> void:
+	hurtbox.deformable_mesh_2d.deform_group(
+		collision_point,
+		collision_angle,
+		collision_deformation_shapes
+	);

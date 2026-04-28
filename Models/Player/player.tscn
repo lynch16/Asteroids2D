@@ -75,7 +75,7 @@ shape = SubResource("ConvexPolygonShape2D_sh265")
 node = NodePath("..")
 
 [node name="PlayerWeapons" type="Node2D" parent="." unique_id=587398542 node_paths=PackedStringArray("character")]
-position = Vector2(0, -13)
+position = Vector2(0, -19)
 script = ExtResource("6_47e7v")
 weapon_to_equip = ExtResource("7_mdxrt")
 character = NodePath("..")

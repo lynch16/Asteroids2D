@@ -23,7 +23,7 @@ metadata/_edit_lock_ = true
 offset_top = 334.0
 offset_right = 156.0
 offset_bottom = 357.0
-text = "(-799.4805, 5071.506)"
+text = "(-1233.545, -396.1819)"
 
 [node name="StagingArea" type="Node2D" parent="." unique_id=463051782]
 position = Vector2(18, 44)

@@ -24,14 +24,14 @@ func _init(
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	monitorable = false;
-	area_shape_entered.connect(_on_body_shape_entered);
+	area_shape_entered.connect(_on_area_shape_entered);
 
 	deal_damage = DealDamage.new(
 		attacker_combat_stats,
-		hit_log
+		owner_node,
+		hit_log,
 	);
 	add_child(deal_damage);
-	deal_damage.owner_node = owner_node;
 
 	if (lifetime > 0.0):
 		var timer := Timer.new();
@@ -46,7 +46,7 @@ func _ready() -> void:
 		collision_shape.shape = shape;
 		add_child(collision_shape);
 
-func _on_body_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_area_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if (body is Area2D):
 		var collision_body: Area2D = body;
 		var body_shape_owner := collision_body.shape_find_owner(body_shape_index);

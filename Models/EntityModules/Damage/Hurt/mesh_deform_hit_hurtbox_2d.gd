@@ -1,5 +1,6 @@
 class_name MeshDeformHitHurtbox2D
 extends MeshDeformHurtbox2D
+## The generated collisions from MS_CollisionMeshGroup are used as both the hitbox and hurtbox.
 
 var lifetime: float;
 var hit_log: HitLog;
@@ -24,10 +25,11 @@ func _ready() -> void:
 	super();
 	monitoring = true;
 	monitorable = true;
-	area_shape_entered.connect(_on_mesh_shape_entered);
+	area_shape_entered.connect(_on_area_shape_entered);
 
 	deal_damage = DealDamage.new(
 		combat_stats,
+		owner_node,
 		hit_log
 	);
 	add_child(deal_damage);
@@ -40,7 +42,7 @@ func _ready() -> void:
 		add_child(timer);
 		timer.start();
 
-func _on_mesh_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_area_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if (body is Area2D):
 		var collision_body: Area2D = body;
 		var body_shape_owner := collision_body.shape_find_owner(body_shape_index);
@@ -58,11 +60,8 @@ func _on_mesh_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int,
 				mesh_collider.global_transform
 			);
 
-			print("collision_points: " + str(collision_points));
-
 			if (collision_points.size() > 0):
 				var mesh_impact_point: Vector2 = collision_points.get(0);
 				var local_impact_point: Vector2 = collision_points.get(1);
-				var impact_angle := (mesh_impact_point - local_impact_point).normalized();
-				print("impact_point: " + str(impact_angle.angle()));
+				var impact_angle := (local_impact_point - mesh_impact_point).normalized();
 				deal_damage.damage(body, mesh_impact_point, impact_angle.angle());

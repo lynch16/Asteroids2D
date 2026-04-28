@@ -52,14 +52,14 @@ func _spawn_new_group(new_group: MS_CollisionMeshGroup) -> void:
 	spawn_new_group.emit(new_group);
 	
 func deform_group(
-	collidion_point: Vector2,
+	collision_point: Vector2,
 	collision_angle: float,
 	mesh_deformation_shapes: Array[MeshDeformationShape],
 ) -> void:
 	for mesh_collider in _deformable_mesh_collisions:
 		if (is_instance_valid(mesh_collider)):
 			mesh_collider.apply_mesh_deformation(
-				collidion_point,
+				mesh_collider.to_local(collision_point),
 				collision_angle,
 				mesh_deformation_shapes
 			)

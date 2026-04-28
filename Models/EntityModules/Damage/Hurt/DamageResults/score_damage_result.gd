@@ -11,14 +11,11 @@ var score_label: Label;
 var score_timer: Timer;
 
 func on_damage(_damage_dealt: float, _damager_node: Node, _hit_position: Vector2, _hit_angle: float) -> bool: 
-	if (_damager_node && _damager_node.is_in_group("player")):
+	if (_damager_node && (_damager_node.is_in_group("player") || _damager_node.is_in_group("player_weapon"))):
 		ScoreManager.add_score(score_value);
 		var score_popup := ScorePopup.new();
 		score_popup.score_value = score_value;
 		score_popup.global_position = _hit_position;
-
-		print("SCORE");
-
 		get_tree().current_scene.add_child(score_popup);
 
 	return true;

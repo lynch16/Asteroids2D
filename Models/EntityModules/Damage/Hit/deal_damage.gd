@@ -7,9 +7,11 @@ var hit_log: HitLog;
 
 func _init(
 	p_combat_stats: CombatStats,
-	p_hit_log: HitLog = null
+	p_owner_node: Node = null,
+	p_hit_log: HitLog = null,
 ) -> void:
 	combat_stats = p_combat_stats;
+	owner_node = p_owner_node;
 	hit_log = p_hit_log;
 
 func damage(target_node: Node, hit_position: Vector2, hit_angle: float) -> void:
