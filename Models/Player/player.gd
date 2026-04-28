@@ -15,7 +15,7 @@ func _enter_tree() -> void:
 	hurtbox.shape = collision_shape.shape;
 
 func _ready() -> void:
-	ship_direction = velocity.angle();
+	ship_direction = rotation;
 	# Register broadcast handler and emit initial health state
 	hurtbox.combat_stats = combat_stats;
 	combat_stats.on_health_changed.connect(_handle_player_damage);

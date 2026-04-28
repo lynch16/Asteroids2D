@@ -49,6 +49,7 @@ combat_stats = SubResource("Resource_f3ot7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1526374553]
 texture_filter = 1
+rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_onrkg")
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
@@ -69,13 +70,15 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "89274d3e70cc8630f7b9b9aa5c35e4c5"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1160935763]
+rotation = 1.5707964
 shape = SubResource("ConvexPolygonShape2D_sh265")
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_ccpyr")]
 node = NodePath("..")
 
 [node name="PlayerWeapons" type="Node2D" parent="." unique_id=587398542 node_paths=PackedStringArray("character")]
-position = Vector2(0, -19)
+position = Vector2(18, 0)
+rotation = 1.5707964
 script = ExtResource("6_47e7v")
 weapon_to_equip = ExtResource("7_mdxrt")
 character = NodePath("..")
@@ -83,6 +86,7 @@ metadata/_custom_type_script = "uid://tw3rerqdtlqi"
 
 [node name="Hurtbox2D" type="Area2D" parent="." unique_id=1821236986 node_paths=PackedStringArray("owner_node")]
 unique_name_in_owner = true
+rotation = 1.5707964
 script = ExtResource("10_o7pk3")
 owner_node = NodePath("..")
 metadata/_custom_type_script = "uid://cuecudo47i27o"
