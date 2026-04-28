@@ -7,6 +7,8 @@
 [ext_resource type="Resource" uid="uid://b7e8v7dqyxo0j" path="res://Models/Asteroid/AsteroidMesh/peanut_collision_mesh_group.tres" id="3_tsxo3"]
 [ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="4_gw6yr"]
 [ext_resource type="Script" uid="uid://deqvt75qdcfcl" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/slice_mesh_deformation_shape.gd" id="5_rr1y8"]
+[ext_resource type="Material" uid="uid://clbg8ojd63j4i" path="res://Models/Asteroid/asteroid_particle_process_material.tres" id="11_qdhb0"]
+[ext_resource type="Script" uid="uid://cus0x6vu8yvl2" path="res://Models/Asteroid/asteroid_damage_particles.gd" id="12_jywkw"]
 
 [sub_resource type="Resource" id="Resource_gw6yr"]
 resource_local_to_scene = true
@@ -14,6 +16,7 @@ script = ExtResource("3_jywkw")
 
 [sub_resource type="Resource" id="Resource_ssro7"]
 script = ExtResource("5_rr1y8")
+line_width = 64
 damage = 1.0
 metadata/_custom_type_script = "uid://deqvt75qdcfcl"
 
@@ -42,3 +45,12 @@ shape = SubResource("CircleShape2D_kufyc")
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1627727781]
 radius = 16.0
 affect_navigation_mesh = true
+
+[node name="AsteroidDamageParticles" type="GPUParticles2D" parent="." unique_id=382904738]
+visible = false
+amount = 50
+lifetime = 2.0
+explosiveness = 1.0
+process_material = ExtResource("11_qdhb0")
+script = ExtResource("12_jywkw")
+metadata/_custom_type_script = "uid://cus0x6vu8yvl2"

@@ -6,9 +6,8 @@
 [ext_resource type="Script" uid="uid://dcnjijdgd4kkl" path="res://Models/EntityModules/Damage/combat_stats.gd" id="3_o7pk3"]
 [ext_resource type="Script" uid="uid://tw3rerqdtlqi" path="res://Models/EntityModules/Weapons/player_weapons.gd" id="6_47e7v"]
 [ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/cannon_weapon.tscn" id="7_mdxrt"]
-[ext_resource type="Script" uid="uid://cao55je0ipsqj" path="res://Models/EntityModules/Damage/DamageResults/damage_result.gd" id="8_yttkf"]
-[ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/DamageResults/invincible_frames_damage_result.gd" id="9_o3uiv"]
-[ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/DamageResults/apply_damage_result.gd" id="10_m1agk"]
+[ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/Hurt/DamageResults/invincible_frames_damage_result.gd" id="9_o3uiv"]
+[ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="10_m1agk"]
 [ext_resource type="Script" uid="uid://cuecudo47i27o" path="res://Models/EntityModules/Damage/Hurt/hurtbox_2d.gd" id="10_o7pk3"]
 
 [sub_resource type="Resource" id="Resource_m1agk"]
@@ -42,14 +41,6 @@ animations = [{
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_sh265"]
 points = PackedVector2Array(-15, 15, 0, -15, 15, 15)
 
-[sub_resource type="Resource" id="Resource_o7pk3"]
-script = ExtResource("9_o3uiv")
-metadata/_custom_type_script = "uid://l6occnfuxuon"
-
-[sub_resource type="Resource" id="Resource_r6kw6"]
-script = ExtResource("10_m1agk")
-metadata/_custom_type_script = "uid://dhchi74lu51yr"
-
 [node name="Player" type="CharacterBody2D" unique_id=818107462 groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_4flbx")
@@ -58,6 +49,7 @@ combat_stats = SubResource("Resource_f3ot7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1526374553]
 texture_filter = 1
+rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_onrkg")
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
@@ -78,20 +70,31 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "89274d3e70cc8630f7b9b9aa5c35e4c5"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1160935763]
+rotation = 1.5707964
 shape = SubResource("ConvexPolygonShape2D_sh265")
 
 [node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_ccpyr")]
 node = NodePath("..")
 
 [node name="PlayerWeapons" type="Node2D" parent="." unique_id=587398542 node_paths=PackedStringArray("character")]
-position = Vector2(0, -13)
+position = Vector2(18, 0)
+rotation = 1.5707964
 script = ExtResource("6_47e7v")
 weapon_to_equip = ExtResource("7_mdxrt")
 character = NodePath("..")
 metadata/_custom_type_script = "uid://tw3rerqdtlqi"
 
-[node name="Hurtbox2D" type="Area2D" parent="." unique_id=1821236986]
+[node name="Hurtbox2D" type="Area2D" parent="." unique_id=1821236986 node_paths=PackedStringArray("owner_node")]
 unique_name_in_owner = true
+rotation = 1.5707964
 script = ExtResource("10_o7pk3")
-damage_results = Array[ExtResource("8_yttkf")]([SubResource("Resource_o7pk3"), SubResource("Resource_r6kw6")])
+owner_node = NodePath("..")
 metadata/_custom_type_script = "uid://cuecudo47i27o"
+
+[node name="InvincibleFramesDamageResult" type="Node" parent="Hurtbox2D" unique_id=288406754]
+script = ExtResource("9_o3uiv")
+metadata/_custom_type_script = "uid://l6occnfuxuon"
+
+[node name="ApplyDamageResult" type="Node" parent="Hurtbox2D" unique_id=1210662983]
+script = ExtResource("10_m1agk")
+metadata/_custom_type_script = "uid://dhchi74lu51yr"

@@ -37,7 +37,7 @@ func _send_projectile(num_projectile: int) -> void:
 			projectile.set_owner(get_tree().edited_scene_root);
 		else:
 			get_tree().get_root().add_child(projectile);
-		
+			
 		current_projectile_count -= i;
 		
 		projectile.on_create(

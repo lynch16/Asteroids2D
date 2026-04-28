@@ -4,7 +4,7 @@ signal score_updated(updated_score: int);
 
 var _score := 0;
 
-func _update_score(score_increment: int) -> void:
+func add_score(score_increment: int) -> void:
 	_score += score_increment;
 	score_updated.emit(_score);
 	

@@ -11,25 +11,29 @@ var velocity: Vector2 = Vector2.RIGHT;
 var aim_point: Vector2 = Vector2.RIGHT;
 var target: Node2D;
 var last_position: Vector2;
+var hitbox: Hitbox2D;
+var weapon: Weapon;
 
-func _ready() -> void:
-	var hitbox: MeshDeformHitbox2D = MeshDeformHitbox2D.new(
+func on_create(
+	_weapon: Weapon,
+	weapon_aim_point: Vector2,
+) -> void:
+	weapon = _weapon;
+	global_position = weapon.global_position;
+	global_rotation = weapon.global_rotation;
+	aim_point = weapon_aim_point;
+	hitbox = Hitbox2D.new(
 		_combat_stats,
 		0.0, 
 		collision_shape,
 		null,
-		mesh_deformation_shapes,
+		self,
 	);
 	add_child(hitbox);
-	hitbox.owner = self;
+	hitbox.area_entered.connect(_release_on_hit);
 
-func on_create(
-	weapon: Weapon,
-	weapon_aim_point: Vector2,
-) -> void:
-	global_position = weapon.global_position;
-	global_rotation = weapon.global_rotation;
-	aim_point = weapon_aim_point;
+func _release_on_hit(_node: Area2D) -> void:
+	queue_free();
 		
 func on_start(
 	base_velocity: Vector2,

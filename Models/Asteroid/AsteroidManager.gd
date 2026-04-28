@@ -14,7 +14,6 @@ func _ready() -> void:
 	var folder_parts := script_path.split("/");
 	folder_parts.remove_at(folder_parts.size() - 1);
 	var folder_path := "/".join(folder_parts);
-	print("folder_path: ", folder_path);
 	var asteroid_mesh_dir := DirAccess.open(folder_path + "/AsteroidMesh");
 	assert(asteroid_mesh_dir != null);
 

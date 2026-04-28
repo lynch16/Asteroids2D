@@ -18,13 +18,13 @@ func on_init(p_damageable: Damageable) -> void:
 	super(p_damageable);
 	_start_inv();
 	
-func update(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if (_is_inv()):
 		curr_inv_frame_count = Engine.get_frames_drawn() - start_inv_frame_count;
 		if (curr_inv_frame_count >= invicible_frames):
 			on_end();
 
-func on_damage(_damage_dealt: float, _dmgr: Node) -> bool:
+func on_damage(_damage_dealt: float, _dmgr: Node, _hit_position: Vector2, _hit_angle: float) -> bool:
 	if (_is_inv()):
 		return false;
 		
