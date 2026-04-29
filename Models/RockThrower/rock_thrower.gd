@@ -1,3 +1,4 @@
+class_name RockThrower
 extends Path2D
 
 @export var min_throw_velocity := 50.0;
@@ -6,16 +7,22 @@ extends Path2D
 @onready var rock_throw_timer: Timer = get_node("RockThrowTimer");
 @onready var rock_spawn_location: PathFollow2D = get_node("RockSpawnLocation");
 
+signal on_throw_rock;
+
 func _ready() -> void:
 	rock_throw_timer.timeout.connect(_on_rock_throw_timer_timeout);
 
 func start() -> void:
 	rock_throw_timer.start();
-	
+
+func stop() -> void:
+	rock_throw_timer.stop();
+
 func throw_rock() -> void:
 	var rock := AsteroidManager.spawn_asteroid();
 	rock_spawn_location.progress_ratio = randf();
 	
+	# TODO: Introduce better randomness here where it will calculate different start position if asteroids already exist there 
 	rock.global_position = rock_spawn_location.global_position;
 	
 	# Start perpendicular then randomize the direction
@@ -25,7 +32,11 @@ func throw_rock() -> void:
 	
 	var velocity := Vector2(randf_range(min_throw_velocity, max_throw_velocity), 0.0);
 	rock.velocity = velocity.rotated(direction);
+
+	on_throw_rock.emit();
 	
 func _on_rock_throw_timer_timeout() -> void:
 	throw_rock();
 	
+func set_rock_throw_interval(new_interval: float) -> void:
+	rock_throw_timer.wait_time = new_interval;

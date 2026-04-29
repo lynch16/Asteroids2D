@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CombatStats" format=3 uid="uid://dcmq7tlmfu6ie"]
+
+[ext_resource type="Script" uid="uid://dcnjijdgd4kkl" path="res://Models/EntityModules/Damage/combat_stats.gd" id="1_4ign0"]
+
+[resource]
+script = ExtResource("1_4ign0")
+god_mode_enabled = true
+metadata/_custom_type_script = "uid://dcnjijdgd4kkl"

@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*uid://b13huugitcogo"
 AsteroidManager="*uid://c0hqxihl3ul0n"
 ScoreManager="*uid://ddy5bx2mx2ppk"
 SignalBus="*uid://clt6bw8olwa1a"

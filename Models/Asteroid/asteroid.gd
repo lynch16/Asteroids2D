@@ -9,6 +9,8 @@ var hurtbox: MeshDeformHurtbox2D;
 var mass := 10000;
 var damageable: Damageable;
 
+signal asteroid_destroyed;
+
 func _enter_tree() -> void:
 	var invincible_damage_result := InvincibleFramesDamageResult.new();
 	var damage_results := [
@@ -66,6 +68,7 @@ func _enable_colliders() -> void:
 
 func _destroy() -> void:
 	call_deferred("queue_free");
+	asteroid_destroyed.emit();
 	# TODO: Destroy animation
 
 func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> void:

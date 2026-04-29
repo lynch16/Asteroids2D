@@ -9,13 +9,14 @@ var damageable: Damageable;
 var ship_direction: float;
 var acceleration := Vector2();
 
+signal player_died(player: Player);
+
 func _enter_tree() -> void:
 	hurtbox = %Hurtbox2D;
 	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
 	hurtbox.shape = collision_shape.shape;
 
 func _ready() -> void:
-	ship_direction = rotation;
 	# Register broadcast handler and emit initial health state
 	hurtbox.combat_stats = combat_stats;
 	combat_stats.on_health_changed.connect(_handle_player_damage);
@@ -41,6 +42,9 @@ func _physics_process(delta: float) -> void:
 		
 	var tmp_vel := velocity + (acceleration * delta);
 	velocity = tmp_vel.min(Vector2(movement_stats.max_speed, movement_stats.max_speed));
+	
+	if (!ship_direction):
+		ship_direction = rotation;
 	rotation = ship_direction;
 	
 	move_and_slide();
@@ -49,7 +53,7 @@ func _handle_player_damage(_old_health: float, new_health: float) -> void:
 	SignalBus._on_player_health_updated(int(new_health));
 	
 func _die() -> void:
-	GameManager.trigger_game_over();
+	player_died.emit(self);
 
 func _move_forward() -> void:
 	# Apply acceleration to max speed in direction facing

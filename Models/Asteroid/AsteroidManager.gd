@@ -9,7 +9,7 @@ var spawn_parent_node: Node;
 
 var asteroid_launcher: Array[AsteroidLaunch] = [];
 
-func _ready() -> void:
+func _init() -> void:
 	var script_path: String = get_script().resource_path;
 	var folder_parts := script_path.split("/");
 	folder_parts.remove_at(folder_parts.size() - 1);
@@ -56,6 +56,8 @@ func _create_asteroid(asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
 	else:
 		var rand_mesh_idx := randi() % asteroid_meshes.size();
 		aster.collision_mesh_group = asteroid_meshes[rand_mesh_idx];
+
+	aster.asteroid_destroyed.connect(_on_asteroid_destroyed);
 	
 	return aster;
 
@@ -63,3 +65,9 @@ func _add_asteroid(asteroid: Asteroid) -> void:
 	# Need to be added within the navigation region
 	spawn_parent_node.add_child(asteroid);
 	asteroid_count += 1;
+
+func get_asteroid_count() -> int:
+	return asteroid_count;
+
+func _on_asteroid_destroyed() -> void:
+	asteroid_count -= 1;

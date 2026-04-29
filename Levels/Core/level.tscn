@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://du4nnb206ggo4"]
+
+[ext_resource type="Script" uid="uid://53fnq33aw1pk" path="res://Levels/Core/level.gd" id="1_q5k0s"]
+[ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="2_bcvyo"]
+[ext_resource type="PackedScene" uid="uid://moxkwo3nfsf4" path="res://Models/Player/player.tscn" id="3_ny7g0"]
+[ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://Levels/game_area.gd" id="4_bcvyo"]
+
+[node name="Level" type="Node2D" unique_id=350803456]
+script = ExtResource("1_q5k0s")
+is_active = true
+
+[node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_bcvyo")]
+unique_name_in_owner = true
+
+[node name="Player" parent="." unique_id=818107462 instance=ExtResource("3_ny7g0")]
+unique_name_in_owner = true
+
+[node name="GameArea" type="NavigationRegion2D" parent="." unique_id=1152365417]
+unique_name_in_owner = true
+script = ExtResource("4_bcvyo")
+metadata/_custom_type_script = "uid://ce43prxb75d4c"
