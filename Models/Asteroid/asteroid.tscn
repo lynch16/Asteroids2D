@@ -24,6 +24,9 @@ metadata/_custom_type_script = "uid://deqvt75qdcfcl"
 resource_local_to_scene = true
 radius = 311.07877
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tsxo3"]
+radius = 200.0
+
 [node name="Asteroid" type="CharacterBody2D" unique_id=328524540 groups=["enemy"]]
 script = ExtResource("1_7kvrs")
 collision_mesh_group = ExtResource("3_tsxo3")
@@ -54,3 +57,8 @@ explosiveness = 1.0
 process_material = ExtResource("11_qdhb0")
 script = ExtResource("12_jywkw")
 metadata/_custom_type_script = "uid://cus0x6vu8yvl2"
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=1397857381]
+shape = SubResource("CircleShape2D_tsxo3")
+collide_with_areas = true
+collide_with_bodies = false

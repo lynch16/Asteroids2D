@@ -5,7 +5,7 @@ extends Node2D
 @export var collision_mesh_group: MS_CollisionMeshGroup;
 
 # Node where collisions will be attached
-@export var physics_node: Node = owner;
+@export var collision_object: CollisionObject2D;
 
 signal spawn_new_group(newcollision_mesh_group: MS_CollisionMeshGroup);
 signal all_colliders_destroyed;
@@ -14,10 +14,10 @@ var _deformable_mesh_collisions: Array[DeformableMeshCollider2D] = [];
 
 func _init(
 	pcollision_mesh_group: MS_CollisionMeshGroup = null,
-	p_physics_node: Node = owner
+	p_collision_object: Node = null
 ) -> void:
 	collision_mesh_group = pcollision_mesh_group;
-	physics_node = p_physics_node;
+	collision_object = p_collision_object;
 
 func _enter_tree() -> void:
 	_remove_editor_collisions();
@@ -35,9 +35,9 @@ func _add_collision(collision: DeformableMeshCollider2D) -> void:
 	if (Engine.is_editor_hint()):
 		add_child(collision);
 	else:
-		physics_node.add_child(collision);
+		collision_object.add_child(collision);
 		_deformable_mesh_collisions.append(collision);
-	collision.owner = physics_node;
+	collision.owner = collision_object;
 	
 	collision.tree_exited.connect(_on_collider_freed.bind(collision));
 	
