@@ -70,6 +70,13 @@ func _physics_process(delta: float) -> void:
 func update_nav_target(movement_target: Vector2) -> void:
 	nav_agent.target_position = movement_target;
 
+func get_nav_target() -> Vector2:
+	return nav_agent.target_position;
+
+func update_nav_velocity(new_velocity: Vector2) -> void:
+	if nav_agent.avoidance_enabled:
+		nav_agent.set_velocity(new_velocity);
+
 func turn_around(_on_flip_complete: Callable) -> void:
 	turn_around_active = true;
 	start_rotation = moveable_character.rotation;

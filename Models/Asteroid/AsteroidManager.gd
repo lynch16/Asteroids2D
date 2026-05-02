@@ -3,7 +3,6 @@ extends Node
 var asteroid_meshes: Array[MS_CollisionMeshGroup] = [];
 
 var astreroid_scene := preload("uid://drhrxw7642nqd");
-var child_angle_spread := PI/12;
 var asteroid_count := 0;
 var spawn_parent_node: Node;
 

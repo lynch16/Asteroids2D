@@ -1,3 +1,8 @@
 [gd_scene format=3 uid="uid://c27t552lxaq5j"]
 
-[node name="EnemySpawnGroup" type="PathFollow2D" unique_id=1939509958]
+[sub_resource type="Curve2D" id="Curve2D_kblgp"]
+
+[node name="EnemySpawnGroup" type="Path2D" unique_id=581250516]
+curve = SubResource("Curve2D_kblgp")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=416508599]

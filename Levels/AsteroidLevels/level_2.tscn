@@ -13,8 +13,6 @@ num_rocks_to_throw = 10
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_pmjd1")]
 unique_name_in_owner = true
-min_throw_velocity = null
-max_throw_velocity = null
 
 [node name="Player" parent="." unique_id=818107462 instance=ExtResource("3_yyloq")]
 unique_name_in_owner = true

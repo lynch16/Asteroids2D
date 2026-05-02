@@ -105,7 +105,6 @@ func _get_cone_polygon_points() -> PackedVector2Array:
 	
 	return cone_points_arc;
 
-# TODO: Handle if next point is outside screen
 func get_random_global_point_at_edge_of_vision(cone_points: int = 32) -> Vector2:
 	var near_angle := rotation + field_of_view;
 	var cone_point := randi() % cone_points;

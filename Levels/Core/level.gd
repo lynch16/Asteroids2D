@@ -92,29 +92,9 @@ func _on_start_rocks_timer_timeout() -> void:
 		rock_thrower.set_rock_throw_interval(rock_throw_interval);
 		rock_thrower.start();
 
-# TODO: Enemies shouldn't spawn in middle of map but should enter from outside
-# TODO: Have enemies spawn in flying V formation
 func _on_start_enemies_timer_timeout() -> void:
-	var spawn_quadrant := randi() % 4;
-	var enemy_position := _get_screen_quadrant_position(spawn_quadrant);
-	var enemy_rotation := _get_screen_quadrant_rotation(spawn_quadrant);
-
-	var offset_vector := Vector2(0, 0);
-	match(spawn_quadrant):
-		0: 
-			offset_vector = Vector2(-1, 1);
-		1: 
-			offset_vector = Vector2(1, 1);
-		2: 
-			offset_vector = Vector2(1, -1);
-		3: 
-			offset_vector = Vector2(-1, -1);
-
-	for i in num_enemies:
-		var enemy: Enemy = enemey_scene.instantiate();
-		enemy.global_position = enemy_position + (offset_vector * i * 100.0);
-		enemy.global_rotation = enemy_rotation;
-		game_area.add_child(enemy);
+	var spawn_group := EnemySpawnGroup.new(num_enemies);
+	game_area.add_child(spawn_group);
 
 func _check_win_condition() -> void:
 	if (AsteroidManager.get_asteroid_count() == 0):

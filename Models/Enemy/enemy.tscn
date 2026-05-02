@@ -1,6 +1,8 @@
 [gd_scene format=4 uid="uid://bhivcoamxxg4n"]
 
 [ext_resource type="Script" uid="uid://ccmuearcodtas" path="res://Models/Enemy/enemy.gd" id="1_pipm3"]
+[ext_resource type="Script" uid="uid://dcnjijdgd4kkl" path="res://Models/EntityModules/Damage/combat_stats.gd" id="2_eowg7"]
+[ext_resource type="Script" uid="uid://cuecudo47i27o" path="res://Models/EntityModules/Damage/Hurt/hurtbox_2d.gd" id="2_p7ovo"]
 [ext_resource type="Script" uid="uid://t8xohr0ab8mn" path="res://Models/EntityModules/AI/HFSM/state_machine.gd" id="4_ae6k3"]
 [ext_resource type="Script" uid="uid://dlprwkxy5ex8f" path="res://Models/Enemy/AI/patrol_attack_transition.gd" id="4_ebih1"]
 [ext_resource type="PackedScene" uid="uid://tjlvf8cvvy0p" path="res://Models/EntityModules/Movement/targeting_controller.tscn" id="5_mb64x"]
@@ -11,6 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://bqmkbfudrxqf4" path="res://Models/EntityModules/Movement/nav_character_movement_controller.tscn" id="10_ae6k3"]
 [ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/character_weapons.gd" id="10_p7ovo"]
 [ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/cannon_weapon.tscn" id="11_ae6k3"]
+
+[sub_resource type="Resource" id="Resource_eowg7"]
+script = ExtResource("2_eowg7")
+metadata/_custom_type_script = "uid://dcnjijdgd4kkl"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7ovo"]
+size = Vector2(23, 28)
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_848ye"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABcAAAAUklGRlQAAABXRUJQVlA4TEcAAAAvH8AHEB+goG0bFhfA3REIkCkJUkwREhBuSP4/FOc/AN52sUFRJEnNkt5nDpXZ4BXzBwRE9D8k1SLpggPYR+0A7PZODmB6DwA=")
@@ -31,11 +40,15 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_848ye"]
-size = Vector2(23, 28)
-
 [node name="Enemy" type="CharacterBody2D" unique_id=1983692498]
 script = ExtResource("1_pipm3")
+combat_stats = SubResource("Resource_eowg7")
+
+[node name="Hurtbox2D" type="Area2D" parent="." unique_id=1447978395 node_paths=PackedStringArray("owner_node")]
+script = ExtResource("2_p7ovo")
+shape = SubResource("RectangleShape2D_p7ovo")
+owner_node = NodePath("..")
+metadata/_custom_type_script = "uid://cuecudo47i27o"
 
 [node name="CharacterWeapons" type="Node2D" parent="." unique_id=824293140 node_paths=PackedStringArray("character")]
 position = Vector2(13, -1)
@@ -65,11 +78,6 @@ metadata/_aseprite_wizard_config_ = {
 "source_uid": 8239596659803515985
 }
 metadata/_aseprite_wizard_source_file_hash_ = "c56c9e95aac049837ecce06eb0bca3af"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=262450232]
-position = Vector2(-3, 0)
-rotation = 1.5707964
-shape = SubResource("RectangleShape2D_848ye")
 
 [node name="StateMachine" type="Node2D" parent="." unique_id=577903898 node_paths=PackedStringArray("_initial_state", "move_controller", "targeting_controller")]
 script = ExtResource("4_ae6k3")

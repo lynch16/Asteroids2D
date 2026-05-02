@@ -33,5 +33,13 @@ func _spawn_new_group(new_group: MS_CollisionMeshGroup) -> void:
 func _all_colliders_destroyed() -> void:
 	all_colliders_destroyed.emit(); 
 
-func get_colliders() -> Array[DeformableMeshCollider2D]:
-	return deformable_mesh_2d.get_colliders();
+func get_colliders() -> Array[CollisionShape2D]:
+	var colliders := deformable_mesh_2d.get_colliders();
+	var transformed_colliders: Array[CollisionShape2D] = [];
+
+	for collider in colliders:
+		if collider is CollisionShape2D:
+			var transformed_collider: CollisionShape2D = collider;
+			transformed_colliders.append(transformed_collider);
+
+	return transformed_colliders;

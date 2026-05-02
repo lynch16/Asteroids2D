@@ -6,6 +6,7 @@ extends Area2D
 @export var owner_node: Node;
 
 var damageable: Damageable;
+var collision_shape: CollisionShape2D;
 
 func _init(
 	p_combat_stats: CombatStats = CombatStats.new(),
@@ -32,6 +33,9 @@ func _ready() -> void:
 	add_child(damageable);
 
 	if (shape != null):
-		var collision_shape := CollisionShape2D.new();
+		collision_shape = CollisionShape2D.new();
 		collision_shape.shape = shape;
 		add_child(collision_shape);
+
+func get_colliders() -> Array[CollisionShape2D]:
+	return [collision_shape];

@@ -1,20 +1,19 @@
-class_name Asteroid extends CharacterBody2D
+class_name Asteroid extends SpawnableCharacter2D
 
 @export var max_velocity := 400; # m/s
 @export var collision_mesh_group: MS_CollisionMeshGroup;
 @export var _combat_stats: CombatStats;
 @export var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
-var hurtbox: MeshDeformHurtbox2D;
 var mass := 10000;
 var damageable: Damageable;
 var safe_collision_time := 5.0;
 
 signal asteroid_destroyed;
 
-var shapecast: ShapeCast2D;
-
 func _enter_tree() -> void:
+	super();
+
 	var invincible_damage_result := InvincibleFramesDamageResult.new();
 	var damage_results := [
 		invincible_damage_result,
@@ -35,13 +34,13 @@ func _enter_tree() -> void:
 	);
 	add_child(hurtbox);
 
-	shapecast = get_node("ShapeCast2D");
-
 	for damage_result: DamageResult in damage_results:
 		hurtbox.add_child(damage_result);
 
-	hurtbox.spawn_new_group.connect(_shatter);
-	hurtbox.all_colliders_destroyed.connect(_destroy);
+	if hurtbox is MeshDeformHurtbox2D:
+		var deformable_hurtbox: MeshDeformHurtbox2D = hurtbox;
+		deformable_hurtbox.spawn_new_group.connect(_shatter);
+		deformable_hurtbox.all_colliders_destroyed.connect(_destroy);
 
 	invincible_damage_result.init.connect(_disable_colliders);
 	invincible_damage_result.end.connect(_enable_colliders);
@@ -63,7 +62,7 @@ func _shatter(new_mesh_group: MS_CollisionMeshGroup) -> void:
 func get_collision_object() -> CollisionObject2D:
 	return hurtbox;
 
-func _get_colliders() -> Array[DeformableMeshCollider2D]:
+func _get_colliders() -> Array[CollisionShape2D]:
 	return hurtbox.get_colliders();
 
 func _disable_colliders() -> void:
@@ -82,22 +81,10 @@ func _destroy() -> void:
 	# TODO: Destroy animation
 
 func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> void:
-	hurtbox.deformable_mesh_2d.deform_group(
-		collision_point,
-		collision_angle,
-		collision_deformation_shapes
-	);
-
-func is_position_overlapping() -> bool:
-	shapecast.global_position = global_position;
-	shapecast.target_position = velocity * safe_collision_time;
-	shapecast.add_exception(hurtbox);
-
-	shapecast.force_shapecast_update();
-
-	var is_colliding := shapecast.is_colliding();
-
-	if (!is_colliding):
-		shapecast.queue_free();
-
-	return is_colliding;
+	if hurtbox is MeshDeformHurtbox2D:
+		var deformable_hurtbox: MeshDeformHurtbox2D = hurtbox;
+		deformable_hurtbox.deformable_mesh_2d.deform_group(
+			collision_point,
+			collision_angle,
+			collision_deformation_shapes
+		);

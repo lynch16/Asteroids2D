@@ -5,6 +5,10 @@ var next_position: Vector2;
 var prior_position: Vector2;
 
 func on_enter(prior_state: FSMState) -> void:
+	var existing_target_info := move_controller.get_nav_target();
+	if (existing_target_info != null):
+		_set_new_position(existing_target_info);
+
 	var last_known_position: Variant = null;
 	if prior_state != null:
 		last_known_position = prior_state.get("last_known_position");
@@ -15,7 +19,7 @@ func on_enter(prior_state: FSMState) -> void:
 		get_random_next_position();
 		move_controller.update_nav_target(next_position);
 
-		move_controller.navigation_finished.connect(get_random_next_position);
+	move_controller.navigation_finished.connect(get_random_next_position);
 
 func on_exit() -> FSMState:
 	move_controller.navigation_finished.disconnect(get_random_next_position);

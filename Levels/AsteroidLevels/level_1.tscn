@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c4dp78r7vd2qb"]
 
 [ext_resource type="Script" uid="uid://53fnq33aw1pk" path="res://Levels/Core/level.gd" id="1_ht4mt"]
+[ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="2_s03sy"]
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="2_vhar6"]
 [ext_resource type="PackedScene" uid="uid://moxkwo3nfsf4" path="res://Models/Player/player.tscn" id="3_s03sy"]
 [ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://Levels/game_area.gd" id="4_81qyg"]
@@ -11,6 +12,8 @@ num_starting_rocks = 10
 rock_throw_interval = 5.0
 rock_thrower_start_delay = 20.0
 player_spawn_in_quadrant = true
+enemey_scene = ExtResource("2_s03sy")
+enemies_start_delay = 1.0
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_vhar6")]
 unique_name_in_owner = true
