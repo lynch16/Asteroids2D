@@ -76,7 +76,7 @@ func _process(_delta: float) -> void:
 		_check_win_condition();
 
 	# Stop throwing rocks at limit
-	if (current_rocks_thrown >= num_starting_rocks + num_rocks_to_throw):
+	if (_are_all_rocks_thrown()):
 		rock_thrower.stop();
 
 func exit() -> void:
@@ -96,8 +96,15 @@ func _on_start_enemies_timer_timeout() -> void:
 	var spawn_group := EnemySpawnGroup.new(num_enemies);
 	game_area.add_child(spawn_group);
 
+func _are_all_rocks_thrown() -> bool:
+	return current_rocks_thrown >= num_starting_rocks + num_rocks_to_throw
+
 func _check_win_condition() -> void:
-	if (AsteroidManager.get_asteroid_count() == 0):
+	if (
+		AsteroidManager.get_asteroid_count() == 0 &&
+		_are_all_rocks_thrown() &&
+		EnemyManager.get_enemy_count() == 0
+	):
 		win_condition_met.emit();
 
 func _get_screen_quadrant_position(quadrant: int) -> Vector2:

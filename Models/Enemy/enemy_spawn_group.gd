@@ -8,8 +8,6 @@ extends SpawnPath2D
 @export var target_quadrant_buffer := 200;
 @export var spawn_group_spacing := 50.0;
 
-signal win_condition_met;
-
 var enemies: Array[Enemy] = [];
 
 func _init(
@@ -55,10 +53,6 @@ func _ready() -> void:
 		enemies[i].global_rotation = squad_lead.global_rotation
 		enemies[i].set_target_position(calculated_target);
 		enemies[i].set_start_velocity(squad_lead.velocity);
-
-func _check_win_condition() -> void:
-	if (EnemyManager.get_enemy_count() == 0):
-		win_condition_met.emit();
 
 func _get_screen_quadrant_position(quadrant: int) -> Vector2:
 	var x_pos_min := 0.0;

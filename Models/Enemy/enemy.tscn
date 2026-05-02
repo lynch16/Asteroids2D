@@ -18,6 +18,9 @@
 script = ExtResource("2_eowg7")
 metadata/_custom_type_script = "uid://dcnjijdgd4kkl"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eowg7"]
+size = Vector2(28, 23)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7ovo"]
 size = Vector2(23, 28)
 
@@ -44,7 +47,11 @@ animations = [{
 script = ExtResource("1_pipm3")
 combat_stats = SubResource("Resource_eowg7")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1339700338]
+shape = SubResource("RectangleShape2D_eowg7")
+
 [node name="Hurtbox2D" type="Area2D" parent="." unique_id=1447978395 node_paths=PackedStringArray("owner_node")]
+unique_name_in_owner = true
 script = ExtResource("2_p7ovo")
 shape = SubResource("RectangleShape2D_p7ovo")
 owner_node = NodePath("..")

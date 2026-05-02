@@ -15,10 +15,10 @@ func _enter_tree() -> void:
 	hurtbox = %Hurtbox2D;
 	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
 	hurtbox.shape = collision_shape.shape;
+	hurtbox.combat_stats = combat_stats;
 
 func _ready() -> void:
 	# Register broadcast handler and emit initial health state
-	hurtbox.combat_stats = combat_stats;
 	combat_stats.on_health_changed.connect(_handle_player_damage);
 	combat_stats.on_health_depleted.connect(_die);
 	

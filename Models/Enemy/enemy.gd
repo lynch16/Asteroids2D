@@ -11,7 +11,9 @@ var damageable: Damageable;
 
 func _enter_tree() -> void:
 	super();
-	hurtbox = get_node("Hurtbox2D");
+	hurtbox = %Hurtbox2D;
+	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
+	hurtbox.shape = collision_shape.shape;
 	hurtbox.combat_stats = combat_stats;
 
 func _physics_process(_delta: float) -> void:
