@@ -1,3 +1,4 @@
+class_name BoundaryManager
 extends Node2D
 
 @export var node: Node2D

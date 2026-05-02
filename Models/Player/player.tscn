@@ -1,12 +1,12 @@
 [gd_scene format=4 uid="uid://moxkwo3nfsf4"]
 
 [ext_resource type="Script" uid="uid://bdkr3l4m53lbd" path="res://Models/Player/player.gd" id="1_4flbx"]
-[ext_resource type="PackedScene" uid="uid://cgcpg77tobgeu" path="res://Models/utilities/BoundaryManager/boundary_manager.tscn" id="2_ccpyr"]
 [ext_resource type="Resource" uid="uid://c34kcdtry0kq5" path="res://Models/Player/player_movement_stats.tres" id="2_o3uiv"]
 [ext_resource type="Resource" uid="uid://dcmq7tlmfu6ie" path="res://Models/Player/player_combat_stats.tres" id="3_o7pk3"]
 [ext_resource type="Script" uid="uid://tw3rerqdtlqi" path="res://Models/EntityModules/Weapons/player_weapons.gd" id="6_47e7v"]
 [ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/cannon_weapon.tscn" id="7_mdxrt"]
 [ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/Hurt/DamageResults/invincible_frames_damage_result.gd" id="9_o3uiv"]
+[ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="9_o7pk3"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="10_m1agk"]
 [ext_resource type="Script" uid="uid://cuecudo47i27o" path="res://Models/EntityModules/Damage/Hurt/hurtbox_2d.gd" id="10_o7pk3"]
 
@@ -64,9 +64,6 @@ metadata/_aseprite_wizard_source_file_hash_ = "89274d3e70cc8630f7b9b9aa5c35e4c5"
 rotation = 1.5707964
 shape = SubResource("ConvexPolygonShape2D_sh265")
 
-[node name="BoundaryManager" parent="." unique_id=790313864 node_paths=PackedStringArray("node") instance=ExtResource("2_ccpyr")]
-node = NodePath("..")
-
 [node name="PlayerWeapons" type="Node2D" parent="." unique_id=587398542 node_paths=PackedStringArray("character")]
 position = Vector2(18, 0)
 rotation = 1.5707964
@@ -89,3 +86,8 @@ metadata/_custom_type_script = "uid://l6occnfuxuon"
 [node name="ApplyDamageResult" type="Node" parent="Hurtbox2D" unique_id=1210662983]
 script = ExtResource("10_m1agk")
 metadata/_custom_type_script = "uid://dhchi74lu51yr"
+
+[node name="BoundaryManager" type="Node2D" parent="." unique_id=1520790136 node_paths=PackedStringArray("node")]
+script = ExtResource("9_o7pk3")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://ckmcn5r0df3nm"
