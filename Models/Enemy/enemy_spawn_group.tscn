@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://c27t552lxaq5j"]
+
+[node name="EnemySpawnGroup" type="PathFollow2D" unique_id=1939509958]

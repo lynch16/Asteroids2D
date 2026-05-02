@@ -1,5 +1,5 @@
 @tool
-class_name VisionArea
+class_name TargetingController
 extends Area2D
 
 @export var detection_group_name: String;
@@ -7,7 +7,11 @@ extends Area2D
 @export var view_distance := 200;
 @export var target_acquisition_interval := 0.5; # Seconds to run the target update functionality
 
+@export var debug := true;
+
 var targets: Array[Node2D] = [];
+
+var random_point: Vector2;
 
 signal on_targets_updated(targets: Array[Node2D]);
 
@@ -15,17 +19,21 @@ signal on_targets_updated(targets: Array[Node2D]);
 
 func _ready() -> void:
 	if (!detection_group_name):
-		printerr("VisionArea missing detection_group_name; will NOT detect");
+		printerr("TargetingController missing detection_group_name; will NOT detect");
 		
 	collision_polygon.polygon = _get_cone_polygon_points();
 	body_entered.connect(_on_body_visible);
 	body_exited.connect(_on_body_exited);
 		
 func _process(_delta: float) -> void:
-	queue_redraw();
+	if (debug):
+		queue_redraw();
 	
-func _can_see_targets() -> bool:
+func can_see_targets() -> bool:
 	return targets.size() > 0;
+
+func get_targets() -> Array[Node2D]:
+	return targets;
 	
 func _on_body_visible(node_2d: Node2D) -> void:
 	if (targets.has(node_2d)):
@@ -45,7 +53,13 @@ func _on_body_exited(node_2d: Node2D) -> void:
 	on_targets_updated.emit(targets);
 
 func _draw() -> void:
-	_draw_vision_cone();
+	if (debug):
+		_draw_vision_cone();
+		_draw_distance_point();
+
+func _draw_distance_point() -> void:
+	if (random_point):
+		draw_circle(random_point, 50.0, Color(0,1,0,0.1))
 	
 func _calc_max_view_point_from_angle(view_angle: float) -> Vector2:
 	return Vector2(cos(view_angle), sin(view_angle)) * view_distance;
@@ -71,7 +85,7 @@ func _get_blocking_intersection_point(view_angle: float) -> Vector2:
 	return Vector2.INF;
 
 func _draw_vision_cone() -> void:
-	var cone_color := Color(1, 0, 0, 0.1) if _can_see_targets() else Color(0, 1, 0, 0.1)
+	var cone_color := Color(1, 0, 0, 0.1) if can_see_targets() else Color(0, 1, 0, 0.1)
 	draw_polygon(_get_cone_polygon_points(), [cone_color])
 
 func _get_cone_polygon_points() -> PackedVector2Array:
@@ -91,9 +105,12 @@ func _get_cone_polygon_points() -> PackedVector2Array:
 	
 	return cone_points_arc;
 
+# TODO: Handle if next point is outside screen
 func get_random_global_point_at_edge_of_vision(cone_points: int = 32) -> Vector2:
 	var near_angle := rotation + field_of_view;
 	var cone_point := randi() % cone_points;
 	var angle := -near_angle + (2 * field_of_view * cone_point / cone_points);
 	var point := _calc_max_view_point_from_angle(angle);
+
+	random_point = point;
 	return to_global(point);

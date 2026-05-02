@@ -1,22 +1,21 @@
 class_name StateMachine
-extends Node
+extends Node2D
 
 @export var _initial_state: FSMState;
 @export var move_controller: NavCharacterMovementController;
+@export var targeting_controller: TargetingController;
 
 var _states: Array[FSMState] = [];
 var _active_state: FSMState;
 
 func _ready() -> void:
-	if move_controller is not MovementController:
-		printerr("Invalid MoveController assigned to StateMachine: ", move_controller);
+	assert(move_controller is MovementController, "Invalid MoveController assigned to StateMachine: " + move_controller.name);
+	assert(targeting_controller is TargetingController, "Invalid TargetingController assigned to StateMachine: " + targeting_controller.name);
 	
 	var children := get_children();
 	for child in children:
-		if (child is not FSMState):
-			printerr(child.name + " is not a valid FSM State");
-		else:
-			_states.push_back(child);
+		assert(child is FSMState, child.name + " is not a valid FSM State")
+		_states.push_back(child);
 			
 	_active_state = _initial_state;
 	_active_state.call_deferred("on_enter", null);

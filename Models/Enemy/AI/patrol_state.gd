@@ -3,14 +3,7 @@ extends FSMState
 
 var next_position: Vector2;
 var prior_position: Vector2;
-@onready var move_controller: NavCharacterMovementController = (get_parent() as StateMachine).move_controller;
 
-#func _ready() -> void:
-	# CANNOT CONNECT THROUGH CODE OR STATE TRANSITIONS STOP WORKING FOR SOME REASON
-	#move_controller.navigation_finished.connect(get_random_next_position);
-	
-# TODO: Enemy is returning to base rotation after nav finishes
-	
 func on_enter(prior_state: FSMState) -> void:
 	var last_known_position: Variant = null;
 	if prior_state != null:
@@ -21,16 +14,33 @@ func on_enter(prior_state: FSMState) -> void:
 	if (next_position == Vector2.ZERO):
 		get_random_next_position();
 		move_controller.update_nav_target(next_position);
+
+		move_controller.navigation_finished.connect(get_random_next_position);
+
+func on_exit() -> FSMState:
+	move_controller.navigation_finished.disconnect(get_random_next_position);
+	return self;
 	
 func get_random_next_position() -> void:
-	# TODO: Should also rotate randomly within field of view
-	var position_in_distance := move_controller.random_point_in_vision();
-	if position_in_distance:
-		prior_position = next_position;
-		next_position = position_in_distance;
+	var position_in_distance := targeting_controller.get_random_global_point_at_edge_of_vision();
+		
+	# If point is outside of viewport, rotate 90 deg
+	if (!get_viewport_rect().has_point(position_in_distance)):
+		var rotated_position_in_distance := (position_in_distance - global_position).rotated(PI) + global_position;
+		move_controller.turn_around(_set_new_position.bind(rotated_position_in_distance));
+		return;
+
+	_set_new_position(position_in_distance);
 
 func on_update(_delta: float) -> void:
 	if (next_position != Vector2.ZERO):
 		if (prior_position != next_position):
 			prior_position = next_position;
 			move_controller.update_nav_target(next_position);
+	else:
+		get_random_next_position();
+		move_controller.update_nav_target(next_position);
+
+func _set_new_position(new_position: Vector2) -> void:
+	prior_position = next_position;
+	next_position = new_position;

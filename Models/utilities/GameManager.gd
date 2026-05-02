@@ -7,12 +7,14 @@ signal game_stop;
 var started: bool = false;
 
 @onready var pause_menu: PauseMenu = %PauseMenu;
+@export var starting_level := 0;
 
 @export var levels: Array[PackedScene] = [];
-var current_level_idx: int = -1;
+var current_level_idx: int = 0;
 var active_level: Level;
 
 func _ready() -> void:
+	current_level_idx = starting_level;
 	on_start();
 
 func on_start() -> void:
@@ -28,11 +30,6 @@ func _get_active_level() -> Level:
 	return levels.get(current_level_idx);
 
 func start_next_level() -> void:
-	current_level_idx += 1;
-	if (current_level_idx >= levels.size()):
-		print("YOU WON");
-		return;
-
 	var new_level_scene: PackedScene = levels.get(current_level_idx); 
 	var new_level: Level = new_level_scene.instantiate();
 	new_level.is_active = true;
@@ -45,5 +42,10 @@ func start_next_level() -> void:
 	new_level.win_condition_met.connect(_on_next_level);
 
 func _on_next_level() -> void:
+	current_level_idx += 1;
+	if (current_level_idx >= levels.size()):
+		print("YOU WON");
+		return;
+
 	active_level.queue_free();
 	start_next_level();

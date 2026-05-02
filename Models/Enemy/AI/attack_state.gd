@@ -1,8 +1,6 @@
 class_name AttackState
 extends FSMState
 
-@onready var move_controller: NavCharacterMovementController = (get_parent() as StateMachine).move_controller;
-
 var player: Player;
 
 var timer := 0.0;
@@ -12,8 +10,8 @@ var last_known_position: Vector2;
 # Transitions: If health low; if enemy dead
 
 func on_enter(_prior_state: FSMState) -> void:
-	if (move_controller.are_targets_in_sight()):
-		var targets := move_controller.get_targets();
+	if (targeting_controller.can_see_targets()):
+		var targets := targeting_controller.get_targets();
 		for t in targets:
 			if t is Player:
 				player = t;

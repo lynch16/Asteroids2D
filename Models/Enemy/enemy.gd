@@ -2,11 +2,12 @@ class_name Enemy
 extends CharacterBody2D
 
 @onready var move_controller: NavCharacterMovementController = get_node("NavCharacterMovementController");
+@onready var target_controller: TargetingController = get_node("TargetingController");
 @onready var weapon_controller: CharacterWeapons = get_node("CharacterWeapons");
 
 func _physics_process(_delta: float) -> void:
-	if (weapon_controller.current_weapon && move_controller.are_targets_in_sight()):
-		for t in move_controller.get_targets():
+	if (weapon_controller.current_weapon && target_controller.can_see_targets()):
+		for t in target_controller.get_targets():
 			if (!is_instance_valid(t)):
 				return; 
 				

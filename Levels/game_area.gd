@@ -4,13 +4,10 @@ extends NavigationRegion2D
 var timer := 0.0;
 var bake_timeout := 1.0;
 
-func _enter_tree() -> void:
-	navigation_polygon = NavigationPolygon.new();
-	navigation_polygon.agent_radius = MarchingSquaresUtility.TILE_SIZE * 2.0;
-
 func _ready() -> void:
 	_on_screen_resized();
 	AsteroidManager.set_spawn_parent_node(self);
+	navigation_polygon.agent_radius = MarchingSquaresUtility.TILE_SIZE * 2.0;
 
 func _physics_process(delta: float) -> void:
 	timer += delta;
@@ -27,4 +24,3 @@ func _on_screen_resized() -> void:
 	_verticies.append(Vector2(screen_size.x, screen_size.y));
 	_verticies.append(Vector2(0, screen_size.y));
 	navigation_polygon.vertices = _verticies;
-

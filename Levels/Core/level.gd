@@ -16,15 +16,25 @@ extends Node2D
 ## Wether to use real positioning or auto-positioning for Player start position
 @export var player_spawn_in_quadrant := false; 
 ## Where to spawn. Only used if player_spawn_in_quadrant is true
-@export var spawn_in_quadrant := 0; 
+@export_range(0, 3) var spawn_in_quadrant := 0; 
 ## Buffer in pixels from the edge on which to spawn a character
 @export var spawn_quadrant_buffer := 200;
+
+@export_group("Enemy Settings")
+@export var enemey_scene: PackedScene;
+## How many enemies to spawn
+@export var num_enemies := 0;
+## How long to wait before spawning enemies
+@export var enemies_start_delay := 10.0;
+## Hunters vs shoot at random place
+@export var enemy_hunters := false;
 
 @onready var player: Player = %Player;
 @onready var game_area: GameArea = %GameArea;
 @onready var rock_thrower: RockThrower = %RockThrower;
 
 var start_rocks_timer: Timer;
+var start_enemies_timer: Timer;
 var current_rocks_thrown := 0;
 
 signal level_loaded;
@@ -35,8 +45,6 @@ func _ready() -> void:
 	level_loaded.emit();
 
 func enter() -> void:
-	add_to_group("level");
-
 	rock_thrower.on_throw_rock.connect(_on_rock_thrown);
 	for i in num_starting_rocks:
 		rock_thrower.throw_rock();
@@ -54,6 +62,14 @@ func enter() -> void:
 	if (player_spawn_in_quadrant):
 		player.global_position = _get_screen_quadrant_position(spawn_in_quadrant);
 		player.global_rotation = _get_screen_quadrant_rotation(spawn_in_quadrant);
+
+	if (num_enemies > 0):
+		start_enemies_timer = Timer.new();
+		start_enemies_timer.wait_time = enemies_start_delay;
+		start_enemies_timer.one_shot = true;
+		start_enemies_timer.autostart = true;
+		start_enemies_timer.timeout.connect(_on_start_enemies_timer_timeout);
+		add_child(start_enemies_timer);
 
 func _process(_delta: float) -> void:
 	if (is_active):
@@ -75,6 +91,30 @@ func _on_start_rocks_timer_timeout() -> void:
 	if (rock_throw_interval > 0.0):
 		rock_thrower.set_rock_throw_interval(rock_throw_interval);
 		rock_thrower.start();
+
+# TODO: Enemies shouldn't spawn in middle of map but should enter from outside
+# TODO: Have enemies spawn in flying V formation
+func _on_start_enemies_timer_timeout() -> void:
+	var spawn_quadrant := randi() % 4;
+	var enemy_position := _get_screen_quadrant_position(spawn_quadrant);
+	var enemy_rotation := _get_screen_quadrant_rotation(spawn_quadrant);
+
+	var offset_vector := Vector2(0, 0);
+	match(spawn_quadrant):
+		0: 
+			offset_vector = Vector2(-1, 1);
+		1: 
+			offset_vector = Vector2(1, 1);
+		2: 
+			offset_vector = Vector2(1, -1);
+		3: 
+			offset_vector = Vector2(-1, -1);
+
+	for i in num_enemies:
+		var enemy: Enemy = enemey_scene.instantiate();
+		enemy.global_position = enemy_position + (offset_vector * i * 100.0);
+		enemy.global_rotation = enemy_rotation;
+		game_area.add_child(enemy);
 
 func _check_win_condition() -> void:
 	if (AsteroidManager.get_asteroid_count() == 0):
@@ -119,21 +159,21 @@ func _get_screen_quadrant_position(quadrant: int) -> Vector2:
 
 	return Vector2(randf_range(x_pos_min, x_pos_max), randf_range(y_pos_min, y_pos_max));
 
-
+## Get random rotation that faces internally dependending on what quadrant is provided
 func _get_screen_quadrant_rotation(quadrant: int) -> float:
 	match(quadrant):
 		# Top left
 		0:
-			return randf_range(PI/4.0, 3.0*PI/4.0);
+			return randf_range(2.5 * PI, 2.0 * PI);
 		# Top right
 		1:
-			return randf_range(3.0*PI/4.0, 5.0*PI/4.0);
+			return randf_range(0.5 * PI, 1.0*PI); 
 		# Bottom right
 		2:
-			return randf_range(5.0*PI/4.0, 7.0*PI/4.0);
+			return randf_range(1.0 * PI, 1.5 * PI);	
 		# Bottom left
 		3:
-			return randf_range(7.0*PI/4.0, 9.0*PI/4.0);	
+			return randf_range(1.5 * PI, 2.0 * PI);
 
 	return 0.0
 

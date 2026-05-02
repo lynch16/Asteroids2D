@@ -7,6 +7,10 @@
 
 [node name="Level" type="Node2D" unique_id=350803456]
 script = ExtResource("1_ht4mt")
+num_starting_rocks = 10
+rock_throw_interval = 5.0
+rock_thrower_start_delay = 20.0
+player_spawn_in_quadrant = true
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_vhar6")]
 unique_name_in_owner = true

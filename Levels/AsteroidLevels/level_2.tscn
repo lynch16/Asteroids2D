@@ -7,13 +7,14 @@
 
 [node name="Level" type="Node2D" unique_id=350803456]
 script = ExtResource("1_7xif1")
-num_starting_rocks = 2
+num_starting_rocks = 5
 rock_throw_interval = 3.0
-num_rocks_to_throw = 2
-rock_thrower_start_delay = 1.0
+num_rocks_to_throw = 10
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_pmjd1")]
 unique_name_in_owner = true
+min_throw_velocity = null
+max_throw_velocity = null
 
 [node name="Player" parent="." unique_id=818107462 instance=ExtResource("3_yyloq")]
 unique_name_in_owner = true
