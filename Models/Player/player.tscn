@@ -229,3 +229,6 @@ volume_db = -16.0
 [node name="TurnSound" type="AudioStreamPlayer" parent="." unique_id=1007933239]
 stream = ExtResource("14_8ik3y")
 volume_db = -30.0
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1012995837]
+current = true

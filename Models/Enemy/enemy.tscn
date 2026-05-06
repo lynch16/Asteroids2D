@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://bhivcoamxxg4n"]
+[gd_scene format=3 uid="uid://bhivcoamxxg4n"]
 
 [ext_resource type="Script" uid="uid://ccmuearcodtas" path="res://Models/Enemy/enemy.gd" id="1_pipm3"]
 [ext_resource type="Script" uid="uid://dcnjijdgd4kkl" path="res://Models/EntityModules/Damage/combat_stats.gd" id="2_eowg7"]
@@ -8,39 +8,127 @@
 [ext_resource type="PackedScene" uid="uid://tjlvf8cvvy0p" path="res://Models/EntityModules/Movement/targeting_controller.tscn" id="5_mb64x"]
 [ext_resource type="Script" uid="uid://c81h2p2qstl63" path="res://Models/Enemy/AI/patrol_state.gd" id="5_p7ovo"]
 [ext_resource type="Script" uid="uid://bkros6v8divjk" path="res://Models/Enemy/AI/attack_patrol_transition.gd" id="6_84prv"]
+[ext_resource type="Texture2D" uid="uid://cvyqgidkpltaa" path="res://sprites/3P/SpaceShips_Enemy-0001.png" id="6_byl56"]
 [ext_resource type="Script" uid="uid://el53hobesmit" path="res://Models/Enemy/AI/attack_state.gd" id="7_eowg7"]
 [ext_resource type="PackedScene" uid="uid://bqmkbfudrxqf4" path="res://Models/EntityModules/Movement/nav_character_movement_controller.tscn" id="10_ae6k3"]
-[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/character_weapons.gd" id="10_p7ovo"]
-[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/cannon_weapon.tscn" id="11_ae6k3"]
+[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/Core/character_weapons.gd" id="10_p7ovo"]
+[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/Weapons/cannon_weapon.tscn" id="11_ae6k3"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="13_eowg7"]
+[ext_resource type="Script" uid="uid://dkorgdk4bdefl" path="res://Models/Animations/thrust_animations.gd" id="14_fv5yk"]
+[ext_resource type="Texture2D" uid="uid://be7wdkvujqrp2" path="res://sprites/3P/Exhaust-0001.png" id="15_byl56"]
 
 [sub_resource type="Resource" id="Resource_eowg7"]
 script = ExtResource("2_eowg7")
 metadata/_custom_type_script = "uid://dcnjijdgd4kkl"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eowg7"]
-size = Vector2(28, 23)
+size = Vector2(14.5, 18.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7ovo"]
-size = Vector2(23, 28)
+size = Vector2(15, 19)
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_848ye"]
-_data = PackedByteArray("AAADAAUAAAABAAAAIAAAACAAAABcAAAAUklGRlQAAABXRUJQVlA4TEcAAAAvH8AHEB+goG0bFhfA3REIkCkJUkwREhBuSP4/FOc/AN52sUFRJEnNkt5nDpXZ4BXzBwRE9D8k1SLpggPYR+0A7PZODmB6DwA=")
-size_override = Vector2(32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1ybd"]
+atlas = ExtResource("6_byl56")
+region = Rect2(193, 20, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pipm3"]
-atlas = SubResource("PortableCompressedTexture2D_848ye")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_hifkv"]
+atlas = ExtResource("6_byl56")
+region = Rect2(148, 18, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvk5w"]
+atlas = ExtResource("6_byl56")
+region = Rect2(91, 12, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28r3b"]
+atlas = ExtResource("6_byl56")
+region = Rect2(26, 12, 64, 51)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sgqbr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pipm3")
+"texture": SubResource("AtlasTexture_c1ybd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hifkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvk5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28r3b")
 }],
 "loop": true,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvk5w")
+}],
+"loop": true,
+"name": &"destroyer",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28r3b")
+}],
+"loop": true,
+"name": &"mothership",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hifkv")
+}],
+"loop": true,
+"name": &"patrol",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1ybd")
+}],
+"loop": true,
+"name": &"scout",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byl56"]
+atlas = ExtResource("15_byl56")
+region = Rect2(32, 40, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2vdc"]
+atlas = ExtResource("15_byl56")
+region = Rect2(48, 40, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l403r"]
+atlas = ExtResource("15_byl56")
+region = Rect2(64, 40, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1nat"]
+atlas = ExtResource("15_byl56")
+region = Rect2(80, 40, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c1ybd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byl56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2vdc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l403r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1nat")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
 }]
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1983692498]
@@ -58,16 +146,18 @@ owner_node = NodePath("..")
 metadata/_custom_type_script = "uid://cuecudo47i27o"
 
 [node name="CharacterWeapons" type="Node2D" parent="." unique_id=824293140 node_paths=PackedStringArray("character")]
-position = Vector2(13, -1)
+position = Vector2(5, 17)
 script = ExtResource("10_p7ovo")
 weapon_to_equip = ExtResource("11_ae6k3")
 character = NodePath("..")
 metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=554559173]
+z_index = 4
 texture_filter = 1
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_sgqbr")
+animation = &"scout"
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
 }
@@ -85,6 +175,18 @@ metadata/_aseprite_wizard_config_ = {
 "source_uid": 8239596659803515985
 }
 metadata/_aseprite_wizard_source_file_hash_ = "c56c9e95aac049837ecce06eb0bca3af"
+
+[node name="ThrustAnimations" type="Node2D" parent="AnimatedSprite2D" unique_id=1297771574]
+z_index = -1
+position = Vector2(-0.9999995, 11)
+rotation = 3.1415927
+script = ExtResource("14_fv5yk")
+
+[node name="AnimatedThrustSpriteC" type="AnimatedSprite2D" parent="AnimatedSprite2D/ThrustAnimations" unique_id=1264342792]
+sprite_frames = SubResource("SpriteFrames_c1ybd")
+autoplay = "default"
+frame = 3
+frame_progress = 0.9048077
 
 [node name="StateMachine" type="Node2D" parent="." unique_id=577903898 node_paths=PackedStringArray("_initial_state", "move_controller", "targeting_controller")]
 script = ExtResource("4_ae6k3")
