@@ -1,17 +1,14 @@
-# Moves entities as if they are in space: Based on thrust in direction of travel
 class_name NavCharacterMovementController
 extends MovementController
+## Moves entities as if they are in space: Based on thrust in direction of travel
 
-@export var thrust := 10;
-@export_range(PI/12, PI * 4, PI/6) var rotation_speed := PI;
-
-@export var moveable_character: CharacterBody2D;
+## TODO: Why is this negative?
+@export var flip_speed: float = -TAU * 40.0;
 
 @onready var nav_agent: NavigationAgent2D = get_node("NavigationAgent2D");
 
-var movement_speed: float;
 var turn_around_active: float;
-var start_rotation: float;
+var start_flip_rotation: float;
 var flip_complete_delta_rotation: float = PI/4;
 var on_flip_complete: Callable;
 
@@ -50,17 +47,15 @@ func _physics_process(delta: float) -> void:
 	# Get next path point from agent
 	var next_path_position: Vector2 = nav_agent.get_next_path_position()
 
-	# Interpolate speed given rate of thrust
-	movement_speed = lerp(movement_speed, max_speed, thrust * delta);
+	accelerate_movement_speed();
 	# Apply speed in direction of new target, limited to max speed;
 	var new_velocity: Vector2 = moveable_character.global_position.direction_to(next_path_position) * movement_speed;
-	var final_velocity := new_velocity.limit_length(max_speed);
+	var final_velocity := calculate_moveable_char_velocity(new_velocity);
 	
 	# Check that it's not zero or character will slowly rotate to face Vector2(0,0);
-	if (new_velocity != Vector2.ZERO):
-		var target_rotation := new_velocity.angle();
-		var new_angle := lerp_angle(moveable_character.global_rotation, target_rotation, rotation_speed * delta);
-		moveable_character.global_rotation = new_angle;
+	if (final_velocity != Vector2.ZERO):
+		var target_rotation := final_velocity.angle();
+		apply_rotation(target_rotation);
 		
 	if nav_agent.avoidance_enabled:
 		nav_agent.set_velocity(final_velocity)
@@ -79,13 +74,13 @@ func update_nav_velocity(new_velocity: Vector2) -> void:
 
 func turn_around(_on_flip_complete: Callable) -> void:
 	turn_around_active = true;
-	start_rotation = moveable_character.rotation;
+	start_flip_rotation = moveable_character.rotation;
 	on_flip_complete = _on_flip_complete;
 
 func _flip_rotation(delta: float) -> void:
 	var current_rotation := fposmod(moveable_character.rotation, TAU);
-	var target_rotation := fposmod(start_rotation + PI, TAU);
-	var flip_rotation_speed := exp(-TAU * 40.0 * delta);
+	var target_rotation := fposmod(start_flip_rotation + PI, TAU);
+	var flip_rotation_speed := exp(flip_speed * delta);
 	var new_angle := lerp_angle(current_rotation, target_rotation, flip_rotation_speed);
 
 	moveable_character.rotation = new_angle;

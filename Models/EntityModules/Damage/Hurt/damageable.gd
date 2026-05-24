@@ -1,7 +1,7 @@
 class_name Damageable
 extends Node
 
-var combat_stats: CombatStats;
+var health_stats: HealthStats;
 var damage_result_states: Array[DamageResult];
 var owner_node: Node;
 
@@ -16,11 +16,11 @@ static func get_damageable(_owner: Node) -> Damageable:
 	return damageable;
 
 func _init(
-	p_combat_stats: CombatStats, 
+	p_health_stats: HealthStats, 
 	p_damage_results: Array[DamageResult],
 	p_owner_node: Node
 ) -> void:
-	combat_stats = p_combat_stats;
+	health_stats = p_health_stats;
 	damage_result_states = p_damage_results;
 	owner_node = p_owner_node;
 

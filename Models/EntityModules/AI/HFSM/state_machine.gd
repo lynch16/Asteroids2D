@@ -3,14 +3,14 @@ extends Node2D
 
 @export var _initial_state: FSMState;
 @export var move_controller: NavCharacterMovementController;
-@export var targeting_controller: TargetingController;
+@export var vision_area: VisionArea;
 
 var _states: Array[FSMState] = [];
 var _active_state: FSMState;
 
 func _ready() -> void:
 	assert(move_controller is MovementController, "Invalid MoveController assigned to StateMachine: " + move_controller.name);
-	assert(targeting_controller is TargetingController, "Invalid TargetingController assigned to StateMachine: " + targeting_controller.name);
+	assert(vision_area is VisionArea, "Invalid VisionArea assigned to StateMachine: " + vision_area.name);
 	
 	var children := get_children();
 	for child in children:

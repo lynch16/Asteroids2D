@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
-[ext_resource type="Script" uid="uid://dcnjijdgd4kkl" path="res://Models/EntityModules/Damage/combat_stats.gd" id="3_jywkw"]
+[ext_resource type="Script" uid="uid://wmd6w6j2858o" path="res://Models/EntityModules/Damage/combat_stats.gd" id="3_jywkw"]
 [ext_resource type="Resource" uid="uid://b7e8v7dqyxo0j" path="res://Models/Asteroid/AsteroidMesh/peanut_collision_mesh_group.tres" id="3_tsxo3"]
 [ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="4_gw6yr"]
 [ext_resource type="Script" uid="uid://deqvt75qdcfcl" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/slice_mesh_deformation_shape.gd" id="5_rr1y8"]

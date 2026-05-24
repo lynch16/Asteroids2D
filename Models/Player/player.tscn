@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bdkr3l4m53lbd" path="res://Models/Player/player.gd" id="1_4flbx"]
 [ext_resource type="Resource" uid="uid://c34kcdtry0kq5" path="res://Models/Player/player_movement_stats.tres" id="2_o3uiv"]
 [ext_resource type="Resource" uid="uid://dcmq7tlmfu6ie" path="res://Models/Player/player_combat_stats.tres" id="3_o7pk3"]
+[ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="3_wbkmi"]
 [ext_resource type="Texture2D" uid="uid://d3ukrnput3eu3" path="res://sprites/3P/SpaceShips_Player-0001.png" id="4_o7pk3"]
 [ext_resource type="Texture2D" uid="uid://be7wdkvujqrp2" path="res://sprites/3P/Exhaust-0001.png" id="5_m1agk"]
 [ext_resource type="Script" uid="uid://tw3rerqdtlqi" path="res://Models/EntityModules/Weapons/Core/player_weapons.gd" id="6_47e7v"]
@@ -14,6 +15,11 @@
 [ext_resource type="Script" uid="uid://dkorgdk4bdefl" path="res://Models/Animations/thrust_animations.gd" id="11_f3ot7"]
 [ext_resource type="AudioStream" uid="uid://dqsnnia8nyxxq" path="res://Audio/SoundEffects/Sci-Fi Spaceship Engine Loop 3.wav" id="13_r6kw6"]
 [ext_resource type="AudioStream" uid="uid://db45aifh0tfmp" path="res://Audio/SoundEffects/Sci-Fi Spaceship Thrusters 3.wav" id="14_8ik3y"]
+
+[sub_resource type="Resource" id="Resource_yvoqu"]
+script = ExtResource("3_wbkmi")
+god_mode_enabled = true
+metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m1agk"]
 atlas = ExtResource("4_o7pk3")
@@ -149,6 +155,7 @@ points = PackedVector2Array(-18, 15.000001, -8.742278e-07, -20, 20, 14.999999)
 motion_mode = 1
 script = ExtResource("1_4flbx")
 movement_stats = ExtResource("2_o3uiv")
+health_stats = SubResource("Resource_yvoqu")
 combat_stats = ExtResource("3_o7pk3")
 
 [node name="AnimatedShipSprite2D" type="AnimatedSprite2D" parent="." unique_id=1526374553]

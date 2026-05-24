@@ -1,5 +1,5 @@
 @tool
-class_name TargetingController
+class_name VisionArea
 extends Area2D
 
 @export var detection_group_name: String;
@@ -19,7 +19,7 @@ signal on_targets_updated(targets: Array[Node2D]);
 
 func _ready() -> void:
 	if (!detection_group_name):
-		printerr("TargetingController missing detection_group_name; will NOT detect");
+		printerr("VisionArea missing detection_group_name; will NOT detect");
 		
 	collision_polygon.polygon = _get_cone_polygon_points();
 	body_entered.connect(_on_body_visible);

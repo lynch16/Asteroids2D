@@ -2,7 +2,8 @@ class_name Asteroid extends SpawnableCharacter2D
 
 @export var max_velocity := 400; # m/s
 @export var collision_mesh_group: MS_CollisionMeshGroup;
-@export var _combat_stats: CombatStats;
+@export var combat_stats: CombatStats;
+@export var health_stats: HealthStats;
 @export var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
 var mass := 10000;
@@ -25,9 +26,10 @@ func _enter_tree() -> void:
 
 	# TODO: Why not create a node in editor
 	hurtbox = MeshDeformHitHurtbox2D.new(
-		_combat_stats,
+		combat_stats,
 		self,
 		collision_mesh_group.duplicate(true) as MS_CollisionMeshGroup, # Duplicate to avoid modifying the original resource which is shared between instances
+		health_stats,
 		mesh_deformation_shapes,
 		0.0,
 		HitLog.new(),
@@ -45,11 +47,12 @@ func _enter_tree() -> void:
 	invincible_damage_result.init.connect(_disable_colliders);
 	invincible_damage_result.end.connect(_enable_colliders);
 
-	_combat_stats.on_health_depleted.connect(_destroy);
+	health_stats.on_health_depleted.connect(_destroy);
 	
 func _ready() -> void:
 	add_to_group("enemy");
-	_combat_stats.resource_local_to_scene = true;
+	health_stats.resource_local_to_scene = true;
+	combat_stats.resource_local_to_scene = true;
 
 func _physics_process(_delta: float) -> void:
 	# Clamp velocity to reasonable playable value

@@ -2,7 +2,7 @@ class_name PatrolAttackTransition
 extends FSMTransition
 
 func is_valid() -> bool:
-	return targeting_controller.can_see_targets();
+	return vision_area.can_see_targets();
 
 func get_next_state() -> FSMState:
 	return _next_state;

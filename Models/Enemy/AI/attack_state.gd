@@ -10,8 +10,8 @@ var last_known_position: Vector2;
 # Transitions: If health low; if enemy dead
 
 func on_enter(_prior_state: FSMState) -> void:
-	if (targeting_controller.can_see_targets()):
-		var targets := targeting_controller.get_targets();
+	if (vision_area.can_see_targets()):
+		var targets := vision_area.get_targets();
 		for t in targets:
 			if t is Player:
 				player = t;

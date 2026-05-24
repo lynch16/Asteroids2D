@@ -5,16 +5,19 @@ extends MeshDeformHurtbox2D
 var lifetime: float;
 var hit_log: HitLog;
 var deal_damage: DealDamage;
+var combat_stats: CombatStats;
 
 func _init(
 	p_combat_stats: CombatStats = CombatStats.new(),
 	p_owner_node: Node = null,
 	p_collision_mesh_group: MS_CollisionMeshGroup = null,
+	p_health_stats: HealthStats = HealthStats.new(),
 	p_mesh_deformation_shapes: Array[MeshDeformationShape] = [],
 	p_lifetime: float = 0.0,
 	p_hitlog: HitLog = null,
 ) -> void:
-	super(p_combat_stats, p_owner_node, p_collision_mesh_group);
+	super(p_health_stats, p_owner_node, p_collision_mesh_group);
+	combat_stats = p_combat_stats;
 	collision_mesh_group = p_collision_mesh_group;
 	mesh_deformation_shapes = p_mesh_deformation_shapes;
 	lifetime = p_lifetime;

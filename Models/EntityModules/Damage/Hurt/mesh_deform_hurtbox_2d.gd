@@ -11,11 +11,11 @@ signal spawn_new_group(new_collision_mesh_group: MS_CollisionMeshGroup);
 signal all_colliders_destroyed;
 
 func _init(
-	p_combat_stats: CombatStats = CombatStats.new(),
+	p_health_stats: HealthStats = HealthStats.new(),
 	p_owner_node: Node = null,
 	p_collision_mesh_group: MS_CollisionMeshGroup = null,
 ) -> void:
-	super(p_combat_stats, null, p_owner_node);
+	super(p_health_stats, null, p_owner_node);
 	collision_mesh_group = p_collision_mesh_group;
 
 func _enter_tree() -> void:

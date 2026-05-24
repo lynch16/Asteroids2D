@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bsfnrmutub50v"]
+
+[ext_resource type="Script" uid="uid://cuqmt45sefh8k" path="res://Models/EntityModules/Weapons/Weapons/cannon_weapon.gd" id="1_lgcxq"]
+[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="2_lgcxq"]
+[ext_resource type="Script" uid="uid://cmladbrdjfan2" path="res://Models/EntityModules/Weapons/Core/Components/interceptor.gd" id="3_pcssh"]
+[ext_resource type="Script" uid="uid://d26be3vwvphxq" path="res://Models/EntityModules/Weapons/Core/Components/targeter.gd" id="4_habfr"]
+
+[node name="CannonWeapon" type="Node2D" unique_id=1570876709]
+script = ExtResource("1_lgcxq")
+projectile_scene = ExtResource("2_lgcxq")
+weapon_range = 300.0
+use_rate = 0.1
+intercepter = NodePath("Intercepter")
+metadata/_custom_type_script = "uid://cuqmt45sefh8k"
+
+[node name="Intercepter" type="Node2D" parent="." unique_id=1006460942 node_paths=PackedStringArray("targeter")]
+script = ExtResource("3_pcssh")
+targeter = NodePath("../Targeter")
+intercept_velocity = 100.0
+draw_targeting = true
+
+[node name="Targeter" type="Node2D" parent="." unique_id=981242186]
+script = ExtResource("4_habfr")
+metadata/_custom_type_script = "uid://d26be3vwvphxq"

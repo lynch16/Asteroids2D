@@ -4,12 +4,12 @@ extends Node2D
 @export var _next_state: FSMState;
 
 var move_controller: NavCharacterMovementController;
-var targeting_controller: TargetingController;
+var vision_area: VisionArea;
 
 func _enter_tree() -> void:
 	var fsm_state: FSMState = get_parent() as FSMState;
 	move_controller = fsm_state.move_controller;
-	targeting_controller = fsm_state.targeting_controller;
+	vision_area = fsm_state.vision_area;
 
 func is_valid() -> bool:
 	return true;

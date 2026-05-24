@@ -26,7 +26,7 @@ func on_exit() -> FSMState:
 	return self;
 	
 func get_random_next_position() -> void:
-	var position_in_distance := targeting_controller.get_random_global_point_at_edge_of_vision();
+	var position_in_distance := vision_area.get_random_global_point_at_edge_of_vision();
 		
 	# If point is outside of viewport, rotate 90 deg
 	if (!get_viewport_rect().has_point(position_in_distance)):
