@@ -1,11 +1,17 @@
 @tool 
-class_name Interceptor 
+class_name InterceptorComponent 
 extends Node2D
 ## Responsible for calculating an intercept point for a given target
 
 @export_category("Required properties")
-@export var targeter: Targeter;
-@export var intercept_velocity: float; ## How fast the intercept is (how fast the bullet flies)
+@export var targeter: TargeterComponent:
+	set(value):
+		targeter = value;
+		update_configuration_warnings();
+@export var thrower: ThrowerComponent:
+	set(value):
+		thrower = value;
+		update_configuration_warnings();
 
 @export_category("Debug options")
 @export var draw_targeting := false; ## Draw a circle to where the targeter is pointing
@@ -18,9 +24,21 @@ var last_self_velocities: Array[Vector2] = [];
 var last_self_velocity_check_time: float;
 var last_self_velocity_check_position: Vector2;
 
-func _process(_delta: float) -> void:
-	assert(intercept_velocity != null, "Must set intercept_velocity");
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings := PackedStringArray();
+	if (targeter == null):
+		warnings.append("InterceptorComponent is missing TargeterComponent");
+	if (thrower == null):
+		warnings.append("InterceptorComponent is missing ThrowerComponent");
+	return warnings;
 
+func _ready() -> void:
+	if (targeter == null):
+		targeter = get_node("%TargeterComponent");
+	if (thrower == null):
+		thrower = get_node("%ThrowerComponent");
+
+func _process(_delta: float) -> void:
 	if (draw_targeting):
 		queue_redraw();
 
@@ -80,9 +98,9 @@ func _calculate_self_velocity() -> Vector2:
 ## Calculate where the target will be at a given action speed
 func calculate_intercept_point() -> Vector2:
 	if (!targeter.target):
-		return global_position;
+		return Vector2.RIGHT.rotated(global_rotation);
 		
-	var projectile_velocity := Vector2(intercept_velocity, 0).rotated(global_rotation);
+	var projectile_velocity := Vector2(thrower.throw_speed, 0).rotated(global_rotation);
 	var distance := global_position.distance_to((targeter.target.global_position));
 	var time_to_hit := ( distance / projectile_velocity.length() );
 	var target_v := _calculate_target_velocity();

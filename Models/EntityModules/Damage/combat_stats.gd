@@ -15,6 +15,8 @@ var current_defense := 1.0;
 
 @export var damage_dealt := 10.0;
 
+@export var faction: FactionStats.Faction;
+
 func _init(
 	p_attack_power: float = 1.0,
 	p_defense: float = 1.0,

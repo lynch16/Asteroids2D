@@ -36,6 +36,18 @@ func _ready() -> void:
 		collision_shape = CollisionShape2D.new();
 		collision_shape.shape = shape;
 		add_child(collision_shape);
+	
+	set_collision_layer_value(1, false);
+	set_collision_mask_value(1, false);
+
+	match health_stats.faction:
+		FactionStats.Faction.PLAYER:
+			set_collision_layer_value(1, true);
+		FactionStats.Faction.ENEMY:
+			set_collision_layer_value(2, true);
+		FactionStats.Faction.ENVIRONMENT:
+			set_collision_layer_value(1, true);
+			set_collision_layer_value(2, true);
 
 func get_colliders() -> Array[CollisionShape2D]:
 	return [collision_shape];

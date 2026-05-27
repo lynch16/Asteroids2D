@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d3ukrnput3eu3" path="res://sprites/3P/SpaceShips_Player-0001.png" id="4_o7pk3"]
 [ext_resource type="Texture2D" uid="uid://be7wdkvujqrp2" path="res://sprites/3P/Exhaust-0001.png" id="5_m1agk"]
 [ext_resource type="Script" uid="uid://tw3rerqdtlqi" path="res://Models/EntityModules/Weapons/Core/player_weapons.gd" id="6_47e7v"]
-[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/Weapons/cannon_weapon.tscn" id="7_mdxrt"]
+[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_weapon.tscn" id="7_mdxrt"]
 [ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/Hurt/DamageResults/invincible_frames_damage_result.gd" id="9_o3uiv"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="9_o7pk3"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="10_m1agk"]
@@ -18,7 +18,6 @@
 
 [sub_resource type="Resource" id="Resource_yvoqu"]
 script = ExtResource("3_wbkmi")
-god_mode_enabled = true
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m1agk"]
@@ -151,7 +150,15 @@ animations = [{
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_sh265"]
 points = PackedVector2Array(-18, 15.000001, -8.742278e-07, -20, 20, 14.999999)
 
+[sub_resource type="Resource" id="Resource_wbkmi"]
+script = ExtResource("3_wbkmi")
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wbkmi"]
+radius = 13.0
+
 [node name="Player" type="CharacterBody2D" unique_id=818107462 groups=["player"]]
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_4flbx")
 movement_stats = ExtResource("2_o3uiv")
@@ -202,8 +209,7 @@ rotation = 1.5707964
 shape = SubResource("ConvexPolygonShape2D_sh265")
 
 [node name="PlayerWeapons" type="Node2D" parent="." unique_id=587398542 node_paths=PackedStringArray("character")]
-position = Vector2(22, 0)
-rotation = 1.5707964
+position = Vector2(23, 0)
 script = ExtResource("6_47e7v")
 weapon_to_equip = ExtResource("7_mdxrt")
 character = NodePath("..")
@@ -212,7 +218,9 @@ metadata/_custom_type_script = "uid://tw3rerqdtlqi"
 [node name="Hurtbox2D" type="Area2D" parent="." unique_id=1821236986 node_paths=PackedStringArray("owner_node")]
 unique_name_in_owner = true
 rotation = 1.5707964
+collision_mask = 0
 script = ExtResource("10_o7pk3")
+health_stats = SubResource("Resource_wbkmi")
 owner_node = NodePath("..")
 metadata/_custom_type_script = "uid://cuecudo47i27o"
 
@@ -223,6 +231,9 @@ metadata/_custom_type_script = "uid://l6occnfuxuon"
 [node name="ApplyDamageResult" type="Node" parent="Hurtbox2D" unique_id=1210662983]
 script = ExtResource("10_m1agk")
 metadata/_custom_type_script = "uid://dhchi74lu51yr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2D" unique_id=1128216148]
+shape = SubResource("CircleShape2D_wbkmi")
 
 [node name="BoundaryManager" type="Node2D" parent="." unique_id=1520790136 node_paths=PackedStringArray("node")]
 script = ExtResource("9_o7pk3")

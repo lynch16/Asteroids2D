@@ -14,6 +14,7 @@ var damageable: Damageable;
 var ship_direction: float;
 var acceleration := Vector2();
 
+# TODO: Nothing listens to this
 signal player_died(player: Player);
 
 func _enter_tree() -> void:
@@ -81,6 +82,7 @@ func _handle_animation_and_sound(
 		turn_sound.stop();
 
 func _handle_player_damage(_old_health: float, new_health: float) -> void:
+	print("PLAYER HIT: ", new_health)
 	SignalBus._on_player_health_updated(int(new_health));
 	
 func _die() -> void:

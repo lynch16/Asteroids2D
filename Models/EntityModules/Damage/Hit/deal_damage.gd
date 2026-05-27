@@ -23,4 +23,7 @@ func damage(target_node: Node, hit_position: Vector2, hit_angle: float) -> void:
 			else:
 				hit_log.log_hit(damageable);
 
+		print("DAMAGEABLE")
 		damageable.on_damage(combat_stats.get_damage(), owner_node, hit_position, hit_angle);
+	else:
+		print("NOT DAMAGEABLE")

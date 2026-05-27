@@ -3,8 +3,8 @@ extends Hurtbox2D
 ## Instantiates an MS_CollisionMeshGroup as DeformableMesh2D as the shape of a Hurtbox
 
 @export var collision_mesh_group: MS_CollisionMeshGroup;
+@export var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
-var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 var deformable_mesh_2d: DeformableMesh2D;
 
 signal spawn_new_group(new_collision_mesh_group: MS_CollisionMeshGroup);
@@ -14,9 +14,11 @@ func _init(
 	p_health_stats: HealthStats = HealthStats.new(),
 	p_owner_node: Node = null,
 	p_collision_mesh_group: MS_CollisionMeshGroup = null,
+	p_mesh_deformation_shapes: Array[MeshDeformationShape] = [],
 ) -> void:
 	super(p_health_stats, null, p_owner_node);
 	collision_mesh_group = p_collision_mesh_group;
+	mesh_deformation_shapes = p_mesh_deformation_shapes;
 
 func _enter_tree() -> void:
 	deformable_mesh_2d = DeformableMesh2D.new(

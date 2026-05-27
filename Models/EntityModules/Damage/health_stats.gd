@@ -15,6 +15,8 @@ var current_health := 0.0:
 
 @export var god_mode_enabled: bool = false;
 
+@export var faction: FactionStats.Faction;
+
 signal on_health_depleted;
 signal on_health_changed(old_value: float, new_value: float);
 
@@ -25,6 +27,7 @@ func _init(
 	
 func take_damage(damage: float) -> void:
 	if (god_mode_enabled):
+		print("GOD MODE");
 		return;
 		
 	current_health -= damage;

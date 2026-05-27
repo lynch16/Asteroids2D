@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bsfnrmutub50v"]
+
+[ext_resource type="Script" uid="uid://cuqmt45sefh8k" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_weapon.gd" id="1_lgcxq"]
+[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="2_6uj4w"]
+[ext_resource type="Resource" uid="uid://bsdyf8bqvq3pq" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_combat_stats.tres" id="2_86tsg"]
+[ext_resource type="Script" uid="uid://ck3ih30jqm8wu" path="res://Models/EntityModules/Weapons/Core/Components/thrower.gd" id="4_30vll"]
+
+[node name="CannonWeapon" type="Node2D" unique_id=1570876709]
+script = ExtResource("1_lgcxq")
+variance = 0.0
+combat_stats = ExtResource("2_86tsg")
+use_rate = 0.1
+metadata/_custom_type_script = "uid://cuqmt45sefh8k"
+
+[node name="ThrowerComponent" type="Node2D" parent="." unique_id=1811299770]
+unique_name_in_owner = true
+script = ExtResource("4_30vll")
+throw_speed = 1000.0
+throwable_scene = ExtResource("2_6uj4w")
+metadata/_custom_type_script = "uid://ck3ih30jqm8wu"

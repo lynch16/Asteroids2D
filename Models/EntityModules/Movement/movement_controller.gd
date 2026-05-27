@@ -6,12 +6,6 @@ extends Node2D
 
 var movement_speed: float;
 
-func _constrained_speed(speed: float) -> float:
-	return max(
-		movement_stats.min_speed, # Constrain larger than min speed
-		min(speed, movement_stats.max_speed), # Constrain smaller than max speed
-	); 
-
 func apply_rotation(target_rotation: float) -> void:
 	var delta := Engine.time_scale / Engine.physics_ticks_per_second;
 	# Check that it's not zero or character will slowly rotate to face Vector2(0,0);
@@ -30,7 +24,7 @@ func apply_velocity(new_velocity: Vector2) -> void:
 	moveable_character.velocity = calculate_moveable_char_velocity(new_velocity);
 
 func calculate_moveable_char_velocity(new_velocity: Vector2) -> Vector2:
-	return (moveable_character.velocity.normalized() * new_velocity).limit_length(movement_stats.max_speed);
+	return new_velocity.limit_length(movement_stats.max_speed);
 
 func accelerate_velocity() -> void:
 	accelerate_movement_speed();

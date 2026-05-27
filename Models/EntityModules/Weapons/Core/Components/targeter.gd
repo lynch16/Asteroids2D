@@ -1,5 +1,5 @@
 @tool 
-class_name Targeter 
+class_name TargeterComponent 
 extends Node2D
 ## Responsible for keeping track of targets
 
@@ -17,14 +17,14 @@ func is_target_in_range(max_range: float) -> bool:
 func is_target_in_sight(visible_arc_rads: float) -> bool:
 	return abs(get_target_angle_diff()) <= visible_arc_rads;
 
-## Get angle_to from Targeter to Target
+## Get angle_to from TargeterComponent to Target
 func get_target_angle_diff() -> float:
 	if (target == null):
 		return 0.0;
 
 	return global_position.angle_to(target.global_position);
 
-## Get distance from Targeter to Target
+## Get distance from TargeterComponent to Target
 func get_target_distance() -> float:
 	if (target == null):
 		return 0.0;
@@ -32,4 +32,7 @@ func get_target_distance() -> float:
 	return global_position.distance_to(target.global_position);
 
 func get_target_global_position() -> Vector2:
-	return target. global_position;
+	if (target):
+		return target.global_position;
+	
+	return global_position;

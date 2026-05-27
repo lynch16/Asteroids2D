@@ -9,11 +9,11 @@ extends Area2D
 
 @export var debug := true;
 
-var targets: Array[Node2D] = [];
+var visible_objects: Array[Node2D] = [];
 
 var random_point: Vector2;
 
-signal on_targets_updated(targets: Array[Node2D]);
+signal on_visible_objects_updated(visible_objects: Array[Node2D]);
 
 @onready var collision_polygon: CollisionPolygon2D = get_node("CollisionPolygon2D");
 
@@ -29,14 +29,14 @@ func _process(_delta: float) -> void:
 	if (debug):
 		queue_redraw();
 	
-func can_see_targets() -> bool:
-	return targets.size() > 0;
+func can_see_visible_objects() -> bool:
+	return visible_objects.size() > 0;
 
-func get_targets() -> Array[Node2D]:
-	return targets;
+func get_visible_objects() -> Array[Node2D]:
+	return visible_objects;
 	
 func _on_body_visible(node_2d: Node2D) -> void:
-	if (targets.has(node_2d)):
+	if (visible_objects.has(node_2d)):
 		return;
 		
 	if (node_2d.is_in_group(detection_group_name)):
@@ -45,12 +45,12 @@ func _on_body_visible(node_2d: Node2D) -> void:
 		if abs(node_angle) <= field_of_view:
 			var blocking_intersection_point := _get_blocking_intersection_point(node_angle);
 			if (blocking_intersection_point == Vector2.INF):
-				targets.append(node_2d);
-				on_targets_updated.emit(targets);
+				visible_objects.append(node_2d);
+				on_visible_objects_updated.emit(visible_objects);
 
 func _on_body_exited(node_2d: Node2D) -> void:
-	targets.erase(node_2d);
-	on_targets_updated.emit(targets);
+	visible_objects.erase(node_2d);
+	on_visible_objects_updated.emit(visible_objects);
 
 func _draw() -> void:
 	if (debug):
@@ -85,7 +85,7 @@ func _get_blocking_intersection_point(view_angle: float) -> Vector2:
 	return Vector2.INF;
 
 func _draw_vision_cone() -> void:
-	var cone_color := Color(1, 0, 0, 0.1) if can_see_targets() else Color(0, 1, 0, 0.1)
+	var cone_color := Color(1, 0, 0, 0.1) if can_see_visible_objects() else Color(0, 1, 0, 0.1)
 	draw_polygon(_get_cone_polygon_points(), [cone_color])
 
 func _get_cone_polygon_points() -> PackedVector2Array:

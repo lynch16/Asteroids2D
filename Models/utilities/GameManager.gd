@@ -40,6 +40,7 @@ func start_next_level() -> void:
 	active_level = new_level;
 	add_child(active_level);
 	new_level.win_condition_met.connect(_on_next_level);
+	new_level.lose_condition_met.connect(trigger_game_over);
 
 func _on_next_level() -> void:
 	current_level_idx += 1;

@@ -9,23 +9,31 @@ var can_use: bool = true;
 var owner_character: CharacterBody2D;
 
 @export_category("Optional components for additional features")
-@export var targeter: Targeter;
-@export var interceptor: Interceptor;
-@export var follower: Follower;
-
-## Doesn't include thrower as an EquipItem with a thrower is a ranged_weapon
-# @export var thrower: Thrower;
+@export var targeter: TargeterComponent:
+	set(value):
+		targeter = value;
+		update_configuration_warnings();
 
 func set_target(new_target: Node2D) -> void:
 	if (!targeter):
-		printerr("Use of set_target on " + name + " requires Targeter");
+		printerr("Use of set_target on " + name + " requires TargeterComponent");
 		return;
 
 	targeter.set_target(new_target);
 
 ## Expose targeter up to the wielder
-func get_targeter() -> Targeter:
+func get_targeter() -> TargeterComponent:
 	return targeter;
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings := PackedStringArray();
+	if (targeter == null && get_node_or_null("%TargeterComponent") == null):
+		warnings.append("Projectile is missing TargeterComponent");
+	return warnings;
+
+func _ready() -> void:
+	if (targeter == null):
+		targeter = get_node_or_null("%TargeterComponent");
 	
 func equip() -> void:
 	pass;

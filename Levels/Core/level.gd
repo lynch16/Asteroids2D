@@ -2,7 +2,7 @@ class_name Level
 extends Node2D
 
 @export var is_active: bool = false;
-@export_group("Rock Thrower Settings")
+@export_group("Rock ThrowerComponent Settings")
 ## How many rocks to seed the level with
 @export var num_starting_rocks := 1; 
 ## How quickly to throw rocks during the game
@@ -39,6 +39,7 @@ var current_rocks_thrown := 0;
 
 signal level_loaded;
 signal win_condition_met;
+signal lose_condition_met; 
 
 func _ready() -> void:
 	enter();
@@ -63,6 +64,8 @@ func enter() -> void:
 		player.global_position = _get_screen_quadrant_position(spawn_in_quadrant);
 		player.global_rotation = _get_screen_quadrant_rotation(spawn_in_quadrant);
 
+	player.player_died.connect(_on_player_die);
+
 	if (num_enemies > 0):
 		start_enemies_timer = Timer.new();
 		start_enemies_timer.wait_time = enemies_start_delay;
@@ -70,6 +73,9 @@ func enter() -> void:
 		start_enemies_timer.autostart = true;
 		start_enemies_timer.timeout.connect(_on_start_enemies_timer_timeout);
 		add_child(start_enemies_timer);
+
+func _on_player_die(_player: Player) -> void:
+	lose_condition_met.emit();
 
 func _process(_delta: float) -> void:
 	if (is_active):

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bb16cwplay0xl"]
+
+[ext_resource type="Script" uid="uid://cuqmt45sefh8k" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_weapon.gd" id="1_oyvr3"]
+[ext_resource type="Resource" uid="uid://bsdyf8bqvq3pq" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_combat_stats.tres" id="2_ii2uq"]
+[ext_resource type="Script" uid="uid://cmladbrdjfan2" path="res://Models/EntityModules/Weapons/Core/Components/interceptor.gd" id="2_ksyjy"]
+[ext_resource type="Script" uid="uid://d26be3vwvphxq" path="res://Models/EntityModules/Weapons/Core/Components/targeter.gd" id="3_vcphr"]
+[ext_resource type="Script" uid="uid://ck3ih30jqm8wu" path="res://Models/EntityModules/Weapons/Core/Components/thrower.gd" id="4_xbwn4"]
+[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="5_71ys3"]
+
+[node name="TrackedCannonWeapon" type="Node2D" unique_id=1174059964 node_paths=PackedStringArray("thrower", "targeter")]
+script = ExtResource("1_oyvr3")
+thrower = NodePath("ThrowerComponent")
+variance = 5.0
+straight_shooter = false
+combat_stats = ExtResource("2_ii2uq")
+targeter = NodePath("TargeterComponent")
+metadata/_custom_type_script = "uid://cuqmt45sefh8k"
+
+[node name="InterceptorComponent" type="Node2D" parent="." unique_id=1508081337 node_paths=PackedStringArray("targeter", "thrower")]
+unique_name_in_owner = true
+script = ExtResource("2_ksyjy")
+targeter = NodePath("../TargeterComponent")
+thrower = NodePath("../ThrowerComponent")
+draw_targeting = true
+
+[node name="TargeterComponent" type="Node2D" parent="." unique_id=409204612]
+unique_name_in_owner = true
+script = ExtResource("3_vcphr")
+metadata/_custom_type_script = "uid://d26be3vwvphxq"
+
+[node name="ThrowerComponent" type="Node2D" parent="." unique_id=449700891 node_paths=PackedStringArray("intercepter", "targeter")]
+unique_name_in_owner = true
+script = ExtResource("4_xbwn4")
+throw_speed = 1000.0
+throwable_scene = ExtResource("5_71ys3")
+intercepter = NodePath("../InterceptorComponent")
+targeter = NodePath("../TargeterComponent")
+metadata/_custom_type_script = "uid://ck3ih30jqm8wu"

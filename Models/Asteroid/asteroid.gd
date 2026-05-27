@@ -15,35 +15,15 @@ signal asteroid_destroyed;
 func _enter_tree() -> void:
 	super();
 
-	var invincible_damage_result := InvincibleFramesDamageResult.new();
-	var damage_results := [
-		invincible_damage_result,
-		ScoreDamageResult.new(),
-		MeshDeformDamageResult.new(),
-		ParticlesDamageResult.new(),
-		ApplyDamageResult.new(),
-	];
-
-	# TODO: Why not create a node in editor
-	hurtbox = MeshDeformHitHurtbox2D.new(
-		combat_stats,
-		self,
-		collision_mesh_group.duplicate(true) as MS_CollisionMeshGroup, # Duplicate to avoid modifying the original resource which is shared between instances
-		health_stats,
-		mesh_deformation_shapes,
-		0.0,
-		HitLog.new(),
-	);
-	add_child(hurtbox);
-
-	for damage_result: DamageResult in damage_results:
-		hurtbox.add_child(damage_result);
+	if (!hurtbox):
+		hurtbox = %MeshDeformHitHurtbox2D;
 
 	if hurtbox is MeshDeformHurtbox2D:
 		var deformable_hurtbox: MeshDeformHurtbox2D = hurtbox;
 		deformable_hurtbox.spawn_new_group.connect(_shatter);
 		deformable_hurtbox.all_colliders_destroyed.connect(_destroy);
 
+	var invincible_damage_result: InvincibleFramesDamageResult = %InvincibleFramesDamageResult;
 	invincible_damage_result.init.connect(_disable_colliders);
 	invincible_damage_result.end.connect(_enable_colliders);
 

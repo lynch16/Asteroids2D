@@ -8,27 +8,38 @@
 [ext_resource type="Script" uid="uid://dlprwkxy5ex8f" path="res://Models/Enemy/AI/patrol_attack_transition.gd" id="4_ebih1"]
 [ext_resource type="PackedScene" uid="uid://tjlvf8cvvy0p" path="res://Models/EntityModules/Movement/vision_area.tscn" id="5_mb64x"]
 [ext_resource type="Script" uid="uid://c81h2p2qstl63" path="res://Models/Enemy/AI/patrol_state.gd" id="5_p7ovo"]
+[ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="5_u1nat"]
 [ext_resource type="Script" uid="uid://bkros6v8divjk" path="res://Models/Enemy/AI/attack_patrol_transition.gd" id="6_84prv"]
 [ext_resource type="Texture2D" uid="uid://cvyqgidkpltaa" path="res://sprites/3P/SpaceShips_Enemy-0001.png" id="6_byl56"]
+[ext_resource type="PackedScene" uid="uid://bb16cwplay0xl" path="res://Models/EntityModules/Weapons/Weapons/Cannons/tracked_cannon_weapon.tscn" id="6_l403r"]
+[ext_resource type="Script" uid="uid://yp8x320gf3ox" path="res://Models/EntityModules/Damage/Hurt/DamageResults/score_damage_result.gd" id="6_lcr5g"]
 [ext_resource type="Script" uid="uid://el53hobesmit" path="res://Models/Enemy/AI/attack_state.gd" id="7_eowg7"]
 [ext_resource type="PackedScene" uid="uid://bqmkbfudrxqf4" path="res://Models/EntityModules/Movement/nav_character_movement_controller.tscn" id="10_ae6k3"]
 [ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/Core/character_weapons.gd" id="10_p7ovo"]
-[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/Weapons/cannon_weapon.tscn" id="11_ae6k3"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="13_eowg7"]
 [ext_resource type="Script" uid="uid://dkorgdk4bdefl" path="res://Models/Animations/thrust_animations.gd" id="14_fv5yk"]
 [ext_resource type="Texture2D" uid="uid://be7wdkvujqrp2" path="res://sprites/3P/Exhaust-0001.png" id="15_byl56"]
+[ext_resource type="Script" uid="uid://cf2a6ah5g3aox" path="res://Models/EntityModules/Movement/movement_stats.gd" id="16_l403r"]
 
 [sub_resource type="Resource" id="Resource_l403r"]
 script = ExtResource("2_s2vdc")
+initial_health = 1.0
+faction = 1
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [sub_resource type="Resource" id="Resource_eowg7"]
 script = ExtResource("2_eowg7")
+faction = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eowg7"]
 size = Vector2(14.5, 18.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7ovo"]
+[sub_resource type="Resource" id="Resource_lcr5g"]
+script = ExtResource("2_s2vdc")
+faction = 1
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l403r"]
 size = Vector2(15, 19)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c1ybd"]
@@ -135,7 +146,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Resource_u1nat"]
+script = ExtResource("16_l403r")
+metadata/_custom_type_script = "uid://cf2a6ah5g3aox"
+
 [node name="Enemy" type="CharacterBody2D" unique_id=1983692498]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_pipm3")
 health_stats = SubResource("Resource_l403r")
 combat_stats = SubResource("Resource_eowg7")
@@ -146,15 +163,28 @@ shape = SubResource("RectangleShape2D_eowg7")
 [node name="Hurtbox2D" type="Area2D" parent="." unique_id=1447978395 node_paths=PackedStringArray("owner_node")]
 unique_name_in_owner = true
 script = ExtResource("2_p7ovo")
-shape = SubResource("RectangleShape2D_p7ovo")
+health_stats = SubResource("Resource_lcr5g")
 owner_node = NodePath("..")
 metadata/_custom_type_script = "uid://cuecudo47i27o"
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2D" unique_id=1333636303]
+shape = SubResource("RectangleShape2D_l403r")
+
+[node name="ApplyDamageResult" type="Node" parent="Hurtbox2D" unique_id=491735194]
+script = ExtResource("5_u1nat")
+metadata/_custom_type_script = "uid://dhchi74lu51yr"
+
+[node name="ScoreDamageResult" type="Node" parent="Hurtbox2D" unique_id=1348636570]
+script = ExtResource("6_lcr5g")
+score_value = 200
+metadata/_custom_type_script = "uid://yp8x320gf3ox"
+
 [node name="CharacterWeapons" type="Node2D" parent="." unique_id=824293140 node_paths=PackedStringArray("character")]
-position = Vector2(5, 17)
+position = Vector2(12, 0)
 script = ExtResource("10_p7ovo")
-weapon_to_equip = ExtResource("11_ae6k3")
+weapon_to_equip = ExtResource("6_l403r")
 character = NodePath("..")
+faction = 1
 metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=554559173]
@@ -193,10 +223,11 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.9048077
 
-[node name="StateMachine" type="Node2D" parent="." unique_id=577903898 node_paths=PackedStringArray("_initial_state", "move_controller")]
+[node name="StateMachine" type="Node2D" parent="." unique_id=577903898 node_paths=PackedStringArray("_initial_state", "move_controller", "vision_area")]
 script = ExtResource("4_ae6k3")
 _initial_state = NodePath("PatrolState")
 move_controller = NodePath("../NavCharacterMovementController")
+vision_area = NodePath("../VisionArea")
 
 [node name="PatrolState" type="Node2D" parent="StateMachine" unique_id=497098628]
 script = ExtResource("5_p7ovo")
@@ -213,9 +244,10 @@ script = ExtResource("6_84prv")
 _next_state = NodePath("../../PatrolState")
 
 [node name="NavCharacterMovementController" parent="." unique_id=1675537704 node_paths=PackedStringArray("moveable_character") instance=ExtResource("10_ae6k3")]
+movement_stats = SubResource("Resource_u1nat")
 moveable_character = NodePath("..")
 
-[node name="TargetingController" parent="." unique_id=1974026706 instance=ExtResource("5_mb64x")]
+[node name="VisionArea" parent="." unique_id=1974026706 instance=ExtResource("5_mb64x")]
 
 [node name="BoundaryManager" type="Node2D" parent="." unique_id=410091724 node_paths=PackedStringArray("node")]
 script = ExtResource("13_eowg7")

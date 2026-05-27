@@ -97,6 +97,11 @@ shift_left_click={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemies"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
