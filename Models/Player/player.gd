@@ -87,6 +87,7 @@ func _handle_player_damage(_old_health: float, new_health: float) -> void:
 	
 func _die() -> void:
 	player_died.emit(self);
+	# TODO: Death animation and sound
 
 func _move_forward() -> void:
 	# Apply acceleration to max speed in direction facing

@@ -3,11 +3,11 @@ extends Node
 
 var health_stats: HealthStats;
 var damage_result_states: Array[DamageResult];
-var owner_node: Node;
+var owner_node: Node2D;
 
 var checked_owner_setup: bool = false;
 
-static func get_damageable(_owner: Node) -> Damageable:
+static func get_damageable(_owner: Node2D) -> Damageable:
 	var damageable: Damageable;
 	var maybe_damageable: Variant = _owner.get("damageable");
 	if (maybe_damageable is Damageable):

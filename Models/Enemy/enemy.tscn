@@ -5,15 +5,17 @@
 [ext_resource type="Script" uid="uid://cuecudo47i27o" path="res://Models/EntityModules/Damage/Hurt/hurtbox_2d.gd" id="2_p7ovo"]
 [ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="2_s2vdc"]
 [ext_resource type="Script" uid="uid://t8xohr0ab8mn" path="res://Models/EntityModules/AI/HFSM/state_machine.gd" id="4_ae6k3"]
-[ext_resource type="Script" uid="uid://dlprwkxy5ex8f" path="res://Models/Enemy/AI/patrol_attack_transition.gd" id="4_ebih1"]
+[ext_resource type="Script" uid="uid://dlprwkxy5ex8f" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/patrol_attack_transition.gd" id="4_ebih1"]
 [ext_resource type="PackedScene" uid="uid://tjlvf8cvvy0p" path="res://Models/EntityModules/Movement/vision_area.tscn" id="5_mb64x"]
-[ext_resource type="Script" uid="uid://c81h2p2qstl63" path="res://Models/Enemy/AI/patrol_state.gd" id="5_p7ovo"]
+[ext_resource type="Script" uid="uid://c81h2p2qstl63" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/patrol_state.gd" id="5_p7ovo"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="5_u1nat"]
-[ext_resource type="Script" uid="uid://bkros6v8divjk" path="res://Models/Enemy/AI/attack_patrol_transition.gd" id="6_84prv"]
+[ext_resource type="Script" uid="uid://bkros6v8divjk" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/attack_patrol_transition.gd" id="6_84prv"]
 [ext_resource type="Texture2D" uid="uid://cvyqgidkpltaa" path="res://sprites/3P/SpaceShips_Enemy-0001.png" id="6_byl56"]
 [ext_resource type="PackedScene" uid="uid://bb16cwplay0xl" path="res://Models/EntityModules/Weapons/Weapons/Cannons/tracked_cannon_weapon.tscn" id="6_l403r"]
 [ext_resource type="Script" uid="uid://yp8x320gf3ox" path="res://Models/EntityModules/Damage/Hurt/DamageResults/score_damage_result.gd" id="6_lcr5g"]
-[ext_resource type="Script" uid="uid://el53hobesmit" path="res://Models/Enemy/AI/attack_state.gd" id="7_eowg7"]
+[ext_resource type="Script" uid="uid://el53hobesmit" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/attack_state.gd" id="7_eowg7"]
+[ext_resource type="Script" uid="uid://dirc5lq54ahsv" path="res://Models/EntityModules/Damage/Hurt/DamageResults/stop_on_death_result.gd" id="8_hifkv"]
+[ext_resource type="PackedScene" uid="uid://ch6ceooyn73h7" path="res://Models/Enemy/health_bar_damage_result.tscn" id="8_hvk5w"]
 [ext_resource type="PackedScene" uid="uid://bqmkbfudrxqf4" path="res://Models/EntityModules/Movement/nav_character_movement_controller.tscn" id="10_ae6k3"]
 [ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/Core/character_weapons.gd" id="10_p7ovo"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="13_eowg7"]
@@ -179,8 +181,15 @@ script = ExtResource("6_lcr5g")
 score_value = 200
 metadata/_custom_type_script = "uid://yp8x320gf3ox"
 
+[node name="HealthBarDamageResult" parent="Hurtbox2D" unique_id=1831673198 instance=ExtResource("8_hvk5w")]
+unique_name_in_owner = true
+
+[node name="StopOnDeathDamageResult" type="Node" parent="Hurtbox2D" unique_id=319848720]
+unique_name_in_owner = true
+script = ExtResource("8_hifkv")
+metadata/_custom_type_script = "uid://dirc5lq54ahsv"
+
 [node name="CharacterWeapons" type="Node2D" parent="." unique_id=824293140 node_paths=PackedStringArray("character")]
-position = Vector2(12, 0)
 script = ExtResource("10_p7ovo")
 weapon_to_equip = ExtResource("6_l403r")
 character = NodePath("..")
@@ -253,3 +262,8 @@ moveable_character = NodePath("..")
 script = ExtResource("13_eowg7")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://ckmcn5r0df3nm"
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="." unique_id=766214862]
+position = Vector2(0, 23)
+remote_path = NodePath("../Hurtbox2D/HealthBarDamageResult/HealthBarWrapper")
+update_rotation = false

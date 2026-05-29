@@ -5,6 +5,7 @@ extends Resource
 	set(val):
 		initial_health = max(0.0, val);
 		current_health = initial_health;
+
 var current_health := 0.0:
 	set(val):
 		var new_health: float = max(0.0, val);
@@ -16,6 +17,7 @@ var current_health := 0.0:
 @export var god_mode_enabled: bool = false;
 
 @export var faction: FactionStats.Faction;
+var health_bar: TextureProgressBar;
 
 signal on_health_depleted;
 signal on_health_changed(old_value: float, new_value: float);
@@ -34,3 +36,12 @@ func take_damage(damage: float) -> void:
 	
 func heal(heal_amt: float) -> void:
 	current_health += heal_amt;
+
+func set_health_bar(p_health_bar: TextureProgressBar) -> void:
+	health_bar = p_health_bar;
+	health_bar.max_value = initial_health;
+	health_bar.value = current_health;
+
+func update_health_bar() -> void:
+	health_bar.max_value = initial_health;
+	health_bar.value = current_health;
