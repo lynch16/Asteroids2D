@@ -97,14 +97,15 @@ func _calculate_self_velocity() -> Vector2:
 
 ## Calculate where the target will be at a given action speed
 func calculate_intercept_point() -> Vector2:
+	var self_v := _calculate_self_velocity();
+
 	if (!targeter.target):
-		return Vector2.RIGHT.rotated(global_rotation);
+		return global_position + (self_v.normalized() * 1000);
 		
 	var projectile_velocity := Vector2(thrower.throw_speed, 0).rotated(global_rotation);
 	var distance := global_position.distance_to((targeter.target.global_position));
 	var time_to_hit := ( distance / projectile_velocity.length() );
 	var target_v := _calculate_target_velocity();
-	var self_v := _calculate_self_velocity();
 	var delta_v := target_v - self_v;
 	var aim_point := targeter.target.global_position + (delta_v * time_to_hit);
 	return aim_point;
