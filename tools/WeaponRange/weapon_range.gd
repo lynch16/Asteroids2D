@@ -2,7 +2,7 @@
 class_name WeaponRange
 extends Node2D
 
-@export var weapon_controller: CharacterWeapons;
+@export var weapon_controller: CharacterWeapons; ## Remember to reload the scene after updating this to equip the new weapon
 @export var enabled := false;
 @export_tool_button("Pause", "Callable") var pause := _pause_tool;
 

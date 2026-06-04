@@ -1,20 +1,36 @@
 [gd_scene format=3 uid="uid://cfwhiiy0choq0"]
 
 [ext_resource type="Script" uid="uid://c1f3nl4dl78ik" path="res://tools/WeaponRange/weapon_range.gd" id="1_37gqi"]
-[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_weapon.tscn" id="1_ejx1l"]
 [ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/Core/character_weapons.gd" id="1_n5woa"]
 [ext_resource type="Script" uid="uid://bpbntljb3rfef" path="res://tools/WeaponRange/range_actor.gd" id="2_4wfoo"]
+[ext_resource type="PackedScene" uid="uid://bb16cwplay0xl" path="res://Models/EntityModules/Weapons/Weapons/Cannons/tracked_cannon_weapon.tscn" id="4_4wfoo"]
 [ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="5_q7cni"]
 [ext_resource type="Script" uid="uid://bt1o86s8uofru" path="res://Models/EntityModules/Weapons/Core/Base/projectile.gd" id="6_cjnlh"]
-[ext_resource type="Script" uid="uid://wmd6w6j2858o" path="res://Models/EntityModules/Damage/combat_stats.gd" id="7_ggqtc"]
+[ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="7_ggqtc"]
+[ext_resource type="Script" uid="uid://bvo0xe0yh18n3" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/circle_mesh_deformation_shape.gd" id="8_p67gf"]
+[ext_resource type="Resource" uid="uid://bsdyf8bqvq3pq" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_combat_stats.tres" id="9_ct2g1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_37gqi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2brgn"]
 
-[sub_resource type="Resource" id="Resource_mo7ir"]
-script = ExtResource("7_ggqtc")
-metadata/_custom_type_script = "uid://wmd6w6j2858o"
+[sub_resource type="CircleShape2D" id="CircleShape2D_d8d6v"]
+
+[sub_resource type="Resource" id="Resource_ry1h5"]
+script = ExtResource("8_p67gf")
+radius = 64.0
+damage = 1.0
+shape = SubResource("CircleShape2D_d8d6v")
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6qf6n"]
+
+[sub_resource type="Resource" id="Resource_llfw1"]
+script = ExtResource("8_p67gf")
+radius = 128.0
+damage = 0.5
+shape = SubResource("CircleShape2D_6qf6n")
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
 
 [node name="WeaponRange" type="Node2D" unique_id=848334101 node_paths=PackedStringArray("weapon_controller")]
 process_mode = 4
@@ -23,7 +39,7 @@ weapon_controller = NodePath("Shooter/CharacterWeapons")
 enabled = true
 
 [node name="Target" type="CharacterBody2D" parent="." unique_id=1281433027]
-position = Vector2(922.5015, 100)
+position = Vector2(843.3345, 100)
 velocity = Vector2(250.0012, 0)
 slide_on_ceiling = false
 script = ExtResource("2_4wfoo")
@@ -35,7 +51,7 @@ shape = SubResource("CircleShape2D_37gqi")
 disabled = true
 
 [node name="Shooter" type="CharacterBody2D" parent="." unique_id=1107455802]
-position = Vector2(739.9992, 400)
+position = Vector2(676.66626, 400)
 velocity = Vector2(199.99876, 0)
 script = ExtResource("2_4wfoo")
 linear_speed = 200.0
@@ -45,7 +61,7 @@ metadata/_custom_type_script = "uid://bpbntljb3rfef"
 [node name="CharacterWeapons" type="Node2D" parent="Shooter" unique_id=886852810 node_paths=PackedStringArray("character")]
 position = Vector2(8, 0)
 script = ExtResource("1_n5woa")
-weapon_to_equip = ExtResource("1_ejx1l")
+weapon_to_equip = ExtResource("4_4wfoo")
 character = NodePath("..")
 metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
@@ -55,42 +71,11 @@ rotation = 1.5707964
 points = PackedVector2Array(0, 50, 0, 0)
 end_cap_mode = 2
 
-[node name="@Node2D@466007" type="Node2D" parent="." unique_id=1149596407 node_paths=PackedStringArray("throwable") groups=["player_weapon"] instance=ExtResource("5_q7cni")]
-position = Vector2(974.58624, 26.032707)
-rotation = -1.0493163
+[node name="Bullet" type="Node2D" parent="." unique_id=1149596407 node_paths=PackedStringArray("throwable") groups=["player_weapon"] instance=ExtResource("5_q7cni")]
+position = Vector2(820.8789, 165.59415)
+rotation = -1.0715802
 script = ExtResource("6_cjnlh")
-throwable = NodePath("Throwable")
+throwable = NodePath("ThrowableComponent")
 projectile_shape = SubResource("CapsuleShape2D_2brgn")
-destroy_on_hit = false
-mesh_deformation_shapes = null
-combat_stats = SubResource("Resource_mo7ir")
-
-[node name="Bullet" type="Node2D" parent="." unique_id=1759910349 node_paths=PackedStringArray("throwable") groups=["player_weapon"] instance=ExtResource("5_q7cni")]
-position = Vector2(923.71967, 122.892914)
-rotation = -1.0353466
-script = ExtResource("6_cjnlh")
-throwable = NodePath("Throwable")
-projectile_shape = SubResource("CapsuleShape2D_2brgn")
-destroy_on_hit = false
-mesh_deformation_shapes = null
-combat_stats = SubResource("Resource_mo7ir")
-
-[node name="@Node2D@466018" type="Node2D" parent="." unique_id=611153553 node_paths=PackedStringArray("throwable") groups=["player_weapon"] instance=ExtResource("5_q7cni")]
-position = Vector2(864.7824, 217.5199)
-rotation = -1.0233104
-script = ExtResource("6_cjnlh")
-throwable = NodePath("Throwable")
-projectile_shape = SubResource("CapsuleShape2D_2brgn")
-destroy_on_hit = false
-mesh_deformation_shapes = null
-combat_stats = SubResource("Resource_mo7ir")
-
-[node name="@Node2D@466022" type="Node2D" parent="." unique_id=744123374 node_paths=PackedStringArray("throwable") groups=["player_weapon"] instance=ExtResource("5_q7cni")]
-position = Vector2(810.16516, 309.56537)
-rotation = -1.007355
-script = ExtResource("6_cjnlh")
-throwable = NodePath("Throwable")
-projectile_shape = SubResource("CapsuleShape2D_2brgn")
-destroy_on_hit = false
-mesh_deformation_shapes = null
-combat_stats = SubResource("Resource_mo7ir")
+mesh_deformation_shapes = Array[ExtResource("7_ggqtc")]([SubResource("Resource_ry1h5"), SubResource("Resource_llfw1")])
+combat_stats = ExtResource("9_ct2g1")
