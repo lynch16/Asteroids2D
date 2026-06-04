@@ -34,7 +34,7 @@ func _ready() -> void:
 	_active_state.call_deferred("on_enter", null);
 
 func _process(delta: float) -> void:
-	if (!Engine.is_editor_hint):
+	if (!Engine.is_editor_hint()):
 		update(delta);
 
 func update(_delta: float) -> void:
@@ -48,3 +48,5 @@ func update(_delta: float) -> void:
 				break;
 				
 		_active_state.on_update(_delta);
+	else:
+		_active_state = _initial_state if _initial_state != null else _states[0];
