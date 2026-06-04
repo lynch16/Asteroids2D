@@ -4,7 +4,6 @@ extends Node2D
 
 @export var weapon_to_equip: PackedScene;
 @export var character: CharacterBody2D;
-@export var faction: FactionStats.Faction;
 
 var current_weapon: Weapon;
 
