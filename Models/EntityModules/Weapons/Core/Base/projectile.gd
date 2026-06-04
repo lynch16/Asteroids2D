@@ -59,4 +59,8 @@ func _cull_offscreen() -> void:
 		global_position.x >= viewport.x || global_position.x <= 0.0 || \
 		global_position.y >= viewport.y || global_position.y <= 0.0
 	):
+		# Dont dequeue when Bullet is the root scene in the editor
+		if (Engine.is_editor_hint() && self == get_tree().edited_scene_root):
+			return;
+
 		queue_free();
