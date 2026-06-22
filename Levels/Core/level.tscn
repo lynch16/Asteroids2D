@@ -16,8 +16,9 @@ script = ExtResource("1_q5k0s")
 is_active = true
 num_rocks_to_throw = 10
 enemey_scene = ExtResource("2_fk8qc")
-num_enemies = 1
+num_enemies = 3
 enemies_start_delay = 1.0
+enemy_hunters = true
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_bcvyo")]
 unique_name_in_owner = true

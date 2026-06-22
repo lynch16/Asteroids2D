@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://dkorgdk4bdefl" path="res://Models/Animations/thrust_animations.gd" id="11_f3ot7"]
 [ext_resource type="AudioStream" uid="uid://dqsnnia8nyxxq" path="res://Audio/SoundEffects/Sci-Fi Spaceship Engine Loop 3.wav" id="13_r6kw6"]
 [ext_resource type="AudioStream" uid="uid://db45aifh0tfmp" path="res://Audio/SoundEffects/Sci-Fi Spaceship Thrusters 3.wav" id="14_8ik3y"]
+[ext_resource type="Script" uid="uid://ckluymmkmha10" path="res://Models/EntityModules/Movement/movement_controller.gd" id="16_r71yq"]
+[ext_resource type="Script" uid="uid://v4gqslu6ep4x" path="res://Models/EntityModules/Movement/input_controller.gd" id="17_833x1"]
 
 [sub_resource type="Resource" id="Resource_yvoqu"]
 script = ExtResource("3_wbkmi")
@@ -250,3 +252,17 @@ volume_db = -30.0
 
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1012995837]
 current = true
+
+[node name="MovementController" type="Node2D" parent="." unique_id=348536894 node_paths=PackedStringArray("moveable_character")]
+script = ExtResource("16_r71yq")
+moveable_character = NodePath("..")
+metadata/_custom_type_script = "uid://ckluymmkmha10"
+
+[node name="InputController" type="Node" parent="MovementController" unique_id=1091840238]
+script = ExtResource("17_833x1")
+metadata/_custom_type_script = "uid://v4gqslu6ep4x"
+
+[connection signal="input_back" from="MovementController/InputController" to="MovementController" method="brake"]
+[connection signal="input_left" from="MovementController/InputController" to="MovementController" method="yaw_left"]
+[connection signal="input_right" from="MovementController/InputController" to="MovementController" method="yaw_right"]
+[connection signal="input_up" from="MovementController/InputController" to="MovementController" method="move_forward"]

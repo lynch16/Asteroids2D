@@ -100,6 +100,11 @@ func _on_start_rocks_timer_timeout() -> void:
 
 func _on_start_enemies_timer_timeout() -> void:
 	var spawn_group := EnemySpawnGroup.new(num_enemies);
+	if (enemy_hunters):
+		spawn_group.patrol_mode = EnemySpawnGroup.PatrolMode.Hunt;
+	else:
+		spawn_group.patrol_mode = EnemySpawnGroup.PatrolMode.ShootRandom;
+
 	game_area.add_child(spawn_group);
 
 func _are_all_rocks_thrown() -> bool:

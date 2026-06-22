@@ -1,4 +1,8 @@
 extends Node
+## ENEMY MANAGER
+## Manages spawning enemies in a formation and sets communication among them
+# TODO: Get rid of singleton autoloads (can use regular nodes)
+
 
 var enemy_scene := preload("uid://bhivcoamxxg4n");
 var enemy_count := 0;

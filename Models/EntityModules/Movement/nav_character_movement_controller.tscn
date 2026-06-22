@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bqmkbfudrxqf4"]
 
 [ext_resource type="Script" uid="uid://bdc2ustsvtpdh" path="res://Models/EntityModules/Movement/nav_character_movement_controller.gd" id="1_b2ens"]
+[ext_resource type="Script" uid="uid://ciw7evrd3v7da" path="res://Models/EntityModules/Movement/navigation_controller.gd" id="2_hu8b2"]
 
 [node name="NavCharacterMovementController" type="Node2D" unique_id=1675537704]
 script = ExtResource("1_b2ens")
@@ -12,3 +13,9 @@ path_max_distance = 400.0
 avoidance_enabled = true
 radius = 32.0
 debug_enabled = true
+
+[node name="NavigationController" type="Node" parent="." unique_id=920058656 node_paths=PackedStringArray("movement_controller", "nav_agent")]
+script = ExtResource("2_hu8b2")
+movement_controller = NodePath("..")
+nav_agent = NodePath("../NavigationAgent2D")
+metadata/_custom_type_script = "uid://ciw7evrd3v7da"

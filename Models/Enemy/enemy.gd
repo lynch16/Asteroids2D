@@ -10,6 +10,8 @@ extends SpawnableCharacter2D
 
 var damageable: Damageable;
 
+signal target_acquired(target: Node2D);
+
 func _enter_tree() -> void:
 	super();
 	hurtbox = %Hurtbox2D;
@@ -21,31 +23,56 @@ func _enter_tree() -> void:
 	var death_damage_result: StopOnDeathDamageResult = %StopOnDeathDamageResult;
 	death_damage_result.health_stats = health_stats;
 
+func get_patrol_state() -> PatrolState:
+	return ($StateMachine/PatrolState as PatrolState);
+
 func _ready() -> void:
 	health_stats.on_health_depleted.connect(_die);
 
 func _physics_process(_delta: float) -> void:
 	set_first_valid_target();
 
+# This is basically the functionality for a hunter
+# TODO: This should really be part of the FSM
 func set_first_valid_target() -> void:
 	if (weapon_controller.current_weapon && vision_area.can_see_visible_objects()):
 		var targeter := weapon_controller.current_weapon.get_targeter();
+		var next_target: Node2D;
 
-		## TODO: This should be a smarter way to select the target
+		# Dont set new target if already tracking one
+		if (targeter.target):
+			return;
+
 		for t in vision_area.get_visible_objects():
 			if (!is_instance_valid(t) && t is CharacterBody2D):
-				continue; 
-
-			if (!targeter.is_target_in_range((vision_area.field_of_view))):
-				print("Not in range");
 				continue; 
 
 			if (!targeter.is_target_in_sight((vision_area.field_of_view))):
 				print("Not in sight");
 				continue; 
 
-			targeter.set_target(t);
-			weapon_controller.current_weapon.use();
+			if (!targeter.is_target_in_range((vision_area.field_of_view))):
+				print("Not in range");
+				# Set target to first in sight if no other targets
+				if (!next_target):
+					next_target = t;
+					set_and_notify_target(next_target);
+				continue; 
+
+			# If target in sight and in range, set that target and fire
+			next_target = t;
+			set_and_notify_target(next_target);
+			return;
+			
+
+func set_target(target: Node2D) -> void:
+	var targeter := weapon_controller.current_weapon.get_targeter();
+	targeter.set_target(target);
+
+# TODO: This signal should be propagated from the targeter
+func set_and_notify_target(target: Node2D) -> void:
+	set_target(target);
+	target_acquired.emit(target)
 
 func set_target_position(new_position: Vector2) -> void:
 	move_controller.update_nav_target(new_position);
@@ -58,11 +85,7 @@ func _die() -> void:
 	# TODO: Die animation
 	queue_free();
 
-## ENEMY MANAGER
-# Spawn enemy along PathFollow2D outside screen
-# TODO: Set whether enemy is shoot and scoot or hunters
-# TODO: If shoot and scoot, set first target position to a random position in the same quadrant as them then shoot into a different quadrant
+func enable_dequeue_off_screen() -> void:
+	var notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D;
+	notifier.screen_exited.connect(queue_free);
 
-## EnemySpawnGroup
-# Manages positioning and behavior of the group
-# TODO: When one of the group finds a target, the others come hunting
