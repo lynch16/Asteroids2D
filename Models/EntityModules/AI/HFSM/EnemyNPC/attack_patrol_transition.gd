@@ -1,5 +1,5 @@
 class_name AttackPatrolTransition
-extends FSMTransition
+extends EnemyTransition
 
 var has_target: bool = false;
 var target_lost_timer: Timer;

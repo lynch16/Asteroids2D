@@ -3,26 +3,9 @@ class_name StateMachine
 extends Node2D
 
 @export var _initial_state: FSMState;
-@export var move_controller: MovementController:
-	set(value):
-		move_controller = value;
-		update_configuration_warnings();
-
-@export var vision_area: VisionArea:
-	set(value):
-		vision_area = value;
-		update_configuration_warnings();
 
 var _states: Array[FSMState] = [];
 var _active_state: FSMState;
-
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings := PackedStringArray();
-	if (move_controller == null):
-		warnings.append("StateMachine is missing MovementController");
-	if (vision_area == null):
-		warnings.append("StateMachine is missing VisionArea");
-	return warnings;
 
 func _ready() -> void:
 	var children := get_children();

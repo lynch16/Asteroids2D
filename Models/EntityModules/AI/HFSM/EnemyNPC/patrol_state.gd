@@ -1,5 +1,5 @@
 class_name PatrolState
-extends FSMState
+extends EnemyState
 
 @export var randomize_target_on_end: bool = true; # Whether to automatically set a new point to patrol
 @export var patrol_jitter_smoothing: int = 0; ## Used to keep patrol in a straight path for x vision area view distances, while still allowing for boundary checks at view distance interval

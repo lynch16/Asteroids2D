@@ -1,5 +1,5 @@
 class_name PatrolAttackTransition
-extends FSMTransition
+extends EnemyTransition
 
 func is_valid() -> bool:
 	return vision_area.has_visible_objects();

@@ -1,5 +1,5 @@
 class_name AttackState
-extends FSMState
+extends EnemyState
 
 var target_reposition_timeout := 0.2;
 var timer := 0.0;
