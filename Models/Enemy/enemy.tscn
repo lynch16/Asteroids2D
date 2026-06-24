@@ -247,8 +247,9 @@ script = ExtResource("5_p7ovo")
 script = ExtResource("4_ebih1")
 _next_state = NodePath("../../AttackState")
 
-[node name="AttackState" type="Node2D" parent="StateMachine" unique_id=999952387]
+[node name="AttackState" type="Node2D" parent="StateMachine" unique_id=999952387 node_paths=PackedStringArray("weapon_controller")]
 script = ExtResource("7_eowg7")
+weapon_controller = NodePath("../../CharacterWeapons")
 
 [node name="AttackPatrolTransition" type="Node2D" parent="StateMachine/AttackState" unique_id=2124159927 node_paths=PackedStringArray("_next_state")]
 script = ExtResource("6_84prv")

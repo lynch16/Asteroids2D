@@ -31,6 +31,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("FollowerComponent is missing MovementController");
 	return warnings;
 
+# TODO: This class is unused and needs to be refactored
 func _process_physics(_delta: float) -> void:
 	if (!targeter.is_target_in_sight(max_follow_angle)):
 		movement_controller.apply_rotation(targeter.get_target_angle_diff());

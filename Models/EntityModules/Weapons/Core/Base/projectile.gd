@@ -1,7 +1,7 @@
 @tool
 class_name Projectile
 extends Weapon
-## Projectile is a Weapon that is ThrowableComponent
+## Projectile is a Weapon that has a ThrowableComponent
 
 @export var throwable: ThrowableComponent:
 	set(value):
@@ -21,6 +21,8 @@ extends Weapon
 
 var velocity := Vector2.ZERO;
 
+# TODO: Move the get_node to _enter_tree, apply to other components too. Dont make these things exportable in order to improve clarity. Also allows setting from parents since it is top down
+# Really, why make this a node instead of having projectile have a speed and instantiate this Component on ready instead?
 func _ready() -> void:
 	super();
 	if (throwable == null):

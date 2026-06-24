@@ -13,5 +13,3 @@ func on_damage(_damage_dealt: float, _dmgr: Node, _hit_position: Vector2, _hit_a
 	if (progress_bar.hidden):
 		progress_bar.show();
 	return true;
-
-# TODO: Should have death damage result that will stop trigger of later damage results

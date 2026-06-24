@@ -55,7 +55,6 @@ func _physics_process(delta: float) -> void:
 
 	## Only accelerate forward when _not_ running a hard burn
 	if (hard_burn != movement_controller.movement_stats.hard_turn_ratio):
-		print("MOVE FORWARD")
 		# TODO: Determine when to slow down
 		movement_controller.move_forward(delta);
 	else:

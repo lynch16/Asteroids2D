@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://bpbntljb3rfef" path="res://tools/WeaponRange/range_actor.gd" id="2_4wfoo"]
 [ext_resource type="PackedScene" uid="uid://bb16cwplay0xl" path="res://Models/EntityModules/Weapons/Weapons/Cannons/tracked_cannon_weapon.tscn" id="4_4wfoo"]
 [ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="5_q7cni"]
-[ext_resource type="Script" uid="uid://bt1o86s8uofru" path="res://Models/EntityModules/Weapons/Core/Base/projectile.gd" id="6_cjnlh"]
 [ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="7_ggqtc"]
 [ext_resource type="Script" uid="uid://bvo0xe0yh18n3" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/circle_mesh_deformation_shape.gd" id="8_p67gf"]
 [ext_resource type="Resource" uid="uid://bsdyf8bqvq3pq" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_combat_stats.tres" id="9_ct2g1"]
@@ -39,7 +38,7 @@ weapon_controller = NodePath("Shooter/CharacterWeapons")
 enabled = true
 
 [node name="Target" type="CharacterBody2D" parent="." unique_id=1281433027]
-position = Vector2(843.3345, 100)
+position = Vector2(10, 100)
 velocity = Vector2(250.0012, 0)
 slide_on_ceiling = false
 script = ExtResource("2_4wfoo")
@@ -51,7 +50,7 @@ shape = SubResource("CircleShape2D_37gqi")
 disabled = true
 
 [node name="Shooter" type="CharacterBody2D" parent="." unique_id=1107455802]
-position = Vector2(676.66626, 400)
+position = Vector2(10, 400)
 velocity = Vector2(199.99876, 0)
 script = ExtResource("2_4wfoo")
 linear_speed = 200.0
@@ -71,11 +70,9 @@ rotation = 1.5707964
 points = PackedVector2Array(0, 50, 0, 0)
 end_cap_mode = 2
 
-[node name="Bullet" type="Node2D" parent="." unique_id=1149596407 node_paths=PackedStringArray("throwable") groups=["player_weapon"] instance=ExtResource("5_q7cni")]
+[node name="Bullet" parent="." unique_id=1149596407 instance=ExtResource("5_q7cni")]
 position = Vector2(820.8789, 165.59415)
 rotation = -1.0715802
-script = ExtResource("6_cjnlh")
-throwable = NodePath("ThrowableComponent")
 projectile_shape = SubResource("CapsuleShape2D_2brgn")
 mesh_deformation_shapes = Array[ExtResource("7_ggqtc")]([SubResource("Resource_ry1h5"), SubResource("Resource_llfw1")])
 combat_stats = ExtResource("9_ct2g1")

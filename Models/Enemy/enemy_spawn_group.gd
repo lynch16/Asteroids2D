@@ -69,7 +69,7 @@ func _intialize_flying_v(target_position: Vector2) -> void:
 		enemies[i].global_position = squad_lead.global_position + target_offset;
 		var calculated_target := target_position + target_offset;
 		enemies[i].global_rotation = squad_lead.global_rotation
-		enemies[i].set_target_position(calculated_target);
+		enemies[i].set_move_position(calculated_target);
 		enemies[i].set_start_velocity(squad_lead.velocity);
 
 func _update_group_target(target: Node2D) -> void:
@@ -79,7 +79,7 @@ func _update_group_target(target: Node2D) -> void:
 func _create_hunter_group() -> void:
 	var opposite_quad: int = wrap(spawn_quadrant + 2, 0, 3);
 	var target_position := _get_screen_quadrant_position(opposite_quad);
-	squad_lead.set_target_position(target_position);
+	squad_lead.set_move_position(target_position);
 	_intialize_flying_v(target_position);
 
 	for enemy in enemies:
@@ -98,7 +98,7 @@ func _create_hunter_group() -> void:
 func _create_shoot_scoot_group() -> void:
 	var target_position := _get_screen_quadrant_position(spawn_quadrant);
 	# Move into nearest quadrant from spawn
-	squad_lead.set_target_position(target_position);
+	squad_lead.set_move_position(target_position);
 	_intialize_flying_v(target_position);
 
 	for i in enemies.size():
@@ -118,10 +118,9 @@ func _shoot_and_scoot(enemy: Enemy) -> void:
 	enemy_patrol_state.move_controller.turn_around(_run_off_screen.bind(enemy));
 
 func _run_off_screen(enemy: Enemy) -> void:
-	# TODO: Dequeue off screen
 	var max_screen_size := get_viewport_rect().end.length();
 	var off_screen := enemy.global_position + -enemy.velocity.normalized() * max_screen_size;
-	enemy.set_target_position(off_screen);
+	enemy.set_move_position(off_screen);
 	enemy.enable_dequeue_off_screen();
 
 func _get_screen_quadrant_position(quadrant: int) -> Vector2:

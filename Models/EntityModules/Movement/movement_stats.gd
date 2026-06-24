@@ -17,8 +17,8 @@ var current_speed := 0.0:
 	set(val):
 		current_speed = clampf(val, min_speed, max_speed);
 
-## Allows doing "hard turns" where the rotation speed is speed up to a new maximum
-@export var hard_turn_ratio := 2.0;
+## Allows doing "hard turns" where the rotation speed is speed up to a new maximum. TODO: Cannot fire during hard turns. TODO: How does player engage hard turn
+@export var hard_turn_ratio := 1.5;
 ## How fast the Character2D will rotate when turning
 @export var rotation_speed := 5.0;
 ## Phyisics body mass calculation

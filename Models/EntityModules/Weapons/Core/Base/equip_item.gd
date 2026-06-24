@@ -23,6 +23,10 @@ func set_target(new_target: Node2D) -> void:
 
 ## Expose targeter up to the wielder
 func get_targeter() -> TargeterComponent:
+	if (!targeter):
+		printerr("Use of set_target on " + name + " requires TargeterComponent");
+		return targeter;
+
 	return targeter;
 
 func _get_configuration_warnings() -> PackedStringArray:

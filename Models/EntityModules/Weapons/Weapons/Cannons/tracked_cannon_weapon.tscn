@@ -11,7 +11,6 @@
 script = ExtResource("1_oyvr3")
 thrower = NodePath("ThrowerComponent")
 variance = 5.0
-straight_shooter = false
 combat_stats = ExtResource("2_ii2uq")
 targeter = NodePath("TargeterComponent")
 metadata/_custom_type_script = "uid://cuqmt45sefh8k"

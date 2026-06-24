@@ -9,6 +9,7 @@ extends SpawnableCharacter2D
 @onready var weapon_controller: CharacterWeapons = get_node("CharacterWeapons");
 
 var damageable: Damageable;
+var tracked_opponents: Array[Node2D] = [];
 
 signal target_acquired(target: Node2D);
 
@@ -28,53 +29,18 @@ func get_patrol_state() -> PatrolState:
 
 func _ready() -> void:
 	health_stats.on_health_depleted.connect(_die);
+	vision_area.on_visible_objects_updated.connect(_track_opponents);
 
-func _physics_process(_delta: float) -> void:
-	set_first_valid_target();
-
-# This is basically the functionality for a hunter
-# TODO: This should really be part of the FSM
-func set_first_valid_target() -> void:
-	if (weapon_controller.current_weapon && vision_area.can_see_visible_objects()):
-		var targeter := weapon_controller.current_weapon.get_targeter();
-		var next_target: Node2D;
-
-		# Dont set new target if already tracking one
-		if (targeter.target):
-			return;
-
-		for t in vision_area.get_visible_objects():
-			if (!is_instance_valid(t) && t is CharacterBody2D):
-				continue; 
-
-			if (!targeter.is_target_in_sight((vision_area.field_of_view))):
-				print("Not in sight");
-				continue; 
-
-			if (!targeter.is_target_in_range((vision_area.field_of_view))):
-				print("Not in range");
-				# Set target to first in sight if no other targets
-				if (!next_target):
-					next_target = t;
-					set_and_notify_target(next_target);
-				continue; 
-
-			# If target in sight and in range, set that target and fire
-			next_target = t;
-			set_and_notify_target(next_target);
-			return;
-			
+func _track_opponents(tracked_opps: Array[Node2D]) -> void:
+	if (tracked_opps.hash() != tracked_opponents.hash()):
+		tracked_opponents = tracked_opps;
+		# TODO: Using just the first opponent is sloppy but doesn't matter with just one Player
+		target_acquired.emit(tracked_opponents[0]);
 
 func set_target(target: Node2D) -> void:
-	var targeter := weapon_controller.current_weapon.get_targeter();
-	targeter.set_target(target);
+	weapon_controller.set_weapon_target(target);
 
-# TODO: This signal should be propagated from the targeter
-func set_and_notify_target(target: Node2D) -> void:
-	set_target(target);
-	target_acquired.emit(target)
-
-func set_target_position(new_position: Vector2) -> void:
+func set_move_position(new_position: Vector2) -> void:
 	move_controller.update_nav_target(new_position);
 
 func set_start_velocity(_velocity: Vector2) -> void:
