@@ -13,8 +13,8 @@ extends Node2D
 
 @export_category("Optional properties")
 ## Needed to throw accurately at a moving target
-@export var intercepter: InterceptorComponent;
-## Needed for basic targeting if not using an intercepter
+@export var interceptor: InterceptorComponent;
+## Needed for basic targeting if not using an interceptor
 @export var targeter: TargeterComponent;
 
 var starting_throwable_count: int = Vector2i.MAX.x;
@@ -27,8 +27,8 @@ func _ready() -> void:
 	
 	if (targeter == null):
 		targeter = get_node_or_null("%TargeterComponent");
-	if (intercepter == null):
-		intercepter = get_node_or_null("%InterceptorComponent");
+	if (interceptor == null):
+		interceptor = get_node_or_null("%InterceptorComponent");
 
 func _create_projectiles() -> Array[Projectile]:
 	if current_throwable_count <= 0:
@@ -90,15 +90,15 @@ func throw_straight() -> void:
 			projectile.throwable.throw(_calc_exact_throw_velocity(_straight_ahead()), global_rotation);
 
 func _aim_point() -> Vector2:
-	if (intercepter):
-		return intercepter.calculate_intercept_point();
+	if (interceptor):
+		return interceptor.calculate_intercept_point();
 	else:
 		return targeter.get_target_global_position();
 
 func _calc_exact_throw_velocity(aim_point: Vector2) -> Vector2:
 	var base_velocity := Vector2.ZERO;
-	if (intercepter):
-		base_velocity = intercepter._calculate_self_velocity();
+	if (interceptor):
+		base_velocity = interceptor._calculate_self_velocity();
 
 	return base_velocity + Vector2(throw_speed, 0).rotated(_get_aim_point_angle(aim_point));
 
