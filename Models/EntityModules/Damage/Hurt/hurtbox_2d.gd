@@ -1,18 +1,19 @@
 class_name Hurtbox2D
 extends Area2D
 
-@export var combat_stats: CombatStats;
+@export var health_stats: HealthStats;
 @export var shape: Shape2D;
 @export var owner_node: Node;
 
 var damageable: Damageable;
+var collision_shape: CollisionShape2D;
 
 func _init(
-	p_combat_stats: CombatStats = CombatStats.new(),
+	p_health_stats: HealthStats = HealthStats.new(),
 	p_shape: Shape2D = null,
 	p_owner_node: Node = null,
 ) -> void:
-	combat_stats = p_combat_stats;
+	health_stats = p_health_stats;
 	shape = p_shape;
 	owner_node = p_owner_node;
 
@@ -25,13 +26,28 @@ func _ready() -> void:
 			damage_results.append(child);
 
 	damageable = Damageable.new(   
-		combat_stats,
+		health_stats,
 		damage_results,
 		owner_node,
 	);
 	add_child(damageable);
 
 	if (shape != null):
-		var collision_shape := CollisionShape2D.new();
+		collision_shape = CollisionShape2D.new();
 		collision_shape.shape = shape;
 		add_child(collision_shape);
+	
+	set_collision_layer_value(1, false);
+	set_collision_mask_value(1, false);
+
+	match health_stats.faction:
+		FactionStats.Faction.PLAYER:
+			set_collision_layer_value(1, true);
+		FactionStats.Faction.ENEMY:
+			set_collision_layer_value(2, true);
+		FactionStats.Faction.ENVIRONMENT:
+			set_collision_layer_value(1, true);
+			set_collision_layer_value(2, true);
+
+func get_colliders() -> Array[CollisionShape2D]:
+	return [collision_shape];

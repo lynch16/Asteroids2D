@@ -45,6 +45,18 @@ func _ready() -> void:
 		var collision_shape := CollisionShape2D.new();
 		collision_shape.shape = shape;
 		add_child(collision_shape);
+	
+	set_collision_layer_value(1, false);
+	set_collision_mask_value(1, false);
+
+	match attacker_combat_stats.faction:
+		FactionStats.Faction.PLAYER:
+			set_collision_mask_value(2, true);
+		FactionStats.Faction.ENEMY:
+			set_collision_mask_value(1, true);
+		FactionStats.Faction.ENVIRONMENT:
+			set_collision_mask_value(1, true);
+			set_collision_mask_value(2, true);
 
 func _on_area_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if (body is Area2D):
@@ -55,8 +67,8 @@ func _on_area_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int,
 		var local_shape_owner := shape_find_owner(local_shape_index);
 		var local_collider := shape_owner_get_owner(local_shape_owner);
 
-		if (body_collider is DeformableMeshCollider2D):
-			var mesh_collider: DeformableMeshCollider2D = body_collider;
+		if (body_collider is CollisionShape2D):
+			var mesh_collider: CollisionShape2D = body_collider;
 			var local_mesh_collider: CollisionShape2D = local_collider;
 			var collision_points := local_mesh_collider.shape.collide_and_get_contacts(
 				local_mesh_collider.global_transform,

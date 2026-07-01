@@ -1,5 +1,6 @@
 class_name ShipStats
 extends Resource
+# TODO: This isn't being used
 
 @export var movement_stats: MovementStats;
 @export var combat_stats: CombatStats;

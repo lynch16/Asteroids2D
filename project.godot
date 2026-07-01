@@ -17,10 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*uid://b13huugitcogo"
 AsteroidManager="*uid://c0hqxihl3ul0n"
 ScoreManager="*uid://ddy5bx2mx2ppk"
 SignalBus="*uid://clt6bw8olwa1a"
+EnemyManager="*uid://b7pkcoi40ivvk"
 
 [debug]
 
@@ -32,7 +32,7 @@ gdscript/warnings/unsafe_call_argument=2
 
 [display]
 
-window/size/viewport_width=1980
+window/size/viewport_width=1880
 window/size/viewport_height=1080
 window/size/initial_position_type=3
 window/size/initial_screen=2
@@ -46,7 +46,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg")
 
 [global_group]
 
@@ -96,6 +96,11 @@ shift_left_click={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":true,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(81, 26),"global_position":Vector2(90, 74),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemies"
 
 [physics]
 

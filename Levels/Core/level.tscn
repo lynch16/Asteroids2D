@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://du4nnb206ggo4"]
+
+[ext_resource type="Script" uid="uid://53fnq33aw1pk" path="res://Levels/Core/level.gd" id="1_q5k0s"]
+[ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="2_bcvyo"]
+[ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="2_fk8qc"]
+[ext_resource type="PackedScene" uid="uid://moxkwo3nfsf4" path="res://Models/Player/player.tscn" id="3_ny7g0"]
+[ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://Levels/game_area.gd" id="4_bcvyo"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_fk8qc"]
+vertices = PackedVector2Array(2152.0313, -192.02344, 2156.961, 1332.0234, -258.9922, 1336.9688, -258, -197.96875)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-268, -208, 2162, -202, 2167, 1342, -269, 1347)])
+
+[node name="Level" type="Node2D" unique_id=350803456]
+script = ExtResource("1_q5k0s")
+is_active = true
+num_rocks_to_throw = 10
+enemey_scene = ExtResource("2_fk8qc")
+num_enemies = 3
+enemies_start_delay = 1.0
+enemy_hunters = true
+
+[node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_bcvyo")]
+unique_name_in_owner = true
+
+[node name="Player" parent="." unique_id=818107462 instance=ExtResource("3_ny7g0")]
+unique_name_in_owner = true
+
+[node name="GameArea" type="NavigationRegion2D" parent="." unique_id=1152365417]
+unique_name_in_owner = true
+navigation_polygon = SubResource("NavigationPolygon_fk8qc")
+script = ExtResource("4_bcvyo")
+metadata/_custom_type_script = "uid://ce43prxb75d4c"

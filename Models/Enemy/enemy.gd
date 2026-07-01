@@ -1,23 +1,57 @@
 class_name Enemy
-extends CharacterBody2D
+extends SpawnableCharacter2D
+
+@export var health_stats: HealthStats;
+@export var combat_stats: CombatStats;
 
 @onready var move_controller: NavCharacterMovementController = get_node("NavCharacterMovementController");
+@onready var vision_area: VisionArea = get_node("VisionArea");
 @onready var weapon_controller: CharacterWeapons = get_node("CharacterWeapons");
 
-func _physics_process(_delta: float) -> void:
-	if (weapon_controller.current_weapon && move_controller.are_targets_in_sight()):
-		for t in move_controller.get_targets():
-			if (!is_instance_valid(t)):
-				return; 
-				
-			if (weapon_controller.current_weapon.is_target_in_sight((t.global_position)) && weapon_controller.current_weapon.is_target_in_range(t.global_position)):
-				if (t is CharacterBody2D):
-					var char_t: CharacterBody2D = t;
-					weapon_controller.set_weapon_target(char_t);
-				
-				weapon_controller.current_weapon.use();
-			else:
-				if (!weapon_controller.current_weapon.is_target_in_range(t.global_position)):
-					print("Not in range");
-				if (!weapon_controller.current_weapon.is_target_in_sight(t.global_position)):
-					print("Not in sight");
+var damageable: Damageable;
+var tracked_opponents: Array[Node2D] = [];
+
+signal target_acquired(target: Node2D);
+
+func _enter_tree() -> void:
+	super();
+	hurtbox = %Hurtbox2D;
+	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
+	hurtbox.shape = collision_shape.shape;
+	hurtbox.health_stats = health_stats;
+	var health_bar: HealthBarDamageResult = %HealthBarDamageResult;
+	health_bar.health_stats = health_stats;
+	var death_damage_result: StopOnDeathDamageResult = %StopOnDeathDamageResult;
+	death_damage_result.health_stats = health_stats;
+
+func get_patrol_state() -> PatrolState:
+	return ($StateMachine/PatrolState as PatrolState);
+
+func _ready() -> void:
+	health_stats.on_health_depleted.connect(_die);
+	vision_area.on_visible_objects_updated.connect(_track_opponents);
+
+func _track_opponents(tracked_opps: Array[Node2D]) -> void:
+	if (tracked_opps.hash() != tracked_opponents.hash()):
+		tracked_opponents = tracked_opps;
+		# TODO: Using just the first opponent is sloppy but doesn't matter with just one Player
+		target_acquired.emit(tracked_opponents[0]);
+
+func set_target(target: Node2D) -> void:
+	weapon_controller.set_weapon_target(target);
+
+func set_move_position(new_position: Vector2) -> void:
+	move_controller.update_nav_target(new_position);
+
+func set_start_velocity(_velocity: Vector2) -> void:
+	velocity = _velocity;
+	move_controller.update_nav_velocity(_velocity);
+
+func _die() -> void:
+	# TODO: Die animation
+	queue_free();
+
+func enable_dequeue_off_screen() -> void:
+	var notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D;
+	notifier.screen_exited.connect(queue_free);
+

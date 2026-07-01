@@ -14,7 +14,7 @@ func _init(
 	owner_node = p_owner_node;
 	hit_log = p_hit_log;
 
-func damage(target_node: Node, hit_position: Vector2, hit_angle: float) -> void:
+func damage(target_node: Node2D, hit_position: Vector2, hit_angle: float) -> void:
 	var damageable := Damageable.get_damageable(target_node);
 	if (damageable):
 		if (hit_log != null):

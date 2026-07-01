@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ch6ceooyn73h7"]
+
+[ext_resource type="Script" uid="uid://bjkw43rx3hko8" path="res://Models/EntityModules/Damage/Hurt/DamageResults/health_bar_damage_result.gd" id="1_amf2b"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_c1ybd"]
+specular_color = Color(1, 0, 0, 1)
+
+[node name="HealthBarDamageResult" type="Node" unique_id=1831673198 node_paths=PackedStringArray("progress_bar")]
+script = ExtResource("1_amf2b")
+progress_bar = NodePath("HealthBarWrapper/HealthBar")
+metadata/_custom_type_script = "uid://bjkw43rx3hko8"
+
+[node name="HealthBarWrapper" type="Node2D" parent="." unique_id=2069200312]
+position = Vector2(0, 23)
+
+[node name="HealthBar" type="TextureProgressBar" parent="HealthBarWrapper" unique_id=1480174243]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -2.0
+offset_right = 12.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+nine_patch_stretch = true
+texture_progress = SubResource("CanvasTexture_c1ybd")
+tint_progress = Color(1, 0, 0, 1)

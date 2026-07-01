@@ -1,11 +1,35 @@
 [gd_scene format=3 uid="uid://cfwhiiy0choq0"]
 
 [ext_resource type="Script" uid="uid://c1f3nl4dl78ik" path="res://tools/WeaponRange/weapon_range.gd" id="1_37gqi"]
-[ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/cannon_weapon.tscn" id="1_ejx1l"]
-[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/character_weapons.gd" id="1_n5woa"]
+[ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/Core/character_weapons.gd" id="1_n5woa"]
 [ext_resource type="Script" uid="uid://bpbntljb3rfef" path="res://tools/WeaponRange/range_actor.gd" id="2_4wfoo"]
+[ext_resource type="PackedScene" uid="uid://bb16cwplay0xl" path="res://Models/EntityModules/Weapons/Weapons/Cannons/tracked_cannon_weapon.tscn" id="4_4wfoo"]
+[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="5_q7cni"]
+[ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="7_ggqtc"]
+[ext_resource type="Script" uid="uid://bvo0xe0yh18n3" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/circle_mesh_deformation_shape.gd" id="8_p67gf"]
+[ext_resource type="Resource" uid="uid://bsdyf8bqvq3pq" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_combat_stats.tres" id="9_ct2g1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_37gqi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2brgn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d8d6v"]
+
+[sub_resource type="Resource" id="Resource_ry1h5"]
+script = ExtResource("8_p67gf")
+radius = 64.0
+damage = 1.0
+shape = SubResource("CircleShape2D_d8d6v")
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6qf6n"]
+
+[sub_resource type="Resource" id="Resource_llfw1"]
+script = ExtResource("8_p67gf")
+radius = 128.0
+damage = 0.5
+shape = SubResource("CircleShape2D_6qf6n")
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
 
 [node name="WeaponRange" type="Node2D" unique_id=848334101 node_paths=PackedStringArray("weapon_controller")]
 process_mode = 4
@@ -14,8 +38,8 @@ weapon_controller = NodePath("Shooter/CharacterWeapons")
 enabled = true
 
 [node name="Target" type="CharacterBody2D" parent="." unique_id=1281433027]
-position = Vector2(1185.0005, 100)
-velocity = Vector2(249.99754, 0)
+position = Vector2(10, 100)
+velocity = Vector2(250.0012, 0)
 slide_on_ceiling = false
 script = ExtResource("2_4wfoo")
 linear_speed = 250.0
@@ -26,9 +50,8 @@ shape = SubResource("CircleShape2D_37gqi")
 disabled = true
 
 [node name="Shooter" type="CharacterBody2D" parent="." unique_id=1107455802]
-position = Vector2(590.0002, 400)
-rotation = 3.1415927
-velocity = Vector2(-199.99876, 0)
+position = Vector2(10, 400)
+velocity = Vector2(199.99876, 0)
 script = ExtResource("2_4wfoo")
 linear_speed = 200.0
 vertical_offset = 300.0
@@ -37,7 +60,7 @@ metadata/_custom_type_script = "uid://bpbntljb3rfef"
 [node name="CharacterWeapons" type="Node2D" parent="Shooter" unique_id=886852810 node_paths=PackedStringArray("character")]
 position = Vector2(8, 0)
 script = ExtResource("1_n5woa")
-weapon_to_equip = ExtResource("1_ejx1l")
+weapon_to_equip = ExtResource("4_4wfoo")
 character = NodePath("..")
 metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
@@ -46,3 +69,10 @@ z_index = -1
 rotation = 1.5707964
 points = PackedVector2Array(0, 50, 0, 0)
 end_cap_mode = 2
+
+[node name="Bullet" parent="." unique_id=1149596407 instance=ExtResource("5_q7cni")]
+position = Vector2(820.8789, 165.59415)
+rotation = -1.0715802
+projectile_shape = SubResource("CapsuleShape2D_2brgn")
+mesh_deformation_shapes = Array[ExtResource("7_ggqtc")]([SubResource("Resource_ry1h5"), SubResource("Resource_llfw1")])
+combat_stats = ExtResource("9_ct2g1")
