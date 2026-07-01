@@ -1,8 +1,9 @@
-class_name GameManager;
+class_name GameManager
 extends Node
 
 signal game_start;
 signal game_stop;
+signal level_start(level_index: int);
 
 var started: bool = false;
 
@@ -25,6 +26,7 @@ func on_start() -> void:
 func trigger_game_over() -> void:
 	print("GAME OVER");
 	get_tree().paused = true;
+	game_stop.emit();
 
 func _get_active_level() -> Level:
 	return levels.get(current_level_idx);
@@ -41,6 +43,7 @@ func start_next_level() -> void:
 	add_child(active_level);
 	new_level.win_condition_met.connect(_on_next_level);
 	new_level.lose_condition_met.connect(trigger_game_over);
+	level_start.emit(current_level_idx);
 
 func _on_next_level() -> void:
 	current_level_idx += 1;
