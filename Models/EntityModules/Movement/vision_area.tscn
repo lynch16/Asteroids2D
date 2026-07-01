@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://4r5ijwuetp5l" path="res://Models/EntityModules/Movement/vision_area.gd" id="1_ieyjr"]
 
 [node name="VisionArea" type="Area2D" unique_id=1974026706]
+collision_layer = 0
+collision_mask = 7
 script = ExtResource("1_ieyjr")
 detection_group_name = "player"
 

@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://wmd6w6j2858o" path="res://Models/EntityModules/Damage/combat_stats.gd" id="2_eowg7"]
 [ext_resource type="Script" uid="uid://cuecudo47i27o" path="res://Models/EntityModules/Damage/Hurt/hurtbox_2d.gd" id="2_p7ovo"]
 [ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="2_s2vdc"]
-[ext_resource type="Script" uid="uid://t8xohr0ab8mn" path="res://Models/EntityModules/AI/HFSM/state_machine.gd" id="4_ae6k3"]
 [ext_resource type="Script" uid="uid://dlprwkxy5ex8f" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/patrol_attack_transition.gd" id="4_ebih1"]
 [ext_resource type="PackedScene" uid="uid://tjlvf8cvvy0p" path="res://Models/EntityModules/Movement/vision_area.tscn" id="5_mb64x"]
 [ext_resource type="Script" uid="uid://c81h2p2qstl63" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/patrol_state.gd" id="5_p7ovo"]
@@ -20,6 +19,7 @@
 [ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/Core/character_weapons.gd" id="10_p7ovo"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="13_eowg7"]
 [ext_resource type="Script" uid="uid://dkorgdk4bdefl" path="res://Models/Animations/thrust_animations.gd" id="14_fv5yk"]
+[ext_resource type="Script" uid="uid://vfwtl5081feh" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/enemy_state_machine.gd" id="14_hifkv"]
 [ext_resource type="Texture2D" uid="uid://be7wdkvujqrp2" path="res://sprites/3P/Exhaust-0001.png" id="15_byl56"]
 [ext_resource type="Script" uid="uid://cf2a6ah5g3aox" path="res://Models/EntityModules/Movement/movement_stats.gd" id="16_l403r"]
 
@@ -196,6 +196,7 @@ position = Vector2(20, 0)
 script = ExtResource("10_p7ovo")
 weapon_to_equip = ExtResource("6_l403r")
 character = NodePath("..")
+character_faction = 1
 metadata/_custom_type_script = "uid://b3pdjcuaohpmm"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=554559173]
@@ -234,18 +235,21 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.9048077
 
-[node name="StateMachine" type="Node2D" parent="." unique_id=577903898 node_paths=PackedStringArray("_initial_state", "move_controller", "vision_area")]
-script = ExtResource("4_ae6k3")
-_initial_state = NodePath("PatrolState")
+[node name="StateMachine" type="Node2D" parent="." unique_id=843475888 node_paths=PackedStringArray("move_controller", "vision_area", "_initial_state")]
+script = ExtResource("14_hifkv")
 move_controller = NodePath("../NavCharacterMovementController")
 vision_area = NodePath("../VisionArea")
+_initial_state = NodePath("PatrolState")
+metadata/_custom_type_script = "uid://vfwtl5081feh"
 
-[node name="PatrolState" type="Node2D" parent="StateMachine" unique_id=497098628]
+[node name="PatrolState" type="Node2D" parent="StateMachine" unique_id=1775739636]
 script = ExtResource("5_p7ovo")
+metadata/_custom_type_script = "uid://betr8hc7eldf4"
 
-[node name="PatrolAttackTransition" type="Node2D" parent="StateMachine/PatrolState" unique_id=581122292 node_paths=PackedStringArray("_next_state")]
+[node name="PatrolAttackTransition" type="Node2D" parent="StateMachine/PatrolState" unique_id=2093441685 node_paths=PackedStringArray("_next_state")]
 script = ExtResource("4_ebih1")
 _next_state = NodePath("../../AttackState")
+metadata/_custom_type_script = "uid://0ddhnerd6a1l"
 
 [node name="AttackState" type="Node2D" parent="StateMachine" unique_id=999952387 node_paths=PackedStringArray("weapon_controller")]
 script = ExtResource("7_eowg7")

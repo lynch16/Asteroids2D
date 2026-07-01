@@ -4,6 +4,7 @@ extends Node2D
 
 @export var weapon_to_equip: PackedScene;
 @export var character: CharacterBody2D;
+@export var character_faction: FactionStats.Faction;
 
 var current_weapon: Weapon;
 
@@ -19,6 +20,7 @@ func equip_weapon(weapon_scene: PackedScene) -> void:
 	current_weapon = new_weapon;
 	add_child(current_weapon)
 	current_weapon.owner_character = character;
+	current_weapon.combat_stats.faction = character_faction;
 
 	current_weapon.equip();
 	

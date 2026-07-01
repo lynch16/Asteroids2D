@@ -77,9 +77,10 @@ func throw_direct_with_variance(variance: float) -> void:
 	
 ## Randomly shoot in a mostly forward direction
 func throw_straight_with_variance(variance: float) -> void:
+	var jitter := _throw_jitter(variance)
 	var projectiles := _create_projectiles();
 	for projectile in projectiles:
-		var throw_velocity := _calc_exact_throw_velocity(_straight_ahead() + _throw_jitter(variance));
+		var throw_velocity := _calc_exact_throw_velocity(_straight_ahead() + jitter);
 		projectile.throwable.throw(throw_velocity, global_rotation);
 
 ## Shoot arrow straight in the direction facing
