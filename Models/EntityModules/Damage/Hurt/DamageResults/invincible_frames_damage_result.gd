@@ -1,29 +1,26 @@
 class_name InvincibleFramesDamageResult
 extends DamageResult
 
-@export var invicible_frames := 30; # At 30fps, this is 1s;
+@export var invincible_length := 0.5; ## in seconds
 @export var restart_on_new_damage := false;
 
-var curr_inv_frame_count := 0;
-var start_inv_frame_count := 0;
+var timer: Timer;
 
 func _init(
-	p_invicible_frames: int = 30,
+	p_invincible_length: int = 1,
 	p_restart_on_new_damage: bool = false
 ) -> void:
-	invicible_frames = p_invicible_frames;
+	invincible_length = p_invincible_length;
 	restart_on_new_damage = p_restart_on_new_damage;
 
 func on_init(p_damageable: Damageable) -> void:
 	super(p_damageable);
+	timer = Timer.new();
+	timer.wait_time = invincible_length;
+	timer.timeout.connect(on_end);
+	add_child(timer);
 	_start_inv();
 	
-func _process(_delta: float) -> void:
-	if (_is_inv()):
-		curr_inv_frame_count = Engine.get_frames_drawn() - start_inv_frame_count;
-		if (curr_inv_frame_count >= invicible_frames):
-			on_end();
-
 func on_damage(_damage_dealt: float, _dmgr: Node, _hit_position: Vector2, _hit_angle: float) -> bool:
 	if (_is_inv()):
 		return false;
@@ -38,11 +35,10 @@ func on_end() -> void:
 	_reset_inv();
 	
 func _is_inv() -> bool:
-	return curr_inv_frame_count > 0;
+	return !timer.is_stopped();
 
 func _reset_inv() -> void:
-	curr_inv_frame_count = 0;
+	timer.stop();
 	
 func _start_inv() -> void:
-	start_inv_frame_count = Engine.get_frames_drawn();
-	curr_inv_frame_count = start_inv_frame_count;;
+	timer.start();

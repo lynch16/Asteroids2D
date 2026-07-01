@@ -25,6 +25,7 @@ metadata/_custom_type_script = "uid://wmd6w6j2858o"
 
 [sub_resource type="Resource" id="Resource_qdhb0"]
 script = ExtResource("4_h8hu4")
+initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
@@ -82,6 +83,7 @@ metadata/_custom_type_script = "uid://bvqt4s5uy7wep"
 [node name="InvincibleFramesDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=971363186]
 unique_name_in_owner = true
 script = ExtResource("12_qdhb0")
+restart_on_new_damage = true
 metadata/_custom_type_script = "uid://l6occnfuxuon"
 
 [node name="ScoreDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=760267701]

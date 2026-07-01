@@ -12,6 +12,7 @@ class_name Asteroid extends SpawnableCharacter2D
 var mass := 10000;
 var damageable: Damageable;
 var safe_collision_time := 5.0;
+var is_dying := false;
 
 signal asteroid_destroyed;
 
@@ -44,7 +45,8 @@ func _ready() -> void:
 	invincible_damage_result.init.connect(_disable_colliders);
 	invincible_damage_result.end.connect(_enable_colliders);
 
-	health_stats.on_health_depleted.connect(_destroy);
+	## Dont kill with health b/c these are rocks that dont have health
+	# health_stats.on_health_depleted.connect(_destroy);
 
 func _physics_process(_delta: float) -> void:
 	# Clamp velocity to reasonable playable value
@@ -71,6 +73,11 @@ func _enable_colliders() -> void:
 			collision.set_deferred("disabled", false);
 
 func _destroy() -> void:
+	if (is_dying):
+		return;
+		
+	is_dying = true;
+
 	if (is_inside_tree()):
 		death_particles.emitting = true;
 		death_audio_player.playing = true;
