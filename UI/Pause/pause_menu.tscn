@@ -14,5 +14,6 @@ script = ExtResource("1_hdmo1")
 layout_mode = 2
 
 [node name="Unpause" type="Button" parent="VBoxContainer" unique_id=1671081617]
+visible = false
 layout_mode = 2
 text = "Resume"
