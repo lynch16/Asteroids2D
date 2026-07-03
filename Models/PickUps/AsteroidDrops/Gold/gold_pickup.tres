@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="MS_CollisionMeshGroup" format=4 uid="uid://b5vbr1x5hsm3b"]
+
+[ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh.gd" id="1_lvhv1"]
+[ext_resource type="Texture2D" uid="uid://cbyjad0k8a2hi" path="res://TileMap/Textures/Ground (95)_128x128.png" id="2_oleyj"]
+[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="3_h22s6"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_hwe5q"]
+points = PackedVector2Array(112, 176, 160, 176, 160, 144, 144, 144, 144, 128, 112, 128)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_8s7ha"]
+_surfaces = [{
+"2d": true,
+"aabb": AABB(104, 120, 0, 48, 48, 0),
+"attribute_data": PackedByteArray("//9fP///bz///08/AACAP///Xz8AAIA///9PPwAAgD///08/AACQP///Xz8AAJA///9fPwAAgD///08/AACQP///Tz8AAKA///9fPwAAoD///18/AACQP///Xz8AAKg///9fPwAAoD///08/AACgP///Xz///28///9fPwAAgD8AAIA/AACAPwAAgD///28///9fPwAAgD///18/AACQPwAAgD8AAJA/AACAPwAAgD///18/AACQP///Xz8AAKA/AACAPwAAoD8AAIA/AACQP///Xz8AAKA///9fPwAAqD8AAIA/AACoPwAAgD8AAKA/AACAP///bz8AAIA/AACAPwAAiD8AAIA/AACQPwAAiD8AAIg/AACAPwAAgD8AAIA/AACAPwAAkD8AAJA/AACQPwAAgD8AAJA/AACAPwAAoD8AAJA/AACgPwAAkD8AAJA/AACAPwAAoD8AAIA/AACoPwAAkD8AAKg/AACQPwAAoD8AAJA/AACIPwAAkD8AAJA/AACYPwAAkD8AAJg/AACQPwAAkD8AAJA/AACQPwAAoD8AAJg/AACgPwAAmD8AAKA/AACQPwAAoD8AAJA/AACoPw=="),
+"format": 34393296919,
+"index_count": 78,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUAAwAFAAYABwAIAAkABwAJAAoACwAMAA0ADgAPABAADgAQABEAEgATABQAEgAUABUAFgAXABgAFgAYABkAGgAbABwAGgAcAB0AHgAfACAAIQAiACMAIQAjACQAIQAkACUAJgAnACgAJgAoACkAKgArACwAKgAsAC0ALgAvADAAMQAyADMAMQAzADQANQA2ADcA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 56,
+"vertex_data": PackedByteArray("AADgQgAA8EIAANBCAAAAQwAA4EIAAABDAADQQgAAAEMAANBCAAAQQwAA4EIAABBDAADgQgAAAEMAANBCAAAQQwAA0EIAACBDAADgQgAAIEMAAOBCAAAQQwAA4EIAAChDAADgQgAAIEMAANBCAAAgQwAA4EIAAPBCAADgQgAAAEMAAABDAAAAQwAAAEMAAPBCAADgQgAAAEMAAOBCAAAQQwAAAEMAABBDAAAAQwAAAEMAAOBCAAAQQwAA4EIAACBDAAAAQwAAIEMAAABDAAAQQwAA4EIAACBDAADgQgAAKEMAAABDAAAoQwAAAEMAACBDAAAAQwAA8EIAAABDAAAAQwAACEMAAABDAAAQQwAACEMAAAhDAAAAQwAAAEMAAABDAAAAQwAAEEMAABBDAAAQQwAAAEMAABBDAAAAQwAAIEMAABBDAAAgQwAAEEMAABBDAAAAQwAAIEMAAABDAAAoQwAAEEMAAChDAAAQQwAAIEMAABBDAAAIQwAAEEMAABBDAAAYQwAAEEMAABhDAAAQQwAAEEMAABBDAAAQQwAAIEMAABhDAAAgQwAAGEMAACBDAAAQQwAAIEMAABBDAAAoQ///////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AID//////38AgP//////fwCA//////9/AIA=")
+}]
+
+[sub_resource type="Resource" id="Resource_qorho"]
+resource_local_to_scene = true
+script = ExtResource("1_lvhv1")
+texture = ExtResource("2_oleyj")
+corner_sampling = Dictionary[Vector2, float]({
+Vector2(96, 112): -1.0,
+Vector2(96, 128): -1.0,
+Vector2(96, 144): -1.0,
+Vector2(96, 160): -1.0,
+Vector2(96, 176): -1.0,
+Vector2(96, 192): -1.0,
+Vector2(112, 112): -1.0,
+Vector2(112, 128): 1.0,
+Vector2(112, 144): 1.0,
+Vector2(112, 160): 1.0,
+Vector2(112, 176): -1.0,
+Vector2(112, 192): -1.0,
+Vector2(128, 112): -1.0,
+Vector2(128, 128): 1.0,
+Vector2(128, 144): 1.0,
+Vector2(128, 160): 1.0,
+Vector2(128, 176): -1.0,
+Vector2(128, 192): -1.0,
+Vector2(144, 112): -1.0,
+Vector2(144, 128): -1.0,
+Vector2(144, 144): 1.0,
+Vector2(144, 160): 1.0,
+Vector2(144, 176): -1.0,
+Vector2(144, 192): -1.0,
+Vector2(160, 112): -1.0,
+Vector2(160, 128): -1.0,
+Vector2(160, 144): -1.0,
+Vector2(160, 160): -1.0,
+Vector2(160, 176): -1.0,
+Vector2(160, 192): -1.0,
+Vector2(176, 128): -1.0,
+Vector2(176, 144): -1.0,
+Vector2(176, 160): -1.0,
+Vector2(176, 176): -1.0,
+Vector2(176, 192): -1.0
+})
+convex_shape = SubResource("ConvexPolygonShape2D_hwe5q")
+mesh = SubResource("ArrayMesh_8s7ha")
+position_offset = Vector2(-138.66667, -149.33333)
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("3_h22s6")
+collision_meshes = Array[ExtResource("1_lvhv1")]([SubResource("Resource_qorho")])

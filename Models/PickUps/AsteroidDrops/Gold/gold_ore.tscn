@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dhhbvd0wd3m6j"]
+
+[ext_resource type="Script" uid="uid://bpjhoxxrpsdut" path="res://Models/PickUps/AsteroidDrops/Gold/gold_ore.gd" id="1_0vj25"]
+[ext_resource type="Resource" uid="uid://b5vbr1x5hsm3b" path="res://Models/PickUps/AsteroidDrops/Gold/gold_pickup.tres" id="3_rk5s7"]
+
+[node name="GoldOre" type="Node2D" unique_id=321518151]
+script = ExtResource("1_0vj25")
+collision_mesh_group = ExtResource("3_rk5s7")
+metadata/_custom_type_script = "uid://b0kyob6s28i46"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1657357921]
+unique_name_in_owner = true

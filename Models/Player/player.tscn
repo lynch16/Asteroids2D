@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://db45aifh0tfmp" path="res://Audio/SoundEffects/Sci-Fi Spaceship Thrusters 3.wav" id="14_8ik3y"]
 [ext_resource type="Script" uid="uid://ckluymmkmha10" path="res://Models/EntityModules/Movement/movement_controller.gd" id="16_r71yq"]
 [ext_resource type="Script" uid="uid://v4gqslu6ep4x" path="res://Models/EntityModules/Movement/input_controller.gd" id="17_833x1"]
+[ext_resource type="Script" uid="uid://clqjfdpkua2h" path="res://Models/Player/player_inventory.gd" id="18_833x1"]
 
 [sub_resource type="Resource" id="Resource_yvoqu"]
 script = ExtResource("3_wbkmi")
@@ -261,6 +262,10 @@ metadata/_custom_type_script = "uid://ckluymmkmha10"
 [node name="InputController" type="Node" parent="MovementController" unique_id=1091840238]
 script = ExtResource("17_833x1")
 metadata/_custom_type_script = "uid://v4gqslu6ep4x"
+
+[node name="PlayerInventory" type="Node" parent="." unique_id=506765440]
+script = ExtResource("18_833x1")
+metadata/_custom_type_script = "uid://clqjfdpkua2h"
 
 [connection signal="input_back" from="MovementController/InputController" to="MovementController" method="brake"]
 [connection signal="input_left" from="MovementController/InputController" to="MovementController" method="yaw_left"]
