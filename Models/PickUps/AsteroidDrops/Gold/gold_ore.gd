@@ -6,6 +6,7 @@ extends PickUp
 # Set to a collision layer that projectiles don't fuck with - will need to update hit and hurtboxes logic.
 # On asteroid death caused by player, spawn this pickup
 @export var collision_mesh_group: MS_CollisionMeshGroup;
+# TODO: This should be more generic for various types of ore
 @export var gold_value: int = 1;
 
 var deformable_mesh_2d: DeformableMesh2D;

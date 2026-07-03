@@ -8,6 +8,8 @@ class_name Asteroid extends SpawnableCharacter2D
 
 @onready var death_particles: GPUParticles2D = $DeathParticles2D;
 @onready var death_audio_player: AudioStreamPlayer2D = $DeathAudioStreamPlayer2D;
+@onready var asteroid_drop: AsteroidDrop = $AsteroidDrop;
+@onready var on_screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D;
 
 var mass := 10000;
 var damageable: Damageable;
@@ -28,7 +30,7 @@ func _enter_tree() -> void:
 		# Propagate stats so only manage at top level
 		deformable_hurtbox.combat_stats = combat_stats;
 		deformable_hurtbox.health_stats = health_stats;
-	
+
 func _ready() -> void:
 	add_to_group("enemy");
 	health_stats.resource_local_to_scene = true;
@@ -78,7 +80,8 @@ func _destroy() -> void:
 		
 	is_dying = true;
 
-	if (is_inside_tree()):
+	if (on_screen_notifier.is_on_screen()):
+		asteroid_drop.create_pick_up();
 		death_particles.emitting = true;
 		death_audio_player.playing = true;
 

@@ -12,6 +12,7 @@ func _ready() -> void:
 
 func equip() -> void:
 	player.player_inventory.add_to_inventory(self);
+	queue_free(); # TODO: Would this be considered consumable?
 
 func _on_body_entered(body: Node2D) -> void:
 	if (body is Player):
