@@ -8,6 +8,7 @@ var viewport_size: Vector2;
 @onready var debug_controls: Node = get_node("DebugHUD");
 @onready var score_value: Label = get_node("RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/Score_Value");
 @onready var health_value: Label = get_node("RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/Health_Value");
+@onready var gold_value: Label = get_node("RuntimeHUD/VBoxContainer/MarginContainer2/HBoxContainer/Gold_Value");
 @onready var level_announce: Label = get_node("RuntimeHUD/BoxContainer/LevelAnnounce");
 @onready var game_manager: GameManager = get_node("/root/GameManager");
 
@@ -21,6 +22,7 @@ func _ready() -> void:
 	
 	ScoreManager.score_updated.connect(_update_score_view);
 	SignalBus.player_health_updated.connect(_update_health_view);
+	SignalBus.player_gold_updated.connect(_update_gold_view);
 	game_manager.level_start.connect(_announce_level_start);
 	
 func _update_score_view(new_score: int) -> void:
@@ -28,6 +30,9 @@ func _update_score_view(new_score: int) -> void:
 	
 func _update_health_view(new_health: int) -> void:
 	health_value.text = str(new_health);
+
+func _update_gold_view(new_gold: int) -> void:
+	gold_value.text = str(new_gold);
 
 func _update_viewport_size() -> void:
 	viewport_size = get_viewport().get_visible_rect().size;
