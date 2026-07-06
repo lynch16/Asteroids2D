@@ -46,6 +46,7 @@ func _configure_debug_screen() -> void:
 func _announce_level_start(level_index: int) -> void:
 	level_announce.text = "Level " + str(level_index + 1);
 	level_announce.show();
+	level_announce.modulate.a = 1.0;
 	var tween := create_tween();
 	# Tweens the alpha channel to 0.0 over the specified duration
 	tween.tween_property(level_announce, "modulate:a", 0.0, level_announce_fade_duration)

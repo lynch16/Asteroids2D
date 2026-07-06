@@ -9,7 +9,7 @@
 script = ExtResource("1_7xif1")
 num_starting_rocks = 5
 rock_throw_interval = 3.0
-num_rocks_to_throw = 10
+player_spawn_in_quadrant = true
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_pmjd1")]
 unique_name_in_owner = true

@@ -30,4 +30,3 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 navigation_polygon = SubResource("NavigationPolygon_fk8qc")
 script = ExtResource("4_bcvyo")
-metadata/_custom_type_script = "uid://ce43prxb75d4c"
