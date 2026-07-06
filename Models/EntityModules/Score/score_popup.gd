@@ -24,8 +24,9 @@ func _enter_tree() -> void:
 	add_child(score_timer);
 
 func _ready() -> void:
-	score_timer.timeout.connect(Callable(self, "_queue_free"));
+	score_timer.timeout.connect(queue_free);
 	score_timer.start();
+
 func _process(delta: float) -> void:
 	score_label.global_position += score_movement_speed * delta;
 	if (score_timer.time_left <= score_display_length):

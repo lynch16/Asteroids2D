@@ -10,4 +10,11 @@ func _ready() -> void:
 	explosiveness = 1.0;
 	process_material = _process_material;
 
-	finished.connect(Callable(self, "_queue_free"));
+	finished.connect(_release_on_finish);
+	emitting = true;
+
+	get_tree().create_timer(lifetime).connect("timeout", _release_on_finish);
+
+
+func _release_on_finish() -> void:
+	queue_free();
