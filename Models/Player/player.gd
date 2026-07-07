@@ -10,9 +10,10 @@ extends CharacterBody2D
 @onready var thrust_sound: AudioStreamPlayer = get_node("ThrustSound");
 @onready var turn_sound: AudioStreamPlayer = get_node("TurnSound");
 @onready var movement_controller: MovementController = get_node("MovementController");
-@onready var player_inventory: PlayerInventory = get_node("PlayerInventory");
 
 var damageable: Damageable;
+var next_velocity: Vector2;
+var next_rotation: float;
 
 # TODO: Nothing listens to this
 signal player_died(player: Player);
@@ -37,16 +38,22 @@ func _ready() -> void:
 	movement_controller.movement_updated.connect(_update_movement);
 
 func _update_movement(p_velocity: Vector2, p_rotation: float) -> void:
+	next_rotation = p_rotation;
+	next_velocity = p_velocity
+
+func _physics_process(_delta: float) -> void:
 	var is_turning := false;
 	var is_accelerating := false;
 
-	velocity = p_velocity;
-
-	if (p_velocity > velocity):
+	if (!next_velocity.is_equal_approx(velocity)):
+		velocity = next_velocity;
 		is_accelerating = true;
 
-	if (p_rotation != rotation):
-		rotation = p_rotation;
+	var normalized_rotation := snappedf(fposmod(rotation, TAU), 0.001);
+	var normalized_next_rotation := snappedf(fposmod(next_rotation, TAU), 0.001);
+
+	if (!is_equal_approx(normalized_rotation, normalized_next_rotation)):
+		rotation = next_rotation;
 		is_turning = true;
 	
 	_handle_animation_and_sound(
@@ -54,7 +61,6 @@ func _update_movement(p_velocity: Vector2, p_rotation: float) -> void:
 		is_turning
 	);
 
-func _physics_process(_delta: float) -> void:
 	move_and_slide();
 
 func _handle_animation_and_sound(

@@ -29,7 +29,7 @@ func _physics_process(_delta: float) -> void:
 	if (turn_around_active):
 		_flip_rotation(_delta);
 
-	if (acceleration != Vector2.ZERO || ship_direction != moveable_character.rotation):
+	if (acceleration != Vector2.ZERO || !is_equal_approx(ship_direction, moveable_character.rotation)):
 		var tmp_vel := current_velocity + acceleration;
 		current_velocity = tmp_vel.limit_length(movement_stats.max_speed);
 
@@ -37,8 +37,7 @@ func _physics_process(_delta: float) -> void:
 
 		# Reset vars after emitting update to listeners
 		acceleration = Vector2.ZERO;
-		ship_direction = moveable_character.rotation;
-		
+
 func move_forward(delta: float) -> void:
 	# Apply acceleration to max speed in direction facing
 	acceleration = Vector2(movement_stats.acceleration, 0).rotated(ship_direction) * delta;
