@@ -21,7 +21,6 @@ unique_name_in_owner = true
 script = ExtResource("2_ksyjy")
 targeter = NodePath("../TargeterComponent")
 thrower = NodePath("../ThrowerComponent")
-draw_targeting = true
 
 [node name="TargeterComponent" type="Node2D" parent="." unique_id=409204612]
 unique_name_in_owner = true

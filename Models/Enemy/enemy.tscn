@@ -261,6 +261,7 @@ moveable_character = NodePath("..")
 
 [node name="VisionArea" parent="." unique_id=1974026706 instance=ExtResource("5_mb64x")]
 view_distance = 400
+debug = false
 
 [node name="BoundaryManager" type="Node2D" parent="." unique_id=410091724 node_paths=PackedStringArray("node")]
 script = ExtResource("13_eowg7")
