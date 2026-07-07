@@ -6,8 +6,8 @@ class_name Asteroid extends SpawnableCharacter2D
 @export var health_stats: HealthStats;
 @export var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
-@onready var death_particles: GPUParticles2D = $DeathParticles2D;
-@onready var death_audio_player: AudioStreamPlayer2D = $DeathAudioStreamPlayer2D;
+@onready var death_particles: GPUParticles2D = %DeathParticles2D;
+@onready var death_audio_player: AudioStreamPlayer2D = %DeathAudioStreamPlayer2D;
 @onready var on_screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D;
 
 var mass := 10000;

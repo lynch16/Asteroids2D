@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ch47mt7wbup31"]
+
+[ext_resource type="Material" uid="uid://clbg8ojd63j4i" path="res://Models/Asteroid/ParticleEffects/asteroid_particle_process_material.tres" id="1_h4kgu"]
+
+[node name="AsteroidDamageParticles" type="GPUParticles2D" unique_id=1269702419]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("1_h4kgu")

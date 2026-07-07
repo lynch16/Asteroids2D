@@ -19,10 +19,6 @@ func _enter_tree() -> void:
 	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
 	hurtbox.shape = collision_shape.shape;
 	hurtbox.health_stats = health_stats;
-	var health_bar: HealthBarDamageResult = %HealthBarDamageResult;
-	health_bar.health_stats = health_stats;
-	var death_damage_result: StopOnDeathDamageResult = %StopOnDeathDamageResult;
-	death_damage_result.health_stats = health_stats;
 
 func get_patrol_state() -> PatrolState:
 	return ($StateMachine/PatrolState as PatrolState);
