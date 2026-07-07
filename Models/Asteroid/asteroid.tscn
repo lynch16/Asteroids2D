@@ -16,8 +16,6 @@
 [ext_resource type="Script" uid="uid://wuycf5ewttof" path="res://Models/Asteroid/particles_damage_result.gd" id="15_ssro7"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="16_p0vjf"]
 [ext_resource type="AudioStream" uid="uid://cop55ogp7ifxq" path="res://Audio/SoundEffects/Sci-Fi Explosion 1.wav" id="16_ssro7"]
-[ext_resource type="Script" uid="uid://u1j3nbrhf4qq" path="res://Models/Asteroid/asteroid_drop.gd" id="17_2ffjv"]
-[ext_resource type="PackedScene" uid="uid://dhhbvd0wd3m6j" path="res://Models/PickUps/AsteroidDrops/Gold/gold_ore.tscn" id="18_i4x4e"]
 
 [sub_resource type="Resource" id="Resource_4ujrd"]
 script = ExtResource("3_jywkw")
@@ -112,10 +110,5 @@ process_material = ExtResource("8_ssro7")
 
 [node name="DeathAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=384332755]
 stream = ExtResource("16_ssro7")
-
-[node name="AsteroidDrop" type="Node2D" parent="." unique_id=971241758]
-script = ExtResource("17_2ffjv")
-pick_up_scene = ExtResource("18_i4x4e")
-metadata/_custom_type_script = "uid://u1j3nbrhf4qq"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1433328987]

@@ -8,7 +8,6 @@ class_name Asteroid extends SpawnableCharacter2D
 
 @onready var death_particles: GPUParticles2D = $DeathParticles2D;
 @onready var death_audio_player: AudioStreamPlayer2D = $DeathAudioStreamPlayer2D;
-@onready var asteroid_drop: AsteroidDrop = $AsteroidDrop;
 @onready var on_screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D;
 
 var mass := 10000;
@@ -81,7 +80,6 @@ func _destroy() -> void:
 	is_dying = true;
 
 	if (on_screen_notifier.is_on_screen()):
-		# asteroid_drop.create_pick_up(); # TODO: Disable drop on kill
 		death_particles.emitting = true;
 		death_audio_player.playing = true;
 
