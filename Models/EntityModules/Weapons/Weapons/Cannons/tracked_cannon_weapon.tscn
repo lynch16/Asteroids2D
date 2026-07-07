@@ -12,6 +12,7 @@ script = ExtResource("1_oyvr3")
 thrower = NodePath("ThrowerComponent")
 variance = 0.262
 combat_stats = ExtResource("2_ii2uq")
+use_rate = 1.0
 targeter = NodePath("TargeterComponent")
 metadata/_custom_type_script = "uid://cuqmt45sefh8k"
 
@@ -27,11 +28,11 @@ unique_name_in_owner = true
 script = ExtResource("3_vcphr")
 metadata/_custom_type_script = "uid://d26be3vwvphxq"
 
-[node name="ThrowerComponent" type="Node2D" parent="." unique_id=449700891 node_paths=PackedStringArray("intercepter", "targeter")]
+[node name="ThrowerComponent" type="Node2D" parent="." unique_id=449700891 node_paths=PackedStringArray("interceptor", "targeter")]
 unique_name_in_owner = true
 script = ExtResource("4_xbwn4")
 throw_speed = 1000.0
 throwable_scene = ExtResource("5_71ys3")
-intercepter = NodePath("../InterceptorComponent")
+interceptor = NodePath("../InterceptorComponent")
 targeter = NodePath("../TargeterComponent")
 metadata/_custom_type_script = "uid://ck3ih30jqm8wu"

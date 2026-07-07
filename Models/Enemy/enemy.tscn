@@ -24,22 +24,19 @@
 [ext_resource type="Script" uid="uid://cf2a6ah5g3aox" path="res://Models/EntityModules/Movement/movement_stats.gd" id="16_l403r"]
 
 [sub_resource type="Resource" id="Resource_l403r"]
+resource_local_to_scene = true
 script = ExtResource("2_s2vdc")
 initial_health = 1.0
 faction = 1
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [sub_resource type="Resource" id="Resource_eowg7"]
+resource_local_to_scene = true
 script = ExtResource("2_eowg7")
 faction = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eowg7"]
 size = Vector2(14.5, 18.5)
-
-[sub_resource type="Resource" id="Resource_lcr5g"]
-script = ExtResource("2_s2vdc")
-faction = 1
-metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l403r"]
 size = Vector2(15, 19)
@@ -150,6 +147,7 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_u1nat"]
 script = ExtResource("16_l403r")
+max_speed = 400.0
 acceleration = 1000000.0
 rotation_speed = 10.0
 metadata/_custom_type_script = "uid://cf2a6ah5g3aox"
@@ -167,7 +165,6 @@ shape = SubResource("RectangleShape2D_eowg7")
 [node name="Hurtbox2D" type="Area2D" parent="." unique_id=1447978395 node_paths=PackedStringArray("owner_node")]
 unique_name_in_owner = true
 script = ExtResource("2_p7ovo")
-health_stats = SubResource("Resource_lcr5g")
 owner_node = NodePath("..")
 metadata/_custom_type_script = "uid://cuecudo47i27o"
 
@@ -189,7 +186,6 @@ unique_name_in_owner = true
 [node name="StopOnDeathDamageResult" type="Node" parent="Hurtbox2D" unique_id=319848720]
 unique_name_in_owner = true
 script = ExtResource("8_hifkv")
-metadata/_custom_type_script = "uid://dirc5lq54ahsv"
 
 [node name="CharacterWeapons" type="Node2D" parent="." unique_id=824293140 node_paths=PackedStringArray("character")]
 position = Vector2(20, 0)
@@ -264,6 +260,7 @@ movement_stats = SubResource("Resource_u1nat")
 moveable_character = NodePath("..")
 
 [node name="VisionArea" parent="." unique_id=1974026706 instance=ExtResource("5_mb64x")]
+view_distance = 400
 
 [node name="BoundaryManager" type="Node2D" parent="." unique_id=410091724 node_paths=PackedStringArray("node")]
 script = ExtResource("13_eowg7")

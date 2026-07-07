@@ -5,8 +5,9 @@
 [ext_resource type="Resource" uid="uid://bsdyf8bqvq3pq" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_combat_stats.tres" id="2_86tsg"]
 [ext_resource type="Script" uid="uid://ck3ih30jqm8wu" path="res://Models/EntityModules/Weapons/Core/Components/thrower.gd" id="4_30vll"]
 
-[node name="CannonWeapon" type="Node2D" unique_id=1570876709]
+[node name="CannonWeapon" type="Node2D" unique_id=1570876709 node_paths=PackedStringArray("thrower")]
 script = ExtResource("1_lgcxq")
+thrower = NodePath("ThrowerComponent")
 variance = 0.0
 combat_stats = ExtResource("2_86tsg")
 use_rate = 0.1
