@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cmladbrdjfan2" path="res://Models/EntityModules/Weapons/Core/Components/interceptor.gd" id="2_ksyjy"]
 [ext_resource type="Script" uid="uid://d26be3vwvphxq" path="res://Models/EntityModules/Weapons/Core/Components/targeter.gd" id="3_vcphr"]
 [ext_resource type="Script" uid="uid://ck3ih30jqm8wu" path="res://Models/EntityModules/Weapons/Core/Components/thrower.gd" id="4_xbwn4"]
-[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="5_71ys3"]
+[ext_resource type="PackedScene" uid="uid://pdq3td1anqef" path="res://Models/EntityModules/Weapons/Projectiles/enemy_bullet.tscn" id="6_ii2uq"]
 
 [node name="TrackedCannonWeapon" type="Node2D" unique_id=1174059964 node_paths=PackedStringArray("thrower", "targeter")]
 script = ExtResource("1_oyvr3")
@@ -32,7 +32,7 @@ metadata/_custom_type_script = "uid://d26be3vwvphxq"
 unique_name_in_owner = true
 script = ExtResource("4_xbwn4")
 throw_speed = 1000.0
-throwable_scene = ExtResource("5_71ys3")
+throwable_scene = ExtResource("6_ii2uq")
 interceptor = NodePath("../InterceptorComponent")
 targeter = NodePath("../TargeterComponent")
 metadata/_custom_type_script = "uid://ck3ih30jqm8wu"
