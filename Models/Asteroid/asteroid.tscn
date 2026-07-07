@@ -64,7 +64,7 @@ enable_player_gravity = true
 shape = SubResource("CircleShape2D_kufyc")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1627727781]
-radius = 16.0
+radius = 64.0
 affect_navigation_mesh = true
 
 [node name="BoundaryManager" type="Node2D" parent="." unique_id=1203824625 node_paths=PackedStringArray("node")]
