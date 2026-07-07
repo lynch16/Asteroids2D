@@ -1,35 +1,28 @@
 class_name Level
 extends Node2D
 
-@export var is_active: bool = false;
-@export_group("Rock ThrowerComponent Settings")
+@export var level_settings: LevelResource;
+
+var is_active: bool = false;
 ## How many rocks to seed the level with
-@export var num_starting_rocks := 1; 
+var num_starting_rocks := 1; 
 ## How quickly to throw rocks during the game
-@export var rock_throw_interval := 0.0; 
+var rock_throw_interval := 0.0; 
 ## How many rocks to throw during the game
-@export var num_rocks_to_throw := 5; 
+var num_rocks_to_throw := 5; 
 ## How long to wait after the level starts to begin throwing rocks
-@export var rock_thrower_start_delay := 10.0; 
+var rock_thrower_start_delay := 10.0; 
 
-@export_group("Player Spawn Settings")
-## Wether to use real positioning or auto-positioning for Player start position
-@export var player_spawn_in_quadrant := false; 
-## Where to spawn. Only used if player_spawn_in_quadrant is true
-@export_range(0, 3) var spawn_in_quadrant := 0; 
-## Buffer in pixels from the edge on which to spawn a character
-@export var spawn_quadrant_buffer := 200;
-
-@export_group("Enemy Settings")
-@export var enemey_scene: PackedScene;
+var enemey_scene: PackedScene;
 ## How many enemies to spawn
-@export var num_enemies := 0;
+var num_enemies := 0;
 ## How long to wait before spawning enemies
-@export var enemies_start_delay := 10.0;
+var enemies_start_delay := 10.0;
 ## Hunters vs shoot at random place
-@export var enemy_hunters := false;
+var enemy_hunters := false;
 
-@onready var player: Player = %Player;
+
+@onready var player_spawn: PlayerSpawn = %PlayerSpawn;
 @onready var game_area: GameArea = %GameArea;
 @onready var rock_thrower: RockThrower = %RockThrower;
 
@@ -42,11 +35,29 @@ signal win_condition_met;
 signal lose_condition_met; 
 
 func _ready() -> void:
-	enter();
+	if (!level_settings):
+		printerr("Level settings missing");
+	
+	num_starting_rocks = level_settings.num_starting_rocks;
+	rock_throw_interval = level_settings.rock_throw_interval;
+	num_rocks_to_throw = level_settings.num_rocks_to_throw;
+	rock_thrower_start_delay = level_settings.rock_thrower_start_delay;
+	enemey_scene = level_settings.enemey_scene;
+	num_enemies = level_settings.num_enemies;
+	enemies_start_delay = level_settings.enemies_start_delay;
+	enemy_hunters = level_settings.enemy_hunters;
+
 	level_loaded.emit();
+	rock_thrower.on_throw_rock.connect(_on_rock_thrown);
+	player_spawn.player_spawned.connect(start_enemies);
+	tree_exiting.connect(_on_tree_exiting);
+
+	enter();
 
 func enter() -> void:
-	rock_thrower.on_throw_rock.connect(_on_rock_thrown);
+	player_spawn.spawn_player(_on_player_die);
+
+func start_enemies() -> void:
 	for i in num_starting_rocks:
 		rock_thrower.throw_rock();
 
@@ -57,14 +68,6 @@ func enter() -> void:
 		start_rocks_timer.autostart = true;
 		start_rocks_timer.timeout.connect(_on_start_rocks_timer_timeout);
 		add_child(start_rocks_timer);
-
-	tree_exiting.connect(_on_tree_exiting);
-
-	if (player_spawn_in_quadrant):
-		player.global_position = _get_screen_quadrant_position(spawn_in_quadrant);
-		player.global_rotation = _get_screen_quadrant_rotation(spawn_in_quadrant);
-
-	player.player_died.connect(_on_player_die);
 
 	if (num_enemies > 0):
 		start_enemies_timer = Timer.new();
@@ -117,63 +120,6 @@ func _check_win_condition() -> void:
 		EnemyManager.get_enemy_count() <= 0
 	):
 		win_condition_met.emit();
-
-func _get_screen_quadrant_position(quadrant: int) -> Vector2:
-	var x_pos_min := 0.0;
-	var x_pos_max := 0.0;
-	var y_pos_min := 0.0;
-	var y_pos_max := 0.0;
-
-	match(quadrant):
-		# Top left
-		0:
-			x_pos_min = 0.0;
-			x_pos_max = get_viewport_rect().size.x / 2.0;
-			y_pos_min = 0.0;
-			y_pos_max = get_viewport_rect().size.y / 2.0;
-		# Top right
-		1:
-			x_pos_min = get_viewport_rect().size.x / 2.0;
-			x_pos_max = get_viewport_rect().size.x;
-			y_pos_min = 0.0;
-			y_pos_max = get_viewport_rect().size.y / 2.0;
-		# Bottom right
-		2:
-			x_pos_min = get_viewport_rect().size.x / 2.0;
-			x_pos_max = get_viewport_rect().size.x;
-			y_pos_min = get_viewport_rect().size.y / 2.0;
-			y_pos_max = get_viewport_rect().size.y;
-		# Bottom left
-		3:
-			x_pos_min = 0.0;
-			x_pos_max = get_viewport_rect().size.x / 2.0;
-			y_pos_min = get_viewport_rect().size.y / 2.0;
-			y_pos_max = get_viewport_rect().size.y;
-
-	x_pos_min = clampf(x_pos_min, spawn_quadrant_buffer, get_viewport_rect().size.x - spawn_quadrant_buffer);
-	x_pos_max = clampf(x_pos_max, spawn_quadrant_buffer, get_viewport_rect().size.x - spawn_quadrant_buffer);
-	y_pos_min = clampf(y_pos_min, spawn_quadrant_buffer, get_viewport_rect().size.y - spawn_quadrant_buffer);
-	y_pos_max = clampf(y_pos_max, spawn_quadrant_buffer, get_viewport_rect().size.y - spawn_quadrant_buffer);
-
-	return Vector2(randf_range(x_pos_min, x_pos_max), randf_range(y_pos_min, y_pos_max));
-
-## Get random rotation that faces internally dependending on what quadrant is provided
-func _get_screen_quadrant_rotation(quadrant: int) -> float:
-	match(quadrant):
-		# Top left
-		0:
-			return randf_range(2.5 * PI, 2.0 * PI);
-		# Top right
-		1:
-			return randf_range(0.5 * PI, 1.0*PI); 
-		# Bottom right
-		2:
-			return randf_range(1.0 * PI, 1.5 * PI);	
-		# Bottom left
-		3:
-			return randf_range(1.5 * PI, 2.0 * PI);
-
-	return 0.0
 
 func _on_rock_thrown() -> void:
 	current_rocks_thrown += 1;

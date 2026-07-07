@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelResource" format=3 uid="uid://c35p735bxy766"]
+
+[ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="1_2hlfr"]
+[ext_resource type="Script" uid="uid://bo5uwcqvj1ehh" path="res://Levels/Core/level_resource.gd" id="1_bou01"]
+
+[resource]
+script = ExtResource("1_bou01")
+num_starting_rocks = 5
+rock_throw_interval = 3.0
+enemey_scene = ExtResource("1_2hlfr")
+metadata/_custom_type_script = "uid://bo5uwcqvj1ehh"
