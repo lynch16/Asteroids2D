@@ -77,7 +77,8 @@ func start_enemies() -> void:
 		start_enemies_timer.timeout.connect(_on_start_enemies_timer_timeout);
 		add_child(start_enemies_timer);
 
-func _on_player_die(_player: Player) -> void:
+func _on_player_die(player: Player) -> void:
+	player.queue_free();
 	lose_condition_met.emit();
 
 func _process(_delta: float) -> void:

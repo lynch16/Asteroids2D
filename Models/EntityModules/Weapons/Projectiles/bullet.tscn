@@ -7,7 +7,8 @@
 [ext_resource type="Script" uid="uid://bvo0xe0yh18n3" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/circle_mesh_deformation_shape.gd" id="3_6qf6n"]
 [ext_resource type="Texture2D" uid="uid://brbgoxmxvxkmv" path="res://sprites/3P/Bullets-0001.png" id="5_m6ula"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2brgn"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8d6v"]
+size = Vector2(20, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d8d6v"]
 
@@ -34,7 +35,7 @@ metadata/_custom_type_script = "uid://wmd6w6j2858o"
 [node name="Bullet" type="Node2D" unique_id=1149596407 node_paths=PackedStringArray("throwable") groups=["player_weapon"]]
 script = ExtResource("1_12rmc")
 throwable = NodePath("ThrowableComponent")
-projectile_shape = SubResource("CapsuleShape2D_2brgn")
+projectile_shape = SubResource("RectangleShape2D_d8d6v")
 mesh_deformation_shapes = Array[ExtResource("2_d8d6v")]([SubResource("Resource_ry1h5"), SubResource("Resource_llfw1")])
 combat_stats = SubResource("Resource_mo7ir")
 

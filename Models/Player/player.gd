@@ -82,7 +82,6 @@ func _handle_animation_and_sound(
 		turn_sound.stop();
 
 func _handle_player_damage(_old_health: float, new_health: float) -> void:
-	print("PLAYER HIT: ", new_health)
 	SignalBus._on_player_health_updated(int(new_health));
 	
 func _die() -> void:
