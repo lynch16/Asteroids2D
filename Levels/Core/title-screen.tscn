@@ -1,0 +1,273 @@
+[gd_scene format=3 uid="uid://bjypv5hh6ewu2"]
+
+[ext_resource type="Script" uid="uid://53fnq33aw1pk" path="res://Levels/Core/level.gd" id="1_nrpgq"]
+[ext_resource type="Resource" uid="uid://xpaviqs02jeu" path="res://Levels/AsteroidLevels/level_5.tres" id="2_sdfpu"]
+[ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="3_nl4i8"]
+[ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://Levels/game_area.gd" id="4_dfi0k"]
+[ext_resource type="PackedScene" uid="uid://423u2ig3bkp0" path="res://Models/Player/player_spawn.tscn" id="5_h46sh"]
+[ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="6_0a58r"]
+[ext_resource type="Resource" uid="uid://b6sn8ngf82lr8" path="res://TileMap/MarchingSquares/exports/title_R.tres" id="7_o3rfj"]
+[ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="8_2jkej"]
+[ext_resource type="Resource" uid="uid://btrw7kr385qe1" path="res://TileMap/MarchingSquares/exports/title_O3.tres" id="9_05xmr"]
+[ext_resource type="Resource" uid="uid://bib3mn8hka4j8" path="res://TileMap/MarchingSquares/exports/title_G.tres" id="10_vxkmh"]
+[ext_resource type="Resource" uid="uid://ceedjpmi0wiw4" path="res://TileMap/MarchingSquares/exports/title_U.tres" id="11_d6gsy"]
+[ext_resource type="Resource" uid="uid://bfr3tfv1o0hrk" path="res://TileMap/MarchingSquares/exports/title_E.tres" id="12_gmse2"]
+[ext_resource type="Resource" uid="uid://dpj5is8nejuiv" path="res://TileMap/MarchingSquares/exports/title_A.tres" id="13_pmdxq"]
+[ext_resource type="Resource" uid="uid://ihljkuqb67rb" path="res://TileMap/MarchingSquares/exports/title_S.tres" id="14_cqgec"]
+[ext_resource type="Resource" uid="uid://d2u24q7phdi4o" path="res://TileMap/MarchingSquares/exports/title_T.tres" id="15_g4tl0"]
+[ext_resource type="Resource" uid="uid://dn6685apci7im" path="res://TileMap/MarchingSquares/exports/title_I.tres" id="16_nvrtj"]
+[ext_resource type="Resource" uid="uid://dpdjr3a7y6d4j" path="res://TileMap/MarchingSquares/exports/title_D.tres" id="17_x4kmr"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_fk8qc"]
+vertices = PackedVector2Array(2152.0313, -192.02344, 2156.961, 1332.0234, -258.9922, 1336.9688, -258, -197.96875)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-268, -208, 2162, -202, 2167, 1342, -269, 1347)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iehl1"]
+size = Vector2(120, 150)
+
+[sub_resource type="Resource" id="Resource_s4c2f"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_y6knj"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_iehl1"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_3y3ny"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_fnkl8"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_rg4yx"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_3hje8"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_gh5xb"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_ajp1b"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_w5i8b"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_macjo"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_wfc3o"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_dapve"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[sub_resource type="Resource" id="Resource_uax11"]
+resource_local_to_scene = true
+script = ExtResource("8_2jkej")
+initial_health = 400.0
+faction = 2
+metadata/_custom_type_script = "uid://d1adag40dhb61"
+
+[node name="Level" type="Node2D" unique_id=350803456]
+script = ExtResource("1_nrpgq")
+level_settings = ExtResource("2_sdfpu")
+
+[node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("3_nl4i8")]
+unique_name_in_owner = true
+
+[node name="GameArea" type="NavigationRegion2D" parent="." unique_id=1152365417]
+unique_name_in_owner = true
+navigation_polygon = SubResource("NavigationPolygon_fk8qc")
+script = ExtResource("4_dfi0k")
+
+[node name="PlayerSpawn" parent="." unique_id=90593702 instance=ExtResource("5_h46sh")]
+unique_name_in_owner = true
+position = Vector2(473, 570)
+
+[node name="Node" type="Node" parent="." unique_id=1281734846]
+
+[node name="R" type="CollisionShape2D" parent="Node" unique_id=2053337720]
+position = Vector2(362, 367)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node/R" unique_id=328524540 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("7_o3rfj")
+health_stats = SubResource("Resource_s4c2f")
+
+[node name="O" type="CollisionShape2D" parent="Node" unique_id=1828375990]
+position = Vector2(488, 360)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node/O" unique_id=2080275938 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("9_05xmr")
+health_stats = SubResource("Resource_y6knj")
+
+[node name="G" type="CollisionShape2D" parent="Node" unique_id=1024392819]
+position = Vector2(617, 365)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node/G" unique_id=403847318 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("10_vxkmh")
+health_stats = SubResource("Resource_iehl1")
+
+[node name="U" type="CollisionShape2D" parent="Node" unique_id=160068995]
+position = Vector2(728, 367)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node/U" unique_id=1449146785 instance=ExtResource("6_0a58r")]
+position = Vector2(7, -5)
+collision_mesh_group = ExtResource("11_d6gsy")
+health_stats = SubResource("Resource_3y3ny")
+
+[node name="E" type="CollisionShape2D" parent="Node" unique_id=1142048150]
+position = Vector2(863, 367)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node/E" unique_id=625910990 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("12_gmse2")
+health_stats = SubResource("Resource_fnkl8")
+
+[node name="Node2" type="Node" parent="." unique_id=1477316608]
+
+[node name="A" type="CollisionShape2D" parent="Node2" unique_id=1608626306]
+position = Vector2(488, 552)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node2/A" unique_id=1352790788 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("13_pmdxq")
+health_stats = SubResource("Resource_rg4yx")
+
+[node name="S" type="CollisionShape2D" parent="Node2" unique_id=603336680]
+position = Vector2(611, 534)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node2/S" unique_id=276505509 instance=ExtResource("6_0a58r")]
+position = Vector2(0, 1)
+collision_mesh_group = ExtResource("14_cqgec")
+health_stats = SubResource("Resource_3hje8")
+
+[node name="T" type="CollisionShape2D" parent="Node2" unique_id=994204098]
+position = Vector2(724, 525)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node2/T" unique_id=1078606356 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("15_g4tl0")
+health_stats = SubResource("Resource_gh5xb")
+
+[node name="E" type="CollisionShape2D" parent="Node2" unique_id=1889455133]
+position = Vector2(848, 552)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node2/E" unique_id=1220128983 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("12_gmse2")
+health_stats = SubResource("Resource_ajp1b")
+
+[node name="R" type="CollisionShape2D" parent="Node2" unique_id=281176681]
+position = Vector2(968, 552)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node2/R" unique_id=854005038 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("7_o3rfj")
+health_stats = SubResource("Resource_w5i8b")
+
+[node name="O" type="CollisionShape2D" parent="Node2" unique_id=1167639424]
+position = Vector2(1098, 545)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node2/O" unique_id=191314344 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("9_05xmr")
+health_stats = SubResource("Resource_macjo")
+
+[node name="I" type="CollisionShape2D" parent="Node2" unique_id=218550786]
+position = Vector2(1185, 557)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node2/I" unique_id=1564619993 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("16_nvrtj")
+health_stats = SubResource("Resource_wfc3o")
+
+[node name="D" type="CollisionShape2D" parent="Node2" unique_id=2026019724]
+position = Vector2(1280, 547)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node2/D" unique_id=1829127472 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("17_x4kmr")
+health_stats = SubResource("Resource_dapve")
+
+[node name="S2" type="CollisionShape2D" parent="Node2" unique_id=1697245248]
+position = Vector2(1409, 552)
+shape = SubResource("RectangleShape2D_iehl1")
+disabled = true
+
+[node name="Asteroid" parent="Node2/S2" unique_id=1093990205 instance=ExtResource("6_0a58r")]
+collision_mesh_group = ExtResource("14_cqgec")
+health_stats = SubResource("Resource_uax11")
