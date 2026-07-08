@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cqgpn5x346o3l" path="res://TileMap/Textures/Ground (12).png" id="8_rhy7w"]
 [ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="9_ul478"]
 [ext_resource type="Texture2D" uid="uid://cbyjad0k8a2hi" path="res://TileMap/Textures/Ground (95)_128x128.png" id="11_1hiew"]
+[ext_resource type="PackedScene" uid="uid://evepknlqgvo6" path="res://sprites/backgrounds/space_background.tscn" id="12_rhy7w"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fk8qc"]
 vertices = PackedVector2Array(2152.0313, -192.02344, 2156.961, 1332.0234, -258.9922, 1336.9688, -258, -197.96875)
@@ -3527,9 +3528,10 @@ script = ExtResource("4_dfi0k")
 
 [node name="PlayerSpawn" parent="." unique_id=90593702 instance=ExtResource("5_h46sh")]
 unique_name_in_owner = true
-position = Vector2(473, 570)
+position = Vector2(256, 560)
 
-[node name="Node" type="Node" parent="." unique_id=1281734846]
+[node name="Node" type="Node2D" parent="." unique_id=1316491208]
+position = Vector2(0, -161)
 
 [node name="R" type="CollisionShape2D" parent="Node" unique_id=2053337720]
 position = Vector2(362, 367)
@@ -3577,7 +3579,8 @@ disabled = true
 collision_mesh_group = SubResource("Resource_nl4i8")
 health_stats = SubResource("Resource_dfi0k")
 
-[node name="Node2" type="Node" parent="." unique_id=1477316608]
+[node name="Node2" type="Node2D" parent="." unique_id=698420488]
+position = Vector2(192, -120)
 
 [node name="A" type="CollisionShape2D" parent="Node2" unique_id=1608626306]
 position = Vector2(488, 552)
@@ -3660,3 +3663,6 @@ disabled = true
 [node name="Asteroid" parent="Node2/S2" unique_id=1093990205 instance=ExtResource("6_0a58r")]
 collision_mesh_group = SubResource("Resource_a3rje")
 health_stats = SubResource("Resource_dqoht")
+
+[node name="SpaceBackground" parent="." unique_id=1045910225 instance=ExtResource("12_rhy7w")]
+z_index = -1

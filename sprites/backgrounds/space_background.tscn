@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://evepknlqgvo6"]
+
+[ext_resource type="Texture2D" uid="uid://4ppcqdtc7ud4" path="res://sprites/backgrounds/Background_Space-0001.png" id="1_jfkf6"]
+[ext_resource type="Texture2D" uid="uid://d378gd8n751e2" path="res://sprites/backgrounds/Background_Nebula-0001.png" id="2_kvdrh"]
+[ext_resource type="Texture2D" uid="uid://bycni4opecyxp" path="res://sprites/backgrounds/Background_Nebula-0002.png" id="3_v1nqp"]
+[ext_resource type="Texture2D" uid="uid://doplsd1o4rtt6" path="res://sprites/backgrounds/Background_SmallStars-0001.png" id="5_rxof2"]
+
+[node name="SpaceBackground" type="Node2D" unique_id=1045910225]
+modulate = Color(0.5529556, 0.55295557, 0.55295557, 1)
+
+[node name="SpaceParallax2D" type="Parallax2D" parent="." unique_id=800418724]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpaceParallax2D" unique_id=1807894370]
+position = Vector2(960, 450)
+scale = Vector2(6, 6)
+texture = ExtResource("1_jfkf6")
+
+[node name="GasParallax2D" type="Parallax2D" parent="." unique_id=1484130126]
+
+[node name="Sprite2D" type="Sprite2D" parent="GasParallax2D" unique_id=1109559111]
+position = Vector2(960, 450)
+scale = Vector2(6, 6)
+texture = ExtResource("2_kvdrh")
+
+[node name="Gas2Parallax2D" type="Parallax2D" parent="." unique_id=1194976595]
+
+[node name="Sprite2D" type="Sprite2D" parent="Gas2Parallax2D" unique_id=1665607031]
+position = Vector2(960, 450)
+scale = Vector2(6, 6)
+texture = ExtResource("3_v1nqp")
+
+[node name="SMStarsParallax2D" type="Parallax2D" parent="." unique_id=1677751295]
+
+[node name="Sprite2D" type="Sprite2D" parent="SMStarsParallax2D" unique_id=1957336781]
+position = Vector2(960, 450)
+scale = Vector2(6, 6)
+texture = ExtResource("5_rxof2")
