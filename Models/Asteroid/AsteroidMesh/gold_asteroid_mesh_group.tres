@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="MS_CollisionMeshGroup" format=4 uid="uid://dgwibnjneqbdr"]
 
-[ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh.gd" id="1_u5jqd"]
-[ext_resource type="Texture2D" uid="uid://cbyjad0k8a2hi" path="res://TileMap/Textures/Ground (95)_128x128.png" id="2_8f6hv"]
-[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="3_r7h8s"]
+[ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh.gd" id="1_1jc64"]
+[ext_resource type="Texture2D" uid="uid://cbyjad0k8a2hi" path="res://TileMap/Textures/Ground (95)_128x128.png" id="2_pc60x"]
+[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="3_g4vo0"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_e4bn2"]
 points = PackedVector2Array(224, 144, 240, 144, 240, 208, 272, 224, 272, 240, 352, 176, 368, 176, 368, 128, 304, 96, 304, 80, 224, 80)
@@ -23,8 +23,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_xgs3a"]
 resource_local_to_scene = true
-script = ExtResource("1_u5jqd")
-texture = ExtResource("2_8f6hv")
+script = ExtResource("1_1jc64")
+texture = ExtResource("2_pc60x")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(208, 64): -1.0,
 Vector2(208, 80): -1.0,
@@ -35,7 +35,7 @@ Vector2(208, 144): -0.5200000000000019,
 Vector2(208, 160): -0.6800000000000029,
 Vector2(224, 64): -0.9733333333333332,
 Vector2(224, 80): 0.5209867272727278,
-Vector2(224, 96): 0.17333333333333079,
+Vector2(224, 96): 0.1733333333333308,
 Vector2(224, 112): 0.27999999999999725,
 Vector2(224, 128): 0.14666666666666417,
 Vector2(224, 144): -0.1200000000000025,
@@ -56,7 +56,7 @@ Vector2(240, 192): 0.27999999999999725,
 Vector2(240, 208): -0.22666666666666896,
 Vector2(240, 224): -0.8394240606060608,
 Vector2(256, 64): -0.3866666666666637,
-Vector2(256, 80): 0.17393939393939623,
+Vector2(256, 80): 0.17393939393939625,
 Vector2(256, 96): 1.0,
 Vector2(256, 112): 1.0,
 Vector2(256, 128): 1.0,
@@ -65,7 +65,7 @@ Vector2(256, 160): 1.0,
 Vector2(256, 176): 1.0,
 Vector2(256, 192): 1.0,
 Vector2(256, 208): 0.7866666666666653,
-Vector2(256, 224): -0.11942406060605915,
+Vector2(256, 224): -0.11942406060605916,
 Vector2(256, 240): -1.0,
 Vector2(256, 256): -1.0,
 Vector2(272, 64): -0.3866666666666637,
@@ -95,21 +95,21 @@ Vector2(288, 224): -0.4666666666666685,
 Vector2(288, 240): -1.0,
 Vector2(288, 256): -0.6000000000000024,
 Vector2(304, 64): -0.43999999999999695,
-Vector2(304, 80): -0.013333333333330852,
+Vector2(304, 80): -0.01333333333333085,
 Vector2(304, 96): 0.3066666666666688,
 Vector2(304, 112): 0.5200000000000019,
 Vector2(304, 128): 1.0,
 Vector2(304, 144): 1.0,
 Vector2(304, 160): 1.0,
 Vector2(304, 176): 1.0,
-Vector2(304, 192): 0.9466666666666663,
+Vector2(304, 192): 0.9466666666666664,
 Vector2(304, 208): -0.6000000000000024,
-Vector2(304, 224): -0.9200000000000045,
+Vector2(304, 224): -0.9200000000000044,
 Vector2(304, 240): -0.9733333333333382,
 Vector2(320, 64): -0.5999999999999974,
 Vector2(320, 80): -0.43999999999999695,
-Vector2(320, 96): -0.039999999999997524,
-Vector2(320, 112): 0.20000000000000234,
+Vector2(320, 96): -0.03999999999999752,
+Vector2(320, 112): 0.20000000000000231,
 Vector2(320, 128): 1.0,
 Vector2(320, 144): 1.0,
 Vector2(320, 160): 1.0,
@@ -117,7 +117,7 @@ Vector2(320, 176): 1.0,
 Vector2(320, 192): 0.5733333333333306,
 Vector2(320, 208): -0.1466666666666691,
 Vector2(320, 224): -0.8933333333333376,
-Vector2(336, 96): -0.22666666666666402,
+Vector2(336, 96): -0.226666666666664,
 Vector2(336, 112): -0.1999999999999974,
 Vector2(336, 128): 0.2800000000000022,
 Vector2(336, 144): 1.0,
@@ -127,7 +127,7 @@ Vector2(336, 192): -0.5200000000000019,
 Vector2(336, 208): -0.2533333333333356,
 Vector2(352, 96): -0.6799999999999979,
 Vector2(352, 112): -0.1999999999999974,
-Vector2(352, 128): 0.013333333333335817,
+Vector2(352, 128): 0.01333333333333581,
 Vector2(352, 144): 0.38666666666666866,
 Vector2(352, 160): 0.3333333333333305,
 Vector2(352, 176): -0.3066666666666688,
@@ -138,8 +138,8 @@ Vector2(368, 144): -0.8666666666666658,
 Vector2(368, 160): -0.6266666666666643,
 Vector2(368, 176): -0.5733333333333356,
 Vector2(368, 192): -1.0,
-Vector2(384, 112): -0.9466666666666663,
-Vector2(384, 128): -0.9466666666666663,
+Vector2(384, 112): -0.9466666666666664,
+Vector2(384, 128): -0.9466666666666664,
 Vector2(384, 144): -0.9733333333333332,
 Vector2(384, 160): -0.9733333333333332,
 Vector2(384, 176): -0.9733333333333332,
@@ -151,5 +151,5 @@ position_offset = Vector2(-288, -154.18182)
 
 [resource]
 resource_local_to_scene = true
-script = ExtResource("3_r7h8s")
-collision_meshes = Array[ExtResource("1_u5jqd")]([SubResource("Resource_xgs3a")])
+script = ExtResource("3_g4vo0")
+collision_meshes = Array[ExtResource("1_1jc64")]([SubResource("Resource_xgs3a")])

@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://drhrxw7642nqd"]
 
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
+[ext_resource type="Resource" uid="uid://dgwibnjneqbdr" path="res://Models/Asteroid/AsteroidMesh/gold_asteroid_mesh_group.tres" id="2_1xflu"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://wmd6w6j2858o" path="res://Models/EntityModules/Damage/combat_stats.gd" id="3_jywkw"]
 [ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="4_gw6yr"]
 [ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="4_h8hu4"]
 [ext_resource type="Script" uid="uid://deqvt75qdcfcl" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/slice_mesh_deformation_shape.gd" id="5_rr1y8"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="9_tsxo3"]
-[ext_resource type="Resource" uid="uid://bl04btvkc8so8" path="res://Models/Asteroid/AsteroidMesh/gold_asteroid.tres" id="10_tml4o"]
 [ext_resource type="Script" uid="uid://bvqt4s5uy7wep" path="res://Models/EntityModules/Damage/Hurt/mesh_deform_hit_hurtbox_2d.gd" id="11_4ujrd"]
 [ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/Hurt/DamageResults/invincible_frames_damage_result.gd" id="12_qdhb0"]
 [ext_resource type="Script" uid="uid://yp8x320gf3ox" path="res://Models/EntityModules/Damage/Hurt/DamageResults/score_damage_result.gd" id="13_gw6yr"]
@@ -28,6 +28,7 @@ faction = 2
 metadata/_custom_type_script = "uid://wmd6w6j2858o"
 
 [sub_resource type="Resource" id="Resource_qdhb0"]
+resource_local_to_scene = true
 script = ExtResource("4_h8hu4")
 initial_health = 400.0
 faction = 2
@@ -53,7 +54,7 @@ metadata/_custom_type_script = "uid://deqvt75qdcfcl"
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_7kvrs")
-collision_mesh_group = ExtResource("10_tml4o")
+collision_mesh_group = ExtResource("2_1xflu")
 combat_stats = SubResource("Resource_4ujrd")
 health_stats = SubResource("Resource_qdhb0")
 mesh_deformation_shapes = Array[ExtResource("4_gw6yr")]([SubResource("Resource_ssro7")])
