@@ -3,6 +3,12 @@ extends CollisionShape2D
 
 const MIN_CORNERS = 8;
 
+enum MeshUpdateResult {
+	Destroyed = 0,
+	Updated = 1,
+	Created = 2
+}
+
 @export var _collision_mesh: MS_CollisionMesh;
 
 var mesh_instance: MeshInstance2D;
@@ -63,7 +69,7 @@ func _get_collision_mesh() -> MS_CollisionMesh:
 func _release_collider() -> void:
 	queue_free();
 
-func update_collider() -> void:
+func update_collider() -> MeshUpdateResult:
 	var viewport_rect := get_viewport_rect();
 	var collision_mesh := _get_collision_mesh();
 	var new_convex_shapes := MarchingSquaresGenerate.generate_collision_shapes(
@@ -85,7 +91,7 @@ func update_collider() -> void:
 	
 	if (filtered_shapes.size() == 0):
 		call_deferred("_release_collider");
-		return;
+		return MeshUpdateResult.Destroyed;
 	else:
 		for i: int in filtered_shapes.size():
 			var convex_shape := filtered_shapes[i];
@@ -111,14 +117,19 @@ func update_collider() -> void:
 				var new_collision_mesh_group := MS_CollisionMeshGroup.new([new_collision_mesh]);
 				spawn_new_group.emit(new_collision_mesh_group);
 
+		if (filtered_shapes.size() > 1):
+			return MeshUpdateResult.Created;
+		else:
+			return MeshUpdateResult.Updated;
+
 func apply_mesh_deformation(
 	collidion_point: Vector2,
 	collision_angle: float,
 	mesh_deformation_shapes: Array[MeshDeformationShape],
-) -> void:
+) -> MeshUpdateResult:
 	_get_collision_mesh().apply_mesh_deformation_shapes_to_corner_samples(
 		collidion_point,
 		collision_angle,
 		mesh_deformation_shapes
 	);
-	update_collider();
+	return update_collider();
