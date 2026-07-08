@@ -25,6 +25,7 @@ func _enter_tree() -> void:
 		# Propagate stats so only manage at top level
 		deformable_hurtbox.combat_stats = combat_stats;
 		deformable_hurtbox.health_stats = health_stats;
+		deformable_hurtbox.collision_mesh_group = collision_mesh_group;
 
 func _ready() -> void:
 	add_to_group("enemy");
