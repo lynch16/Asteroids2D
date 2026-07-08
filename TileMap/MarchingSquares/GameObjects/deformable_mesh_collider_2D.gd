@@ -1,8 +1,6 @@
 class_name DeformableMeshCollider2D
 extends CollisionShape2D
 
-const MIN_CORNERS = 8;
-
 enum MeshUpdateResult {
 	Destroyed = 0,
 	Updated = 1,
@@ -24,7 +22,8 @@ signal spawn_new_group(new_collision_mesh_group: MS_CollisionMeshGroup);
 
 func _enter_tree() -> void:
 	var collision_mesh := _get_collision_mesh();
-	if (MarchingSquaresUtility.count_positive_corners(collision_mesh.corner_sampling) < MIN_CORNERS):
+	collision_mesh.corner_sampling = MarchingSquaresUtility.recursive_corner_trim(collision_mesh.corner_sampling);
+	if (MarchingSquaresUtility.count_positive_corners(collision_mesh.corner_sampling) < MarchingSquaresUtility.MIN_CORNER_SIZE):
 		queue_free();
 		
 	shape = collision_mesh.convex_shape;
@@ -82,7 +81,8 @@ func update_collider() -> MeshUpdateResult:
 	var filtered_shapes: Array[ConvexPolygonShape2D] = new_convex_shapes.filter(
 		func(convex_shape: ConvexPolygonShape2D) -> bool:
 			var new_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, collision_mesh.corner_sampling);
-			if (MarchingSquaresUtility.count_positive_corners(new_corners) >= MIN_CORNERS):
+			new_corners = MarchingSquaresUtility.recursive_corner_trim(new_corners);
+			if (MarchingSquaresUtility.count_positive_corners(new_corners) >= MarchingSquaresUtility.MIN_CORNER_SIZE):
 				filtered_corners.append(new_corners);
 				return true;
 			else:
