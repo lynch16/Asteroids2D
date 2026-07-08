@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://drhrxw7642nqd"]
 
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
-[ext_resource type="Resource" uid="uid://dgwibnjneqbdr" path="res://Models/Asteroid/AsteroidMeshLg/gold_asteroid_mesh_group.tres" id="2_1xflu"]
+[ext_resource type="Resource" uid="uid://dgwibnjneqbdr" path="res://Models/Asteroid/AsteroidMesh/gold_asteroid_mesh_group.tres" id="2_1xflu"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://wmd6w6j2858o" path="res://Models/EntityModules/Damage/combat_stats.gd" id="3_jywkw"]
 [ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="4_gw6yr"]

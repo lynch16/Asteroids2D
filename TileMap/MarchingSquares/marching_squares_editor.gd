@@ -60,7 +60,7 @@ var left_click_start_time := 0.0;
 
 ## As an editor script, we dont want to use the editor viewport
 ## This size will scale evenly from 720p - 4k
-@onready var viewport_rect: Rect2 = Rect2(Vector2(), Vector2(640, 360));
+@onready var viewport_rect: Rect2 = Rect2(Vector2(), Vector2(1920, 1080));
 
 func _ready() -> void:
 	InputMap.load_from_project_settings();
