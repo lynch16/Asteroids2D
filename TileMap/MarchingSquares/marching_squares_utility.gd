@@ -19,6 +19,8 @@ const NEXT_CHECK: PackedVector2Array = [
 	Vector2.DOWN,
 	Vector2.LEFT
 ]
+# TODO: I should be able to adjust tile size without breaking everything
+# This mostly works, granted I need to adjust the weapon deformation size too. This increases the issue of stray points though
 const TILE_SIZE = 16;
 const HALF_TILE_SIZE = TILE_SIZE/2;
 const BLOCK_DIVISION = 0.5;

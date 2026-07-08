@@ -13,8 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://bb16cwplay0xl" path="res://Models/EntityModules/Weapons/Weapons/Cannons/tracked_cannon_weapon.tscn" id="6_l403r"]
 [ext_resource type="Script" uid="uid://yp8x320gf3ox" path="res://Models/EntityModules/Damage/Hurt/DamageResults/score_damage_result.gd" id="6_lcr5g"]
 [ext_resource type="Script" uid="uid://el53hobesmit" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/attack_state.gd" id="7_eowg7"]
+[ext_resource type="PackedScene" uid="uid://bpylgjrmwxgvu" path="res://Models/Enemy/ParticleEffects/enemy_death_particles.tscn" id="8_5x7pv"]
+[ext_resource type="Script" uid="uid://bkqqxy4geuo3l" path="res://Models/EntityModules/Damage/Hurt/DamageResults/sfx_damage_result.gd" id="8_28r3b"]
 [ext_resource type="Script" uid="uid://dirc5lq54ahsv" path="res://Models/EntityModules/Damage/Hurt/DamageResults/stop_on_death_result.gd" id="8_hifkv"]
 [ext_resource type="PackedScene" uid="uid://ch6ceooyn73h7" path="res://Models/Enemy/health_bar_damage_result.tscn" id="8_hvk5w"]
+[ext_resource type="Script" uid="uid://l3f2bsi7sp6n" path="res://Models/EntityModules/Damage/Hurt/DamageResults/death_sfx_damage_result.gd" id="9_8ik7f"]
+[ext_resource type="AudioStream" uid="uid://cbcthurv81cgk" path="res://Audio/SoundEffects/Cartoon Sci-Fi Impact 8.wav" id="9_p7223"]
+[ext_resource type="AudioStream" uid="uid://bmsyo6cxr4x23" path="res://Audio/SoundEffects/Cartoon Sci-Fi Impact 24.wav" id="10_8ik7f"]
 [ext_resource type="PackedScene" uid="uid://bqmkbfudrxqf4" path="res://Models/EntityModules/Movement/nav_character_movement_controller.tscn" id="10_ae6k3"]
 [ext_resource type="Script" uid="uid://b3pdjcuaohpmm" path="res://Models/EntityModules/Weapons/Core/character_weapons.gd" id="10_p7ovo"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="13_eowg7"]
@@ -24,22 +29,19 @@
 [ext_resource type="Script" uid="uid://cf2a6ah5g3aox" path="res://Models/EntityModules/Movement/movement_stats.gd" id="16_l403r"]
 
 [sub_resource type="Resource" id="Resource_l403r"]
+resource_local_to_scene = true
 script = ExtResource("2_s2vdc")
 initial_health = 1.0
 faction = 1
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [sub_resource type="Resource" id="Resource_eowg7"]
+resource_local_to_scene = true
 script = ExtResource("2_eowg7")
 faction = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eowg7"]
 size = Vector2(14.5, 18.5)
-
-[sub_resource type="Resource" id="Resource_lcr5g"]
-script = ExtResource("2_s2vdc")
-faction = 1
-metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l403r"]
 size = Vector2(15, 19)
@@ -150,6 +152,7 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_u1nat"]
 script = ExtResource("16_l403r")
+max_speed = 400.0
 acceleration = 1000000.0
 rotation_speed = 10.0
 metadata/_custom_type_script = "uid://cf2a6ah5g3aox"
@@ -167,7 +170,6 @@ shape = SubResource("RectangleShape2D_eowg7")
 [node name="Hurtbox2D" type="Area2D" parent="." unique_id=1447978395 node_paths=PackedStringArray("owner_node")]
 unique_name_in_owner = true
 script = ExtResource("2_p7ovo")
-health_stats = SubResource("Resource_lcr5g")
 owner_node = NodePath("..")
 metadata/_custom_type_script = "uid://cuecudo47i27o"
 
@@ -183,13 +185,29 @@ script = ExtResource("6_lcr5g")
 score_value = 200
 metadata/_custom_type_script = "uid://yp8x320gf3ox"
 
-[node name="HealthBarDamageResult" parent="Hurtbox2D" unique_id=1831673198 instance=ExtResource("8_hvk5w")]
-unique_name_in_owner = true
+[node name="DeathSfxDamageResult" type="Node" parent="Hurtbox2D" unique_id=1296475006 node_paths=PackedStringArray("audio_stream")]
+script = ExtResource("9_8ik7f")
+particles_scene = ExtResource("8_5x7pv")
+audio_stream = NodePath("AudioStreamPlayer2D")
+metadata/_custom_type_script = "uid://l3f2bsi7sp6n"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hurtbox2D/DeathSfxDamageResult" unique_id=195198437]
+stream = ExtResource("10_8ik7f")
 
 [node name="StopOnDeathDamageResult" type="Node" parent="Hurtbox2D" unique_id=319848720]
 unique_name_in_owner = true
 script = ExtResource("8_hifkv")
-metadata/_custom_type_script = "uid://dirc5lq54ahsv"
+
+[node name="SfxDamageResult" type="Node" parent="Hurtbox2D" unique_id=1826190667]
+script = ExtResource("8_28r3b")
+metadata/_custom_type_script = "uid://bkqqxy4geuo3l"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hurtbox2D/SfxDamageResult" unique_id=1073004035]
+rotation = 1.5707964
+stream = ExtResource("9_p7223")
+
+[node name="HealthBarDamageResult" parent="Hurtbox2D" unique_id=1831673198 instance=ExtResource("8_hvk5w")]
+unique_name_in_owner = true
 
 [node name="CharacterWeapons" type="Node2D" parent="." unique_id=824293140 node_paths=PackedStringArray("character")]
 position = Vector2(20, 0)
@@ -264,6 +282,8 @@ movement_stats = SubResource("Resource_u1nat")
 moveable_character = NodePath("..")
 
 [node name="VisionArea" parent="." unique_id=1974026706 instance=ExtResource("5_mb64x")]
+view_distance = 400
+debug = false
 
 [node name="BoundaryManager" type="Node2D" parent="." unique_id=410091724 node_paths=PackedStringArray("node")]
 script = ExtResource("13_eowg7")

@@ -12,7 +12,6 @@ target_desired_distance = 100.0
 path_max_distance = 400.0
 avoidance_enabled = true
 radius = 32.0
-debug_enabled = true
 
 [node name="NavigationController" type="Node" parent="." unique_id=920058656 node_paths=PackedStringArray("movement_controller", "nav_agent")]
 script = ExtResource("2_hu8b2")

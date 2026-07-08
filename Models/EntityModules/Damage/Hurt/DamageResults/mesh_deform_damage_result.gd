@@ -14,6 +14,9 @@ func on_damage(
 			printerr("Damager node " + damager_node.name + " does not have a 'mesh_deformation_shapes' property, defaulting to empty array for mesh deformation shapes");
 		else:
 			deformation_shapes = damager_node.get("mesh_deformation_shapes");
-		asteroid.deform_mesh(hit_position, hit_angle, deformation_shapes);
+		var result := asteroid.deform_mesh(hit_position, hit_angle, deformation_shapes);
+
+		if (result == DeformableMesh2D.GroupDeformationResult.Destroyed):
+			damageable.health_stats.current_health = 0;
 
 	return true;

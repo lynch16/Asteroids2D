@@ -108,7 +108,7 @@ static func _calculate_weighted_vertex(corner_sample: Dictionary[Vector2, float]
 		var value_2: float = 1.0;
 		if (corner_sample.has(corner_2)):
 			value_2 = corner_sample.get(corner_2);
-				
+
 		var weight := (value_1 + value_2)/(value_1 - value_2) / 2.0 + 0.5;
 		vertex = corner_1.lerp(corner_2, weight);
 	

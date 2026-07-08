@@ -2,6 +2,13 @@
 class_name DeformableMesh2D
 extends Node2D
 
+enum GroupDeformationResult {
+	Destroyed = 0,
+	Updated = 1,
+	Created = 2,
+	None = 3,
+}
+
 @export var collision_mesh_group: MS_CollisionMeshGroup;
 
 # Node where collisions will be attached
@@ -55,14 +62,32 @@ func deform_group(
 	collision_point: Vector2,
 	collision_angle: float,
 	mesh_deformation_shapes: Array[MeshDeformationShape],
-) -> void:
+) -> GroupDeformationResult:
+	var valid_collision_count := 0;
+	var destroyed_count := 0;
+	var created_count := 0;
+
 	for mesh_collider in _deformable_mesh_collisions:
 		if (is_instance_valid(mesh_collider)):
-			mesh_collider.apply_mesh_deformation(
+			valid_collision_count += 1;
+
+			var result := mesh_collider.apply_mesh_deformation(
 				mesh_collider.to_local(collision_point),
 				collision_angle,
 				mesh_deformation_shapes
 			)
+
+			if (result == DeformableMeshCollider2D.MeshUpdateResult.Destroyed):
+				destroyed_count += 1;
+			elif (result == DeformableMeshCollider2D.MeshUpdateResult.Created):
+				created_count += 1;
+
+	if (created_count > 0):
+		return GroupDeformationResult.Created;
+	elif (destroyed_count > 0 && destroyed_count == valid_collision_count):
+		return GroupDeformationResult.Destroyed;
+	else:
+		return GroupDeformationResult.Updated;
 
 func _on_collider_freed(collision: DeformableMeshCollider2D) -> void:
 	_deformable_mesh_collisions.erase(collision);
