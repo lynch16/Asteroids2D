@@ -14,7 +14,13 @@
 [ext_resource type="Script" uid="uid://cuecudo47i27o" path="res://Models/EntityModules/Damage/Hurt/hurtbox_2d.gd" id="10_o7pk3"]
 [ext_resource type="Script" uid="uid://dkorgdk4bdefl" path="res://Models/Animations/thrust_animations.gd" id="11_f3ot7"]
 [ext_resource type="AudioStream" uid="uid://dqsnnia8nyxxq" path="res://Audio/SoundEffects/Sci-Fi Spaceship Engine Loop 3.wav" id="13_r6kw6"]
+[ext_resource type="Script" uid="uid://bkqqxy4geuo3l" path="res://Models/EntityModules/Damage/Hurt/DamageResults/sfx_damage_result.gd" id="13_utqtg"]
+[ext_resource type="AudioStream" uid="uid://dyjmu6nsxyg30" path="res://Audio/SoundEffects/Cartoon Sci-Fi Impact 2.wav" id="14_7m2s5"]
 [ext_resource type="AudioStream" uid="uid://db45aifh0tfmp" path="res://Audio/SoundEffects/Sci-Fi Spaceship Thrusters 3.wav" id="14_8ik3y"]
+[ext_resource type="Script" uid="uid://dirc5lq54ahsv" path="res://Models/EntityModules/Damage/Hurt/DamageResults/stop_on_death_result.gd" id="14_e20tc"]
+[ext_resource type="PackedScene" uid="uid://ds53jh1pwwr13" path="res://Models/Player/ParticleEffects/player_death_particles.tscn" id="14_n7c2a"]
+[ext_resource type="Script" uid="uid://l3f2bsi7sp6n" path="res://Models/EntityModules/Damage/Hurt/DamageResults/death_sfx_damage_result.gd" id="14_qwp4y"]
+[ext_resource type="AudioStream" uid="uid://mn82x05r07tt" path="res://Audio/SoundEffects/Cartoon Sci-Fi Explosion 5.wav" id="15_n7c2a"]
 [ext_resource type="Script" uid="uid://ckluymmkmha10" path="res://Models/EntityModules/Movement/movement_controller.gd" id="16_r71yq"]
 [ext_resource type="Script" uid="uid://v4gqslu6ep4x" path="res://Models/EntityModules/Movement/input_controller.gd" id="17_833x1"]
 
@@ -156,9 +162,6 @@ points = PackedVector2Array(-18, 15.000001, -8.742278e-07, -20, 20, 14.999999)
 script = ExtResource("3_wbkmi")
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wbkmi"]
-radius = 13.0
-
 [node name="Player" type="CharacterBody2D" unique_id=818107462 groups=["player"]]
 collision_mask = 0
 motion_mode = 1
@@ -226,6 +229,9 @@ health_stats = SubResource("Resource_wbkmi")
 owner_node = NodePath("..")
 metadata/_custom_type_script = "uid://cuecudo47i27o"
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2D" unique_id=1088582691]
+shape = SubResource("ConvexPolygonShape2D_sh265")
+
 [node name="InvincibleFramesDamageResult" type="Node" parent="Hurtbox2D" unique_id=288406754]
 script = ExtResource("9_o3uiv")
 metadata/_custom_type_script = "uid://l6occnfuxuon"
@@ -234,8 +240,29 @@ metadata/_custom_type_script = "uid://l6occnfuxuon"
 script = ExtResource("10_m1agk")
 metadata/_custom_type_script = "uid://dhchi74lu51yr"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2D" unique_id=1128216148]
-shape = SubResource("CircleShape2D_wbkmi")
+[node name="DeathSfxDamageResult" type="Node" parent="Hurtbox2D" unique_id=1365512660 node_paths=PackedStringArray("audio_stream")]
+process_mode = 1
+script = ExtResource("14_qwp4y")
+position_particles_at_hit_location = true
+particles_scene = ExtResource("14_n7c2a")
+audio_stream = NodePath("AudioStreamPlayer2D")
+metadata/_custom_type_script = "uid://l3f2bsi7sp6n"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hurtbox2D/DeathSfxDamageResult" unique_id=1289297220]
+stream = ExtResource("15_n7c2a")
+
+[node name="StopOnDeathDamageResult" type="Node" parent="Hurtbox2D" unique_id=1378272894]
+script = ExtResource("14_e20tc")
+metadata/_custom_type_script = "uid://dirc5lq54ahsv"
+
+[node name="SfxDamageResult" type="Node" parent="Hurtbox2D" unique_id=1623937546 node_paths=PackedStringArray("audio_stream")]
+script = ExtResource("13_utqtg")
+audio_stream = NodePath("AudioStreamPlayer2D")
+metadata/_custom_type_script = "uid://bkqqxy4geuo3l"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hurtbox2D/SfxDamageResult" unique_id=39476473]
+rotation = 1.5707964
+stream = ExtResource("14_7m2s5")
 
 [node name="BoundaryManager" type="Node2D" parent="." unique_id=1520790136 node_paths=PackedStringArray("node")]
 script = ExtResource("9_o7pk3")

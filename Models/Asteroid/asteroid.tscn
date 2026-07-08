@@ -107,8 +107,11 @@ metadata/_custom_type_script = "uid://dhchi74lu51yr"
 script = ExtResource("16_i4x4e")
 position_particles_at_hit_location = true
 particles_scene = ExtResource("17_1xflu")
-audio_stream = NodePath("../../SfxComponents/DeathAudioStreamPlayer2D")
+audio_stream = NodePath("DeathAudioStreamPlayer2D")
 metadata/_custom_type_script = "uid://l3f2bsi7sp6n"
+
+[node name="DeathAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="MeshDeformHitHurtbox2D/DeathSfxDamageResult" unique_id=384332755]
+stream = ExtResource("16_ssro7")
 
 [node name="StopOnDeathDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=944258386]
 script = ExtResource("14_i4x4e")
@@ -118,14 +121,8 @@ metadata/_custom_type_script = "uid://dirc5lq54ahsv"
 script = ExtResource("15_i4x4e")
 position_particles_at_hit_location = true
 particles_scene = ExtResource("15_2ffjv")
-audio_stream = NodePath("../../SfxComponents/HitAudioStreamPlayer2D")
+audio_stream = NodePath("HitAudioStreamPlayer2D")
 metadata/_custom_type_script = "uid://bkqqxy4geuo3l"
 
-[node name="SfxComponents" type="Node2D" parent="." unique_id=392706233]
-
-[node name="DeathAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SfxComponents" unique_id=384332755]
-unique_name_in_owner = true
-stream = ExtResource("16_ssro7")
-
-[node name="HitAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SfxComponents" unique_id=1534288876]
+[node name="HitAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="MeshDeformHitHurtbox2D/SfxDamageResult" unique_id=1534288876]
 stream = ExtResource("20_1xflu")

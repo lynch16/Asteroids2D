@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cu0m6yljxw0rr"
+path="res://.godot/imported/Stretched Spawn Sound 2.wav-f6f136a960557bcbf7a49b2094282f53.sample"
+
+[deps]
+
+source_file="res://Audio/SoundEffects/Stretched Spawn Sound 2.wav"
+dest_files=["res://.godot/imported/Stretched Spawn Sound 2.wav-f6f136a960557bcbf7a49b2094282f53.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
