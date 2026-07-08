@@ -21,9 +21,9 @@ const NEXT_CHECK: PackedVector2Array = [
 ]
 # TODO: I should be able to adjust tile size without breaking everything
 # This mostly works, granted I need to adjust the weapon deformation size too. This increases the issue of stray points though
-const TILE_SIZE = 16;
+const TILE_SIZE = 8;
 const HALF_TILE_SIZE = TILE_SIZE/2;
-const MIN_CORNER_SIZE = 8;
+const MIN_CORNER_SIZE = 16;
 const BLOCK_DIVISION = 0.5;
 const DOT_BUTTON_RADIUS = 2.0;
 const ALL_CORNERS = 15 # 1111 in binary
@@ -112,7 +112,7 @@ static func count_positive_corners(corner_sampling: Dictionary[Vector2, float]) 
 				count += 1;
 			return count;, 0
 	);
-	
+
 static func recursive_corner_trim(corner_sampling: Dictionary[Vector2, float], trim_size: int = TILE_SIZE) -> Dictionary[Vector2, float]:
 	var new_samples: Dictionary[Vector2, float] = {};
 	for vertex: Vector2 in corner_sampling.keys():
