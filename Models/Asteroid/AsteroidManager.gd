@@ -25,6 +25,7 @@ func _process(_delta: float) -> void:
 	var asteroid_to_launch: AsteroidLaunch = asteroid_launcher.pop_front();
 	if (asteroid_to_launch):
 		var new_asteroid := spawn_asteroid(asteroid_to_launch.asteroid_mesh);
+		new_asteroid.global_position = asteroid_to_launch.launch_position;
 		new_asteroid.velocity = asteroid_to_launch.launch_velocity;
 		new_asteroid.rotation = asteroid_to_launch.launch_angle;
 
@@ -38,6 +39,7 @@ func shatter_asteroid(initial_aster: Asteroid, new_mesh: MS_CollisionMeshGroup) 
 	
 	var asteroid_launch := AsteroidLaunch.new(
 		new_mesh,
+		initial_aster.global_position,
 		Vector2(speed, 0).rotated(direction),
 		direction
 	)

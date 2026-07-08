@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://53fnq33aw1pk" path="res://Levels/Core/level.gd" id="1_q5k0s"]
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="2_bcvyo"]
+[ext_resource type="Resource" uid="uid://c35p735bxy766" path="res://Levels/AsteroidLevels/level_1.tres" id="2_fk8qc"]
 [ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://Levels/game_area.gd" id="4_bcvyo"]
 [ext_resource type="PackedScene" uid="uid://423u2ig3bkp0" path="res://Models/Player/player_spawn.tscn" id="5_fk8qc"]
 
@@ -12,6 +13,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-268, -208, 2162, -202,
 
 [node name="Level" type="Node2D" unique_id=350803456]
 script = ExtResource("1_q5k0s")
+level_settings = ExtResource("2_fk8qc")
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_bcvyo")]
 unique_name_in_owner = true
