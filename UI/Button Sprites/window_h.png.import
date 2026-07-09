@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://b3bwknpw0mss2"
+path="res://.godot/imported/window_h.png-4aab28a71abb39517a5d71a1781da8c2.res"
+
+[deps]
+
+source_file="res://UI/Button Sprites/window_h.png"
+dest_files=["res://.godot/imported/window_h.png-4aab28a71abb39517a5d71a1781da8c2.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

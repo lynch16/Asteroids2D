@@ -1,6 +1,8 @@
 extends Node
-# Responsible for spawning all Asteroids, including after collision when an asteroid "shatters"
-var asteroid_meshes: Array[MS_CollisionMeshGroup] = [];
+## Responsible for spawning all Asteroids, including after collision when an asteroid "shatters"
+
+
+var asteroid_meshes: Array[AsteroidMeshWeight] = [];
 
 var astreroid_scene := preload("uid://drhrxw7642nqd");
 var asteroid_count := 0;
@@ -57,8 +59,15 @@ func _create_asteroid(asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
 	if (asteroid_mesh):
 		asteroid.collision_mesh_group = asteroid_mesh;
 	else:
-		var rand_mesh_idx := randi() % asteroid_meshes.size();
-		asteroid.collision_mesh_group = asteroid_meshes[rand_mesh_idx];
+		var rng := RandomNumberGenerator.new();
+		var weights := PackedFloat32Array()
+		var meshes := asteroid_meshes.map(
+			func (am: AsteroidMeshWeight) -> MS_CollisionMeshGroup: 
+				weights.append(am.weight);
+				return am.asteroid_mesh;
+		)
+		var rand_mesh_idx := rng.rand_weighted(weights);
+		asteroid.collision_mesh_group = meshes[rand_mesh_idx];
 
 	asteroid.asteroid_destroyed.connect(_on_asteroid_destroyed);
 	

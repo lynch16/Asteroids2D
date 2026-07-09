@@ -117,7 +117,7 @@ func _are_all_rocks_thrown() -> bool:
 func _check_win_condition() -> void:
 	if (
 		AsteroidManager.get_asteroid_count() <= 0 &&
-		_are_all_rocks_thrown() &&
+		_are_all_rocks_thrown() && # TODO: Should they have to wait for all rocks to be thrown if they cleared the screen?
 		EnemyManager.get_enemy_count() <= 0
 	):
 		win_condition_met.emit();

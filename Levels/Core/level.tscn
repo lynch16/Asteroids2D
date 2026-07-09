@@ -30,3 +30,4 @@ position = Vector2(473, 570)
 
 [node name="SpaceBackground" parent="." unique_id=1045910225 instance=ExtResource("6_b5s7n")]
 z_index = -1
+position = Vector2(0, 100)

@@ -1,33 +1,33 @@
 [gd_scene format=4 uid="uid://dwuumottdrlrs"]
 
-[ext_resource type="Script" uid="uid://53fnq33aw1pk" path="res://Levels/Core/level.gd" id="1_nrpgq"]
-[ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="2_h46sh"]
-[ext_resource type="Script" uid="uid://bo5uwcqvj1ehh" path="res://Levels/Core/level_resource.gd" id="3_0a58r"]
-[ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="3_nl4i8"]
-[ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://Levels/game_area.gd" id="4_dfi0k"]
-[ext_resource type="PackedScene" uid="uid://423u2ig3bkp0" path="res://Models/Player/player_spawn.tscn" id="5_h46sh"]
-[ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="6_0a58r"]
-[ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh.gd" id="7_lpio1"]
-[ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="8_2jkej"]
-[ext_resource type="Texture2D" uid="uid://bwrx7prgwqqo" path="res://TileMap/Textures/Ground (89)_128x128.png" id="8_ul478"]
-[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="9_ul478"]
-[ext_resource type="Texture2D" uid="uid://cbyjad0k8a2hi" path="res://TileMap/Textures/Ground (95)_128x128.png" id="11_1hiew"]
-[ext_resource type="Texture2D" uid="uid://0wtmi0e218hu" path="res://TileMap/Textures/Ground (10).png" id="11_dfi0k"]
-[ext_resource type="Texture2D" uid="uid://bf3r8p73v8mdp" path="res://TileMap/Textures/Ground (91)_128x128.png" id="12_1hiew"]
-[ext_resource type="PackedScene" uid="uid://evepknlqgvo6" path="res://sprites/backgrounds/space_background.tscn" id="12_rhy7w"]
-[ext_resource type="Texture2D" uid="uid://cgsiytrc163gx" path="res://TileMap/Textures/Ground (92)_128x128.png" id="13_rf32q"]
-[ext_resource type="Texture2D" uid="uid://c3iatf1rvr8gb" path="res://TileMap/Textures/Ground (93)_128x128.png" id="14_atnnd"]
-[ext_resource type="Texture2D" uid="uid://bnhm5sxpnnduc" path="res://TileMap/Textures/Ground (94)_128x128.png" id="15_nrpgq"]
-[ext_resource type="Texture2D" uid="uid://b6ashk0ihpsk3" path="res://TileMap/Textures/Ground (96)_128x128.png" id="17_nl4i8"]
-[ext_resource type="Texture2D" uid="uid://umck8eqkj7yg" path="res://TileMap/Textures/Ground (98)_128x128.png" id="18_dfi0k"]
-[ext_resource type="Texture2D" uid="uid://cybj5ncnuf24v" path="res://TileMap/Textures/Ground (99)_128x128.png" id="19_dfi0k"]
+[ext_resource type="Script" uid="uid://53fnq33aw1pk" path="res://Levels/Core/level.gd" id="1_3digv"]
+[ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="2_7cu5t"]
+[ext_resource type="Script" uid="uid://bo5uwcqvj1ehh" path="res://Levels/Core/level_resource.gd" id="3_hep3f"]
+[ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="4_lxooc"]
+[ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://Levels/game_area.gd" id="5_drlsy"]
+[ext_resource type="PackedScene" uid="uid://bmbrpa4nbfa02" path="res://UI/area_button.tscn" id="6_7cu5t"]
+[ext_resource type="PackedScene" uid="uid://423u2ig3bkp0" path="res://Models/Player/player_spawn.tscn" id="6_wytci"]
+[ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="7_3yk5t"]
+[ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh.gd" id="8_54ufu"]
+[ext_resource type="Texture2D" uid="uid://bwrx7prgwqqo" path="res://TileMap/Textures/Ground (89)_128x128.png" id="9_cor6w"]
+[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="10_h3jbm"]
+[ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="11_nxm0e"]
+[ext_resource type="Texture2D" uid="uid://0wtmi0e218hu" path="res://TileMap/Textures/Ground (10).png" id="12_8js43"]
+[ext_resource type="Texture2D" uid="uid://bf3r8p73v8mdp" path="res://TileMap/Textures/Ground (91)_128x128.png" id="13_pf8y5"]
+[ext_resource type="Texture2D" uid="uid://cgsiytrc163gx" path="res://TileMap/Textures/Ground (92)_128x128.png" id="14_xcksg"]
+[ext_resource type="Texture2D" uid="uid://c3iatf1rvr8gb" path="res://TileMap/Textures/Ground (93)_128x128.png" id="15_7n38s"]
+[ext_resource type="Texture2D" uid="uid://bnhm5sxpnnduc" path="res://TileMap/Textures/Ground (94)_128x128.png" id="16_nsdib"]
+[ext_resource type="Texture2D" uid="uid://cbyjad0k8a2hi" path="res://TileMap/Textures/Ground (95)_128x128.png" id="17_xs7mj"]
+[ext_resource type="Texture2D" uid="uid://b6ashk0ihpsk3" path="res://TileMap/Textures/Ground (96)_128x128.png" id="18_s0riy"]
+[ext_resource type="Texture2D" uid="uid://umck8eqkj7yg" path="res://TileMap/Textures/Ground (98)_128x128.png" id="19_vv8on"]
+[ext_resource type="Texture2D" uid="uid://cybj5ncnuf24v" path="res://TileMap/Textures/Ground (99)_128x128.png" id="20_eieur"]
+[ext_resource type="PackedScene" uid="uid://evepknlqgvo6" path="res://sprites/backgrounds/space_background.tscn" id="21_xawrf"]
 
 [sub_resource type="Resource" id="Resource_cajwa"]
-script = ExtResource("3_0a58r")
+script = ExtResource("3_hep3f")
 num_starting_rocks = 0
 num_rocks_to_throw = 0
-enemey_scene = ExtResource("2_h46sh")
-num_enemies = 3
+enemey_scene = ExtResource("2_7cu5t")
 enemies_start_delay = 1.0
 enemy_hunters = true
 metadata/_custom_type_script = "uid://bo5uwcqvj1ehh"
@@ -59,8 +59,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_sbsgd"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("8_ul478")
+script = ExtResource("8_54ufu")
+texture = ExtResource("9_cor6w")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(304, 304): -1.0,
 Vector2(304, 312): -1.0,
@@ -411,14 +411,14 @@ convex_shape = SubResource("ConvexPolygonShape2D_4je3a")
 mesh = SubResource("ArrayMesh_4dcvd")
 position_offset = Vector2(-373.4737, -378.10526)
 
-[sub_resource type="Resource" id="Resource_ul478"]
+[sub_resource type="Resource" id="Resource_7cu5t"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_sbsgd")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_sbsgd")])
 
-[sub_resource type="Resource" id="Resource_1hiew"]
+[sub_resource type="Resource" id="Resource_hep3f"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
@@ -442,8 +442,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_kk55j"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("11_dfi0k")
+script = ExtResource("8_54ufu")
+texture = ExtResource("12_8js43")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(304, 264): -1.0,
 Vector2(304, 272): -1.0,
@@ -783,14 +783,14 @@ convex_shape = SubResource("ConvexPolygonShape2D_3f71q")
 mesh = SubResource("ArrayMesh_qt525")
 position_offset = Vector2(-377.23077, -310.76923)
 
-[sub_resource type="Resource" id="Resource_rf32q"]
+[sub_resource type="Resource" id="Resource_lxooc"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_kk55j")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_kk55j")])
 
-[sub_resource type="Resource" id="Resource_atnnd"]
+[sub_resource type="Resource" id="Resource_drlsy"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
@@ -814,8 +814,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_32xs0"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("12_1hiew")
+script = ExtResource("8_54ufu")
+texture = ExtResource("13_pf8y5")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(304, 256): -1.0,
 Vector2(304, 264): -1.0,
@@ -1155,14 +1155,14 @@ convex_shape = SubResource("ConvexPolygonShape2D_dngmb")
 mesh = SubResource("ArrayMesh_nmsmc")
 position_offset = Vector2(-380.25, -316.5)
 
-[sub_resource type="Resource" id="Resource_nrpgq"]
+[sub_resource type="Resource" id="Resource_wytci"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_32xs0")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_32xs0")])
 
-[sub_resource type="Resource" id="Resource_sdfpu"]
+[sub_resource type="Resource" id="Resource_3yk5t"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
@@ -1186,8 +1186,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_o2psm"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("13_rf32q")
+script = ExtResource("8_54ufu")
+texture = ExtResource("14_xcksg")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(304, 248): -1.0,
 Vector2(304, 256): -1.0,
@@ -1503,14 +1503,14 @@ convex_shape = SubResource("ConvexPolygonShape2D_n0fmu")
 mesh = SubResource("ArrayMesh_axih8")
 position_offset = Vector2(-373.21738, -312)
 
-[sub_resource type="Resource" id="Resource_nl4i8"]
+[sub_resource type="Resource" id="Resource_54ufu"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_o2psm")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_o2psm")])
 
-[sub_resource type="Resource" id="Resource_dfi0k"]
+[sub_resource type="Resource" id="Resource_cor6w"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
@@ -1534,8 +1534,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_ssgib"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("14_atnnd")
+script = ExtResource("8_54ufu")
+texture = ExtResource("15_7n38s")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(304, 256): -1.0,
 Vector2(304, 264): -1.0,
@@ -1862,14 +1862,14 @@ convex_shape = SubResource("ConvexPolygonShape2D_l8shp")
 mesh = SubResource("ArrayMesh_8gwry")
 position_offset = Vector2(-376, -319.7143)
 
-[sub_resource type="Resource" id="Resource_h46sh"]
+[sub_resource type="Resource" id="Resource_h3jbm"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_ssgib")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_ssgib")])
 
-[sub_resource type="Resource" id="Resource_0a58r"]
+[sub_resource type="Resource" id="Resource_nxm0e"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
@@ -1893,8 +1893,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_0lv1v"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("15_nrpgq")
+script = ExtResource("8_54ufu")
+texture = ExtResource("16_nsdib")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(304, 256): -1.0,
 Vector2(304, 264): -1.0,
@@ -2241,14 +2241,14 @@ convex_shape = SubResource("ConvexPolygonShape2D_ank3f")
 mesh = SubResource("ArrayMesh_1oree")
 position_offset = Vector2(-377.2, -333.2)
 
-[sub_resource type="Resource" id="Resource_o3rfj"]
+[sub_resource type="Resource" id="Resource_8js43"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_0lv1v")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_0lv1v")])
 
-[sub_resource type="Resource" id="Resource_2jkej"]
+[sub_resource type="Resource" id="Resource_pf8y5"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
@@ -2272,8 +2272,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_tfh0v"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("11_1hiew")
+script = ExtResource("8_54ufu")
+texture = ExtResource("17_xs7mj")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(304, 264): -1.0,
 Vector2(304, 272): -1.0,
@@ -2614,14 +2614,14 @@ convex_shape = SubResource("ConvexPolygonShape2D_ys4y1")
 mesh = SubResource("ArrayMesh_x3o6d")
 position_offset = Vector2(-376.27585, -309.51724)
 
-[sub_resource type="Resource" id="Resource_05xmr"]
+[sub_resource type="Resource" id="Resource_xcksg"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_tfh0v")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_tfh0v")])
 
-[sub_resource type="Resource" id="Resource_vxkmh"]
+[sub_resource type="Resource" id="Resource_7n38s"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
@@ -2645,8 +2645,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_k6bkp"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("17_nl4i8")
+script = ExtResource("8_54ufu")
+texture = ExtResource("18_s0riy")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(304, 240): -1.0,
 Vector2(304, 248): -1.0,
@@ -2867,50 +2867,50 @@ convex_shape = SubResource("ConvexPolygonShape2D_riwh6")
 mesh = SubResource("ArrayMesh_1it6p")
 position_offset = Vector2(-370.8, -295.6)
 
-[sub_resource type="Resource" id="Resource_d6gsy"]
+[sub_resource type="Resource" id="Resource_nsdib"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_k6bkp")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_k6bkp")])
 
-[sub_resource type="Resource" id="Resource_gmse2"]
+[sub_resource type="Resource" id="Resource_xs7mj"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_pmdxq"]
+[sub_resource type="Resource" id="Resource_s0riy"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_ssgib")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_ssgib")])
 
-[sub_resource type="Resource" id="Resource_cqgec"]
+[sub_resource type="Resource" id="Resource_vv8on"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_g4tl0"]
+[sub_resource type="Resource" id="Resource_eieur"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_sbsgd")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_sbsgd")])
 
-[sub_resource type="Resource" id="Resource_nvrtj"]
+[sub_resource type="Resource" id="Resource_xawrf"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_x4kmr"]
+[sub_resource type="Resource" id="Resource_kft1h"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_kk55j")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_kk55j")])
 
-[sub_resource type="Resource" id="Resource_06udv"]
+[sub_resource type="Resource" id="Resource_682wx"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
@@ -2934,8 +2934,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_tffym"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("18_dfi0k")
+script = ExtResource("8_54ufu")
+texture = ExtResource("19_vv8on")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(344, 232): -1.0,
 Vector2(344, 240): -1.0,
@@ -3105,14 +3105,14 @@ convex_shape = SubResource("ConvexPolygonShape2D_hgril")
 mesh = SubResource("ArrayMesh_txrpg")
 position_offset = Vector2(-372.8, -321.6)
 
-[sub_resource type="Resource" id="Resource_yajaf"]
+[sub_resource type="Resource" id="Resource_golko"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_tffym")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_tffym")])
 
-[sub_resource type="Resource" id="Resource_52y2n"]
+[sub_resource type="Resource" id="Resource_1n3kd"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
@@ -3136,8 +3136,8 @@ _surfaces = [{
 
 [sub_resource type="Resource" id="Resource_b1gxh"]
 resource_local_to_scene = true
-script = ExtResource("7_lpio1")
-texture = ExtResource("19_dfi0k")
+script = ExtResource("8_54ufu")
+texture = ExtResource("20_eieur")
 corner_sampling = Dictionary[Vector2, float]({
 Vector2(304, 240): -1.0,
 Vector2(304, 248): -1.0,
@@ -3509,180 +3509,191 @@ convex_shape = SubResource("ConvexPolygonShape2D_j8u28")
 mesh = SubResource("ArrayMesh_luu73")
 position_offset = Vector2(-375.33334, -308.66666)
 
-[sub_resource type="Resource" id="Resource_a3rje"]
+[sub_resource type="Resource" id="Resource_fk38q"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_b1gxh")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_b1gxh")])
 
-[sub_resource type="Resource" id="Resource_dqoht"]
+[sub_resource type="Resource" id="Resource_tv5na"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_0qbli"]
+[sub_resource type="Resource" id="Resource_s7mm5"]
 resource_local_to_scene = true
-script = ExtResource("9_ul478")
-collision_meshes = Array[ExtResource("7_lpio1")]([SubResource("Resource_tfh0v")])
+script = ExtResource("10_h3jbm")
+collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_tfh0v")])
 
-[sub_resource type="Resource" id="Resource_efbr8"]
+[sub_resource type="Resource" id="Resource_njtlb"]
 resource_local_to_scene = true
-script = ExtResource("8_2jkej")
+script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [node name="Level" type="Node2D" unique_id=350803456]
-script = ExtResource("1_nrpgq")
+script = ExtResource("1_3digv")
 level_settings = SubResource("Resource_cajwa")
 
-[node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("3_nl4i8")]
+[node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("4_lxooc")]
 unique_name_in_owner = true
 
 [node name="GameArea" type="NavigationRegion2D" parent="." unique_id=1152365417]
 unique_name_in_owner = true
 navigation_polygon = SubResource("NavigationPolygon_fk8qc")
-script = ExtResource("4_dfi0k")
+script = ExtResource("5_drlsy")
 
-[node name="PlayerSpawn" parent="." unique_id=90593702 instance=ExtResource("5_h46sh")]
-unique_name_in_owner = true
-position = Vector2(256, 560)
+[node name="StartButton" parent="GameArea" unique_id=789434949 instance=ExtResource("6_7cu5t")]
+position = Vector2(504, 741)
 
-[node name="Node" type="Node2D" parent="." unique_id=1316491208]
+[node name="OptionsButton" parent="GameArea" unique_id=360964673 instance=ExtResource("6_7cu5t")]
+position = Vector2(976, 741)
+button_text = "Options"
+
+[node name="ExitButton" parent="GameArea" unique_id=665876220 instance=ExtResource("6_7cu5t")]
+position = Vector2(1408, 741)
+button_text = "Quit Game"
+
+[node name="Node" type="Node2D" parent="GameArea" unique_id=1316491208]
 position = Vector2(0, -161)
 
-[node name="R" type="CollisionShape2D" parent="Node" unique_id=2053337720]
+[node name="R" type="CollisionShape2D" parent="GameArea/Node" unique_id=2053337720]
 position = Vector2(362, 367)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node/R" unique_id=328524540 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_ul478")
-health_stats = SubResource("Resource_1hiew")
+[node name="Asteroid" parent="GameArea/Node/R" unique_id=328524540 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_7cu5t")
+health_stats = SubResource("Resource_hep3f")
 
-[node name="O" type="CollisionShape2D" parent="Node" unique_id=1828375990]
+[node name="O" type="CollisionShape2D" parent="GameArea/Node" unique_id=1828375990]
 position = Vector2(488, 360)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node/O" unique_id=2080275938 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_rf32q")
-health_stats = SubResource("Resource_atnnd")
+[node name="Asteroid" parent="GameArea/Node/O" unique_id=2080275938 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_lxooc")
+health_stats = SubResource("Resource_drlsy")
 
-[node name="G" type="CollisionShape2D" parent="Node" unique_id=1024392819]
+[node name="G" type="CollisionShape2D" parent="GameArea/Node" unique_id=1024392819]
 position = Vector2(617, 365)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node/G" unique_id=403847318 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_nrpgq")
-health_stats = SubResource("Resource_sdfpu")
+[node name="Asteroid" parent="GameArea/Node/G" unique_id=403847318 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_wytci")
+health_stats = SubResource("Resource_3yk5t")
 
-[node name="U" type="CollisionShape2D" parent="Node" unique_id=160068995]
+[node name="U" type="CollisionShape2D" parent="GameArea/Node" unique_id=160068995]
 position = Vector2(728, 367)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node/U" unique_id=1449146785 instance=ExtResource("6_0a58r")]
+[node name="Asteroid" parent="GameArea/Node/U" unique_id=1449146785 instance=ExtResource("7_3yk5t")]
 position = Vector2(7, -5)
-collision_mesh_group = SubResource("Resource_nl4i8")
-health_stats = SubResource("Resource_dfi0k")
+collision_mesh_group = SubResource("Resource_54ufu")
+health_stats = SubResource("Resource_cor6w")
 
-[node name="E" type="CollisionShape2D" parent="Node" unique_id=1142048150]
+[node name="E" type="CollisionShape2D" parent="GameArea/Node" unique_id=1142048150]
 position = Vector2(863, 367)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node/E" unique_id=625910990 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_h46sh")
-health_stats = SubResource("Resource_0a58r")
+[node name="Asteroid" parent="GameArea/Node/E" unique_id=625910990 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_h3jbm")
+health_stats = SubResource("Resource_nxm0e")
 
-[node name="Node2" type="Node2D" parent="." unique_id=698420488]
+[node name="Node2" type="Node2D" parent="GameArea" unique_id=698420488]
 position = Vector2(192, -120)
 
-[node name="A" type="CollisionShape2D" parent="Node2" unique_id=1608626306]
+[node name="A" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1608626306]
 position = Vector2(488, 552)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node2/A" unique_id=1352790788 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_o3rfj")
-health_stats = SubResource("Resource_2jkej")
+[node name="Asteroid" parent="GameArea/Node2/A" unique_id=1352790788 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_8js43")
+health_stats = SubResource("Resource_pf8y5")
 
-[node name="S" type="CollisionShape2D" parent="Node2" unique_id=603336680]
+[node name="S" type="CollisionShape2D" parent="GameArea/Node2" unique_id=603336680]
 position = Vector2(611, 534)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node2/S" unique_id=276505509 instance=ExtResource("6_0a58r")]
+[node name="Asteroid" parent="GameArea/Node2/S" unique_id=276505509 instance=ExtResource("7_3yk5t")]
 position = Vector2(0, 1)
-collision_mesh_group = SubResource("Resource_05xmr")
-health_stats = SubResource("Resource_vxkmh")
+collision_mesh_group = SubResource("Resource_xcksg")
+health_stats = SubResource("Resource_7n38s")
 
-[node name="T" type="CollisionShape2D" parent="Node2" unique_id=994204098]
+[node name="T" type="CollisionShape2D" parent="GameArea/Node2" unique_id=994204098]
 position = Vector2(724, 525)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node2/T" unique_id=1078606356 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_d6gsy")
-health_stats = SubResource("Resource_gmse2")
+[node name="Asteroid" parent="GameArea/Node2/T" unique_id=1078606356 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_nsdib")
+health_stats = SubResource("Resource_xs7mj")
 
-[node name="E" type="CollisionShape2D" parent="Node2" unique_id=1889455133]
+[node name="E" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1889455133]
 position = Vector2(848, 552)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node2/E" unique_id=1220128983 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_pmdxq")
-health_stats = SubResource("Resource_cqgec")
+[node name="Asteroid" parent="GameArea/Node2/E" unique_id=1220128983 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_s0riy")
+health_stats = SubResource("Resource_vv8on")
 
-[node name="R" type="CollisionShape2D" parent="Node2" unique_id=281176681]
+[node name="R" type="CollisionShape2D" parent="GameArea/Node2" unique_id=281176681]
 position = Vector2(968, 552)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node2/R" unique_id=854005038 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_g4tl0")
-health_stats = SubResource("Resource_nvrtj")
+[node name="Asteroid" parent="GameArea/Node2/R" unique_id=854005038 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_eieur")
+health_stats = SubResource("Resource_xawrf")
 
-[node name="O" type="CollisionShape2D" parent="Node2" unique_id=1167639424]
+[node name="O" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1167639424]
 position = Vector2(1098, 545)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node2/O" unique_id=191314344 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_x4kmr")
-health_stats = SubResource("Resource_06udv")
+[node name="Asteroid" parent="GameArea/Node2/O" unique_id=191314344 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_kft1h")
+health_stats = SubResource("Resource_682wx")
 
-[node name="I" type="CollisionShape2D" parent="Node2" unique_id=218550786]
+[node name="I" type="CollisionShape2D" parent="GameArea/Node2" unique_id=218550786]
 position = Vector2(1185, 557)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node2/I" unique_id=1564619993 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_yajaf")
-health_stats = SubResource("Resource_52y2n")
+[node name="Asteroid" parent="GameArea/Node2/I" unique_id=1564619993 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_golko")
+health_stats = SubResource("Resource_1n3kd")
 
-[node name="D" type="CollisionShape2D" parent="Node2" unique_id=2026019724]
+[node name="D" type="CollisionShape2D" parent="GameArea/Node2" unique_id=2026019724]
 position = Vector2(1280, 547)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node2/D" unique_id=1829127472 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_a3rje")
-health_stats = SubResource("Resource_dqoht")
+[node name="Asteroid" parent="GameArea/Node2/D" unique_id=1829127472 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_fk38q")
+health_stats = SubResource("Resource_tv5na")
 
-[node name="S2" type="CollisionShape2D" parent="Node2" unique_id=1697245248]
+[node name="S2" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1697245248]
 position = Vector2(1409, 552)
 shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
-[node name="Asteroid" parent="Node2/S2" unique_id=1093990205 instance=ExtResource("6_0a58r")]
-collision_mesh_group = SubResource("Resource_0qbli")
-health_stats = SubResource("Resource_efbr8")
+[node name="Asteroid" parent="GameArea/Node2/S2" unique_id=1093990205 instance=ExtResource("7_3yk5t")]
+collision_mesh_group = SubResource("Resource_s7mm5")
+health_stats = SubResource("Resource_njtlb")
 
-[node name="SpaceBackground" parent="." unique_id=1045910225 instance=ExtResource("12_rhy7w")]
+[node name="PlayerSpawn" parent="." unique_id=90593702 instance=ExtResource("6_wytci")]
+unique_name_in_owner = true
+position = Vector2(256, 560)
+
+[node name="SpaceBackground" parent="." unique_id=1045910225 instance=ExtResource("21_xawrf")]
 z_index = -1
-position = Vector2(0, 98)
+position = Vector2(0, 100)
