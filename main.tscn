@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b13huugitcogo" path="res://Models/utilities/GameManager.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://du4nnb206ggo4" path="res://Levels/Core/level.tscn" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dwuumottdrlrs" path="res://Levels/TitleScreen/title_screen.tscn" id="2_efxa6"]
 [ext_resource type="Script" uid="uid://bo5uwcqvj1ehh" path="res://Levels/Core/level_resource.gd" id="3_272bh"]
 [ext_resource type="PackedScene" uid="uid://dc4xstka1au80" path="res://UI/Pause/pause_menu.tscn" id="4_1bvp3"]
 [ext_resource type="Resource" uid="uid://c35p735bxy766" path="res://Levels/AsteroidLevels/level_1.tres" id="4_5vw27"]
@@ -13,12 +14,11 @@
 
 [node name="GameManager" type="Node" unique_id=944017969]
 script = ExtResource("1_h2yge")
+title_screen_scene = ExtResource("2_efxa6")
+hud_scene = ExtResource("5_lquwl")
 level_scene = ExtResource("2_7mycd")
 levels = Array[ExtResource("3_272bh")]([ExtResource("4_5vw27"), ExtResource("5_4c57u"), ExtResource("6_efxa6"), ExtResource("7_dg77c"), ExtResource("8_ycdy4")])
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 unique_name_in_owner = true
 process_mode = 3
-
-[node name="HUD" parent="." unique_id=663700924 instance=ExtResource("5_lquwl")]
-_debug_mode = true

@@ -6,26 +6,44 @@ signal game_stop;
 signal level_start(level_index: int);
 signal player_lives_updated(lives_left: int);
 
-var started: bool = false;
+@export var title_screen_scene: PackedScene;
+@export var hud_scene: PackedScene;
 
-@onready var pause_menu: PauseMenu = %PauseMenu;
 @export var starting_level := 0;
-
 @export var level_scene: PackedScene;
 @export var levels: Array[LevelResource] = [];
+
+@onready var pause_menu: PauseMenu = %PauseMenu;
+
 var current_level_idx: int = 0;
 var active_level: Level;
+var started: bool = false;
 
 @export var starting_player_lives := 3;
 var player_lives: int;
 
 func _ready() -> void:
-	current_level_idx = starting_level;
-	player_lives = starting_player_lives;
-	on_start();
+	_load_title_screen();
+
+func _load_title_screen() -> void:
+	var title_screen: TitleScreen = title_screen_scene.instantiate();
+	title_screen.start.connect(on_start);
+	title_screen.exit_game.connect(_exit_game);
+	add_child(title_screen);
+	active_level = title_screen;
+
+func _exit_game() -> void:
+	get_tree().quit();
 
 func on_start() -> void:
+	if (active_level):
+		active_level.queue_free();
+
 	started = true;
+	current_level_idx = starting_level;
+	player_lives = starting_player_lives;
+	var hud: HUD = hud_scene.instantiate();
+	add_child(hud);
 	game_start.emit();
 	player_lives_updated.emit(player_lives);
 	start_next_level();

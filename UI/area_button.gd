@@ -42,7 +42,7 @@ func _ready() -> void:
 	mouse_exited.connect(_transition_to_normal)
 
 func _notify_click() -> void:
-	print("CLICK")
+	is_selected = true;
 	_stop_all_timers();
 	button_click.emit();
 

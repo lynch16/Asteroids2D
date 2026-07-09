@@ -24,6 +24,7 @@ one_shot = true
 wait_time = 2.0
 
 [node name="RapidClickTimer" type="Timer" parent="." unique_id=945328942]
+wait_time = 0.4
 
 [node name="Normal" type="Sprite2D" parent="." unique_id=670743590]
 texture = ExtResource("2_4ofcm")

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dwuumottdrlrs"]
 
-[ext_resource type="Script" uid="uid://53fnq33aw1pk" path="res://Levels/Core/level.gd" id="1_3digv"]
+[ext_resource type="Script" uid="uid://r7jqfse5ye2w" path="res://Levels/TitleScreen/title_screen.gd" id="1_aegml"]
 [ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="2_7cu5t"]
 [ext_resource type="Script" uid="uid://bo5uwcqvj1ehh" path="res://Levels/Core/level_resource.gd" id="3_hep3f"]
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="4_lxooc"]
@@ -3534,7 +3534,7 @@ faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [node name="Level" type="Node2D" unique_id=350803456]
-script = ExtResource("1_3digv")
+script = ExtResource("1_aegml")
 level_settings = SubResource("Resource_cajwa")
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("4_lxooc")]
