@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="MS_CollisionMeshGroup" format=3 uid="uid://b6dc5ee5xfgry"]
-
-[ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh.gd" id="1_1s3ia"]
-[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="2_iilal"]
-
-[resource]
-resource_local_to_scene = true
-script = ExtResource("2_iilal")
