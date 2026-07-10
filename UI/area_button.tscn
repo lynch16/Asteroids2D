@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cknrxgndkhfbf" path="res://UI/area_button.gd" id="1_tqp0k"]
 [ext_resource type="Texture2D" uid="uid://dhk76vis0qbd7" path="res://UI/Button Sprites/ring_a.png" id="2_4ofcm"]
+[ext_resource type="LabelSettings" uid="uid://b6q07edyap3eo" path="res://UI/HUD/Settings/Assets/kenney_label_settings.tres" id="2_kckju"]
 [ext_resource type="Texture2D" uid="uid://detvta7dcju4x" path="res://UI/Button Sprites/circle_rings_a_trans.png" id="3_2bo8f"]
+[ext_resource type="LabelSettings" uid="uid://bit2vl5nnthy6" path="res://UI/HUD/Settings/Assets/kenney_label_settings_disabled.tres" id="3_l0ua8"]
 [ext_resource type="Texture2D" uid="uid://dp10yohi7pfyv" path="res://UI/Button Sprites/ring_b.png" id="4_248qp"]
 [ext_resource type="AudioStream" uid="uid://d2j6ib1xltkky" path="res://Audio/SoundEffects/UI/Bluezone_BC0301_tiny_gears_small_mechanism_click_003.wav" id="6_f1fre"]
 [ext_resource type="AudioStream" uid="uid://cehnlrqox08mq" path="res://Audio/SoundEffects/UI/Bluezone_BC0301_tiny_gears_small_mechanism_click_complex_011.wav" id="7_4snop"]
@@ -13,6 +15,8 @@ radius = 100.0
 [node name="AreaButton" type="Area2D" unique_id=789434949]
 script = ExtResource("1_tqp0k")
 button_text = "Start"
+normal_label_settings = ExtResource("2_kckju")
+disabled_label_settings = ExtResource("3_l0ua8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=733125254]
 shape = SubResource("CircleShape2D_hdmay")
@@ -35,23 +39,23 @@ texture = ExtResource("4_248qp")
 [node name="Pressed" type="Sprite2D" parent="." unique_id=1699738834]
 texture = ExtResource("3_2bo8f")
 
-[node name="Label" type="Label" parent="." unique_id=398904404]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.5
-offset_top = -11.5
-offset_right = 19.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Start"
-vertical_alignment = 1
+[node name="Disabled" type="Sprite2D" parent="." unique_id=679756343]
 
 [node name="HoverAudioPlayer" type="AudioStreamPlayer" parent="." unique_id=2065332136]
 stream = ExtResource("6_f1fre")
 
 [node name="ClickAudioPlayer" type="AudioStreamPlayer" parent="." unique_id=884039379]
 stream = ExtResource("7_4snop")
+
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=780873907]
+offset_left = -48.0
+offset_top = -16.0
+offset_right = 48.0
+offset_bottom = 16.0
+
+[node name="Label" type="Label" parent="BoxContainer" unique_id=398904404]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start"
+horizontal_alignment = 1
+vertical_alignment = 1

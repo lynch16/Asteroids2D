@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bicxv587ry1jt"]
+
+[ext_resource type="PackedScene" uid="uid://bmbrpa4nbfa02" path="res://UI/area_button.tscn" id="1_trt4p"]
+[ext_resource type="Texture2D" uid="uid://vq6uierkenmj" path="res://UI/HUD/Settings/Assets/settings_button_rectangle.png" id="2_t5nmc"]
+[ext_resource type="Texture2D" uid="uid://bo4xhrnrp62db" path="res://UI/HUD/Settings/Assets/settings_button_hover.png" id="3_cmatd"]
+[ext_resource type="Texture2D" uid="uid://4twgxd4euvme" path="res://UI/HUD/Settings/Assets/settings_button_click.png" id="4_6h6v6"]
+[ext_resource type="LabelSettings" uid="uid://b6q07edyap3eo" path="res://UI/HUD/Settings/Assets/kenney_label_settings.tres" id="4_8xjqf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cmatd"]
+size = Vector2(120, 64)
+
+[node name="AreaButton" unique_id=789434949 instance=ExtResource("1_trt4p")]
+button_text = "Revert"
+button_state_transition_length = 0.2
+disable = true
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=733125254]
+shape = SubResource("RectangleShape2D_cmatd")
+
+[node name="Normal" parent="." index="4" unique_id=670743590]
+texture = ExtResource("2_t5nmc")
+
+[node name="Hover" parent="." index="5" unique_id=1272353382]
+position = Vector2(0, 2)
+texture = ExtResource("3_cmatd")
+
+[node name="Pressed" parent="." index="6" unique_id=1699738834]
+position = Vector2(0, 2)
+texture = ExtResource("4_6h6v6")
+
+[node name="Disabled" parent="." index="7" unique_id=679756343]
+texture = ExtResource("2_t5nmc")
+
+[node name="Label" parent="." index="8" unique_id=398904404]
+offset_left = -37.5
+offset_right = 42.5
+text = "Revert"
+label_settings = ExtResource("4_8xjqf")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
