@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dwuumottdrlrs"]
 
 [ext_resource type="Script" uid="uid://r7jqfse5ye2w" path="res://Levels/TitleScreen/title_screen.gd" id="1_aegml"]
+[ext_resource type="PackedScene" uid="uid://bss731bhxjwvd" path="res://UI/HUD/Settings/settings.tscn" id="2_6vd63"]
 [ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="2_7cu5t"]
 [ext_resource type="Script" uid="uid://bo5uwcqvj1ehh" path="res://Levels/Core/level_resource.gd" id="3_hep3f"]
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="4_lxooc"]
@@ -411,12 +412,12 @@ convex_shape = SubResource("ConvexPolygonShape2D_4je3a")
 mesh = SubResource("ArrayMesh_4dcvd")
 position_offset = Vector2(-373.4737, -378.10526)
 
-[sub_resource type="Resource" id="Resource_7cu5t"]
+[sub_resource type="Resource" id="Resource_6vd63"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_sbsgd")])
 
-[sub_resource type="Resource" id="Resource_hep3f"]
+[sub_resource type="Resource" id="Resource_jpca5"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -783,12 +784,12 @@ convex_shape = SubResource("ConvexPolygonShape2D_3f71q")
 mesh = SubResource("ArrayMesh_qt525")
 position_offset = Vector2(-377.23077, -310.76923)
 
-[sub_resource type="Resource" id="Resource_lxooc"]
+[sub_resource type="Resource" id="Resource_3xsrw"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_kk55j")])
 
-[sub_resource type="Resource" id="Resource_drlsy"]
+[sub_resource type="Resource" id="Resource_6ieaa"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -1155,12 +1156,12 @@ convex_shape = SubResource("ConvexPolygonShape2D_dngmb")
 mesh = SubResource("ArrayMesh_nmsmc")
 position_offset = Vector2(-380.25, -316.5)
 
-[sub_resource type="Resource" id="Resource_wytci"]
+[sub_resource type="Resource" id="Resource_46dru"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_32xs0")])
 
-[sub_resource type="Resource" id="Resource_3yk5t"]
+[sub_resource type="Resource" id="Resource_ii217"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -1503,12 +1504,12 @@ convex_shape = SubResource("ConvexPolygonShape2D_n0fmu")
 mesh = SubResource("ArrayMesh_axih8")
 position_offset = Vector2(-373.21738, -312)
 
-[sub_resource type="Resource" id="Resource_54ufu"]
+[sub_resource type="Resource" id="Resource_5fut2"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_o2psm")])
 
-[sub_resource type="Resource" id="Resource_cor6w"]
+[sub_resource type="Resource" id="Resource_iruta"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -1862,12 +1863,12 @@ convex_shape = SubResource("ConvexPolygonShape2D_l8shp")
 mesh = SubResource("ArrayMesh_8gwry")
 position_offset = Vector2(-376, -319.7143)
 
-[sub_resource type="Resource" id="Resource_h3jbm"]
+[sub_resource type="Resource" id="Resource_tcprm"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_ssgib")])
 
-[sub_resource type="Resource" id="Resource_nxm0e"]
+[sub_resource type="Resource" id="Resource_2c8sj"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -2241,12 +2242,12 @@ convex_shape = SubResource("ConvexPolygonShape2D_ank3f")
 mesh = SubResource("ArrayMesh_1oree")
 position_offset = Vector2(-377.2, -333.2)
 
-[sub_resource type="Resource" id="Resource_8js43"]
+[sub_resource type="Resource" id="Resource_7hd5u"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_0lv1v")])
 
-[sub_resource type="Resource" id="Resource_pf8y5"]
+[sub_resource type="Resource" id="Resource_8imtr"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -2614,12 +2615,12 @@ convex_shape = SubResource("ConvexPolygonShape2D_ys4y1")
 mesh = SubResource("ArrayMesh_x3o6d")
 position_offset = Vector2(-376.27585, -309.51724)
 
-[sub_resource type="Resource" id="Resource_xcksg"]
+[sub_resource type="Resource" id="Resource_eq3yf"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_tfh0v")])
 
-[sub_resource type="Resource" id="Resource_7n38s"]
+[sub_resource type="Resource" id="Resource_kewm4"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -2867,48 +2868,48 @@ convex_shape = SubResource("ConvexPolygonShape2D_riwh6")
 mesh = SubResource("ArrayMesh_1it6p")
 position_offset = Vector2(-370.8, -295.6)
 
-[sub_resource type="Resource" id="Resource_nsdib"]
+[sub_resource type="Resource" id="Resource_s4tle"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_k6bkp")])
 
-[sub_resource type="Resource" id="Resource_xs7mj"]
+[sub_resource type="Resource" id="Resource_mxkft"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_s0riy"]
+[sub_resource type="Resource" id="Resource_l6kh6"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_ssgib")])
 
-[sub_resource type="Resource" id="Resource_vv8on"]
+[sub_resource type="Resource" id="Resource_e07va"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_eieur"]
+[sub_resource type="Resource" id="Resource_g45wl"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_sbsgd")])
 
-[sub_resource type="Resource" id="Resource_xawrf"]
+[sub_resource type="Resource" id="Resource_mykj2"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_kft1h"]
+[sub_resource type="Resource" id="Resource_18gn5"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_kk55j")])
 
-[sub_resource type="Resource" id="Resource_682wx"]
+[sub_resource type="Resource" id="Resource_jfluk"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -3105,12 +3106,12 @@ convex_shape = SubResource("ConvexPolygonShape2D_hgril")
 mesh = SubResource("ArrayMesh_txrpg")
 position_offset = Vector2(-372.8, -321.6)
 
-[sub_resource type="Resource" id="Resource_golko"]
+[sub_resource type="Resource" id="Resource_55i6g"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_tffym")])
 
-[sub_resource type="Resource" id="Resource_1n3kd"]
+[sub_resource type="Resource" id="Resource_0ti5y"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -3509,24 +3510,24 @@ convex_shape = SubResource("ConvexPolygonShape2D_j8u28")
 mesh = SubResource("ArrayMesh_luu73")
 position_offset = Vector2(-375.33334, -308.66666)
 
-[sub_resource type="Resource" id="Resource_fk38q"]
+[sub_resource type="Resource" id="Resource_ore3j"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_b1gxh")])
 
-[sub_resource type="Resource" id="Resource_tv5na"]
+[sub_resource type="Resource" id="Resource_rhyok"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_s7mm5"]
+[sub_resource type="Resource" id="Resource_mhnq3"]
 resource_local_to_scene = true
 script = ExtResource("10_h3jbm")
 collision_meshes = Array[ExtResource("8_54ufu")]([SubResource("Resource_tfh0v")])
 
-[sub_resource type="Resource" id="Resource_njtlb"]
+[sub_resource type="Resource" id="Resource_75fun"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
@@ -3534,6 +3535,7 @@ faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [node name="Level" type="Node2D" unique_id=350803456]
+process_mode = 1
 script = ExtResource("1_aegml")
 level_settings = SubResource("Resource_cajwa")
 
@@ -3551,6 +3553,7 @@ position = Vector2(504, 741)
 [node name="OptionsButton" parent="GameArea" unique_id=360964673 instance=ExtResource("6_7cu5t")]
 position = Vector2(976, 741)
 button_text = "Options"
+is_reselectable = true
 
 [node name="ExitButton" parent="GameArea" unique_id=665876220 instance=ExtResource("6_7cu5t")]
 position = Vector2(1408, 741)
@@ -3565,8 +3568,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node/R" unique_id=328524540 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_7cu5t")
-health_stats = SubResource("Resource_hep3f")
+collision_mesh_group = SubResource("Resource_6vd63")
+health_stats = SubResource("Resource_jpca5")
 
 [node name="O" type="CollisionShape2D" parent="GameArea/Node" unique_id=1828375990]
 position = Vector2(488, 360)
@@ -3574,8 +3577,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node/O" unique_id=2080275938 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_lxooc")
-health_stats = SubResource("Resource_drlsy")
+collision_mesh_group = SubResource("Resource_3xsrw")
+health_stats = SubResource("Resource_6ieaa")
 
 [node name="G" type="CollisionShape2D" parent="GameArea/Node" unique_id=1024392819]
 position = Vector2(617, 365)
@@ -3583,8 +3586,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node/G" unique_id=403847318 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_wytci")
-health_stats = SubResource("Resource_3yk5t")
+collision_mesh_group = SubResource("Resource_46dru")
+health_stats = SubResource("Resource_ii217")
 
 [node name="U" type="CollisionShape2D" parent="GameArea/Node" unique_id=160068995]
 position = Vector2(728, 367)
@@ -3593,8 +3596,8 @@ disabled = true
 
 [node name="Asteroid" parent="GameArea/Node/U" unique_id=1449146785 instance=ExtResource("7_3yk5t")]
 position = Vector2(7, -5)
-collision_mesh_group = SubResource("Resource_54ufu")
-health_stats = SubResource("Resource_cor6w")
+collision_mesh_group = SubResource("Resource_5fut2")
+health_stats = SubResource("Resource_iruta")
 
 [node name="E" type="CollisionShape2D" parent="GameArea/Node" unique_id=1142048150]
 position = Vector2(863, 367)
@@ -3602,8 +3605,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node/E" unique_id=625910990 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_h3jbm")
-health_stats = SubResource("Resource_nxm0e")
+collision_mesh_group = SubResource("Resource_tcprm")
+health_stats = SubResource("Resource_2c8sj")
 
 [node name="Node2" type="Node2D" parent="GameArea" unique_id=698420488]
 position = Vector2(192, -120)
@@ -3614,8 +3617,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/A" unique_id=1352790788 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_8js43")
-health_stats = SubResource("Resource_pf8y5")
+collision_mesh_group = SubResource("Resource_7hd5u")
+health_stats = SubResource("Resource_8imtr")
 
 [node name="S" type="CollisionShape2D" parent="GameArea/Node2" unique_id=603336680]
 position = Vector2(611, 534)
@@ -3624,8 +3627,8 @@ disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/S" unique_id=276505509 instance=ExtResource("7_3yk5t")]
 position = Vector2(0, 1)
-collision_mesh_group = SubResource("Resource_xcksg")
-health_stats = SubResource("Resource_7n38s")
+collision_mesh_group = SubResource("Resource_eq3yf")
+health_stats = SubResource("Resource_kewm4")
 
 [node name="T" type="CollisionShape2D" parent="GameArea/Node2" unique_id=994204098]
 position = Vector2(724, 525)
@@ -3633,8 +3636,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/T" unique_id=1078606356 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_nsdib")
-health_stats = SubResource("Resource_xs7mj")
+collision_mesh_group = SubResource("Resource_s4tle")
+health_stats = SubResource("Resource_mxkft")
 
 [node name="E" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1889455133]
 position = Vector2(848, 552)
@@ -3642,8 +3645,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/E" unique_id=1220128983 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_s0riy")
-health_stats = SubResource("Resource_vv8on")
+collision_mesh_group = SubResource("Resource_l6kh6")
+health_stats = SubResource("Resource_e07va")
 
 [node name="R" type="CollisionShape2D" parent="GameArea/Node2" unique_id=281176681]
 position = Vector2(968, 552)
@@ -3651,8 +3654,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/R" unique_id=854005038 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_eieur")
-health_stats = SubResource("Resource_xawrf")
+collision_mesh_group = SubResource("Resource_g45wl")
+health_stats = SubResource("Resource_mykj2")
 
 [node name="O" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1167639424]
 position = Vector2(1098, 545)
@@ -3660,8 +3663,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/O" unique_id=191314344 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_kft1h")
-health_stats = SubResource("Resource_682wx")
+collision_mesh_group = SubResource("Resource_18gn5")
+health_stats = SubResource("Resource_jfluk")
 
 [node name="I" type="CollisionShape2D" parent="GameArea/Node2" unique_id=218550786]
 position = Vector2(1185, 557)
@@ -3669,8 +3672,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/I" unique_id=1564619993 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_golko")
-health_stats = SubResource("Resource_1n3kd")
+collision_mesh_group = SubResource("Resource_55i6g")
+health_stats = SubResource("Resource_0ti5y")
 
 [node name="D" type="CollisionShape2D" parent="GameArea/Node2" unique_id=2026019724]
 position = Vector2(1280, 547)
@@ -3678,8 +3681,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/D" unique_id=1829127472 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_fk38q")
-health_stats = SubResource("Resource_tv5na")
+collision_mesh_group = SubResource("Resource_ore3j")
+health_stats = SubResource("Resource_rhyok")
 
 [node name="S2" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1697245248]
 position = Vector2(1409, 552)
@@ -3687,8 +3690,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/S2" unique_id=1093990205 instance=ExtResource("7_3yk5t")]
-collision_mesh_group = SubResource("Resource_s7mm5")
-health_stats = SubResource("Resource_njtlb")
+collision_mesh_group = SubResource("Resource_mhnq3")
+health_stats = SubResource("Resource_75fun")
 
 [node name="PlayerSpawn" parent="." unique_id=90593702 instance=ExtResource("6_wytci")]
 unique_name_in_owner = true
@@ -3697,3 +3700,5 @@ position = Vector2(256, 560)
 [node name="SpaceBackground" parent="." unique_id=1045910225 instance=ExtResource("21_xawrf")]
 z_index = -1
 position = Vector2(0, 100)
+
+[node name="Settings" parent="." unique_id=531168141 instance=ExtResource("2_6vd63")]

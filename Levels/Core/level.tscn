@@ -13,6 +13,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-268, -208, 2162, -202, 2167, 1342, -269, 1347)])
 
 [node name="Level" type="Node2D" unique_id=350803456]
+process_mode = 1
 script = ExtResource("1_q5k0s")
 level_settings = ExtResource("2_fk8qc")
 

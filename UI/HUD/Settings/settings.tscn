@@ -38,6 +38,7 @@ bg_color = Color(0.93333334, 0.15294118, 0.2784314, 1)
 bg_color = Color(0.93333334, 0.15294118, 0.2784314, 1)
 
 [node name="Settings" type="Node2D" unique_id=531168141]
+process_mode = 3
 script = ExtResource("1_l2e8u")
 resolution_options = Array[ExtResource("2_5fm0j")]([SubResource("Resource_3vydv"), SubResource("Resource_l2e8u"), SubResource("Resource_5fm0j")])
 
