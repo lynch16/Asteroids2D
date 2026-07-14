@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://hd0ojwbft8v8"
+path="res://.godot/imported/Pulsar [Action Loop].wav-2b42ffd1f30eac6200d1905bc42db71d.sample"
+
+[deps]
+
+source_file="res://Audio/Music/Pulsar [Action Loop].wav"
+dest_files=["res://.godot/imported/Pulsar [Action Loop].wav-2b42ffd1f30eac6200d1905bc42db71d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

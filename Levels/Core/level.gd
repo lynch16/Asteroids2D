@@ -78,8 +78,8 @@ func start_enemies() -> void:
 		add_child(start_enemies_timer);
 
 func _on_player_die(player: Player) -> void:
-	player.queue_free();
 	lose_condition_met.emit();
+	get_tree().create_timer(1.0).timeout.connect(player.queue_free);
 
 func _process(_delta: float) -> void:
 	if (is_active):

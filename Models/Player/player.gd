@@ -88,8 +88,7 @@ func _die() -> void:
 	var sprite: AnimatedSprite2D = $AnimatedShipSprite2D;
 	sprite.hide();
 	process_mode = Node.PROCESS_MODE_DISABLED;
-
-	get_tree().create_timer(1.0).timeout.connect(_notify_death);
+	_notify_death();
 
 func _notify_death() -> void:
 	player_died.emit(self);
