@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://53fnq33aw1pk" path="res://Levels/Core/level.gd" id="1_q5k0s"]
 [ext_resource type="PackedScene" uid="uid://cwbbylt5vni3j" path="res://Models/RockThrower/rock_thrower.tscn" id="2_bcvyo"]
+[ext_resource type="Resource" uid="uid://c35p735bxy766" path="res://Levels/AsteroidLevels/level_1.tres" id="2_fk8qc"]
 [ext_resource type="Script" uid="uid://ce43prxb75d4c" path="res://Levels/game_area.gd" id="4_bcvyo"]
 [ext_resource type="PackedScene" uid="uid://423u2ig3bkp0" path="res://Models/Player/player_spawn.tscn" id="5_fk8qc"]
+[ext_resource type="PackedScene" uid="uid://evepknlqgvo6" path="res://sprites/backgrounds/space_background.tscn" id="6_b5s7n"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fk8qc"]
 vertices = PackedVector2Array(2152.0313, -192.02344, 2156.961, 1332.0234, -258.9922, 1336.9688, -258, -197.96875)
@@ -11,7 +13,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-268, -208, 2162, -202, 2167, 1342, -269, 1347)])
 
 [node name="Level" type="Node2D" unique_id=350803456]
+process_mode = 1
 script = ExtResource("1_q5k0s")
+level_settings = ExtResource("2_fk8qc")
 
 [node name="RockThrower" parent="." unique_id=1513123556 instance=ExtResource("2_bcvyo")]
 unique_name_in_owner = true
@@ -24,3 +28,7 @@ script = ExtResource("4_bcvyo")
 [node name="PlayerSpawn" parent="." unique_id=90593702 instance=ExtResource("5_fk8qc")]
 unique_name_in_owner = true
 position = Vector2(473, 570)
+
+[node name="SpaceBackground" parent="." unique_id=1045910225 instance=ExtResource("6_b5s7n")]
+z_index = -1
+position = Vector2(0, 100)

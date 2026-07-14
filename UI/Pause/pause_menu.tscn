@@ -1,19 +1,51 @@
 [gd_scene format=3 uid="uid://dc4xstka1au80"]
 
 [ext_resource type="Script" uid="uid://c07tl5c4qnna8" path="res://UI/Pause/pause_menu.gd" id="1_hdmo1"]
+[ext_resource type="PackedScene" uid="uid://bicxv587ry1jt" path="res://UI/HUD/Settings/Assets/settings_button.tscn" id="2_q2f6t"]
+[ext_resource type="Script" uid="uid://cdll0wprqblme" path="res://UI/Pause/slide_in_button.gd" id="3_up1d0"]
+[ext_resource type="PackedScene" uid="uid://bss731bhxjwvd" path="res://UI/HUD/Settings/settings.tscn" id="4_atl34"]
+[ext_resource type="PackedScene" uid="uid://c02hfbw2s1src" path="res://UI/confirmation_dialog.tscn" id="5_7chga"]
 
 [node name="PauseMenu" type="Container" unique_id=1804450957]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hdmo1")
+pause_on_ready = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=831547323]
-layout_mode = 2
+[node name="ResumeButton" parent="." unique_id=789434949 instance=ExtResource("2_q2f6t")]
+position = Vector2(731, 422)
+script = ExtResource("3_up1d0")
+transition_duration = 0.2
+offscreen_position = Vector2(-200, 300)
+button_text = "Resume"
+is_reselectable = true
+disable = false
 
-[node name="Unpause" type="Button" parent="VBoxContainer" unique_id=1671081617]
-visible = false
-layout_mode = 2
-text = "Resume"
+[node name="OptionsButton" parent="." unique_id=446563155 instance=ExtResource("2_q2f6t")]
+position = Vector2(731, 522)
+script = ExtResource("3_up1d0")
+transition_duration = 0.2
+offscreen_position = Vector2(-200, 400)
+button_text = "Options"
+is_reselectable = true
+disable = false
+
+[node name="QuitButton" parent="." unique_id=864523158 instance=ExtResource("2_q2f6t")]
+position = Vector2(731, 622)
+script = ExtResource("3_up1d0")
+transition_duration = 0.2
+offscreen_position = Vector2(-200, 500)
+button_text = "Quit Game"
+is_reselectable = true
+disable = false
+
+[node name="Settings" parent="." unique_id=531168141 instance=ExtResource("4_atl34")]
+position = Vector2(846, 392)
+close_on_save = false
+
+[node name="QuitDialog" parent="." unique_id=887997045 instance=ExtResource("5_7chga")]
+position = Vector2(846, 392)

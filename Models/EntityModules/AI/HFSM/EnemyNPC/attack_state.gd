@@ -29,7 +29,7 @@ func on_update(delta: float) -> void:
 		move_controller.update_nav_target(last_known_position);
 
 	# TODO: This is causing enemy to attack if it sees the player, not just when it can hit. Keep for realism?
-	if (weapon_controller.current_weapon && vision_area.can_see_node(targeter.target)):
+	if (weapon_controller.current_weapon && is_instance_valid(targeter.target) && vision_area.can_see_node(targeter.target)):
 		weapon_controller.current_weapon.use();
 
 func _set_first_valid_target() -> void:

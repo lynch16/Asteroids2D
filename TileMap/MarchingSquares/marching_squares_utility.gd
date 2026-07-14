@@ -21,8 +21,9 @@ const NEXT_CHECK: PackedVector2Array = [
 ]
 # TODO: I should be able to adjust tile size without breaking everything
 # This mostly works, granted I need to adjust the weapon deformation size too. This increases the issue of stray points though
-const TILE_SIZE = 16;
+const TILE_SIZE = 8;
 const HALF_TILE_SIZE = TILE_SIZE/2;
+const MIN_CORNER_SIZE = 16;
 const BLOCK_DIVISION = 0.5;
 const DOT_BUTTON_RADIUS = 2.0;
 const ALL_CORNERS = 15 # 1111 in binary
@@ -111,6 +112,33 @@ static func count_positive_corners(corner_sampling: Dictionary[Vector2, float]) 
 				count += 1;
 			return count;, 0
 	);
+
+static func recursive_corner_trim(corner_sampling: Dictionary[Vector2, float], trim_size: int = TILE_SIZE) -> Dictionary[Vector2, float]:
+	var new_samples: Dictionary[Vector2, float] = {};
+	for vertex: Vector2 in corner_sampling.keys():
+		if (corner_sampling[vertex] > 0.0):
+			var left := Vector2(vertex.x - trim_size, vertex.y);
+			var right := Vector2(vertex.x + trim_size, vertex.y);
+			var up := Vector2(vertex.x, vertex.y + trim_size);
+			var down := Vector2(vertex.x, vertex.y - trim_size);
+
+			var all_directions := [left, up, right, down];
+			var directions_filled := 0;
+
+			for direction: Vector2 in all_directions:
+				if (corner_sampling.has(direction) && corner_sampling[direction] > 0.0):
+					directions_filled += 1;
+
+			if (directions_filled >= 2):
+				new_samples[vertex] = corner_sampling[vertex];
+
+		if (!new_samples.has(vertex)):
+			new_samples[vertex] = 0.0;
+	
+	if (new_samples.size() != corner_sampling.size()):
+		return recursive_corner_trim(new_samples, trim_size);
+
+	return new_samples;
 
 # Utility function to get normalized tile coordinates from viewport
 static func for_each_tile(viewport_size: Vector2, callable: Callable) -> void:

@@ -20,10 +20,10 @@ signal all_colliders_destroyed;
 var _deformable_mesh_collisions: Array[DeformableMeshCollider2D] = [];
 
 func _init(
-	pcollision_mesh_group: MS_CollisionMeshGroup = null,
+	p_collision_mesh_group: MS_CollisionMeshGroup = null,
 	p_collision_object: Node = null
 ) -> void:
-	collision_mesh_group = pcollision_mesh_group;
+	collision_mesh_group = p_collision_mesh_group;
 	collision_object = p_collision_object;
 
 func _enter_tree() -> void:
@@ -32,7 +32,7 @@ func _enter_tree() -> void:
 	var collision_meshes := collision_mesh_group.collision_meshes;
 	for i: int in collision_meshes.size():
 		var collision := DeformableMeshCollider2D.new();
-		collision._collision_mesh = collision_meshes[i];
+		collision._collision_mesh = collision_meshes[i].duplicate();
 		collision.collision_mesh_group = self;
 		collision.shape = collision_meshes[i].convex_shape;
 		collision.spawn_new_group.connect(_spawn_new_group);

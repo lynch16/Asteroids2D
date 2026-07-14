@@ -25,8 +25,6 @@ enum ToolMode {
 	SELECT_FOR_EXPORT
 }
 
-const MIN_CORNERS = 8;
-
 enum EditorMode {
 	READY,
 	EDIT_MESH,
@@ -62,7 +60,7 @@ var left_click_start_time := 0.0;
 
 ## As an editor script, we dont want to use the editor viewport
 ## This size will scale evenly from 720p - 4k
-@onready var viewport_rect: Rect2 = Rect2(Vector2(), Vector2(640, 360));
+@onready var viewport_rect: Rect2 = Rect2(Vector2(), Vector2(1920, 1080));
 
 func _ready() -> void:
 	InputMap.load_from_project_settings();
@@ -215,7 +213,7 @@ func _sample_viewport() -> void:
 	mode = EditorMode.EDIT_MESH;
 	
 func _generate_mesh_from_saved_samples() -> void:
-	if (MarchingSquaresUtility.count_positive_corners(seed_corner_samples) < MIN_CORNERS):
+	if (MarchingSquaresUtility.count_positive_corners(seed_corner_samples) < MarchingSquaresUtility.MIN_CORNER_SIZE):
 		return;
 	MarchingSquaresGenerate.upsert_generated_mesh_instance(viewport_rect, seed_corner_samples, texture, seed_mesh_instance)
 	
