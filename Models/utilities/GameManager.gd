@@ -36,6 +36,8 @@ func _exit_game() -> void:
 	get_tree().quit();
 
 func on_start() -> void:
+	pause_menu.start_monitoring();
+	
 	if (active_level):
 		active_level.queue_free();
 

@@ -4,6 +4,7 @@ extends Node2D
 const SAVE_PATH := "user://settings.tres";
 
 @export var resolution_options: Array[ResolutionOptions] = [];
+@export var close_on_save: bool = true;
 
 @onready var resolution_options_button: OptionButton = %ResolutionOptionButton;
 @onready var full_screen_button: CheckButton = %FullscreenButton;
@@ -35,7 +36,13 @@ func _ready() -> void:
 	revert_button.button_click.connect(_on_revert_button_click);
 	save_button.button_click.connect(_on_save_button_click);
 
-	close();
+func _center_in_viewport() -> void:
+	var viewport := get_viewport_rect();
+
+	var sprite: Sprite2D = $ContainerSprite;
+	var sprite_rect := sprite.get_rect();
+
+	global_position = Vector2((viewport.size.x - sprite_rect.size.x)/2, (viewport.size.y - sprite_rect.size.y)/2);
 
 func _load() -> void:
 	var existing_settings: SettingsResource = ResourceLoader.load(SAVE_PATH);
@@ -70,10 +77,16 @@ func _save() -> void:
 	else:
 		print("Failed saving game. Error code: ", error);
 
+func _after_save() -> void:
+	has_changed = false;
+	initial_volume = volume_value;
+	initial_resolution_idx = resolution_option_idx;
+	initial_full_screen = fullscreen;
+	revert_button.disable = !has_changed;
+
 func open() -> void:
 	_load();
-	var viewport := get_viewport_rect();
-	global_position = Vector2(viewport.size.x/2, viewport.size.y/2);
+	_center_in_viewport();
 	initial_volume = volume_value;
 	initial_resolution_idx = resolution_option_idx;
 	initial_full_screen = fullscreen;
@@ -89,6 +102,8 @@ func close() -> void:
 func _on_save_button_click() -> void:
 	if (has_changed):
 		_save();
+		_after_save();
+		if (!close_on_save): return;
 
 	close();
 	on_close.emit();

@@ -50,10 +50,12 @@ func _ready() -> void:
 
 	if (disable):
 		normal_texture.self_modulate.a = 0.0;
+		pressed_texture.self_modulate.a = 0.0;
 		disabled_texture.self_modulate.a = 1.0;
 	else:
 		normal_texture.self_modulate.a = 1.0;
 		disabled_texture.self_modulate.a = 0.0;
+		pressed_texture.self_modulate.a = 0.0;
 
 	pressed_texture.self_modulate.a = 0.0;
 	hover_texture.self_modulate.a = 0.0;
@@ -135,10 +137,13 @@ func _on_body_exit(node: Node2D) -> void:
 		_stop_all_timers();
 		_transition_to_normal();
 
+func _transition_to_pressed() -> void:
+	_transition_textures(pressed_texture, [hover_texture, normal_texture], click_timer.wait_time);
+
 func _on_click_timer_start() -> void:
 	if (click_timer.is_stopped()):
 		click_timer.start();
-		_transition_textures(pressed_texture, [hover_texture, normal_texture], click_timer.wait_time);
+		_transition_to_pressed();
 
 func _on_entered_timer_start() -> void:
 	if (entered_timer.is_stopped()):
@@ -146,7 +151,7 @@ func _on_entered_timer_start() -> void:
 		_transition_textures(hover_texture, [pressed_texture, normal_texture], entered_timer.wait_time);
 
 func _transition_textures(texture_in: Sprite2D, texture_outs: Array[Sprite2D], transition_length: float = button_state_transition_length) -> void:
-	if (tween):
+	if (tween && tween.is_running()):
 		tween.kill();
 
 	tween = create_tween();

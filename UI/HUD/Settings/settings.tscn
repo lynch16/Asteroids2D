@@ -151,6 +151,8 @@ step = 0.1
 [node name="SaveButton" parent="ContainerSprite" unique_id=789434949 instance=ExtResource("7_u5lmd")]
 unique_name_in_owner = true
 position = Vector2(-90, 76)
+monitoring = true
+monitorable = true
 button_text = "Close"
 is_reselectable = true
 disable = false
@@ -158,4 +160,6 @@ disable = false
 [node name="RevertButton" parent="ContainerSprite" unique_id=448770126 instance=ExtResource("7_u5lmd")]
 unique_name_in_owner = true
 position = Vector2(90, 76)
+monitoring = true
+monitorable = true
 is_reselectable = true

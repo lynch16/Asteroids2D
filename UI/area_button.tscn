@@ -13,6 +13,7 @@
 radius = 100.0
 
 [node name="AreaButton" type="Area2D" unique_id=789434949]
+monitorable = false
 script = ExtResource("1_tqp0k")
 button_text = "Start"
 normal_label_settings = ExtResource("2_kckju")

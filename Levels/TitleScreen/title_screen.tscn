@@ -3702,3 +3702,4 @@ z_index = -1
 position = Vector2(0, 100)
 
 [node name="Settings" parent="." unique_id=531168141 instance=ExtResource("2_6vd63")]
+visible = false
