@@ -22,6 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://b4ivc4lhx5ore" path="res://Audio/Music/Antimatter Fountain [Action Loop].wav" id="18_getpj"]
 [ext_resource type="AudioStream" uid="uid://hd0ojwbft8v8" path="res://Audio/Music/Pulsar [Action Loop].wav" id="19_ryguw"]
 [ext_resource type="AudioStream" uid="uid://l0n3ua0aho3b" path="res://Audio/Music/Dangerous Space [Action Loop].wav" id="20_d13ii"]
+[ext_resource type="Script" uid="uid://40nfqpfb31mh" path="res://UI/camera_2d.gd" id="23_d13ii"]
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_dg77c"]
 clip_count = 9
@@ -94,3 +95,7 @@ volume_db = -10.0
 autoplay = true
 script = ExtResource("12_dg77c")
 metadata/_custom_type_script = "uid://1rc73f16d7y5"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=403301675]
+anchor_mode = 0
+script = ExtResource("23_d13ii")

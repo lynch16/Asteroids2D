@@ -19,7 +19,7 @@ var current_health := 0.0:
 @export var faction: FactionStats.Faction;
 var health_bar: TextureProgressBar;
 
-signal on_health_depleted;
+signal on_health_depleted();
 signal on_health_changed(old_value: float, new_value: float);
 
 func _init(

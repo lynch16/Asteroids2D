@@ -46,7 +46,7 @@ func _update_movement(p_velocity: Vector2, p_rotation: float) -> void:
 	next_rotation = p_rotation;
 	next_velocity = p_velocity
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var is_turning := false;
 	var is_accelerating := false;
 

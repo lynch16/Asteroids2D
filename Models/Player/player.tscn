@@ -24,6 +24,8 @@
 [ext_resource type="AudioStream" uid="uid://mn82x05r07tt" path="res://Audio/SoundEffects/Cartoon Sci-Fi Explosion 5.wav" id="15_n7c2a"]
 [ext_resource type="Script" uid="uid://ckluymmkmha10" path="res://Models/EntityModules/Movement/movement_controller.gd" id="16_r71yq"]
 [ext_resource type="Script" uid="uid://v4gqslu6ep4x" path="res://Models/EntityModules/Movement/input_controller.gd" id="17_833x1"]
+[ext_resource type="Script" uid="uid://dxfiroxiwe451" path="res://Models/EntityModules/Damage/Hurt/DamageResults/death_screen_shake_damage_result.gd" id="20_v3t8f"]
+[ext_resource type="Script" uid="uid://7pw27byl1g0r" path="res://Models/EntityModules/Damage/Hurt/DamageResults/screen_shake_damage_result.gd" id="21_jb2ds"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m1agk"]
 atlas = ExtResource("4_o7pk3")
@@ -248,6 +250,13 @@ metadata/_custom_type_script = "uid://l3f2bsi7sp6n"
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hurtbox2D/DeathSfxDamageResult" unique_id=1289297220]
 stream = ExtResource("15_n7c2a")
 
+[node name="DeathScreenShakeDamageResult" type="Node" parent="Hurtbox2D" unique_id=1534350798]
+script = ExtResource("20_v3t8f")
+camera_node_path = "/root/GameManager/Camera2D"
+shake_intensity = 10
+shake_length = 0.4
+metadata/_custom_type_script = "uid://dxfiroxiwe451"
+
 [node name="StopOnDeathDamageResult" type="Node" parent="Hurtbox2D" unique_id=1378272894]
 script = ExtResource("14_e20tc")
 metadata/_custom_type_script = "uid://dirc5lq54ahsv"
@@ -260,6 +269,13 @@ metadata/_custom_type_script = "uid://bkqqxy4geuo3l"
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hurtbox2D/SfxDamageResult" unique_id=39476473]
 rotation = 1.5707964
 stream = ExtResource("14_7m2s5")
+
+[node name="ScreenShakeDamageResult" type="Node" parent="Hurtbox2D" unique_id=851746694]
+script = ExtResource("21_jb2ds")
+camera_node_path = "/root/GameManager/Camera2D"
+shake_intensity = 5
+shake_length = 0.2
+metadata/_custom_type_script = "uid://7pw27byl1g0r"
 
 [node name="BoundaryManager" type="Node2D" parent="." unique_id=1520790136 node_paths=PackedStringArray("node")]
 script = ExtResource("9_o7pk3")
