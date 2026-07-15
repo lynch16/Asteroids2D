@@ -7,9 +7,6 @@ extends DamageResult
 @export var score_color := Color(137, 95, 251); # Purple
 @export var score_font_size := 24;
 
-var score_label: Label;
-var score_timer: Timer;
-
 func on_damage(_damage_dealt: float, _damager_node: Node, _hit_position: Vector2, _hit_angle: float) -> bool: 
 	if (_damager_node && (_damager_node.is_in_group("player") || _damager_node.is_in_group("player_weapon"))):
 		ScoreManager.add_score(score_value);
@@ -19,10 +16,3 @@ func on_damage(_damage_dealt: float, _damager_node: Node, _hit_position: Vector2
 		get_tree().current_scene.add_child(score_popup);
 
 	return true;
-
-func _release_score_label() -> void:
-	if (score_label):
-		score_label.queue_free();
-	
-	if (score_timer):
-		score_timer.queue_free();

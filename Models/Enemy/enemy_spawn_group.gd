@@ -74,7 +74,9 @@ func _intialize_flying_v(target_position: Vector2) -> void:
 
 func _update_group_target(target: Node2D) -> void:
 	for enemy in enemies: 
+		if (!is_instance_valid(enemy)): continue;
 		enemy.set_target(target);
+		enemy.set_move_position(target.global_position);
 
 func _create_hunter_group() -> void:
 	var opposite_quad: int = wrap(spawn_quadrant + 2, 0, 3);

@@ -1,18 +1,138 @@
 [gd_scene format=3 uid="uid://b8soshry3wmi7"]
 
 [ext_resource type="Script" uid="uid://b13huugitcogo" path="res://Models/utilities/GameManager.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://c4dp78r7vd2qb" path="res://Levels/AsteroidLevels/level_1.tscn" id="2_lquwl"]
-[ext_resource type="PackedScene" uid="uid://bl1bop1n1l4w2" path="res://Levels/AsteroidLevels/level_2.tscn" id="3_7mycd"]
+[ext_resource type="PackedScene" uid="uid://du4nnb206ggo4" path="res://Levels/Core/level.tscn" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dwuumottdrlrs" path="res://Levels/TitleScreen/title_screen.tscn" id="2_efxa6"]
+[ext_resource type="Script" uid="uid://bo5uwcqvj1ehh" path="res://Levels/Core/level_resource.gd" id="3_272bh"]
 [ext_resource type="PackedScene" uid="uid://dc4xstka1au80" path="res://UI/Pause/pause_menu.tscn" id="4_1bvp3"]
+[ext_resource type="Resource" uid="uid://c35p735bxy766" path="res://Levels/AsteroidLevels/level_1.tres" id="4_5vw27"]
+[ext_resource type="Resource" uid="uid://dp5nvhx4e7q0e" path="res://Levels/AsteroidLevels/level_2.tres" id="5_4c57u"]
 [ext_resource type="PackedScene" uid="uid://ygio5vatco1t" path="res://UI/HUD/hud.tscn" id="5_lquwl"]
+[ext_resource type="Resource" uid="uid://bkj5ff0ekfgp5" path="res://Levels/AsteroidLevels/level_3.tres" id="6_efxa6"]
+[ext_resource type="Resource" uid="uid://5mecektn7wh3" path="res://Levels/AsteroidLevels/level_4.tres" id="7_dg77c"]
+[ext_resource type="Resource" uid="uid://xpaviqs02jeu" path="res://Levels/AsteroidLevels/level_5.tres" id="8_ycdy4"]
+[ext_resource type="Resource" uid="uid://cwpyp4d8gta26" path="res://Models/Player/player_health_stats.tres" id="11_ryguw"]
+[ext_resource type="AudioStream" uid="uid://stbo21cv3rc2" path="res://Audio/Music/Deepness of Space [Action Loop].wav" id="12_2cqfq"]
+[ext_resource type="Script" uid="uid://1rc73f16d7y5" path="res://UI/music_player.gd" id="12_dg77c"]
+[ext_resource type="AudioStream" uid="uid://665y47bnfi2n" path="res://Audio/Music/Into the Unknown [Action Loop].wav" id="12_w48qg"]
+[ext_resource type="AudioStream" uid="uid://73yiw5bk4rk" path="res://Audio/Music/Mystery Unveils [Action Loop].wav" id="13_vivmo"]
+[ext_resource type="AudioStream" uid="uid://hig3jqr0ymlo" path="res://Audio/Music/Star Formation [Ambient Loop].wav" id="13_yaehf"]
+[ext_resource type="AudioStream" uid="uid://c85vkolsv47wl" path="res://Audio/Music/Peaceful System [Ambient Loop].wav" id="14_074og"]
+[ext_resource type="AudioStream" uid="uid://gtadbqrkpo64" path="res://Audio/Music/Bright Star [Ambient Loop].wav" id="15_cegan"]
+[ext_resource type="AudioStream" uid="uid://b4ivc4lhx5ore" path="res://Audio/Music/Antimatter Fountain [Action Loop].wav" id="18_getpj"]
+[ext_resource type="AudioStream" uid="uid://hd0ojwbft8v8" path="res://Audio/Music/Pulsar [Action Loop].wav" id="19_ryguw"]
+[ext_resource type="AudioStream" uid="uid://l0n3ua0aho3b" path="res://Audio/Music/Dangerous Space [Action Loop].wav" id="20_d13ii"]
+[ext_resource type="Script" uid="uid://40nfqpfb31mh" path="res://UI/camera_2d.gd" id="23_d13ii"]
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_dg77c"]
+clip_count = 9
+clip_0/name = &"title_music"
+clip_0/stream = ExtResource("12_2cqfq")
+clip_0/auto_advance = 0
+clip_1/name = &"pause_music"
+clip_1/stream = ExtResource("13_yaehf")
+clip_1/auto_advance = 0
+clip_2/name = &"Peaceful System [ambient Loop]"
+clip_2/stream = ExtResource("14_074og")
+clip_2/auto_advance = 0
+clip_3/name = &"Bright Star [ambient Loop]"
+clip_3/stream = ExtResource("15_cegan")
+clip_3/auto_advance = 0
+clip_4/name = &"Into The Unknown [action Loop]"
+clip_4/stream = ExtResource("12_w48qg")
+clip_4/auto_advance = 0
+clip_5/name = &"Mystery Unveils [action Loop]"
+clip_5/stream = ExtResource("13_vivmo")
+clip_5/auto_advance = 0
+clip_6/name = &"Antimatter Fountain [action Loop]"
+clip_6/stream = ExtResource("18_getpj")
+clip_6/auto_advance = 0
+clip_7/name = &"Pulsar [action Loop]"
+clip_7/stream = ExtResource("19_ryguw")
+clip_7/auto_advance = 0
+clip_8/name = &"Dangerous Space [action Loop]"
+clip_8/stream = ExtResource("20_d13ii")
+clip_8/auto_advance = 0
+_transitions = {
+Vector2i(-1, -1): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"to_time": 1
+},
+Vector2i(-1, 1): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 1
+},
+Vector2i(1, -1): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 4): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 5): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 6): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 7): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 8): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+}
+}
 
 [node name="GameManager" type="Node" unique_id=944017969]
+process_mode = 3
 script = ExtResource("1_h2yge")
-levels = Array[PackedScene]([ExtResource("2_lquwl"), ExtResource("3_7mycd")])
+title_screen_scene = ExtResource("2_efxa6")
+hud_scene = ExtResource("5_lquwl")
+level_scene = ExtResource("2_7mycd")
+levels = Array[ExtResource("3_272bh")]([ExtResource("4_5vw27"), ExtResource("5_4c57u"), ExtResource("6_efxa6"), ExtResource("7_dg77c"), ExtResource("8_ycdy4")])
+player_health = ExtResource("11_ryguw")
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 unique_name_in_owner = true
-process_mode = 3
+visible = false
+z_index = 2
+pause_on_ready = false
 
-[node name="HUD" parent="." unique_id=663700924 instance=ExtResource("5_lquwl")]
-_debug_mode = true
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=849072583]
+stream = SubResource("AudioStreamInteractive_dg77c")
+volume_db = -10.0
+autoplay = true
+script = ExtResource("12_dg77c")
+metadata/_custom_type_script = "uid://1rc73f16d7y5"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=403301675]
+anchor_mode = 0
+script = ExtResource("23_d13ii")

@@ -5,13 +5,15 @@
 [ext_resource type="Script" uid="uid://cmladbrdjfan2" path="res://Models/EntityModules/Weapons/Core/Components/interceptor.gd" id="2_ksyjy"]
 [ext_resource type="Script" uid="uid://d26be3vwvphxq" path="res://Models/EntityModules/Weapons/Core/Components/targeter.gd" id="3_vcphr"]
 [ext_resource type="Script" uid="uid://ck3ih30jqm8wu" path="res://Models/EntityModules/Weapons/Core/Components/thrower.gd" id="4_xbwn4"]
-[ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="5_71ys3"]
+[ext_resource type="PackedScene" uid="uid://pdq3td1anqef" path="res://Models/EntityModules/Weapons/Projectiles/enemy_bullet.tscn" id="6_ii2uq"]
+[ext_resource type="AudioStream" uid="uid://p2hssul3eahi" path="res://Audio/SoundEffects/Cartoon Sci-Fi Weapon Shot 1.wav" id="7_41erk"]
 
 [node name="TrackedCannonWeapon" type="Node2D" unique_id=1174059964 node_paths=PackedStringArray("thrower", "targeter")]
 script = ExtResource("1_oyvr3")
 thrower = NodePath("ThrowerComponent")
 variance = 0.262
 combat_stats = ExtResource("2_ii2uq")
+use_rate = 1.0
 targeter = NodePath("TargeterComponent")
 metadata/_custom_type_script = "uid://cuqmt45sefh8k"
 
@@ -20,18 +22,20 @@ unique_name_in_owner = true
 script = ExtResource("2_ksyjy")
 targeter = NodePath("../TargeterComponent")
 thrower = NodePath("../ThrowerComponent")
-draw_targeting = true
 
 [node name="TargeterComponent" type="Node2D" parent="." unique_id=409204612]
 unique_name_in_owner = true
 script = ExtResource("3_vcphr")
 metadata/_custom_type_script = "uid://d26be3vwvphxq"
 
-[node name="ThrowerComponent" type="Node2D" parent="." unique_id=449700891 node_paths=PackedStringArray("intercepter", "targeter")]
+[node name="ThrowerComponent" type="Node2D" parent="." unique_id=449700891 node_paths=PackedStringArray("interceptor", "targeter")]
 unique_name_in_owner = true
 script = ExtResource("4_xbwn4")
 throw_speed = 1000.0
-throwable_scene = ExtResource("5_71ys3")
-intercepter = NodePath("../InterceptorComponent")
+throwable_scene = ExtResource("6_ii2uq")
+interceptor = NodePath("../InterceptorComponent")
 targeter = NodePath("../TargeterComponent")
 metadata/_custom_type_script = "uid://ck3ih30jqm8wu"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=383074391]
+stream = ExtResource("7_41erk")

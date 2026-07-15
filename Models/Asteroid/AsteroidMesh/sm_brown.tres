@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AsteroidMeshWeight" format=3 uid="uid://g52nk8jsiaf8"]
+
+[ext_resource type="Script" uid="uid://cnw80v7wq7r8g" path="res://Models/Asteroid/asteroid_mesh_weight.gd" id="1_6xykc"]
+[ext_resource type="Resource" uid="uid://nuv8w13prsce" path="res://Models/Asteroid/AsteroidMesh_8/sm_brown.tres" id="1_k7qug"]
+
+[resource]
+script = ExtResource("1_6xykc")
+asteroid_mesh = ExtResource("1_k7qug")
+weight = 2.0
+metadata/_custom_type_script = "uid://cnw80v7wq7r8g"

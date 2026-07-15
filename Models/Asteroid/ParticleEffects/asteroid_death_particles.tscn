@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://hhnorkors2v"]
+
+[ext_resource type="Material" uid="uid://dfnk6clhpuf84" path="res://Models/Asteroid/ParticleEffects/asteroid_death_process_material.tres" id="1_drhyw"]
+
+[node name="DeathParticles2D" type="GPUParticles2D" unique_id=1431025320]
+emitting = false
+amount = 500
+explosiveness = 1.0
+process_material = ExtResource("1_drhyw")

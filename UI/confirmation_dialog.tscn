@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://c02hfbw2s1src"]
+
+[ext_resource type="Script" uid="uid://dpu6stca8744f" path="res://UI/confirmation_dialog.gd" id="1_euyih"]
+[ext_resource type="Texture2D" uid="uid://fwpkkylqwddk" path="res://UI/HUD/Settings/Assets/settings_background.png" id="2_gs7yk"]
+[ext_resource type="FontFile" uid="uid://c6ow5kknund3n" path="res://UI/HUD/Settings/Assets/Fonts/Kenney Future.ttf" id="3_odpwx"]
+[ext_resource type="LabelSettings" uid="uid://bit2vl5nnthy6" path="res://UI/HUD/Settings/Assets/kenney_label_settings_disabled.tres" id="4_wmrn6"]
+[ext_resource type="PackedScene" uid="uid://bicxv587ry1jt" path="res://UI/HUD/Settings/Assets/settings_button.tscn" id="5_e4mho"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rn4ay"]
+font = ExtResource("3_odpwx")
+
+[node name="ConfirmationDialog" type="Node2D" unique_id=887997045]
+script = ExtResource("1_euyih")
+
+[node name="ContainerSprite" type="Sprite2D" parent="." unique_id=2029946625]
+position = Vector2(203, 109)
+scale = Vector2(1, 0.81954885)
+texture = ExtResource("2_gs7yk")
+
+[node name="Label" type="Label" parent="." unique_id=1641542964]
+offset_left = 15.0
+offset_top = 5.0
+offset_right = 101.0
+offset_bottom = 28.0
+text = "Confirm"
+label_settings = SubResource("LabelSettings_rn4ay")
+
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=524571937]
+offset_left = 5.0
+offset_top = 43.0
+offset_right = 402.0
+offset_bottom = 111.0
+
+[node name="MarginContainer" type="MarginContainer" parent="BoxContainer" unique_id=612926719]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer/MarginContainer" unique_id=689756079]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer/MarginContainer/HBoxContainer" unique_id=1767881850]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1115889161]
+layout_mode = 2
+text = "Are you sure?"
+label_settings = ExtResource("4_wmrn6")
+
+[node name="YesButton" parent="." unique_id=789434949 instance=ExtResource("5_e4mho")]
+unique_name_in_owner = true
+position = Vector2(113, 150)
+monitorable = true
+button_text = "Yes"
+is_reselectable = true
+disable = false
+
+[node name="CancelButton" parent="." unique_id=1844063491 instance=ExtResource("5_e4mho")]
+unique_name_in_owner = true
+position = Vector2(293, 150)
+monitorable = true
+button_text = "Cancel"
+is_reselectable = true
+disable = false

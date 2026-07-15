@@ -6,9 +6,6 @@ class_name Asteroid extends SpawnableCharacter2D
 @export var health_stats: HealthStats;
 @export var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
-@onready var death_particles: GPUParticles2D = $DeathParticles2D;
-@onready var death_audio_player: AudioStreamPlayer2D = $DeathAudioStreamPlayer2D;
-
 var mass := 10000;
 var damageable: Damageable;
 var safe_collision_time := 5.0;
@@ -28,7 +25,8 @@ func _enter_tree() -> void:
 		# Propagate stats so only manage at top level
 		deformable_hurtbox.combat_stats = combat_stats;
 		deformable_hurtbox.health_stats = health_stats;
-	
+		deformable_hurtbox.collision_mesh_group = collision_mesh_group;
+
 func _ready() -> void:
 	add_to_group("enemy");
 	health_stats.resource_local_to_scene = true;
@@ -78,12 +76,8 @@ func _destroy() -> void:
 		
 	is_dying = true;
 
-	if (is_inside_tree()):
-		death_particles.emitting = true;
-		death_audio_player.playing = true;
-
 	var timer := Timer.new();
-	timer.wait_time = death_particles.lifetime;
+	timer.wait_time = 1.0;
 	timer.autostart = true;
 	add_child.call_deferred(timer);
 	timer.timeout.connect(_on_dequeue_timeout)
@@ -91,15 +85,15 @@ func _destroy() -> void:
 	asteroid_destroyed.emit();
 
 func _on_dequeue_timeout() -> void:
-	death_audio_player.playing = false;
-	death_particles.emitting = false;
 	call_deferred("queue_free");
 
-func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> void:
+func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> DeformableMesh2D.GroupDeformationResult:
 	if hurtbox is MeshDeformHurtbox2D:
 		var deformable_hurtbox: MeshDeformHurtbox2D = hurtbox;
-		deformable_hurtbox.deformable_mesh_2d.deform_group(
+		return deformable_hurtbox.deformable_mesh_2d.deform_group(
 			collision_point,
 			collision_angle,
 			collision_deformation_shapes
 		);
+	
+	return DeformableMesh2D.GroupDeformationResult.None;

@@ -19,10 +19,6 @@ func _enter_tree() -> void:
 	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
 	hurtbox.shape = collision_shape.shape;
 	hurtbox.health_stats = health_stats;
-	var health_bar: HealthBarDamageResult = %HealthBarDamageResult;
-	health_bar.health_stats = health_stats;
-	var death_damage_result: StopOnDeathDamageResult = %StopOnDeathDamageResult;
-	death_damage_result.health_stats = health_stats;
 
 func get_patrol_state() -> PatrolState:
 	return ($StateMachine/PatrolState as PatrolState);
@@ -48,8 +44,7 @@ func set_start_velocity(_velocity: Vector2) -> void:
 	move_controller.update_nav_velocity(_velocity);
 
 func _die() -> void:
-	# TODO: Die animation
-	queue_free();
+	get_tree().create_timer(1.0, false).timeout.connect(queue_free);
 
 func enable_dequeue_off_screen() -> void:
 	var notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D;

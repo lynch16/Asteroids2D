@@ -1,0 +1,165 @@
+[gd_scene format=3 uid="uid://bss731bhxjwvd"]
+
+[ext_resource type="Script" uid="uid://db2lwogghwjga" path="res://UI/HUD/Settings/settings.gd" id="1_l2e8u"]
+[ext_resource type="Script" uid="uid://bwi7ce2i48pev" path="res://UI/HUD/Settings/resolution_options.gd" id="2_5fm0j"]
+[ext_resource type="Texture2D" uid="uid://fwpkkylqwddk" path="res://UI/HUD/Settings/Assets/settings_background.png" id="3_l2e8u"]
+[ext_resource type="FontFile" uid="uid://c6ow5kknund3n" path="res://UI/HUD/Settings/Assets/Fonts/Kenney Future.ttf" id="4_5fm0j"]
+[ext_resource type="LabelSettings" uid="uid://bit2vl5nnthy6" path="res://UI/HUD/Settings/Assets/kenney_label_settings_disabled.tres" id="5_u5lmd"]
+[ext_resource type="Texture2D" uid="uid://2bvcijkxqlfe" path="res://UI/HUD/Settings/Assets/bar_round_small_square.png" id="6_mv3vl"]
+[ext_resource type="PackedScene" uid="uid://bicxv587ry1jt" path="res://UI/HUD/Settings/Assets/settings_button.tscn" id="7_u5lmd"]
+
+[sub_resource type="Resource" id="Resource_3vydv"]
+script = ExtResource("2_5fm0j")
+name = "1920 x 1080"
+size = Vector2i(1920, 1080)
+metadata/_custom_type_script = "uid://bwi7ce2i48pev"
+
+[sub_resource type="Resource" id="Resource_l2e8u"]
+script = ExtResource("2_5fm0j")
+name = "1280 x 720"
+size = Vector2i(1280, 720)
+metadata/_custom_type_script = "uid://bwi7ce2i48pev"
+
+[sub_resource type="Resource" id="Resource_5fm0j"]
+script = ExtResource("2_5fm0j")
+name = "960 x 540"
+size = Vector2i(960, 540)
+metadata/_custom_type_script = "uid://bwi7ce2i48pev"
+
+[sub_resource type="LabelSettings" id="LabelSettings_3vydv"]
+font = ExtResource("4_5fm0j")
+
+[sub_resource type="Theme" id="Theme_5fm0j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mv3vl"]
+bg_color = Color(0.93333334, 0.15294118, 0.2784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5lmd"]
+bg_color = Color(0.93333334, 0.15294118, 0.2784314, 1)
+
+[node name="Settings" type="Node2D" unique_id=531168141]
+process_mode = 3
+script = ExtResource("1_l2e8u")
+resolution_options = Array[ExtResource("2_5fm0j")]([SubResource("Resource_3vydv"), SubResource("Resource_l2e8u"), SubResource("Resource_5fm0j")])
+
+[node name="ContainerSprite" type="Sprite2D" parent="." unique_id=408731548]
+position = Vector2(203, 133)
+texture = ExtResource("3_l2e8u")
+
+[node name="Label" type="Label" parent="ContainerSprite" unique_id=212250223]
+offset_left = -188.0
+offset_top = -122.0
+offset_right = -102.0
+offset_bottom = -99.0
+text = "Options"
+label_settings = SubResource("LabelSettings_3vydv")
+
+[node name="BoxContainer" type="BoxContainer" parent="ContainerSprite" unique_id=1131353586]
+offset_left = -198.0
+offset_top = -90.0
+offset_right = 199.0
+offset_bottom = 121.0
+
+[node name="MarginContainer" type="MarginContainer" parent="ContainerSprite/BoxContainer" unique_id=287440111]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer" unique_id=815338600]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer" unique_id=392650809]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1929500022]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=608777542]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ResolutionLabel" type="Label" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=759673507]
+layout_mode = 2
+text = "Resolution"
+label_settings = ExtResource("5_u5lmd")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1040384903]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ResolutionOptionButton" type="OptionButton" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1923986778]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_5fm0j")
+allow_reselect = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=2056195551]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1558396721]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=2067981739]
+layout_mode = 2
+text = "Fullscreen"
+label_settings = ExtResource("5_u5lmd")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1819787415]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="FullscreenButton" type="CheckButton" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer2" unique_id=1669485682]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1279377473]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=859348902]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=1634517959]
+layout_mode = 2
+text = "Volume"
+label_settings = ExtResource("5_u5lmd")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1258568510]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VolumeSlider" type="HSlider" parent="ContainerSprite/BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer2" unique_id=696415139]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("6_mv3vl")
+theme_override_icons/grabber_highlight = ExtResource("6_mv3vl")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_mv3vl")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_u5lmd")
+max_value = 1.0
+step = 0.1
+
+[node name="SaveButton" parent="ContainerSprite" unique_id=789434949 instance=ExtResource("7_u5lmd")]
+unique_name_in_owner = true
+position = Vector2(-90, 76)
+monitoring = true
+monitorable = true
+button_text = "Close"
+is_reselectable = true
+disable = false
+
+[node name="RevertButton" parent="ContainerSprite" unique_id=448770126 instance=ExtResource("7_u5lmd")]
+unique_name_in_owner = true
+position = Vector2(90, 76)
+monitoring = true
+monitorable = true
+is_reselectable = true

@@ -1,7 +1,11 @@
 class_name DeformableMeshCollider2D
 extends CollisionShape2D
 
-const MIN_CORNERS = 8;
+enum MeshUpdateResult {
+	Destroyed = 0,
+	Updated = 1,
+	Created = 2
+}
 
 @export var _collision_mesh: MS_CollisionMesh;
 
@@ -18,7 +22,8 @@ signal spawn_new_group(new_collision_mesh_group: MS_CollisionMeshGroup);
 
 func _enter_tree() -> void:
 	var collision_mesh := _get_collision_mesh();
-	if (MarchingSquaresUtility.count_positive_corners(collision_mesh.corner_sampling) < MIN_CORNERS):
+	collision_mesh.corner_sampling = MarchingSquaresUtility.recursive_corner_trim(collision_mesh.corner_sampling);
+	if (MarchingSquaresUtility.count_positive_corners(collision_mesh.corner_sampling) < MarchingSquaresUtility.MIN_CORNER_SIZE):
 		queue_free();
 		
 	shape = collision_mesh.convex_shape;
@@ -63,7 +68,7 @@ func _get_collision_mesh() -> MS_CollisionMesh:
 func _release_collider() -> void:
 	queue_free();
 
-func update_collider() -> void:
+func update_collider() -> MeshUpdateResult:
 	var viewport_rect := get_viewport_rect();
 	var collision_mesh := _get_collision_mesh();
 	var new_convex_shapes := MarchingSquaresGenerate.generate_collision_shapes(
@@ -76,7 +81,8 @@ func update_collider() -> void:
 	var filtered_shapes: Array[ConvexPolygonShape2D] = new_convex_shapes.filter(
 		func(convex_shape: ConvexPolygonShape2D) -> bool:
 			var new_corners := MarchingSquaresUtility.filter_corner_samples_by_polygon(convex_shape.points, collision_mesh.corner_sampling);
-			if (MarchingSquaresUtility.count_positive_corners(new_corners) >= MIN_CORNERS):
+			new_corners = MarchingSquaresUtility.recursive_corner_trim(new_corners);
+			if (MarchingSquaresUtility.count_positive_corners(new_corners) >= MarchingSquaresUtility.MIN_CORNER_SIZE):
 				filtered_corners.append(new_corners);
 				return true;
 			else:
@@ -85,7 +91,7 @@ func update_collider() -> void:
 	
 	if (filtered_shapes.size() == 0):
 		call_deferred("_release_collider");
-		return;
+		return MeshUpdateResult.Destroyed;
 	else:
 		for i: int in filtered_shapes.size():
 			var convex_shape := filtered_shapes[i];
@@ -111,14 +117,19 @@ func update_collider() -> void:
 				var new_collision_mesh_group := MS_CollisionMeshGroup.new([new_collision_mesh]);
 				spawn_new_group.emit(new_collision_mesh_group);
 
+		if (filtered_shapes.size() > 1):
+			return MeshUpdateResult.Created;
+		else:
+			return MeshUpdateResult.Updated;
+
 func apply_mesh_deformation(
 	collidion_point: Vector2,
 	collision_angle: float,
 	mesh_deformation_shapes: Array[MeshDeformationShape],
-) -> void:
+) -> MeshUpdateResult:
 	_get_collision_mesh().apply_mesh_deformation_shapes_to_corner_samples(
 		collidion_point,
 		collision_angle,
 		mesh_deformation_shapes
 	);
-	update_collider();
+	return update_collider();

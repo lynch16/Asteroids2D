@@ -21,13 +21,13 @@ func _physics_process(_delta: float) -> void:
 	if (is_in_screen):
 		_wrap_node();
 	else:
-		if (node.position.x > 0 && node.position.x < screen_size.x && node.position.y > 0 && node.position.y < screen_size.y):
+		if (node.global_position.x > 0 && node.global_position.x < screen_size.x && node.global_position.y > 0 && node.global_position.y < screen_size.y):
 			is_in_screen = true;
 
 func _wrap_node() -> void:
 	var screen_size := get_viewport_rect().size;
-	node.position.x = wrapf(node.position.x, -screen_buffer, screen_size.x + screen_buffer)
-	node.position.y = wrapf(node.position.y, -screen_buffer, screen_size.y + screen_buffer)
+	node.global_position.x = wrapf(node.global_position.x, -screen_buffer, screen_size.x + screen_buffer)
+	node.global_position.y = wrapf(node.global_position.y, -screen_buffer, screen_size.y + screen_buffer)
 
 func _force_in_screen() -> void:
 	if (!is_in_screen):

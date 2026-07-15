@@ -13,7 +13,6 @@ func _enter_tree() -> void:
 	target_lost_timer.timeout.connect(_on_target_lost_timeout);
 
 func _on_target_lost_timeout() -> void:
-	print("FINISH TIMER LOST");
 	has_target = false;
 
 func is_valid() -> bool:
