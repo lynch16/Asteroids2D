@@ -33,7 +33,7 @@ func on_damage(_damage_dealt: float, _dmgr: Node, hit_position: Vector2, hit_ang
 	if (audio_stream):
 		audio_stream.play();
 
-	get_tree().create_timer(sfx_lifetime).timeout.connect(_stop_playing.bind(particles));
+	get_tree().create_timer(sfx_lifetime, false).timeout.connect(_stop_playing.bind(particles));
 
 	return true;
 
