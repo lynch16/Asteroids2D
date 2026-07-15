@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cxl1kyhkdp88q"]
 
-[ext_resource type="Script" uid="uid://dchnxub16gget" path="res://Models/EntityModules/Weapons/Projectiles/projectile.gd" id="1_vpixh"]
+[ext_resource type="Script" uid="uid://d0ll8kkajyj48" path="res://Models/EntityModules/Weapons/Projectiles/following_projectile.gd" id="1_xw4ix"]
 [ext_resource type="Script" uid="uid://c4u0g4nfqocub" path="res://Models/EntityModules/Damage/Hit/deal_damage.gd" id="2_on45b"]
-[ext_resource type="Script" uid="uid://dlaq44o6nfb1r" path="res://Models/EntityModules/Weapons/Core/intercepter.gd" id="3_on45b"]
+[ext_resource type="Script" uid="uid://cmladbrdjfan2" path="res://Models/EntityModules/Weapons/Core/Components/interceptor.gd" id="3_l7tnn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oqfp6"]
 
 [node name="HomingMissile" type="Node2D" unique_id=286395788]
-script = ExtResource("1_vpixh")
+script = ExtResource("1_xw4ix")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1796706372]
 
@@ -17,9 +17,7 @@ shape = SubResource("CapsuleShape2D_oqfp6")
 
 [node name="DealDamage" type="Node" parent="." unique_id=1817434675]
 script = ExtResource("2_on45b")
-damage_dealt = 100.0
 metadata/_custom_type_script = "uid://c4u0g4nfqocub"
 
 [node name="Intercepter" type="Node2D" parent="." unique_id=2036769588]
-script = ExtResource("3_on45b")
-metadata/_custom_type_script = "uid://dlaq44o6nfb1r"
+script = ExtResource("3_l7tnn")
