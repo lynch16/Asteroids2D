@@ -109,7 +109,6 @@ func _transition_to_normal() -> void:
 		is_hovered = false;
 
 func _transition_to_hover() -> void:
-	prints(!is_disabled, !is_hovered)
 	if (!is_disabled && !is_hovered):
 		hover_sound.play();
 		_transition_textures(hover_texture, [normal_texture, pressed_texture, disabled_texture]);

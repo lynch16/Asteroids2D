@@ -23,6 +23,8 @@ func _init() -> void:
 	assert(asteroid_mesh_dir != null);
 
 	for file: String in asteroid_mesh_dir.get_files():
+		if (file.ends_with(".remap")):
+			file = file.replace(".remap", "");
 		asteroid_meshes.append(
 			load(asteroid_mesh_dir.get_current_dir() + "/" + file)
 		);
