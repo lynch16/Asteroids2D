@@ -11,6 +11,8 @@ var paused: bool = false;
 
 @export var pause_on_ready: bool = false;
 
+var shake_tween: Tween;
+
 signal on_show();
 signal on_hide();
 
@@ -73,10 +75,23 @@ func _set_paused() -> void:
 func on_resume_button() -> void:
 	pause(false);
 
+func _shake_menu(menu: Node2D) -> void:
+	var random_shake := randf_range(-PI/24, PI/24);
+	
+	if (shake_tween && shake_tween.is_running()):
+		shake_tween.kill();
+
+	shake_tween = create_tween();
+	shake_tween.tween_property(menu, "rotation", random_shake, 0.1);
+	shake_tween.tween_property(menu, "rotation", -random_shake, 0.1);
+	shake_tween.tween_property(menu, "rotation", 0, 0.1);
+
 func _show_settings() -> void:
-	settings_dialog.show();
+	settings_dialog.open();
+	_shake_menu(settings_dialog);
 	quit_dialog.hide();
 
 func _show_quit_dialog() -> void:
 	quit_dialog.show();
-	settings_dialog.hide();
+	_shake_menu(quit_dialog);
+	settings_dialog.close();
