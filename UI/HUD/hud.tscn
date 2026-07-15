@@ -151,9 +151,11 @@ texture = ExtResource("8_gxdqe")
 expand_mode = 2
 
 [node name="EnergyProgressBar" type="TextureProgressBar" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=572639467]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-value = 100.0
+max_value = 50.0
+value = 50.0
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_right = 10

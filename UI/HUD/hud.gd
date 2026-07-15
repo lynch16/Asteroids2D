@@ -11,6 +11,7 @@ var viewport_size: Vector2;
 @onready var game_manager: GameManager = get_node("/root/GameManager");
 @onready var lives_container: BoxContainer = %LivesContainer;
 @onready var health_bar: TextureProgressBar = %HealthProgressBar;
+@onready var energy_bar: TextureProgressBar = %EnergyProgressBar;
 
 @export var life_icon_texture: Texture;
 
@@ -24,6 +25,7 @@ func _ready() -> void:
 	
 	ScoreManager.score_updated.connect(_update_score_view);
 	SignalBus.player_health_updated.connect(_update_health_view);
+	SignalBus.player_energy_updated.connect(_update_energy_view);
 	game_manager.level_start.connect(_announce_level_start);
 	game_manager.player_lives_updated.connect(_update_lives_view);
 
@@ -46,6 +48,9 @@ func _update_score_view(new_score: int) -> void:
 	
 func _update_health_view(new_health: int) -> void:
 	health_bar.value = new_health;
+
+func _update_energy_view(new_energy: float) -> void:
+	energy_bar.value = new_energy;
 
 func _update_viewport_size() -> void:
 	viewport_size = get_viewport().get_visible_rect().size;

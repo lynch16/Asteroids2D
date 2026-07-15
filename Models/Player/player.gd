@@ -33,15 +33,20 @@ func _ready() -> void:
 	
 	# Call deferred so that Damageble handlers can connect before initial broadcast to HUD
 	SignalBus._on_player_health_updated(int(health_stats.current_health));
+	SignalBus._on_player_energy_updated(int(movement_stats.current_energy));
 
 	movement_controller.movement_stats = movement_stats;
 	movement_controller.movement_updated.connect(_update_movement);
+	movement_controller.energy_updated.connect(_update_energy);
+
+func _update_energy(_new_energy: float) -> void:
+	SignalBus._on_player_energy_updated(int(movement_stats.current_energy));
 
 func _update_movement(p_velocity: Vector2, p_rotation: float) -> void:
 	next_rotation = p_rotation;
 	next_velocity = p_velocity
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var is_turning := false;
 	var is_accelerating := false;
 

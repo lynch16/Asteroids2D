@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cf2a6ah5g3aox" path="res://Models/EntityModules/Movement/movement_stats.gd" id="1_nmb3u"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_nmb3u")
 max_speed = 200.0
 acceleration = 150.0

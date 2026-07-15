@@ -286,7 +286,11 @@ metadata/_custom_type_script = "uid://ckluymmkmha10"
 script = ExtResource("17_833x1")
 metadata/_custom_type_script = "uid://v4gqslu6ep4x"
 
-[connection signal="input_back" from="MovementController/InputController" to="MovementController" method="brake"]
+[node name="RechargeTimer" type="Timer" parent="MovementController" unique_id=939561193]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="input_boost" from="MovementController/InputController" to="MovementController" method="boost_forward"]
 [connection signal="input_left" from="MovementController/InputController" to="MovementController" method="yaw_left"]
 [connection signal="input_right" from="MovementController/InputController" to="MovementController" method="yaw_right"]
 [connection signal="input_up" from="MovementController/InputController" to="MovementController" method="move_forward"]
