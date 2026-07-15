@@ -21,6 +21,7 @@ func _ready() -> void:
 	EnemyManager.enemy_destroyed.connect(_update_enemy_kill_count);
 
 func _start_new_level(_idx: int, new_level: Level) -> void:
+	print("START NEW LEVEL");
 	active_level = new_level; 
 	num_asteroids_destroyed = 0;
 	num_enemies_destroyed = 0;
@@ -34,6 +35,7 @@ func _process(_delta: float) -> void:
 func _update_objectives() -> void:
 	if (!active_level): return;
 
+	print("num_asteroids_destroyed: ", num_asteroids_destroyed)
 	var total_asteroids_required := active_level.num_starting_rocks + active_level.num_rocks_to_throw - num_asteroids_destroyed + asteroids_broken_off;
 	var total_enemies_required := active_level.num_enemies - num_enemies_destroyed; # TODO: Increase to include number of groups when added
 	if (total_enemies_required <= 0):

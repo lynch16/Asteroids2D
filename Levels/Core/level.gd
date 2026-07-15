@@ -29,7 +29,7 @@ var start_rocks_timer: Timer;
 var start_enemies_timer: Timer;
 var current_rocks_thrown := 0;
 
-signal level_loaded;
+signal level_loaded(level: Level);
 signal win_condition_met;
 signal lose_condition_met; 
 
@@ -41,12 +41,13 @@ func _ready() -> void:
 	rock_throw_interval = level_settings.rock_throw_interval;
 	num_rocks_to_throw = level_settings.num_rocks_to_throw;
 	rock_thrower_start_delay = level_settings.rock_thrower_start_delay;
+	AsteroidManager.asteroid_count = 0;
 	enemey_scene = level_settings.enemey_scene;
 	num_enemies = level_settings.num_enemies;
 	enemies_start_delay = level_settings.enemies_start_delay;
 	enemy_hunters = level_settings.enemy_hunters;
 
-	level_loaded.emit();
+	level_loaded.emit(self);
 	rock_thrower.on_throw_rock.connect(_on_rock_thrown);
 	player_spawn.player_spawned.connect(start_enemies);
 	tree_exiting.connect(_on_tree_exiting);
