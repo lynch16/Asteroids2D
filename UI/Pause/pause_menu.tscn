@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cdll0wprqblme" path="res://UI/Pause/slide_in_button.gd" id="3_up1d0"]
 [ext_resource type="PackedScene" uid="uid://bss731bhxjwvd" path="res://UI/HUD/Settings/settings.tscn" id="4_atl34"]
 [ext_resource type="PackedScene" uid="uid://c02hfbw2s1src" path="res://UI/confirmation_dialog.tscn" id="5_7chga"]
+[ext_resource type="PackedScene" uid="uid://dtkcorwbgkfub" path="res://UI/ControlsDialog/controls_dialog.tscn" id="6_v517f"]
 
 [node name="PauseMenu" type="Container" unique_id=1804450957]
 process_mode = 3
@@ -25,20 +26,29 @@ button_text = "Resume"
 is_reselectable = true
 disable = false
 
-[node name="OptionsButton" parent="." unique_id=446563155 instance=ExtResource("2_q2f6t")]
+[node name="ControlsButton" parent="." unique_id=125555066 instance=ExtResource("2_q2f6t")]
 position = Vector2(731, 522)
 script = ExtResource("3_up1d0")
 transition_duration = 0.2
 offscreen_position = Vector2(-200, 400)
+button_text = "Controls"
+is_reselectable = true
+disable = false
+
+[node name="OptionsButton" parent="." unique_id=446563155 instance=ExtResource("2_q2f6t")]
+position = Vector2(731, 622)
+script = ExtResource("3_up1d0")
+transition_duration = 0.2
+offscreen_position = Vector2(-200, 500)
 button_text = "Options"
 is_reselectable = true
 disable = false
 
 [node name="QuitButton" parent="." unique_id=864523158 instance=ExtResource("2_q2f6t")]
-position = Vector2(731, 622)
+position = Vector2(731, 722)
 script = ExtResource("3_up1d0")
 transition_duration = 0.2
-offscreen_position = Vector2(-200, 500)
+offscreen_position = Vector2(-200, 600)
 button_text = "Quit Game"
 is_reselectable = true
 disable = false
@@ -48,4 +58,7 @@ position = Vector2(846, 392)
 close_on_save = false
 
 [node name="QuitDialog" parent="." unique_id=887997045 instance=ExtResource("5_7chga")]
+position = Vector2(846, 392)
+
+[node name="ControlsDialog" parent="." unique_id=804113033 instance=ExtResource("6_v517f")]
 position = Vector2(846, 392)

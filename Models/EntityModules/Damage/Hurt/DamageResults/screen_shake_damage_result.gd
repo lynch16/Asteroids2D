@@ -10,5 +10,6 @@ func _ready() -> void:
 	camera = get_node(camera_node_path);
 
 func on_damage(_dmg: float, _damager_node: Node, _hit_position: Vector2, _hit_angle: float) -> bool: 
-	camera._screen_shake(shake_intensity, shake_length);
+	if (camera):
+		camera._screen_shake(shake_intensity, shake_length);
 	return true;

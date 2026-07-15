@@ -4,10 +4,12 @@ extends Container
 var paused: bool = false;
 
 @onready var resume_button: SlideInButton = $ResumeButton;
+@onready var controls_button: SlideInButton = $ControlsButton;
 @onready var quit_button: SlideInButton = $QuitButton;
 @onready var options_button: SlideInButton = $OptionsButton;
 @onready var settings_dialog: Settings = $Settings;
 @onready var quit_dialog: CustomConfirmationDialog = $QuitDialog;
+@onready var controls_dialog: ControlsDialog = $ControlsDialog;
 
 @export var pause_on_ready: bool = false;
 
@@ -20,8 +22,10 @@ func _ready() -> void:
 	resume_button.button_click.connect(on_resume_button);
 	quit_button.button_click.connect(_show_quit_dialog);
 	options_button.button_click.connect(_show_settings);
+	controls_button.button_click.connect(_show_controls_dialog);
 
 	settings_dialog.on_close.connect(on_resume_button);
+	controls_dialog.on_close.connect(_hide_controls_dialog);
 	quit_dialog.confirm.connect(get_tree().quit);
 
 	# Open options instead of cancel of quit
@@ -65,12 +69,14 @@ func _set_paused() -> void:
 
 	if (paused):
 		resume_button.slide_in();
-		quit_button.slide_in(0.1);
-		options_button.slide_in(0.05);
+		controls_button.slide_in(0.05);
+		options_button.slide_in(0.10);
+		quit_button.slide_in(0.15);
 	else:
 		resume_button.slide_out();
-		quit_button.slide_out(0.1);
-		options_button.slide_out(0.05);
+		controls_button.slide_out(0.05);
+		options_button.slide_out(0.10);
+		quit_button.slide_out(0.15);
 
 func on_resume_button() -> void:
 	pause(false);
@@ -90,8 +96,20 @@ func _show_settings() -> void:
 	settings_dialog.open();
 	_shake_menu(settings_dialog);
 	quit_dialog.hide();
+	controls_dialog.hide();
 
 func _show_quit_dialog() -> void:
 	quit_dialog.show();
 	_shake_menu(quit_dialog);
 	settings_dialog.close();
+	controls_dialog.hide();
+
+func _show_controls_dialog() -> void:
+	controls_dialog.show();
+	_shake_menu(controls_dialog);
+	settings_dialog.close();
+	quit_dialog.hide();
+
+func _hide_controls_dialog() -> void:
+	controls_dialog.hide();
+	on_resume_button();
