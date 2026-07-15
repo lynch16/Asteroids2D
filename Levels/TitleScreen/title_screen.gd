@@ -16,6 +16,7 @@ func _ready() -> void:
 	exit_button.button_click.connect(_exit_game);
 	settings.on_close.connect(_close_options);
 	settings._load();
+	settings.center_in_viewport();
 
 	super();
 

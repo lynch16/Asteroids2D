@@ -36,7 +36,7 @@ func _ready() -> void:
 	revert_button.button_click.connect(_on_revert_button_click);
 	save_button.button_click.connect(_on_save_button_click);
 
-func _center_in_viewport() -> void:
+func center_in_viewport() -> void:
 	var viewport := get_viewport_rect();
 
 	var sprite: Sprite2D = $ContainerSprite;
@@ -86,7 +86,6 @@ func _after_save() -> void:
 
 func open() -> void:
 	_load();
-	_center_in_viewport();
 	initial_volume = volume_value;
 	initial_resolution_idx = resolution_option_idx;
 	initial_full_screen = fullscreen;
