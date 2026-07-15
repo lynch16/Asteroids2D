@@ -45,3 +45,6 @@ func set_health_bar(p_health_bar: TextureProgressBar) -> void:
 func update_health_bar() -> void:
 	health_bar.max_value = initial_health;
 	health_bar.value = current_health;
+
+func reset_health() -> void:
+	current_health = initial_health;

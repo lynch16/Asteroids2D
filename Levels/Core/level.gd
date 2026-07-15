@@ -21,7 +21,6 @@ var enemies_start_delay := 10.0;
 ## Hunters vs shoot at random place
 var enemy_hunters := false;
 
-
 @onready var player_spawn: PlayerSpawn = %PlayerSpawn;
 @onready var game_area: GameArea = %GameArea;
 @onready var rock_thrower: RockThrower = %RockThrower;
@@ -57,7 +56,7 @@ func _ready() -> void:
 func enter() -> void:
 	player_spawn.spawn_player(_on_player_die);
 
-func start_enemies() -> void:
+func start_enemies(_player: Player) -> void:
 	for i in num_starting_rocks:
 		rock_thrower.throw_rock();
 
@@ -79,7 +78,7 @@ func start_enemies() -> void:
 
 func _on_player_die(player: Player) -> void:
 	lose_condition_met.emit();
-	get_tree().create_timer(1.0).timeout.connect(player.queue_free);
+	get_tree().create_timer(1.0, false).timeout.connect(player.queue_free);
 
 func _process(_delta: float) -> void:
 	if (is_active):
@@ -120,6 +119,7 @@ func _check_win_condition() -> void:
 		_are_all_rocks_thrown() && # TODO: Should they have to wait for all rocks to be thrown if they cleared the screen?
 		EnemyManager.get_enemy_count() <= 0
 	):
+		is_active = false;
 		win_condition_met.emit();
 
 func _on_rock_thrown() -> void:

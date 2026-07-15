@@ -27,7 +27,6 @@ func _transition_music(clip_index: int) -> void:
 		play();
 
 	var playback: AudioStreamPlaybackInteractive = get_stream_playback();
-	print("SWITCH TO _", clip_index)
 	playback.switch_to_clip(clip_index);
 
 
