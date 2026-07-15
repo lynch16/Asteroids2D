@@ -44,7 +44,7 @@ func set_start_velocity(_velocity: Vector2) -> void:
 	move_controller.update_nav_velocity(_velocity);
 
 func _die() -> void:
-	get_tree().create_timer(1.0).timeout.connect(queue_free);
+	get_tree().create_timer(1.0, false).timeout.connect(queue_free);
 
 func enable_dequeue_off_screen() -> void:
 	var notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D;

@@ -2,10 +2,12 @@ class_name TitleScreen extends Level
 
 @onready var start_button: AreaButton = $GameArea/StartButton;
 @onready var options_button: AreaButton = $GameArea/OptionsButton;
+@onready var controls_button: AreaButton = $GameArea/ControlsButton;
 @onready var exit_button: AreaButton = $GameArea/ExitButton;
 @onready var settings: Settings = $Settings;
+@onready var controls_dialog: ControlsDialog = $ControlsDialog;
 
-var settings_open := false;
+var dialog_open := false;
 
 signal start();
 signal exit_game();
@@ -13,9 +15,15 @@ signal exit_game();
 func _ready() -> void:
 	start_button.button_click.connect(_start);
 	options_button.button_click.connect(_open_options);
+	controls_button.button_click.connect(_open_controls_dialog);
 	exit_button.button_click.connect(_exit_game);
 	settings.on_close.connect(_close_options);
 	settings._load();
+	settings.center_in_viewport();
+	controls_dialog.on_close.connect(_close_controls_dialog);
+	controls_dialog.center_in_viewport();
+
+	# TODO: Need to include a close button in controls dialog for use in title screen
 
 	super();
 
@@ -27,8 +35,8 @@ func _start() -> void:
 	start.emit();
 
 func _open_options() -> void:
-	if (settings_open): return;
-	settings_open = true;
+	if (dialog_open): return;
+	dialog_open = true;
 	
 	get_tree().paused = true;
 	settings.open();
@@ -37,6 +45,15 @@ func _exit_game() -> void:
 	exit_game.emit();
 	
 func _close_options() -> void:
-	settings_open = false;
+	dialog_open = false;
 	get_tree().paused = false;
 	settings.close();
+
+func _open_controls_dialog() -> void:
+	if (dialog_open): return;
+	dialog_open = true;
+	controls_dialog.show();
+
+func _close_controls_dialog() -> void:
+	dialog_open = false;
+	controls_dialog.hide();

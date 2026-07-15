@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://bkj5ff0ekfgp5" path="res://Levels/AsteroidLevels/level_3.tres" id="6_efxa6"]
 [ext_resource type="Resource" uid="uid://5mecektn7wh3" path="res://Levels/AsteroidLevels/level_4.tres" id="7_dg77c"]
 [ext_resource type="Resource" uid="uid://xpaviqs02jeu" path="res://Levels/AsteroidLevels/level_5.tres" id="8_ycdy4"]
+[ext_resource type="Resource" uid="uid://cwpyp4d8gta26" path="res://Models/Player/player_health_stats.tres" id="11_ryguw"]
 [ext_resource type="AudioStream" uid="uid://stbo21cv3rc2" path="res://Audio/Music/Deepness of Space [Action Loop].wav" id="12_2cqfq"]
 [ext_resource type="Script" uid="uid://1rc73f16d7y5" path="res://UI/music_player.gd" id="12_dg77c"]
 [ext_resource type="AudioStream" uid="uid://665y47bnfi2n" path="res://Audio/Music/Into the Unknown [Action Loop].wav" id="12_w48qg"]
@@ -21,6 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://b4ivc4lhx5ore" path="res://Audio/Music/Antimatter Fountain [Action Loop].wav" id="18_getpj"]
 [ext_resource type="AudioStream" uid="uid://hd0ojwbft8v8" path="res://Audio/Music/Pulsar [Action Loop].wav" id="19_ryguw"]
 [ext_resource type="AudioStream" uid="uid://l0n3ua0aho3b" path="res://Audio/Music/Dangerous Space [Action Loop].wav" id="20_d13ii"]
+[ext_resource type="Script" uid="uid://40nfqpfb31mh" path="res://UI/camera_2d.gd" id="23_d13ii"]
 
 [sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_dg77c"]
 clip_count = 9
@@ -58,17 +60,54 @@ Vector2i(-1, -1): {
 "from_time": 0,
 "to_time": 1
 },
-Vector2i(0, 1): {
+Vector2i(-1, 1): {
 "fade_beats": 1.0,
 "fade_mode": 4,
 "from_time": 0,
+"hold_previous": true,
 "to_time": 1
 },
-Vector2i(1, 1): {
+Vector2i(1, -1): {
 "fade_beats": 1.0,
 "fade_mode": 4,
 "from_time": 0,
-"to_time": 1
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 4): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 5): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 6): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 7): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
+},
+Vector2i(1, 8): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 0
 }
 }
 
@@ -79,10 +118,12 @@ title_screen_scene = ExtResource("2_efxa6")
 hud_scene = ExtResource("5_lquwl")
 level_scene = ExtResource("2_7mycd")
 levels = Array[ExtResource("3_272bh")]([ExtResource("4_5vw27"), ExtResource("5_4c57u"), ExtResource("6_efxa6"), ExtResource("7_dg77c"), ExtResource("8_ycdy4")])
+player_health = ExtResource("11_ryguw")
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
 unique_name_in_owner = true
 visible = false
+z_index = 2
 pause_on_ready = false
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=849072583]
@@ -91,3 +132,7 @@ volume_db = -10.0
 autoplay = true
 script = ExtResource("12_dg77c")
 metadata/_custom_type_script = "uid://1rc73f16d7y5"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=403301675]
+anchor_mode = 0
+script = ExtResource("23_d13ii")

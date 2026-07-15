@@ -10,6 +10,10 @@ var spawn_parent_node: Node;
 
 var asteroid_launcher: Array[AsteroidLaunch] = [];
 
+signal asteroid_created();
+signal asteroid_shattered();
+signal asteroid_destroyed();
+
 func _init() -> void:
 	var script_path: String = get_script().resource_path;
 	var folder_parts := script_path.split("/");
@@ -46,12 +50,14 @@ func shatter_asteroid(initial_aster: Asteroid, new_mesh: MS_CollisionMeshGroup) 
 		direction
 	)
 	asteroid_launcher.append(asteroid_launch);
+	asteroid_shattered.emit();
 
 func spawn_asteroid(asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
 	var asteroid: Asteroid = _create_asteroid(asteroid_mesh);
 	# Need to be added within the navigation region
 	spawn_parent_node.add_child(asteroid);
 	asteroid_count += 1;
+	asteroid_created.emit();
 	return asteroid;
 
 func _create_asteroid(asteroid_mesh: MS_CollisionMeshGroup = null) -> Asteroid:
@@ -78,3 +84,4 @@ func get_asteroid_count() -> int:
 
 func _on_asteroid_destroyed() -> void:
 	asteroid_count -= 1;
+	asteroid_destroyed.emit();

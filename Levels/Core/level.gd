@@ -21,7 +21,6 @@ var enemies_start_delay := 10.0;
 ## Hunters vs shoot at random place
 var enemy_hunters := false;
 
-
 @onready var player_spawn: PlayerSpawn = %PlayerSpawn;
 @onready var game_area: GameArea = %GameArea;
 @onready var rock_thrower: RockThrower = %RockThrower;
@@ -30,7 +29,7 @@ var start_rocks_timer: Timer;
 var start_enemies_timer: Timer;
 var current_rocks_thrown := 0;
 
-signal level_loaded;
+signal level_loaded(level: Level);
 signal win_condition_met;
 signal lose_condition_met; 
 
@@ -42,12 +41,13 @@ func _ready() -> void:
 	rock_throw_interval = level_settings.rock_throw_interval;
 	num_rocks_to_throw = level_settings.num_rocks_to_throw;
 	rock_thrower_start_delay = level_settings.rock_thrower_start_delay;
+	AsteroidManager.asteroid_count = 0;
 	enemey_scene = level_settings.enemey_scene;
 	num_enemies = level_settings.num_enemies;
 	enemies_start_delay = level_settings.enemies_start_delay;
 	enemy_hunters = level_settings.enemy_hunters;
 
-	level_loaded.emit();
+	level_loaded.emit(self);
 	rock_thrower.on_throw_rock.connect(_on_rock_thrown);
 	player_spawn.player_spawned.connect(start_enemies);
 	tree_exiting.connect(_on_tree_exiting);
@@ -57,7 +57,7 @@ func _ready() -> void:
 func enter() -> void:
 	player_spawn.spawn_player(_on_player_die);
 
-func start_enemies() -> void:
+func start_enemies(_player: Player) -> void:
 	for i in num_starting_rocks:
 		rock_thrower.throw_rock();
 
@@ -79,7 +79,7 @@ func start_enemies() -> void:
 
 func _on_player_die(player: Player) -> void:
 	lose_condition_met.emit();
-	get_tree().create_timer(1.0).timeout.connect(player.queue_free);
+	get_tree().create_timer(1.0, false).timeout.connect(player.queue_free);
 
 func _process(_delta: float) -> void:
 	if (is_active):
@@ -120,6 +120,7 @@ func _check_win_condition() -> void:
 		_are_all_rocks_thrown() && # TODO: Should they have to wait for all rocks to be thrown if they cleared the screen?
 		EnemyManager.get_enemy_count() <= 0
 	):
+		is_active = false;
 		win_condition_met.emit();
 
 func _on_rock_thrown() -> void:

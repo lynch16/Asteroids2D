@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="600"
+   height="266"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="button_square_header_small_rectangle_new.svg"
+   inkscape:export-filename="..\..\..\..\..\..\asteroids-2d\UI\HUD\Settings\Assets\button_square_header_small_rectangle.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.0208333"
+     inkscape:cx="159.83505"
+     inkscape:cy="135.83505"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1072"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <defs
+     id="defs1" />
+  <g
+     id="g6">
+    <path
+       stroke="none"
+       fill="#ff627b"
+       d="M 2,38 V 6 L 2.1,5.05 C 2.3666667,3.0166667 3.6666667,2 6,2 h 588 c 2.33333,0 3.65,1.0166667 3.95,3.05 L 598,6 v 32 h -2 V 6 L 595.95,5.3 596,5.35 C 595.76667,4.45 595.1,4 594,4 H 6 C 4.9,4 4.2666667,4.4333333 4.1,5.3 L 4.05,5.5 4,6 V 38 H 2"
+       id="path1"
+       sodipodi:nodetypes="cccsscccccccssccccc" />
+    <path
+       stroke="none"
+       fill="#ee2747"
+       d="M 4,38 V 6 L 4.05,5.5 4.1,5.3 C 4.2666667,4.4333333 4.9,4 6,4 h 588 c 1.1,0 1.76667,0.45 2,1.35 L 595.95,5.3 596,6 V 38 H 4"
+       id="path2"
+       sodipodi:nodetypes="ccccssccccc" />
+    <path
+       stroke="none"
+       fill="#cd0b2a"
+       d="M 598,38 V 6 L 597.95,5.05 C 597.65,3.0166667 596.33333,2 594,2 H 6 C 3.6666667,2 2.3666667,3.0166667 2.1,5.05 L 2,6 V 38 H 0 V 6 C 0,2 2,0 6,0 h 588 c 4,0 6,2 6,6 v 32 h -2"
+       id="path3"
+       sodipodi:nodetypes="cccssccccsssscc" />
+    <path
+       stroke="none"
+       fill="#ffffff"
+       d="m 598,38 v 222 c 0,2.66667 -1.33333,4 -4,4 H 6 c -2.6666667,0 -4,-1.33333 -4,-4 V 38 h 2 592 2 m -2,222 V 40 H 4 v 220 c 0,1.33333 0.6666667,2 2,2 h 136.65 9.3 H 594 c 1.33333,0 2,-0.66667 2,-2"
+       id="path4"
+       sodipodi:nodetypes="csssscccccccssccsc" />
+    <path
+       stroke="none"
+       fill="#9696a3"
+       d="m 598,38 h 2 v 222.25 c -0.1,3.83333 -2.1,5.75 -6,5.75 H 6 c -3.9,0 -5.9,-1.91667 -6,-5.75 V 38 h 2 v 222 c 0,2.66667 1.3333333,4 4,4 h 588 c 2.66667,0 4,-1.33333 4,-4 V 38 m -6,218 c 0,0.56667 -0.2,1.03333 -0.6,1.4 -0.36667,0.4 -0.83333,0.6 -1.4,0.6 -0.56667,0 -1.03333,-0.2 -1.4,-0.6 -0.4,-0.36667 -0.6,-0.83333 -0.6,-1.4 0,-0.56667 0.2,-1.05 0.6,-1.45 0.36667,-0.36667 0.83333,-0.55 1.4,-0.55 0.56667,0 1.03333,0.18333 1.4,0.55 0.4,0.4 0.6,0.88333 0.6,1.45 m -580,0 c 0,0.56667 -0.2,1.03333 -0.6,1.4 -0.366667,0.4 -0.833333,0.6 -1.4,0.6 -0.5666667,0 -1.0333333,-0.2 -1.4,-0.6 C 8.2,257.03333 8,256.56667 8,256 8,255.43333 8.2,254.95 8.6,254.55 8.9666667,254.18333 9.4333333,254 10,254 c 0.566667,0 1.033333,0.18333 1.4,0.55 0.4,0.4 0.6,0.88333 0.6,1.45"
+       id="path5"
+       sodipodi:nodetypes="cccsscccsssscccscsssscccscssssc" />
+    <path
+       stroke="none"
+       fill="#dadce7"
+       d="m 12,256 c 0,-0.56667 -0.2,-1.05 -0.6,-1.45 C 11.033333,254.18333 10.566667,254 10,254 c -0.5666667,0 -1.0333333,0.18333 -1.4,0.55 -0.4,0.4 -0.6,0.88333 -0.6,1.45 0,0.56667 0.2,1.03333 0.6,1.4 0.3666667,0.4 0.8333333,0.6 1.4,0.6 0.566667,0 1.033333,-0.2 1.4,-0.6 0.4,-0.36667 0.6,-0.83333 0.6,-1.4 m 580,0 c 0,-0.56667 -0.2,-1.05 -0.6,-1.45 -0.36667,-0.36667 -0.83333,-0.55 -1.4,-0.55 -0.56667,0 -1.03333,0.18333 -1.4,0.55 -0.4,0.4 -0.6,0.88333 -0.6,1.45 0,0.56667 0.2,1.03333 0.6,1.4 0.36667,0.4 0.83333,0.6 1.4,0.6 0.56667,0 1.03333,-0.2 1.4,-0.6 0.4,-0.36667 0.6,-0.83333 0.6,-1.4 m 4,4 c 0,1.33333 -0.66667,2 -2,2 H 151.95 142.65 6 c -1.3333333,0 -2,-0.66667 -2,-2 V 40 h 592 v 220"
+       id="path6"
+       sodipodi:nodetypes="csssscscccsssscscccsccssccc" />
+  </g>
+</svg>

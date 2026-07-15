@@ -1,0 +1,243 @@
+[gd_scene format=3 uid="uid://dtkcorwbgkfub"]
+
+[ext_resource type="Script" uid="uid://d2ba4xm2ad5jn" path="res://UI/ControlsDialog/controls_dialog.gd" id="1_kswul"]
+[ext_resource type="Texture2D" uid="uid://dyafv2dt4rxbp" path="res://UI/ControlsDialog/Assets/button_square_header_small_rectangle.png" id="2_7vg74"]
+[ext_resource type="FontFile" uid="uid://c6ow5kknund3n" path="res://UI/HUD/Settings/Assets/Fonts/Kenney Future.ttf" id="3_ia0wt"]
+[ext_resource type="Script" uid="uid://xhv5d6ocihe" path="res://UI/ControlsDialog/controls_dialog_button.gd" id="4_4i42v"]
+[ext_resource type="Texture2D" uid="uid://dmdcwba7ur3ic" path="res://UI/ControlsDialog/Assets/keyboard_w_outline.png" id="4_dlmha"]
+[ext_resource type="Texture2D" uid="uid://c6mccwrto380q" path="res://UI/ControlsDialog/Assets/keyboard_w.png" id="5_a3bux"]
+[ext_resource type="Texture2D" uid="uid://bxhnc4tqjm1w4" path="res://UI/ControlsDialog/Assets/keyboard_r_outline.png" id="5_qnfi4"]
+[ext_resource type="Texture2D" uid="uid://bjuwx67vwcrw1" path="res://UI/ControlsDialog/Assets/keyboard_a_outline.png" id="6_a3bux"]
+[ext_resource type="Texture2D" uid="uid://cjsgm0fafkp75" path="res://UI/ControlsDialog/Assets/keyboard_d_outline.png" id="7_4kf3v"]
+[ext_resource type="Texture2D" uid="uid://du6hvobq7hjrx" path="res://UI/ControlsDialog/Assets/keyboard_r.png" id="7_a3bux"]
+[ext_resource type="Texture2D" uid="uid://dl052dsvtgx47" path="res://UI/ControlsDialog/Assets/keyboard_space_icon_outline.png" id="8_dlmha"]
+[ext_resource type="Texture2D" uid="uid://bbcp3qb1kfoma" path="res://UI/ControlsDialog/Assets/keyboard_a.png" id="9_37src"]
+[ext_resource type="Texture2D" uid="uid://dgmspd8lw3fga" path="res://UI/ControlsDialog/Assets/keyboard_d.png" id="10_w1md3"]
+[ext_resource type="Texture2D" uid="uid://3beg6btiqle4" path="res://UI/ControlsDialog/Assets/keyboard_space_icon.png" id="11_4kf3v"]
+[ext_resource type="LabelSettings" uid="uid://cqgnbyubugucj" path="res://UI/ControlsDialog/controls_dialog_label_settings.tres" id="14_fiy1h"]
+[ext_resource type="Script" uid="uid://bua06tfyrcb5g" path="res://UI/ControlsDialog/control_details_container.gd" id="15_n3j4q"]
+[ext_resource type="PackedScene" uid="uid://bicxv587ry1jt" path="res://UI/HUD/Settings/Assets/settings_button.tscn" id="17_7vg74"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nm8qe"]
+font = ExtResource("3_ia0wt")
+
+[node name="ControlsDialog" type="Node2D" unique_id=804113033]
+script = ExtResource("1_kswul")
+
+[node name="ContainerSprite" type="Sprite2D" parent="." unique_id=1029436518]
+texture = ExtResource("2_7vg74")
+centered = false
+
+[node name="Label" type="Label" parent="." unique_id=1665515644]
+offset_left = 21.0
+offset_top = 10.0
+offset_right = 128.0
+offset_bottom = 33.0
+text = "Controls"
+label_settings = SubResource("LabelSettings_nm8qe")
+
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=339681988]
+offset_left = 11.0
+offset_top = 42.0
+offset_right = 581.0
+offset_bottom = 274.0
+
+[node name="MarginContainer" type="MarginContainer" parent="BoxContainer" unique_id=313182533]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer/MarginContainer" unique_id=117930627]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer/MarginContainer/HBoxContainer" unique_id=386510916]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=10066496]
+layout_mode = 2
+
+[node name="EmptyRect" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=494535001]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 2
+
+[node name="WButton" type="CenterContainer" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1664252052]
+clip_contents = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+script = ExtResource("4_4i42v")
+
+[node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/WButton" unique_id=1083760310]
+layout_mode = 2
+texture = ExtResource("4_dlmha")
+stretch_mode = 2
+
+[node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/WButton" unique_id=1255438607]
+layout_mode = 2
+texture = ExtResource("5_a3bux")
+stretch_mode = 2
+
+[node name="EmptyRect2" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1118763975]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 2
+
+[node name="RButton" type="CenterContainer" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1994827687]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+script = ExtResource("4_4i42v")
+control_action = &"boost"
+metadata/_custom_type_script = "uid://xhv5d6ocihe"
+
+[node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/RButton" unique_id=1068046488]
+layout_mode = 2
+texture = ExtResource("5_qnfi4")
+stretch_mode = 2
+
+[node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/RButton" unique_id=1570106610]
+layout_mode = 2
+texture = ExtResource("7_a3bux")
+stretch_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1660406527]
+layout_mode = 2
+
+[node name="AButton" type="CenterContainer" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=623184312]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+script = ExtResource("4_4i42v")
+control_action = &"yaw_left"
+metadata/_custom_type_script = "uid://xhv5d6ocihe"
+
+[node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/AButton" unique_id=829780918]
+layout_mode = 2
+texture = ExtResource("6_a3bux")
+stretch_mode = 2
+
+[node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/AButton" unique_id=1659722696]
+layout_mode = 2
+texture = ExtResource("9_37src")
+stretch_mode = 2
+
+[node name="EmptyRect" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=135937294]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 2
+
+[node name="DButton" type="CenterContainer" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=325037432]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+script = ExtResource("4_4i42v")
+control_action = &"yaw_right"
+metadata/_custom_type_script = "uid://xhv5d6ocihe"
+
+[node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/DButton" unique_id=1724909514]
+layout_mode = 2
+texture = ExtResource("7_4kf3v")
+stretch_mode = 2
+
+[node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/DButton" unique_id=899579362]
+layout_mode = 2
+texture = ExtResource("10_w1md3")
+stretch_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1515690127]
+layout_mode = 2
+
+[node name="EmptyRect" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1035677255]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 2
+
+[node name="SpaceButton" type="CenterContainer" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3" unique_id=1907506473]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+script = ExtResource("4_4i42v")
+control_action = &"fire_weapon"
+metadata/_custom_type_script = "uid://xhv5d6ocihe"
+
+[node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/SpaceButton" unique_id=1862395386]
+layout_mode = 2
+texture = ExtResource("8_dlmha")
+stretch_mode = 2
+
+[node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/SpaceButton" unique_id=1510494336]
+layout_mode = 2
+texture = ExtResource("11_4kf3v")
+stretch_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BoxContainer/MarginContainer/HBoxContainer" unique_id=2122571017]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=703448020]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 16
+script = ExtResource("15_n3j4q")
+
+[node name="Overview" type="Label" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=832299784]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Hover over images or press keyboard controls for more details"
+label_settings = ExtResource("14_fiy1h")
+autowrap_mode = 3
+
+[node name="W" type="Label" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=2073653618]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "W: Accelerate in direction ship is facing"
+label_settings = ExtResource("14_fiy1h")
+autowrap_mode = 3
+
+[node name="A" type="Label" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=543063450]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "A: Yaw ship to port"
+label_settings = ExtResource("14_fiy1h")
+autowrap_mode = 3
+
+[node name="D" type="Label" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=1955734006]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "D: Yaw ship to starboard"
+label_settings = ExtResource("14_fiy1h")
+autowrap_mode = 2
+
+[node name="R" type="Label" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=1565695435]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "R: Activate boost speed to escape incoming objects. Boost will consume Energy until depleted. Energy will regenerate after boost ends. "
+label_settings = ExtResource("14_fiy1h")
+autowrap_mode = 2
+
+[node name="Space" type="Label" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=382237847]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Space: Fire ship weapon"
+label_settings = ExtResource("14_fiy1h")
+autowrap_mode = 2
+
+[node name="CloseButton" parent="." unique_id=789434949 instance=ExtResource("17_7vg74")]
+unique_name_in_owner = true
+position = Vector2(128, 308)
+monitoring = true
+monitorable = true
+button_text = "Close"
+is_reselectable = true
+disable = false
+
+[connection signal="selected" from="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/WButton" to="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" method="show_w"]
+[connection signal="selected" from="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/RButton" to="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" method="show_r"]
+[connection signal="selected" from="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/AButton" to="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" method="show_a"]
+[connection signal="selected" from="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/DButton" to="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" method="show_d"]
+[connection signal="selected" from="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/SpaceButton" to="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" method="show_space"]

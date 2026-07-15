@@ -15,8 +15,9 @@ enum GroupDeformationResult {
 @export var collision_object: CollisionObject2D;
 
 signal spawn_new_group(newcollision_mesh_group: MS_CollisionMeshGroup);
-signal all_colliders_destroyed;
+signal all_colliders_destroyed();
 
+var signals_enabled := true;
 var _deformable_mesh_collisions: Array[DeformableMeshCollider2D] = [];
 
 func _init(
@@ -38,6 +39,9 @@ func _enter_tree() -> void:
 		collision.spawn_new_group.connect(_spawn_new_group);
 		call_deferred("_add_collision", collision);
 
+func _exit_tree() -> void:
+	signals_enabled = false;
+
 func _add_collision(collision: DeformableMeshCollider2D) -> void:
 	if (Engine.is_editor_hint()):
 		add_child(collision);
@@ -56,7 +60,8 @@ func get_colliders() -> Array[DeformableMeshCollider2D]:
 	return _deformable_mesh_collisions;
 
 func _spawn_new_group(new_group: MS_CollisionMeshGroup) -> void:
-	spawn_new_group.emit(new_group);
+	if (signals_enabled):
+		spawn_new_group.emit(new_group);
 	
 func deform_group(
 	collision_point: Vector2,
@@ -91,5 +96,5 @@ func deform_group(
 
 func _on_collider_freed(collision: DeformableMeshCollider2D) -> void:
 	_deformable_mesh_collisions.erase(collision);
-	if (_deformable_mesh_collisions.size() == 0):
+	if (signals_enabled && _deformable_mesh_collisions.size() == 0):
 		all_colliders_destroyed.emit();

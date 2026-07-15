@@ -3,7 +3,7 @@ extends Node
 
 signal game_start;
 signal game_stop;
-signal level_start(level_index: int);
+signal level_start(level_index: int, level: Level);
 signal player_lives_updated(lives_left: int);
 
 @export var title_screen_scene: PackedScene;
@@ -12,6 +12,8 @@ signal player_lives_updated(lives_left: int);
 @export var starting_level := 0;
 @export var level_scene: PackedScene;
 @export var levels: Array[LevelResource] = [];
+
+@export var player_health: HealthStats;
 
 @onready var pause_menu: PauseMenu = %PauseMenu;
 @onready var music_player: MusicPlayer = $MusicPlayer;
@@ -69,16 +71,19 @@ func on_player_died() -> void:
 		trigger_game_over();
 		music_player._play_lose_music();
 	else:
-		_delayed_next_level_start();
+		_respawn_start_next_level();
 
 func trigger_game_over() -> void:
 	print("GAME OVER");
 	get_tree().paused = true;
 	game_stop.emit();
 
-func start_next_level() -> void:
+func start_next_level(reset_player_health: bool = false) -> void:
 	if (active_level):
 		active_level.queue_free();
+
+	if (reset_player_health):
+		player_health.reset_health();
 
 	var new_level_settings: LevelResource = levels.get(current_level_idx); 
 	var new_level: Level = level_scene.instantiate();
@@ -91,15 +96,15 @@ func start_next_level() -> void:
 	add_child(active_level);
 	new_level.win_condition_met.connect(_play_win_music);
 	new_level.lose_condition_met.connect(on_player_died);
-	level_start.emit(current_level_idx);
+	level_start.emit(current_level_idx, active_level);
 
-func _delayed_next_level_start() -> void:
+func _respawn_start_next_level() -> void:
 	music_player.pause_music();
-	get_tree().create_timer(2.0).timeout.connect(start_next_level);
+	get_tree().create_timer(2.0, false).timeout.connect(start_next_level.bind(true));
 
 func _play_win_music() -> void:
 	music_player.play_win_music();
-	get_tree().create_timer(2.0).timeout.connect(_on_next_level);
+	get_tree().create_timer(2.0, false).timeout.connect(_on_next_level);
 
 func _on_next_level() -> void:
 	current_level_idx += 1;
