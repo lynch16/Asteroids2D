@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://stbo21cv3rc2"
+path="res://.godot/imported/Deepness of Space [Action Loop].wav-c2d14ac5bce8a8d8a8014130524e3435.sample"
+
+[deps]
+
+source_file="res://Audio/Music/Deepness of Space [Action Loop].wav"
+dest_files=["res://.godot/imported/Deepness of Space [Action Loop].wav-c2d14ac5bce8a8d8a8014130524e3435.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

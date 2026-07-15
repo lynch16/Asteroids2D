@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://clmhgemf6tliu" path="res://Models/EntityModules/Weapons/Projectiles/bullet.tscn" id="2_6uj4w"]
 [ext_resource type="Resource" uid="uid://bsdyf8bqvq3pq" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_combat_stats.tres" id="2_86tsg"]
 [ext_resource type="Script" uid="uid://ck3ih30jqm8wu" path="res://Models/EntityModules/Weapons/Core/Components/thrower.gd" id="4_30vll"]
-[ext_resource type="AudioStream" uid="uid://b5d71sljwyhem" path="res://Audio/SoundEffects/Cartoon Sci-Fi Weapon Shot 5.wav" id="5_vfk4w"]
+[ext_resource type="AudioStream" uid="uid://dck3x46xu623l" path="res://Audio/SoundEffects/Sci-Fi Ballistic Weapon Shot 1.wav" id="5_vfk4w"]
 
 [node name="CannonWeapon" type="Node2D" unique_id=1570876709 node_paths=PackedStringArray("thrower")]
 script = ExtResource("1_lgcxq")

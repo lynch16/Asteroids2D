@@ -15,12 +15,16 @@ run/main_scene="uid://b8soshry3wmi7"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://b8udy6g22buu"
+
 [autoload]
 
-AsteroidManager="*uid://c0hqxihl3ul0n"
 ScoreManager="*uid://ddy5bx2mx2ppk"
 SignalBus="*uid://clt6bw8olwa1a"
 EnemyManager="*uid://b7pkcoi40ivvk"
+AsteroidManager="*uid://c0hqxihl3ul0n"
 
 [debug]
 
@@ -32,12 +36,12 @@ gdscript/warnings/unsafe_call_argument=2
 
 [display]
 
-window/size/viewport_width=1880
+window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/initial_position_type=3
+window/size/initial_position=Vector2i(960, 540)
 window/size/initial_screen=2
+window/size/resizable=false
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
 
 [editor]
 
@@ -101,6 +105,8 @@ shift_left_click={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemies"
+2d_physics/layer_3="Environment"
+2d_physics/layer_4="Items"
 
 [physics]
 

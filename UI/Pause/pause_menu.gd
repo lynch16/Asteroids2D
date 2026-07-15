@@ -11,6 +11,9 @@ var paused: bool = false;
 
 @export var pause_on_ready: bool = false;
 
+signal on_show();
+signal on_hide();
+
 func _ready() -> void:
 	resume_button.button_click.connect(on_resume_button);
 	quit_button.button_click.connect(_show_quit_dialog);
@@ -36,14 +39,16 @@ func stop_monitoring() -> void:
 
 func _process(_delta: float) -> void:
 	if (Input.is_action_just_pressed("pause")):
-		pause(true);
+		pause();
 
 func _on_game_paused(is_paused: bool) -> void:
 	if (is_paused):
 		show();
 		_show_settings();
+		on_show.emit();
 	else:
 		hide();
+		on_hide.emit();
 
 func pause(force_set_paused: Variant = null) -> void:
 	if (force_set_paused != null):

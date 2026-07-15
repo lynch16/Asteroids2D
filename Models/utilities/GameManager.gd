@@ -14,6 +14,7 @@ signal player_lives_updated(lives_left: int);
 @export var levels: Array[LevelResource] = [];
 
 @onready var pause_menu: PauseMenu = %PauseMenu;
+@onready var music_player: MusicPlayer = $MusicPlayer;
 
 var current_level_idx: int = 0;
 var active_level: Level;
@@ -23,7 +24,17 @@ var started: bool = false;
 var player_lives: int;
 
 func _ready() -> void:
+	pause_menu.on_show.connect(music_player.play_pause_music);
+	pause_menu.on_hide.connect(_restart_level_music);
+	music_player.play_title_music();
+
 	_load_title_screen();
+
+func _restart_level_music() -> void:
+	if (started):
+		music_player.play_level_music();
+	else:
+		music_player.play_title_music();
 
 func _load_title_screen() -> void:
 	var title_screen: TitleScreen = title_screen_scene.instantiate();
@@ -37,7 +48,7 @@ func _exit_game() -> void:
 
 func on_start() -> void:
 	pause_menu.start_monitoring();
-	
+
 	if (active_level):
 		active_level.queue_free();
 
@@ -56,9 +67,9 @@ func on_player_died() -> void:
 
 	if (player_lives <= 0):
 		trigger_game_over();
+		music_player._play_lose_music();
 	else:
-		active_level.queue_free();
-		start_next_level();
+		_delayed_next_level_start();
 
 func trigger_game_over() -> void:
 	print("GAME OVER");
@@ -66,16 +77,29 @@ func trigger_game_over() -> void:
 	game_stop.emit();
 
 func start_next_level() -> void:
+	if (active_level):
+		active_level.queue_free();
+
 	var new_level_settings: LevelResource = levels.get(current_level_idx); 
 	var new_level: Level = level_scene.instantiate();
 	new_level.level_settings = new_level_settings;
 	new_level.is_active = true;
 
+	music_player.play_next_level_music(current_level_idx);
+
 	active_level = new_level;
 	add_child(active_level);
-	new_level.win_condition_met.connect(_on_next_level);
+	new_level.win_condition_met.connect(_play_win_music);
 	new_level.lose_condition_met.connect(on_player_died);
 	level_start.emit(current_level_idx);
+
+func _delayed_next_level_start() -> void:
+	music_player.pause_music();
+	get_tree().create_timer(2.0).timeout.connect(start_next_level);
+
+func _play_win_music() -> void:
+	music_player.play_win_music();
+	get_tree().create_timer(2.0).timeout.connect(_on_next_level);
 
 func _on_next_level() -> void:
 	current_level_idx += 1;
@@ -83,5 +107,4 @@ func _on_next_level() -> void:
 		print("YOU WON");
 		return;
 
-	active_level.queue_free();
 	start_next_level();
