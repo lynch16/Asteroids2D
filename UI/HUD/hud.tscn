@@ -9,8 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://ehj2mw2v11iw" path="res://UI/HUD/red_bar_round_large.png" id="6_s83ig"]
 [ext_resource type="Script" uid="uid://ge3sr78cqsbl" path="res://UI/HUD/objective_hud.gd" id="8_7sg86"]
 [ext_resource type="FontFile" uid="uid://wcand475xq2m" path="res://UI/HUD/Settings/Assets/Fonts/Kenney Future Narrow.ttf" id="8_db5ks"]
+[ext_resource type="Texture2D" uid="uid://w6rdcjceur84" path="res://UI/HUD/Battery half 512 px.png" id="8_gxdqe"]
+[ext_resource type="Texture2D" uid="uid://dmqcy17pjpu86" path="res://UI/HUD/Settings/Assets/green_bar_round_large.png" id="9_h1lrf"]
+[ext_resource type="FontFile" uid="uid://c6ow5kknund3n" path="res://UI/HUD/Settings/Assets/Fonts/Kenney Future.ttf" id="10_4h73s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ing8j"]
+font = ExtResource("10_4h73s")
 font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_7sg86"]
@@ -86,21 +90,80 @@ theme_override_constants/margin_right = 30
 [node name="HBoxContainer" type="HBoxContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer" unique_id=2109216518]
 layout_mode = 2
 
-[node name="HealthIcon" type="TextureRect" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=663471431]
+[node name="BoxContainer" type="BoxContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1269814774]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer" unique_id=1660725005]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer" unique_id=498300297]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer" unique_id=1334666667]
+layout_mode = 2
+theme_override_constants/margin_right = 16
+
+[node name="BoxContainer" type="BoxContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=876842108]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="HealthIcon" type="TextureRect" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer/MarginContainer/BoxContainer" unique_id=663471431]
 layout_mode = 2
 texture = ExtResource("3_s83ig")
 expand_mode = 2
 
-[node name="HealthProgressBar" type="TextureProgressBar" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=447884832]
+[node name="HealthProgressBar" type="TextureProgressBar" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer" unique_id=447884832]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 value = 100.0
 nine_patch_stretch = true
 stretch_margin_left = 10
 stretch_margin_right = 10
 texture_under = ExtResource("5_dhie7")
 texture_progress = ExtResource("6_s83ig")
+
+[node name="BlankLabel" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/HBoxContainer" unique_id=2118530459]
+layout_mode = 2
+size_flags_horizontal = 8
+label_settings = ExtResource("3_te8l2")
+
+[node name="MarginContainer" type="MarginContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer" unique_id=485805544]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/MarginContainer" unique_id=591822142]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=580705444]
+layout_mode = 2
+theme_override_constants/margin_right = 16
+
+[node name="EnergyIcon" type="TextureRect" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/MarginContainer" unique_id=402895824]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = ExtResource("8_gxdqe")
+expand_mode = 2
+
+[node name="EnergyProgressBar" type="TextureProgressBar" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=572639467]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_right = 10
+texture_under = ExtResource("5_dhie7")
+texture_progress = ExtResource("9_h1lrf")
+
+[node name="BlankLabel" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/BoxContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=1508938608]
+layout_mode = 2
+size_flags_horizontal = 8
+label_settings = ExtResource("3_te8l2")
 
 [node name="Score_Label" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1692012725]
 layout_mode = 2
@@ -137,25 +200,6 @@ expand_mode = 2
 layout_mode = 2
 texture = ExtResource("4_qdh7y")
 expand_mode = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="RuntimeHUD/VBoxContainer" unique_id=1895067396]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="RuntimeHUD/VBoxContainer/MarginContainer2" unique_id=1395436277]
-layout_mode = 2
-
-[node name="Gold_Label" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1759296317]
-layout_mode = 2
-text = "Gold: 	"
-
-[node name="Gold_Value" type="Label" parent="RuntimeHUD/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1563034344]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "0"
 
 [node name="BoxContainer" type="BoxContainer" parent="RuntimeHUD" unique_id=1757363266]
 anchors_preset = 15
