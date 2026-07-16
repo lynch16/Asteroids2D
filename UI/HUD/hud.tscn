@@ -22,19 +22,29 @@ font = ExtResource("8_db5ks")
 font_size = 32
 font_color = Color(0.93333334, 0.15294118, 0.2784314, 1)
 
-[node name="HUD" type="Node" unique_id=663700924]
+[node name="HUD" type="Control" unique_id=266332138]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_37p78")
 life_icon_texture = ExtResource("4_qdh7y")
 
-[node name="DebugHUD" type="Node" parent="." unique_id=1073211590]
+[node name="DebugHUD" type="Control" parent="." unique_id=59998819]
+visible = false
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 1054.0
+offset_right = 8.0
+offset_bottom = 1054.0
 script = ExtResource("2_ing8j")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DebugHUD" unique_id=1450636836]
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -50.0
+offset_right = 320.0
+offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
@@ -69,13 +79,16 @@ text = "0"
 layout_mode = 2
 text = "(-1175.567, -809.9197)"
 
-[node name="RuntimeHUD" type="Node" parent="." unique_id=1117212003]
+[node name="RuntimeHUD" type="Control" parent="." unique_id=73110199]
+anchors_preset = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RuntimeHUD" unique_id=1636059388]
 z_index = 1
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 50.0
+offset_right = 1920.0
+offset_bottom = 112.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -204,11 +217,9 @@ texture = ExtResource("4_qdh7y")
 expand_mode = 2
 
 [node name="BoxContainer" type="BoxContainer" parent="RuntimeHUD" unique_id=1757363266]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
 mouse_filter = 2
 alignment = 1
 
@@ -217,12 +228,16 @@ visible = false
 layout_mode = 2
 text = "Level 1"
 label_settings = SubResource("LabelSettings_ing8j")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ObjectiveHUD" type="Node" parent="." unique_id=368762501]
+[node name="ObjectiveHUD" type="Control" parent="." unique_id=601677941]
+anchors_preset = 0
 script = ExtResource("8_7sg86")
 
 [node name="BoxContainer" type="BoxContainer" parent="ObjectiveHUD" unique_id=1278224191]
 z_index = 2
+layout_mode = 0
 offset_left = 1350.0
 offset_top = 739.0
 offset_right = 1921.0
