@@ -1,11 +1,11 @@
 class_name HUD
-extends Node
+extends Control
 
 @export var _debug_mode := false;
 
 var viewport_size: Vector2;
 
-@onready var debug_controls: Node = get_node("DebugHUD");
+@onready var debug_controls: Control = get_node("DebugHUD");
 @onready var score_value: Label = get_node("RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/Score_Value");
 @onready var level_announce: Label = get_node("RuntimeHUD/BoxContainer/LevelAnnounce");
 @onready var game_manager: GameManager = get_node("/root/GameManager");

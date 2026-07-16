@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://ueh4failrlfv"]
+
+[ext_resource type="Script" uid="uid://b2tp883vqyu0a" path="res://UI/end_play_screen.gd" id="1_qpj51"]
+[ext_resource type="FontFile" uid="uid://wcand475xq2m" path="res://UI/HUD/Settings/Assets/Fonts/Kenney Future Narrow.ttf" id="1_t25dr"]
+[ext_resource type="LabelSettings" uid="uid://jn80rubv6hrf" path="res://UI/HUD/HUD_label_settings.tres" id="2_7c84e"]
+[ext_resource type="Texture2D" uid="uid://cvdgkq3jbndgq" path="res://UI/logo-white-new.svg" id="3_w024j"]
+[ext_resource type="PackedScene" uid="uid://bicxv587ry1jt" path="res://UI/HUD/Settings/Assets/settings_button.tscn" id="5_oqmmh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7c84e"]
+font = ExtResource("1_t25dr")
+font_size = 64
+
+[node name="WinScreen" type="Node2D" unique_id=473307949]
+script = ExtResource("1_qpj51")
+
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=612816566]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer" unique_id=1467103478]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer/HBoxContainer" unique_id=1966258506]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="BoxContainer/HBoxContainer/VBoxContainer" unique_id=1675216660]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Demo Complete!!"
+label_settings = SubResource("LabelSettings_7c84e")
+
+[node name="MarginContainer" type="MarginContainer" parent="BoxContainer/HBoxContainer/VBoxContainer" unique_id=427483715]
+layout_mode = 2
+theme_override_constants/margin_top = 32
+
+[node name="BoxContainer" type="BoxContainer" parent="BoxContainer/HBoxContainer/VBoxContainer/MarginContainer" unique_id=1835207411]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+alignment = 1
+vertical = true
+
+[node name="Label" type="Label" parent="BoxContainer/HBoxContainer/VBoxContainer/MarginContainer/BoxContainer" unique_id=342784270]
+layout_mode = 2
+text = "Click below to follow"
+label_settings = ExtResource("2_7c84e")
+
+[node name="LinkButton" type="TextureButton" parent="BoxContainer/HBoxContainer/VBoxContainer/MarginContainer/BoxContainer" unique_id=1180797134]
+unique_name_in_owner = true
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_w024j")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TitleButton" parent="." unique_id=789434949 instance=ExtResource("5_oqmmh")]
+unique_name_in_owner = true
+position = Vector2(780, 750)
+monitorable = true
+button_text = "Restart"
+is_reselectable = true
+disable = false
+
+[node name="QuitButton" parent="." unique_id=13939631 instance=ExtResource("5_oqmmh")]
+position = Vector2(1150, 750)
+monitorable = true
+button_text = "Quit Game"
+is_reselectable = true
+disable = false
