@@ -17,10 +17,13 @@ signal player_lives_updated(lives_left: int);
 
 @onready var pause_menu: PauseMenu = %PauseMenu;
 @onready var music_player: MusicPlayer = $MusicPlayer;
+@onready var game_over_screen: EndPlayScreen = $GameOverScreen;
+@onready var win_screen: EndPlayScreen = $WinScreen;
 
 var current_level_idx: int = 0;
 var active_level: Level;
 var started: bool = false;
+var hud: HUD;
 
 @export var starting_player_lives := 3;
 var player_lives: int;
@@ -57,7 +60,7 @@ func on_start() -> void:
 	started = true;
 	current_level_idx = starting_level;
 	player_lives = starting_player_lives;
-	var hud: HUD = hud_scene.instantiate();
+	hud = hud_scene.instantiate();
 	add_child(hud);
 	game_start.emit();
 	player_lives_updated.emit(player_lives);
@@ -74,9 +77,12 @@ func on_player_died() -> void:
 		_respawn_start_next_level();
 
 func trigger_game_over() -> void:
-	print("GAME OVER");
-	get_tree().paused = true;
 	game_stop.emit();
+	pause_menu.stop_monitoring();
+	active_level.win_condition_met.disconnect(_play_win_music);
+	active_level.lose_condition_met.disconnect(on_player_died);
+	hud.hide();
+	game_over_screen.show();
 
 func start_next_level(reset_player_health: bool = false) -> void:
 	if (active_level):
@@ -109,7 +115,11 @@ func _play_win_music() -> void:
 func _on_next_level() -> void:
 	current_level_idx += 1;
 	if (current_level_idx >= levels.size()):
-		print("YOU WON");
+		pause_menu.stop_monitoring();
+		active_level.win_condition_met.disconnect(_play_win_music);
+		active_level.lose_condition_met.disconnect(on_player_died);
+		hud.hide();
+		win_screen.show();
 		return;
 
 	start_next_level();
