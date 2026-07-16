@@ -79,6 +79,8 @@ func on_player_died() -> void:
 func trigger_game_over() -> void:
 	game_stop.emit();
 	pause_menu.stop_monitoring();
+	active_level.win_condition_met.disconnect(_play_win_music);
+	active_level.lose_condition_met.disconnect(on_player_died);
 	hud.hide();
 	game_over_screen.show();
 
@@ -114,6 +116,8 @@ func _on_next_level() -> void:
 	current_level_idx += 1;
 	if (current_level_idx >= levels.size()):
 		pause_menu.stop_monitoring();
+		active_level.win_condition_met.disconnect(_play_win_music);
+		active_level.lose_condition_met.disconnect(on_player_died);
 		hud.hide();
 		win_screen.show();
 		return;
