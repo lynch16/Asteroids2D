@@ -100,8 +100,8 @@ jobs:
           mkdir -v -p build/web_debug
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/$EXPORT_NAME.exe"
-          godot --headless --verbose --export-debug "Web" "$EXPORT_DIR/web_debug/$EXPORT_NAME.exe"
+          godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/index.html"
+          godot --headless --verbose --export-debug "Web" "$EXPORT_DIR/web_debug/index.html"
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
