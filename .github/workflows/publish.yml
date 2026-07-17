@@ -21,6 +21,7 @@ jobs:
       matrix:
         channel:
           - windows
+          - web
     runs-on: ubuntu-latest
     name: Deploy to Itch ${{ matrix.template }}
     steps:
