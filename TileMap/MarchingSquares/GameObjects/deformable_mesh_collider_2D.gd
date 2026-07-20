@@ -12,11 +12,11 @@ enum MeshUpdateResult {
 var mesh_instance: MeshInstance2D;
 var collision_mesh_group: DeformableMesh2D;
 
-# Track velocity of object to calculate hit force
-var last_self_velocities: Array[Vector2] = [];
-var last_self_velocity_check_time: float;
-var last_self_velocity_check_position: Vector2;
-var max_last_velocities := 5;
+# # Track velocity of object to calculate hit force
+# var last_self_velocities: Array[Vector2] = [];
+# var last_self_velocity_check_time: float;
+# var last_self_velocity_check_position: Vector2;
+# var max_last_velocities := 5;
 
 signal spawn_new_group(new_collision_mesh_group: MS_CollisionMeshGroup);
 
@@ -38,29 +38,29 @@ func _enter_tree() -> void:
 	var collision_shape_rect := shape.get_rect();
 	collision_mesh.mesh.custom_aabb = AABB(Vector3(collision_shape_rect.position.x, collision_shape_rect.position.y, 0.0), Vector3(collision_shape_rect.size.x, collision_shape_rect.size.y, 0));
 
-func _process(_delta: float) -> void:
-	var new_time := Time.get_unix_time_from_system()
+# func _process(_delta: float) -> void:
+# 	var new_time := Time.get_unix_time_from_system()
 
-	# Track own velocity as a Node2D
-	if (last_self_velocities.size() > max_last_velocities):
-		last_self_velocities.pop_front();
+# 	# Track own velocity as a Node2D
+# 	if (last_self_velocities.size() > max_last_velocities):
+# 		last_self_velocities.pop_front();
 		
-	var self_time := new_time - last_self_velocity_check_time;
-	last_self_velocity_check_time = new_time;
-	var self_distance := global_position - last_self_velocity_check_position;
-	last_self_velocity_check_position = global_position;
-	last_self_velocities.append(self_distance / self_time);
+# 	var self_time := new_time - last_self_velocity_check_time;
+# 	last_self_velocity_check_time = new_time;
+# 	var self_distance := global_position - last_self_velocity_check_position;
+# 	last_self_velocity_check_position = global_position;
+# 	last_self_velocities.append(self_distance / self_time);
 
-func get_velocity() -> Vector2:
-	var velocity_sum := Vector2.ZERO;
-	for v in last_self_velocities:
-		velocity_sum += v;
+# func get_velocity() -> Vector2:
+# 	var velocity_sum := Vector2.ZERO;
+# 	for v in last_self_velocities:
+# 		velocity_sum += v;
 	
-	var velocity_count := last_self_velocities.size();
-	if (velocity_count > 0):
-		return velocity_sum / velocity_count;
-	else:
-		return Vector2.ZERO;
+# 	var velocity_count := last_self_velocities.size();
+# 	if (velocity_count > 0):
+# 		return velocity_sum / velocity_count;
+# 	else:
+# 		return Vector2.ZERO;
 
 func _get_collision_mesh() -> MS_CollisionMesh:
 	return _collision_mesh;
