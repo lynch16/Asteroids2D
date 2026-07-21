@@ -3,13 +3,13 @@ class_name MS_Canvas2D extends Node2D
 @export var canvas: MS_Canvas;
 @export_range(0, 10, 1, "suffix:corners") var cursor_radius := 2;
 
-@export var bitmap: MS_Bitmap;
+@export var ms_bitmap: MS_Bitmap;
 
 func _ready() -> void:
-	if (!bitmap):
-		bitmap = MS_Bitmap.new();
+	if (!ms_bitmap):
+		ms_bitmap = MS_Bitmap.new();
 
-	bitmap.resize(canvas.canvas_rect.size);
+	ms_bitmap.resize(canvas.canvas_rect.size);
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("left_click"):
@@ -23,7 +23,7 @@ func _handle_mouse_click() -> void:
 	_for_points_in_cursor(mouse_down_position, _update_bitmap);
 
 func _update_bitmap(bit_position: Vector2i) -> void:
-	bitmap.set_pos_value(bit_position, 1);
+	ms_bitmap.set_cellv(bit_position, 1);
 
 ## Iterates over all integer positions, executing callable on each position
 func _for_points_in_cursor(cursor_position: Vector2, callable: Callable) -> void:
@@ -47,11 +47,11 @@ func _draw() -> void:
 	_draw_dots();
 		
 func _draw_dots() -> void:
-	for x in bitmap.bitmap_cells.size():
-		var row: Array = bitmap.bitmap_cells[x];
+	for x in ms_bitmap.bitmap_cells.size():
+		var row: Array = ms_bitmap.bitmap_cells[x];
 		
 		for y in row.size():
-			var value := bitmap.get_cell_value(x, y);
+			var value := ms_bitmap.get_cell(x, y);
 
 			if (value > 0):
 				draw_circle(canvas.get_canvas_pos_from_tile(Vector2i(x, y)), cursor_radius * canvas.tile_size/4.0, Color.RED);

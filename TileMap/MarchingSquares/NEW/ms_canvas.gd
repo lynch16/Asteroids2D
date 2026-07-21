@@ -15,26 +15,12 @@ const CORNERS: PackedVector2Array = [
 	CORNER_SW,
 ];
 
-# Draws a rectangle viewport
-# Tracks hover and click
-# Builds a bitmap as you click
-
-# ## Tile centers are not used as bitmap coordinates so should not be used outside this resource
-# func _get_tile_center_position(position: Vector2) -> Vector2:
-# 	var tile_pos := get_tile_position(position)
-# 	var center := Vector2(tile_pos.x + 0.5, tile_pos.y + 0.5) * float(tile_size);
-
-# 	return center;
-
-# func get_tile_corner_position(position: Vector2) -> Vector2:
-# 	var center := _get_tile_center_position(position);
-
-# 	for i: int in CORNERS.size():
-# 		var corner := center + CORNERS[i] * float(tile_size/2.0);
-# 		if (position.distance_to(corner) < tile_size/2.0):
-# 			return corner;
-
-# 	return MarchingSquaresUtility.OFF_SCREEN;
+func _init(
+	p_canvas_rect: Rect2 = Rect2(),
+	p_tile_size: int = 8
+) -> void:
+	canvas_rect = p_canvas_rect;
+	tile_size = p_tile_size;
 
 func get_tile_position(position: Vector2) -> Vector2i:
 	return Vector2(roundi(position.x / tile_size), roundi(position.y / tile_size));

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dv0ykuobwt1it" path="res://TileMap/MarchingSquares/NEW/ms_canvas_2d.gd" id="1_qkhf5"]
 [ext_resource type="Script" uid="uid://dmjieybnk46lp" path="res://TileMap/MarchingSquares/NEW/ms_canvas.gd" id="2_py3gh"]
-[ext_resource type="Script" uid="uid://dc1ivcfx472fv" path="res://TileMap/MarchingSquares/NEW/ms_bitmap.gd" id="3_cn52x"]
+[ext_resource type="Script" uid="uid://duki344j0hw1o" path="res://TileMap/MarchingSquares/NEW/ms_generator.gd" id="4_py3gh"]
 
 [sub_resource type="Resource" id="Resource_abe3b"]
 script = ExtResource("2_py3gh")
@@ -10,14 +10,23 @@ canvas_rect = Rect2(0, 0, 800, 200)
 tile_size = 8
 metadata/_custom_type_script = "uid://dmjieybnk46lp"
 
-[sub_resource type="Resource" id="Resource_omujp"]
-script = ExtResource("3_cn52x")
-metadata/_custom_type_script = "uid://dc1ivcfx472fv"
-
 [node name="MS Editor" type="Node2D" unique_id=1666039974]
 
 [node name="MS_Canvas2D" type="Node2D" parent="." unique_id=538855106]
 script = ExtResource("1_qkhf5")
 canvas = SubResource("Resource_abe3b")
-bitmap = SubResource("Resource_omujp")
 metadata/_custom_type_script = "uid://dv0ykuobwt1it"
+
+[node name="Button" type="Button" parent="." unique_id=291874781]
+offset_left = 518.0
+offset_top = 657.0
+offset_right = 557.0
+offset_bottom = 688.0
+text = "Run"
+
+[node name="MS_Generator" type="Node2D" parent="." unique_id=239813718 node_paths=PackedStringArray("ms_canvas_2D")]
+script = ExtResource("4_py3gh")
+ms_canvas_2D = NodePath("../MS_Canvas2D")
+metadata/_custom_type_script = "uid://duki344j0hw1o"
+
+[connection signal="button_up" from="Button" to="MS_Generator" method="generate_collision_shapes"]
