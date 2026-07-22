@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ugh1wu22egg8"]
 
+[ext_resource type="Script" uid="uid://rfihgtl2tub0" path="res://TileMap/MarchingSquares/NEW/ms_editor.gd" id="1_abe3b"]
 [ext_resource type="Script" uid="uid://dv0ykuobwt1it" path="res://TileMap/MarchingSquares/NEW/ms_canvas_2d.gd" id="1_qkhf5"]
 [ext_resource type="Script" uid="uid://dmjieybnk46lp" path="res://TileMap/MarchingSquares/NEW/ms_canvas.gd" id="2_py3gh"]
 [ext_resource type="Script" uid="uid://dc1ivcfx472fv" path="res://TileMap/MarchingSquares/NEW/ms_bitmap.gd" id="3_py3gh"]
@@ -17,6 +18,7 @@ script = ExtResource("3_py3gh")
 metadata/_custom_type_script = "uid://dc1ivcfx472fv"
 
 [node name="MS Editor" type="Node2D" unique_id=1666039974]
+script = ExtResource("1_abe3b")
 
 [node name="MS_Canvas2D" type="Node2D" parent="." unique_id=538855106]
 script = ExtResource("1_qkhf5")
@@ -31,9 +33,8 @@ offset_right = 557.0
 offset_bottom = 688.0
 text = "Run"
 
-[node name="MS_Generator" type="Node2D" parent="." unique_id=239813718 node_paths=PackedStringArray("ms_canvas_2D")]
+[node name="MS_Generator" type="Node2D" parent="." unique_id=239813718]
 script = ExtResource("4_py3gh")
-ms_canvas_2D = NodePath("../MS_Canvas2D")
 texture = ExtResource("5_cn52x")
 metadata/_custom_type_script = "uid://duki344j0hw1o"
 
