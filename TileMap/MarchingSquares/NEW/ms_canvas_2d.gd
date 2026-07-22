@@ -1,10 +1,10 @@
 class_name MS_Canvas2D extends Node2D
 
+@export var ms_bitmap: MS_Bitmap;
 @export var canvas: MS_Canvas;
 @export_range(0, 10, 1, "suffix:corners") var cursor_radius := 2;
 @export_range(0.0, 1.0, 0.1) var cursor_strength := 0.5;
-
-@export var ms_bitmap: MS_Bitmap;
+@export_enum("circle", "square") var cursor_shape := "circle";
 
 func _ready() -> void:
 	if (!ms_bitmap):
@@ -44,7 +44,7 @@ func _for_points_in_cursor(cursor_position: Vector2, callable: Callable) -> void
 
 	for x in range(-cursor_radius, cursor_radius + 1):
 		for y in range(-cursor_radius, cursor_radius + 1):
-			if (abs(x) + abs(y) > cursor_radius):
+			if (cursor_shape == "circle" && (abs(x) + abs(y) > cursor_radius)):
 				continue;
 
 			var bit_pos := Vector2i(tile_position.x + x, tile_position.y + y);

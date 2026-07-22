@@ -7,23 +7,23 @@
 [ext_resource type="Script" uid="uid://duki344j0hw1o" path="res://TileMap/MarchingSquares/NEW/ms_generator.gd" id="4_py3gh"]
 [ext_resource type="Texture2D" uid="uid://bwrx7prgwqqo" path="res://TileMap/Textures/Ground (89)_128x128.png" id="5_cn52x"]
 
+[sub_resource type="Resource" id="Resource_cn52x"]
+script = ExtResource("3_py3gh")
+metadata/_custom_type_script = "uid://dc1ivcfx472fv"
+
 [sub_resource type="Resource" id="Resource_abe3b"]
 script = ExtResource("2_py3gh")
 canvas_rect = Rect2(0, 0, 800, 200)
 tile_size = 8
 metadata/_custom_type_script = "uid://dmjieybnk46lp"
 
-[sub_resource type="Resource" id="Resource_cn52x"]
-script = ExtResource("3_py3gh")
-metadata/_custom_type_script = "uid://dc1ivcfx472fv"
-
 [node name="MS Editor" type="Node2D" unique_id=1666039974]
 script = ExtResource("1_abe3b")
 
 [node name="MS_Canvas2D" type="Node2D" parent="." unique_id=538855106]
 script = ExtResource("1_qkhf5")
-canvas = SubResource("Resource_abe3b")
 ms_bitmap = SubResource("Resource_cn52x")
+canvas = SubResource("Resource_abe3b")
 metadata/_custom_type_script = "uid://dv0ykuobwt1it"
 
 [node name="Button" type="Button" parent="." unique_id=291874781]
