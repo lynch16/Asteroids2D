@@ -59,7 +59,7 @@ func get_cell(x: int, y: int) -> float:
 	if (!row): 
 		return 0;
 
-	return bitmap_cells[x][y] || 0;
+	return bitmap_cells[x][y];
 
 func _above_cutoff(val: float) -> bool:
 	return val > bitmap_cutoff;
