@@ -33,3 +33,12 @@ func get_max_y() -> int:
 
 func get_canvas_pos_from_tile(tile_pos: Vector2i) -> Vector2:
 	return Vector2(tile_pos.x * tile_size, tile_pos.y * tile_size);
+
+func for_each_tile(callable: Callable) -> void:
+	for x: int in range(0, get_max_x()):
+		for y: int in range(0, get_max_y()):
+			var center := Vector2(x + 0.5, y + 0.5) * float(tile_size);
+			callable.call(center);
+
+func resize(new_size: Vector2) -> void:
+	canvas_rect.size = new_size;

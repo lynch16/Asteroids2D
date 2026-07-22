@@ -1,8 +1,9 @@
 class_name MS_Bitmap extends Resource
 
-@export var bitmap_cells: Array[Array];
 @export var bitmap_cutoff: float = 0.0;
+# @export var min_polygon_area: float = 4.0 * 4.0;
 
+var bitmap_cells: Array[Array];
 var bitmap: BitMap;
 
 func _init(
@@ -60,6 +61,12 @@ func get_cell(x: int, y: int) -> float:
 		return 0;
 
 	return bitmap_cells[x][y];
+
+func get_bitmap_cellv(pos: Vector2i) -> bool:
+	return get_bitmap_cell(pos.x, pos.y);
+
+func get_bitmap_cell(x: int, y: int) -> bool:
+	return _above_cutoff(get_cell(x, y));
 
 func _above_cutoff(val: float) -> bool:
 	return val > bitmap_cutoff;
@@ -129,3 +136,17 @@ func to_polygon_shapes(canvas: MS_Canvas, fidelity: float = 1.0) -> Array[Convex
 		shapes.append(convex_shape);
 
 	return shapes;
+
+# func _is_polygon_too_small(polygon: PackedVector2Array) -> bool:
+# 	var min_val: Vector2 = polygon[0];
+# 	var max_val: Vector2 = polygon[0];
+
+# 	for i in range(1, polygon.size()):
+# 		var p := polygon[i];
+# 		min_val.x = minf(min_val.x, p.x)
+# 		min_val.y = minf(min_val.y, p.y)
+# 		max_val.x = maxf(max_val.x, p.x)
+# 		max_val.y = maxf(max_val.y, p.y)
+	
+# 	var polygon_rect := Rect2(min_val, max_val - min_val);
+# 	return polygon_rect.get_area() < min_polygon_area;

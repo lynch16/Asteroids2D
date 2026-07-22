@@ -10,7 +10,7 @@ func _ready() -> void:
 	if (!ms_bitmap):
 		ms_bitmap = MS_Bitmap.new();
 
-	ms_bitmap.resize(canvas.canvas_rect.size);
+	ms_bitmap.resize(canvas.canvas_rect.size / canvas.tile_size);
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("left_click"):
@@ -37,20 +37,22 @@ func _update_bitmap(bit_position: Vector2i, delta: float, remove: bool) -> void:
 
 ## Iterates over all integer positions, executing callable on each position
 func _for_points_in_cursor(cursor_position: Vector2, callable: Callable) -> void:
+	if (!canvas.canvas_rect.has_point(cursor_position)):
+		return;
+		
 	var tile_position := canvas.get_tile_position(cursor_position);
 
-	if (canvas.canvas_rect.has_point(tile_position)):
-		for x in range(-cursor_radius, cursor_radius + 1):
-			for y in range(-cursor_radius, cursor_radius + 1):
-				if (abs(x) + abs(y) > cursor_radius):
-					continue;
+	for x in range(-cursor_radius, cursor_radius + 1):
+		for y in range(-cursor_radius, cursor_radius + 1):
+			if (abs(x) + abs(y) > cursor_radius):
+				continue;
 
-				var bit_pos := Vector2i(tile_position.x + x, tile_position.y + y);
+			var bit_pos := Vector2i(tile_position.x + x, tile_position.y + y);
 
-				if (bit_pos.x > canvas.get_max_x() || bit_pos.y > canvas.get_max_y()):
-					continue;
+			if (bit_pos.x > canvas.get_max_x() || bit_pos.y > canvas.get_max_y()):
+				continue;
 
-				callable.call(bit_pos);
+			callable.call(bit_pos);
 
 # Draw dots at each vertex, colored whether the mouse is hovering
 func _draw() -> void:
