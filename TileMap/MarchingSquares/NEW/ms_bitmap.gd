@@ -1,7 +1,6 @@
 class_name MS_Bitmap extends Resource
 
 @export var bitmap_cutoff: float = 0.0;
-# @export var min_polygon_area: float = 4.0 * 4.0;
 
 var bitmap_cells: Array[Array];
 var bitmap: BitMap;
@@ -20,6 +19,35 @@ func _init(
 			var cell_val: float = bitmap_cells[x][y];
 			bitmap.set_bit(x, y, _above_cutoff(cell_val))
 
+# region Core
+func _above_cutoff(val: float) -> bool:
+	return val > bitmap_cutoff;
+
+func set_cellv(pos: Vector2i, value: float) -> void:
+	set_cell(pos.x, pos.y, value);
+	
+func get_cellv(pos: Vector2i) -> float:
+	return get_cell(pos.x, pos.y);
+
+func set_cell(x: int, y: int, value: float) -> void:
+	bitmap_cells[x][y] = value;
+	bitmap.set_bit(x, y, _above_cutoff(value));
+
+func get_cell(x: int, y: int) -> float:
+	var row := bitmap_cells[x];
+	if (!row): 
+		return 0;
+
+	return bitmap_cells[x][y];
+
+func get_bitmap_cellv(pos: Vector2i) -> bool:
+	return get_bitmap_cell(pos.x, pos.y);
+
+func get_bitmap_cell(x: int, y: int) -> bool:
+	return _above_cutoff(get_cell(x, y));
+# endregion
+
+# region Sizing
 func resize(new_size: Vector2i) -> void:
 	bitmap.resize(new_size);
 
@@ -45,34 +73,7 @@ func get_size() -> Vector2i:
 	var size_y := bitmap_cells[0].size() if size_x > 0 else 0;
 	return Vector2i(size_x, size_y);
 
-func set_cellv(pos: Vector2i, value: float) -> void:
-	set_cell(pos.x, pos.y, value);
-	
-func get_cellv(pos: Vector2i) -> float:
-	return get_cell(pos.x, pos.y);
-
-func set_cell(x: int, y: int, value: float) -> void:
-	bitmap_cells[x][y] = value;
-	bitmap.set_bit(x, y, _above_cutoff(value));
-
-func get_cell(x: int, y: int) -> float:
-	var row := bitmap_cells[x];
-	if (!row): 
-		return 0;
-
-	return bitmap_cells[x][y];
-
-func get_bitmap_cellv(pos: Vector2i) -> bool:
-	return get_bitmap_cell(pos.x, pos.y);
-
-func get_bitmap_cell(x: int, y: int) -> bool:
-	return _above_cutoff(get_cell(x, y));
-
-func _above_cutoff(val: float) -> bool:
-	return val > bitmap_cutoff;
-
-func shrink(mutate: bool = true) -> Array[Array]:
-	var min_max_position := get_min_max_positions()
+func shrink(mutate: bool = true, min_max_position: Array[Vector2i] = get_min_max_positions()) -> Array[Array]:
 	var min_pos := min_max_position[0];
 	var max_pos := min_max_position[1];
 	var new_x_size := max_pos.x - min_pos.x + 1;
@@ -121,10 +122,13 @@ func get_min_max_positions() -> Array[Vector2i]:
 					max_y = y;
 
 	return [Vector2i(min_x, min_y), Vector2i(max_x, max_y)];
+# endregion
 
-## Create N collision polygons from the BitMap shape
-## fidelity will adjust how accurately the shape matches the bitmap with lower numbers being more accurate but more expensive
-## cull_min_size is the Vector2i(width,height) minimums from which polygons will be culled
+# region Generate
+
+## Create N collision polygons from the BitMap shape. [br]
+## fidelity will adjust how accurately the shape matches the bitmap with lower numbers being more accurate but more expensive [br]
+## cull_min_size is the Vector2i(width,height) minimums from which polygons will be culled [br]
 func to_polygon_shapes(
 	canvas: MS_Canvas, 
 	fidelity: float = 1.0, 
@@ -181,3 +185,4 @@ func get_bitmap_from_polygon(polygon: ConvexPolygonShape2D, canvas: MS_Canvas) -
 
 	var new_bitmap := MS_Bitmap.new(polygon_bitmap_cells);
 	return new_bitmap;
+# endregion

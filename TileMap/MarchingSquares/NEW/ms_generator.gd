@@ -29,7 +29,7 @@ func generate_collision_shapes() -> void:
 		polygon.points = shifted_points;
 
 		## Shrink the bitmap and canvas to just be the polygon too
-		new_bitmap.shrink();
+		new_bitmap.shrink(true, min_max_position);
 		new_canvas.resize(
 			new_bitmap.get_size() * new_canvas.tile_size
 		);
