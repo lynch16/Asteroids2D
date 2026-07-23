@@ -1,3 +1,4 @@
+@tool 
 class_name MS_GenerativeBundle extends Resource
 
 @export var ms_canvas: MS_Canvas;

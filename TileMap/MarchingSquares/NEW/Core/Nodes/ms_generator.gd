@@ -1,3 +1,4 @@
+@tool
 class_name MS_Generator extends Node2D
 
 @export var generative_bundle: MS_GenerativeBundle;

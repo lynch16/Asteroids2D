@@ -1,3 +1,4 @@
+@tool 
 class_name MS_Bitmap extends Resource
 
 @export var bitmap_cutoff: float = 0.0;

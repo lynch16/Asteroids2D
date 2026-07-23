@@ -1,3 +1,4 @@
+@tool 
 class_name MS_Mesh extends Resource 
 
 @export var texture: Texture2D;
