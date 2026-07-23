@@ -2,7 +2,7 @@ class_name MS_Bitmap extends Resource
 
 @export var bitmap_cutoff: float = 0.0;
 
-var bitmap_cells: Array[Array];
+@export var bitmap_cells: Array[Array];
 var bitmap: BitMap;
 
 func _init(
