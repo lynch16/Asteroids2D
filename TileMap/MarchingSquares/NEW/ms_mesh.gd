@@ -56,7 +56,6 @@ func _add_tile(
 	center: Vector2, 
 	tile_index: int,
 ) -> void:
-	print("TILE INDEX: ", tile_index)
 	var verticies := MSMeshes.VERTEX_ARRAYS[tile_index].duplicate();
 	var indicies := MSMeshes.INDEX_ARRAYS[tile_index].duplicate();
 	var total_verticies: int = 0;
