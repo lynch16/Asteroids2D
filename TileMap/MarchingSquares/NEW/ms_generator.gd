@@ -1,22 +1,22 @@
 class_name MS_Generator extends Node2D
 
-@export var canvas: MS_Canvas;
-@export var ms_bitmap: MS_Bitmap;
+@export var source_canvas: MS_Canvas;
+@export var source_ms_bitmap: MS_Bitmap;
 @export var texture: Texture2D;
 
 func generate_collision_shapes() -> void:
 	## Shrink bitmap and canvas to only what we will be using
-	ms_bitmap.shrink();
-	canvas.resize(ms_bitmap.get_size() * canvas.tile_size);
+	source_ms_bitmap.shrink();
+	source_canvas.resize(source_ms_bitmap.get_size() * source_canvas.tile_size);
 	
 	## Convert bitmap to zero, one, or many polygons
-	var collision_polygons := ms_bitmap.to_polygon_shapes(canvas);
+	var collision_polygons := source_ms_bitmap.to_polygon_shapes(source_canvas);
 
 	## Create new resources with each polygon
 	for polygon in collision_polygons:
 		## Isolate a new bitmap and canvas for just this polygon
-		var new_bitmap := ms_bitmap.get_bitmap_from_polygon(polygon, canvas);
-		var new_canvas: MS_Canvas = canvas.duplicate(true);
+		var new_bitmap := source_ms_bitmap.get_bitmap_from_polygon(polygon, source_canvas);
+		var new_canvas: MS_Canvas = source_canvas.duplicate(true);
 		
 		## Get min positions of new bitmap
 		## Use min to update the offset of the polygon points, 
