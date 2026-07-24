@@ -18,6 +18,8 @@ func _init(
 	ms_canvas = p_ms_canvas;
 	texture = p_texture;
 
+	resource_local_to_scene = true;
+
 func create_mesh() -> ArrayMesh:
 	_calculate_surface_array();
 	mesh = ArrayMesh.new();

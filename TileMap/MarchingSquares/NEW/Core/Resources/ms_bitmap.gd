@@ -3,6 +3,7 @@ class_name MS_Bitmap extends Resource
 
 @export var bitmap_cutoff: float = 0.0;
 
+## Only exported to make debugging in editor easier. Assignment is handled by class
 @export var bitmap_cells: Array[Array];
 var bitmap: BitMap;
 
@@ -12,20 +13,21 @@ func _init(
 	bitmap_cells = p_bitmap_cells;
 
 	bitmap = BitMap.new();
-	var size_x := bitmap_cells.size();
-	var size_y := bitmap_cells[0].size() if size_x > 0 else 0;
-	bitmap.resize(Vector2i(size_x, size_y));
-	for x in range(size_x):
-		for y in range(size_y):
+	var new_size := get_size();
+	bitmap.resize(new_size);
+	for x in range(new_size.x):
+		for y in range(new_size.y):
 			var cell_val: float = bitmap_cells[x][y];
 			bitmap.set_bit(x, y, _above_cutoff(cell_val))
+
+	resource_local_to_scene = true;
 
 # region Core
 func _above_cutoff(val: float) -> bool:
 	return val > bitmap_cutoff;
 
 func set_cellv(pos: Vector2i, value: float) -> void:
-	set_cell(pos.x, pos.y, value);
+	set_cell(pos.x, pos.y, maxf(minf(value, 1.0), 0.0));
 	
 func get_cellv(pos: Vector2i) -> float:
 	return get_cell(pos.x, pos.y);
@@ -46,6 +48,12 @@ func get_bitmap_cellv(pos: Vector2i) -> bool:
 
 func get_bitmap_cell(x: int, y: int) -> bool:
 	return _above_cutoff(get_cell(x, y));
+
+func get_size() -> Vector2i:
+	var size_x := bitmap_cells.size();
+	var size_y := bitmap_cells[0].size() if size_x > 0 else 0;
+	return Vector2i(size_x, size_y);
+	
 # endregion
 
 # region Sizing
@@ -68,11 +76,6 @@ func resize(new_size: Vector2i) -> void:
 				if (y >= size_y):
 					bitmap_cells[x][y] = 0;
 					bitmap.set_bit(x, y, 0);
-
-func get_size() -> Vector2i:
-	var size_x := bitmap_cells.size();
-	var size_y := bitmap_cells[0].size() if size_x > 0 else 0;
-	return Vector2i(size_x, size_y);
 
 func shrink(mutate: bool = true, min_max_position: Array[Vector2i] = get_min_max_positions()) -> Array[Array]:
 	var min_pos := min_max_position[0];
@@ -186,4 +189,31 @@ func get_bitmap_from_polygon(polygon: ConvexPolygonShape2D, canvas: MS_Canvas) -
 
 	var new_bitmap := MS_Bitmap.new(polygon_bitmap_cells);
 	return new_bitmap;
+# endregion
+
+# region Collision
+
+## Subtract a provided MS_Bitmap from this one
+func _subtract(subtractive_bitmap: MS_Bitmap, subtractive_offset: Vector2i) -> Array[Array]:
+	var subtractive_size := subtractive_bitmap.get_size();
+	var this_size := get_size();
+	var new_cells: Array[Array] = bitmap_cells.duplicate_deep();
+
+	for x in range(subtractive_size.x):
+		for y in range(subtractive_size.y):
+			var associated_bit := Vector2i(subtractive_offset.x + x, subtractive_offset.y + y);
+			if (
+				associated_bit.x < this_size.x &&
+				associated_bit.y < this_size.y &&
+				get_bitmap_cellv(associated_bit)
+			):
+				var new_val: float = get_cellv(associated_bit) - subtractive_bitmap.get_cell(x, y)
+				new_cells[associated_bit.x][associated_bit.y] = new_val;
+				bitmap.set_bit(associated_bit.x, associated_bit.y, _above_cutoff(new_val));
+
+	return new_cells;
+
+func subtract(subtractive_bitmap: MS_Bitmap, subtractive_offset: Vector2i) -> void:
+	bitmap_cells = _subtract(subtractive_bitmap, subtractive_offset);
+
 # endregion

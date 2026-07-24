@@ -23,6 +23,8 @@ func _init(
 	canvas_rect = p_canvas_rect;
 	tile_size = p_tile_size;
 
+	resource_local_to_scene = true;
+
 func get_tile_position(position: Vector2) -> Vector2i:
 	return Vector2(roundi(position.x / tile_size), roundi(position.y / tile_size));
 

@@ -14,5 +14,7 @@ func _init(
 	ms_bitmap = p_ms_bitmap;
 	texture = p_texture;
 
+	resource_local_to_scene = true;
+
 func save(save_path: String) -> void:
 	ResourceSaver.save(self, save_path);

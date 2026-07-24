@@ -8,6 +8,7 @@ class_name MS_Editor extends Node2D
 @export_range(0, 10, 1, "suffix:corners") var cursor_radius := 2;
 @export_range(0.0, 1.0, 0.1) var cursor_strength := 0.5;
 @export_enum("circle", "square") var cursor_shape := "circle";
+@export var gradual_change := true;
 
 @export_category("Save")
 @export_custom(PROPERTY_HINT_NONE, "suffix:.tres") var file_name: String = "test";
@@ -64,6 +65,9 @@ func _update_bitmap(bit_position: Vector2i, delta: float, remove: bool) -> void:
 		new_val -= cursor_change;
 	else:
 		new_val += cursor_change;
+
+	if (!gradual_change):
+		new_val = 0.0 if remove else 1.0;
 
 	bitmap.set_cellv(bit_position, new_val);
 

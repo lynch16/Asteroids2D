@@ -3,6 +3,8 @@ class_name MS_Generator extends Node2D
 
 @export var generative_bundle: MS_GenerativeBundle;
 
+signal regenerate(new_bundle: MS_GenerativeBundle);
+
 ## Treat all polygons as different parts of the same object
 func generate() -> void:
 	var collision_polygons := _get_source_collision_polygons();
@@ -21,7 +23,8 @@ func generate() -> void:
 	var mesh_instance := mesher.create_mesh_instance();
 	add_child(mesh_instance);
 
-## Treat each polygon within the bitmap as a unique object
+## Treat each polygon within the bitmap as a unique object [br]
+## Need to hook up to regenerate to use the shattered objects
 func shatter() -> void:
 	var source_ms_bitmap := generative_bundle.ms_bitmap;
 	var source_canvas := generative_bundle.ms_canvas;
@@ -49,20 +52,13 @@ func shatter() -> void:
 			new_bitmap.get_size() * new_canvas.tile_size
 		);
 
-		## Use minifed bitmap and canvas to create a mesh
-		var mesher := MS_Mesh.new(
-			new_bitmap,
+		var new_bundle := MS_GenerativeBundle.new(
 			new_canvas,
-			generative_bundle.texture
+			new_bitmap,
+			generative_bundle.texture,
 		);
 
-		## Instantiate everything
-		var collision := CollisionShape2D.new();
-		collision.shape = polygon;
-		add_child(collision);
-
-		var mesh_instance := mesher.create_mesh_instance();
-		add_child(mesh_instance);
+		regenerate.emit(new_bundle);
 
 ## Shrink bitmap and canvas to only what we will be using
 ## Convert bitmap to zero, one, or many polygons
@@ -71,3 +67,15 @@ func _get_source_collision_polygons() -> Array[ConvexPolygonShape2D]:
 	generative_bundle.ms_canvas.resize(generative_bundle.ms_bitmap.get_size() * generative_bundle.ms_canvas.tile_size);
 	
 	return generative_bundle.ms_bitmap.to_polygon_shapes(generative_bundle.ms_canvas, 0.25);
+
+func collide_with(subtractive_generator: MS_Generator, should_shatter: bool = true) -> void:
+	var position_diff := subtractive_generator.global_position - global_position;
+	generative_bundle.ms_bitmap.subtract(
+		subtractive_generator.generative_bundle.ms_bitmap,
+		generative_bundle.ms_canvas.get_tile_position(position_diff)
+	);
+
+	if (should_shatter):
+		shatter();
+	else:
+		generate();
