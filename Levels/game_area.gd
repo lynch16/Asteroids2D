@@ -18,7 +18,6 @@ func _ready() -> void:
 			Vector2(screen_size.x + viewport_buffer, -viewport_buffer)
 		])
 		navigation_polygon.add_outline(vertices);
-		navigation_polygon.agent_radius = MarchingSquaresUtility.TILE_SIZE * 2.0
 
 	AsteroidManager.set_spawn_parent_node(self);
 	EnemyManager.set_spawn_parent_node(self);
