@@ -1,18 +1,44 @@
 @tool
 class_name MS_Generator extends Node2D
 
-@export var generative_bundle: MS_GenerativeBundle;
+enum ShatterResult {
+	Destroyed = 0,
+	Updated = 1,
+	Created = 2,
+}
 
-signal regenerate(new_bundle: MS_GenerativeBundle);
+## Bundle to generate
+@export var generative_bundle: MS_GenerativeBundle;
+## Node where collisions will be attached
+@export var collision_object: CollisionObject2D;
+@export_tool_button("Generate", "EditKey") var gen := generate;
+
+signal generate_new(new_bundle: MS_GenerativeBundle);
+signal degenerate();
+
+var created_resources: Array[Node2D] = [];
 
 ## Treat all polygons as different parts of the same object
 func generate() -> void:
+	_clear_created_resources();
+
 	var collision_polygons := _get_source_collision_polygons();
+
+	if (collision_polygons.size() == 0):
+		degenerate.emit();
+		return;
+
+	var rect_offset: Vector2 = Vector2(
+		generative_bundle.ms_canvas.canvas_rect.size.x / 2.0,
+		generative_bundle.ms_canvas.canvas_rect.size.y / 2.0,
+	)
 
 	for polygon in collision_polygons:
 		var collision := CollisionShape2D.new();
+		collision.position = -rect_offset;
 		collision.shape = polygon;
-		add_child(collision);
+		collision_object.add_child(collision);
+		created_resources.append(collision);
 
 	var mesher := MS_Mesh.new(
 		generative_bundle.ms_bitmap,
@@ -21,17 +47,26 @@ func generate() -> void:
 	);
 
 	var mesh_instance := mesher.create_mesh_instance();
+	mesh_instance.position = -rect_offset;
 	add_child(mesh_instance);
+	created_resources.append(mesh_instance);
 
 ## Treat each polygon within the bitmap as a unique object [br]
 ## Need to hook up to regenerate to use the shattered objects
-func shatter() -> void:
+func shatter() -> ShatterResult:
+	_clear_created_resources();
+
 	var source_ms_bitmap := generative_bundle.ms_bitmap;
 	var source_canvas := generative_bundle.ms_canvas;
 	var collision_polygons := _get_source_collision_polygons();
 
+	if (collision_polygons.size() == 0):
+		degenerate.emit();
+		return ShatterResult.Destroyed;
+
 	## Create new resources with each polygon
-	for polygon in collision_polygons:
+	for i in collision_polygons.size():
+		var polygon := collision_polygons[i];
 		## Isolate a new bitmap and canvas for just this polygon
 		var new_bitmap := source_ms_bitmap.get_bitmap_from_polygon(polygon, source_canvas);
 		var new_canvas: MS_Canvas = source_canvas.duplicate(true);
@@ -48,9 +83,7 @@ func shatter() -> void:
 
 		## Shrink the bitmap and canvas to just be the polygon too
 		new_bitmap.shrink(true, min_max_position);
-		new_canvas.resize(
-			new_bitmap.get_size() * new_canvas.tile_size
-		);
+		new_canvas.resize_to_bitmap(new_bitmap);
 
 		var new_bundle := MS_GenerativeBundle.new(
 			new_canvas,
@@ -58,13 +91,24 @@ func shatter() -> void:
 			generative_bundle.texture,
 		);
 
-		regenerate.emit(new_bundle);
+		if (i == 0):
+			generative_bundle = new_bundle;
+			generate();
+		else:
+			generate_new.emit(new_bundle);
+
+	return ShatterResult.Created if collision_polygons.size() > 0 else ShatterResult.Updated;
+
+func _clear_created_resources() -> void:
+	for child in created_resources:
+		child.call_deferred("queue_free");
+	created_resources = [];
 
 ## Shrink bitmap and canvas to only what we will be using
 ## Convert bitmap to zero, one, or many polygons
 func _get_source_collision_polygons() -> Array[ConvexPolygonShape2D]:
 	generative_bundle.ms_bitmap.shrink();
-	generative_bundle.ms_canvas.resize(generative_bundle.ms_bitmap.get_size() * generative_bundle.ms_canvas.tile_size);
+	generative_bundle.ms_canvas.resize_to_bitmap(generative_bundle.ms_bitmap);
 	
 	return generative_bundle.ms_bitmap.to_polygon_shapes(generative_bundle.ms_canvas, 0.25);
 

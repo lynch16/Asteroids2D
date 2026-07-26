@@ -43,5 +43,10 @@ func for_each_tile(callable: Callable) -> void:
 			var center := Vector2(x + 0.5, y + 0.5) * float(tile_size);
 			callable.call(center);
 
-func resize(new_size: Vector2) -> void:
+func _resize(new_size: Vector2) -> void:
 	canvas_rect.size = new_size;
+
+func resize_to_bitmap(bitmap: MS_Bitmap) -> void:
+	_resize(
+		bitmap.get_size() * tile_size		
+	);

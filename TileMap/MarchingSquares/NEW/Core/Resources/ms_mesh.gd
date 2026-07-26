@@ -12,7 +12,7 @@ var surface_array: Array = [];
 func _init(
 	p_ms_bitmap: MS_Bitmap = MS_Bitmap.new(),
 	p_ms_canvas: MS_Canvas = MS_Canvas.new(),
-	p_texture: Texture2D = Texture2D.new()
+	p_texture: Texture2D = GradientTexture1D.new()
 ) -> void:
 	ms_bitmap = p_ms_bitmap;
 	ms_canvas = p_ms_canvas;

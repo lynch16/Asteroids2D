@@ -30,8 +30,9 @@ offset_right = 557.0
 offset_bottom = 688.0
 text = "Save"
 
-[node name="MS_Generator" type="Node2D" parent="." unique_id=239813718]
+[node name="MS_Generator" type="Node2D" parent="." unique_id=239813718 node_paths=PackedStringArray("collision_object")]
 script = ExtResource("4_py3gh")
+collision_object = NodePath("../Area2D")
 metadata/_custom_type_script = "uid://duki344j0hw1o"
 
 [node name="GenButton" type="Button" parent="." unique_id=395350416]
@@ -40,3 +41,5 @@ offset_top = 657.0
 offset_right = 639.0
 offset_bottom = 688.0
 text = "Generate"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=26575449]

@@ -203,6 +203,8 @@ func _subtract(subtractive_bitmap: MS_Bitmap, subtractive_offset: Vector2i) -> A
 		for y in range(subtractive_size.y):
 			var associated_bit := Vector2i(subtractive_offset.x + x, subtractive_offset.y + y);
 			if (
+				associated_bit.x > 0 &&
+				associated_bit.y > 0 &&
 				associated_bit.x < this_size.x &&
 				associated_bit.y < this_size.y &&
 				get_bitmap_cellv(associated_bit)
@@ -216,4 +218,4 @@ func _subtract(subtractive_bitmap: MS_Bitmap, subtractive_offset: Vector2i) -> A
 func subtract(subtractive_bitmap: MS_Bitmap, subtractive_offset: Vector2i) -> void:
 	bitmap_cells = _subtract(subtractive_bitmap, subtractive_offset);
 
-# endregion
+# endregion	

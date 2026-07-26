@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://drhrxw7642nqd"]
 
-[ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_7kvrs"]
-[ext_resource type="Resource" uid="uid://dgwibnjneqbdr" path="res://Models/Asteroid/AsteroidMesh_16/gold_asteroid_mesh_group.tres" id="2_1xflu"]
+[ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_i4x4e"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://wmd6w6j2858o" path="res://Models/EntityModules/Damage/combat_stats.gd" id="3_jywkw"]
-[ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="4_gw6yr"]
+[ext_resource type="Resource" uid="uid://b7mkoam1chgm3" path="res://TileMap/MarchingSquares/NEW/exports/test.tres" id="4_1xflu"]
 [ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="4_h8hu4"]
-[ext_resource type="Script" uid="uid://deqvt75qdcfcl" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/slice_mesh_deformation_shape.gd" id="5_rr1y8"]
+[ext_resource type="Script" uid="uid://duki344j0hw1o" path="res://TileMap/MarchingSquares/NEW/Core/Nodes/ms_generator.gd" id="7_tml4o"]
+[ext_resource type="Script" uid="uid://cuecudo47i27o" path="res://Models/EntityModules/Damage/Hurt/hurtbox_2d.gd" id="8_i50kp"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="9_tsxo3"]
-[ext_resource type="Script" uid="uid://bvqt4s5uy7wep" path="res://Models/EntityModules/Damage/Hurt/mesh_deform_hit_hurtbox_2d.gd" id="11_4ujrd"]
 [ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/Hurt/DamageResults/invincible_frames_damage_result.gd" id="12_qdhb0"]
 [ext_resource type="Script" uid="uid://yp8x320gf3ox" path="res://Models/EntityModules/Damage/Hurt/DamageResults/score_damage_result.gd" id="13_gw6yr"]
 [ext_resource type="Script" uid="uid://dirc5lq54ahsv" path="res://Models/EntityModules/Damage/Hurt/DamageResults/stop_on_death_result.gd" id="14_i4x4e"]
@@ -34,30 +33,17 @@ initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_ssro7"]
-script = ExtResource("5_rr1y8")
-line_width = 64
-damage = 1.0
-metadata/_custom_type_script = "uid://deqvt75qdcfcl"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufyc"]
 resource_local_to_scene = true
 radius = 311.07877
 
-[sub_resource type="Resource" id="Resource_rr1y8"]
-script = ExtResource("5_rr1y8")
-line_width = 64
-damage = 1.0
-metadata/_custom_type_script = "uid://deqvt75qdcfcl"
-
 [node name="Asteroid" type="CharacterBody2D" unique_id=328524540 groups=["enemy"]]
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("1_7kvrs")
-collision_mesh_group = ExtResource("2_1xflu")
+script = ExtResource("1_i4x4e")
 combat_stats = SubResource("Resource_4ujrd")
 health_stats = SubResource("Resource_qdhb0")
-mesh_deformation_shapes = Array[ExtResource("4_gw6yr")]([SubResource("Resource_ssro7")])
+generative_bundle = ExtResource("4_1xflu")
 
 [node name="GravityField" type="Area2D" parent="." unique_id=2107640775]
 process_mode = 4
@@ -77,52 +63,57 @@ script = ExtResource("9_tsxo3")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://ckmcn5r0df3nm"
 
-[node name="MeshDeformHitHurtbox2D" type="Area2D" parent="." unique_id=2047491454 node_paths=PackedStringArray("owner_node")]
-unique_name_in_owner = true
-script = ExtResource("11_4ujrd")
-mesh_deformation_shapes = Array[ExtResource("4_gw6yr")]([SubResource("Resource_rr1y8")])
-owner_node = NodePath("..")
-metadata/_custom_type_script = "uid://bvqt4s5uy7wep"
+[node name="MS_Generator" type="Node2D" parent="." unique_id=829988067 node_paths=PackedStringArray("collision_object")]
+script = ExtResource("7_tml4o")
+generative_bundle = ExtResource("4_1xflu")
+collision_object = NodePath("../Hurtbox2D")
+metadata/_custom_type_script = "uid://duki344j0hw1o"
 
-[node name="InvincibleFramesDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=971363186]
+[node name="Hurtbox2D" type="Area2D" parent="." unique_id=1386337789 node_paths=PackedStringArray("owner_node")]
+unique_name_in_owner = true
+script = ExtResource("8_i50kp")
+owner_node = NodePath("..")
+metadata/_custom_type_script = "uid://cuecudo47i27o"
+
+[node name="InvincibleFramesDamageResult" type="Node" parent="Hurtbox2D" unique_id=971363186]
 unique_name_in_owner = true
 script = ExtResource("12_qdhb0")
 invincible_length = 0.4
 restart_on_new_damage = true
 metadata/_custom_type_script = "uid://l6occnfuxuon"
 
-[node name="ScoreDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=760267701]
+[node name="ScoreDamageResult" type="Node" parent="Hurtbox2D" unique_id=760267701]
 script = ExtResource("13_gw6yr")
 metadata/_custom_type_script = "uid://yp8x320gf3ox"
 
-[node name="MeshDeformDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=2115329955]
+[node name="MeshDeformDamageResult" type="Node" parent="Hurtbox2D" unique_id=2115329955]
 script = ExtResource("14_rr1y8")
 metadata/_custom_type_script = "uid://cycggoq5xk77s"
 
-[node name="ApplyDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=68998802]
+[node name="ApplyDamageResult" type="Node" parent="Hurtbox2D" unique_id=68998802]
 script = ExtResource("16_p0vjf")
 metadata/_custom_type_script = "uid://dhchi74lu51yr"
 
-[node name="DeathSfxDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=841718911 node_paths=PackedStringArray("audio_stream")]
+[node name="DeathSfxDamageResult" type="Node" parent="Hurtbox2D" unique_id=841718911 node_paths=PackedStringArray("audio_stream")]
 script = ExtResource("16_i4x4e")
 position_particles_at_hit_location = true
 particles_scene = ExtResource("17_1xflu")
 audio_stream = NodePath("DeathAudioStreamPlayer2D")
 metadata/_custom_type_script = "uid://l3f2bsi7sp6n"
 
-[node name="DeathAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="MeshDeformHitHurtbox2D/DeathSfxDamageResult" unique_id=384332755]
+[node name="DeathAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hurtbox2D/DeathSfxDamageResult" unique_id=384332755]
 stream = ExtResource("16_ssro7")
 
-[node name="StopOnDeathDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=944258386]
+[node name="StopOnDeathDamageResult" type="Node" parent="Hurtbox2D" unique_id=944258386]
 script = ExtResource("14_i4x4e")
 metadata/_custom_type_script = "uid://dirc5lq54ahsv"
 
-[node name="SfxDamageResult" type="Node" parent="MeshDeformHitHurtbox2D" unique_id=1537666008 node_paths=PackedStringArray("audio_stream")]
+[node name="SfxDamageResult" type="Node" parent="Hurtbox2D" unique_id=1537666008 node_paths=PackedStringArray("audio_stream")]
 script = ExtResource("15_i4x4e")
 position_particles_at_hit_location = true
 particles_scene = ExtResource("15_2ffjv")
 audio_stream = NodePath("HitAudioStreamPlayer2D")
 metadata/_custom_type_script = "uid://bkqqxy4geuo3l"
 
-[node name="HitAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="MeshDeformHitHurtbox2D/SfxDamageResult" unique_id=1534288876]
+[node name="HitAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hurtbox2D/SfxDamageResult" unique_id=1534288876]
 stream = ExtResource("20_1xflu")

@@ -8,7 +8,7 @@ class_name MS_GenerativeBundle extends Resource
 func _init(
 	p_canvas: MS_Canvas = MS_Canvas.new(),
 	p_ms_bitmap: MS_Bitmap = MS_Bitmap.new(),
-	p_texture: Texture2D = Texture2D.new()
+	p_texture: Texture2D = GradientTexture1D.new()
 ) -> void:
 	ms_canvas = p_canvas;
 	ms_bitmap = p_ms_bitmap;
