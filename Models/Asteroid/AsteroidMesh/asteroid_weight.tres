@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AsteroidBundleWeight" format=3 uid="uid://c88k3euj2evi5"]
+
+[ext_resource type="Script" uid="uid://cbtkm686r2b3u" path="res://Models/Asteroid/asteroid_bundle_weight.gd" id="1_k0qfw"]
+[ext_resource type="Resource" uid="uid://b8wskmj8pt5ub" path="res://Models/Asteroid/AsteroidMesh/apple.tres" id="1_osoji"]
+
+[resource]
+script = ExtResource("1_k0qfw")
+generative_bundle = ExtResource("1_osoji")
+weight = 1.0
+metadata/_custom_type_script = "uid://cbtkm686r2b3u"
