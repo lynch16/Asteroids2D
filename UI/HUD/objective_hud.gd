@@ -1,7 +1,7 @@
 class_name ObjectiveHUD
 extends Node
 
-@onready var game_manager: GameManager = get_node("/root/GameManager");
+@onready var game_manager: GameManager = get_node_or_null("/root/GameManager");
 
 @onready var enemies_container: BoxContainer = %EnemiesContainer;
 @onready var asteroids_value: Label = %AsteroidsValue;
@@ -14,7 +14,8 @@ var num_enemies_destroyed := 0;
 var asteroids_broken_off := 0;
 
 func _ready() -> void:
-	game_manager.level_start.connect(_start_new_level);
+	if (game_manager):
+		game_manager.level_start.connect(_start_new_level);
 
 	AsteroidManager.asteroid_destroyed.connect(_update_asteroid_kill_count);
 	AsteroidManager.asteroid_shattered.connect(_update_shatter_count);
