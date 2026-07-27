@@ -14,7 +14,7 @@ size = Vector2(20, 8)
 
 [sub_resource type="Resource" id="Resource_ry1h5"]
 script = ExtResource("3_6qf6n")
-radius = 48.0
+radius = 4
 damage = 1.0
 shape = SubResource("CircleShape2D_d8d6v")
 metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
 
 [sub_resource type="Resource" id="Resource_llfw1"]
 script = ExtResource("3_6qf6n")
-radius = 64.0
+radius = 8
 damage = 0.5
 shape = SubResource("CircleShape2D_6qf6n")
 metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
