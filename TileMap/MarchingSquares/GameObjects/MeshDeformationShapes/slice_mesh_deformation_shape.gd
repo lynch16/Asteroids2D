@@ -31,3 +31,17 @@ func apply_shape(
 		new_corners
 	)
 	
+
+func apply_bitmap(
+	collision_point: Vector2,
+	collision_angle: float,
+	target_bitmap: MS_Bitmap,
+) -> void:
+	var target_size := target_bitmap.get_size();
+	var length := target_size.length();
+
+	var end_x := length * cos(collision_angle)
+	var end_y := length * sin(collision_angle) 
+
+	bitmap.resize(target_size);
+	target_bitmap.subtract(_get_bitmap(), collision_point);
