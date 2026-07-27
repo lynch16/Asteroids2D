@@ -37,7 +37,7 @@ func generate() -> void:
 		var collision := CollisionShape2D.new();
 		collision.position = -rect_offset;
 		collision.shape = polygon;
-		collision_object.add_child(collision);
+		collision_object.call_deferred("add_child", collision);
 		created_resources.append(collision);
 
 	var mesher := MS_Mesh.new(
