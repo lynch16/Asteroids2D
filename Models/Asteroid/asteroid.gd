@@ -4,8 +4,12 @@ class_name Asteroid extends SpawnableCharacter2D
 @export var combat_stats: CombatStats;
 @export var health_stats: HealthStats;
 @export var generative_bundle: MS_GenerativeBundle;
+@export var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
 
-var generator: MS_Generator;
+var hurtbox_generator: MS_Generator;
+var hitbox_generator: MS_Generator;
+
+var hitbox: Hitbox2D;
 
 var mass := 10000;
 var damageable: Damageable;
@@ -16,12 +20,25 @@ signal asteroid_destroyed;
 
 func _enter_tree() -> void:
 	super();
-	generator = $MS_Generator;
-	generator.generative_bundle = generative_bundle;
-	generator.generate();
+	hurtbox_generator = $HurtboxGenerator;
+	hurtbox_generator.generative_bundle = generative_bundle;
+	hurtbox_generator.generate();
 
 	hurtbox = $Hurtbox2D;
 	hurtbox.health_stats = health_stats;
+
+	hitbox = Hitbox2D.new(
+		combat_stats,
+		0.0,
+		null,
+		HitLog.new(),
+		self
+	);
+	add_child(hitbox);
+	hitbox_generator = $HitboxGenerator;
+	hitbox_generator.collision_object = hitbox;
+	hitbox_generator.generative_bundle = generative_bundle;
+	hitbox_generator.generate();
 
 func _ready() -> void:
 	add_to_group("enemy");
@@ -30,8 +47,8 @@ func _ready() -> void:
 	combat_stats.resource_local_to_scene = true;
 	generative_bundle.resource_local_to_scene = true;
 
-	generator.generate_new.connect(_shatter);
-	generator.degenerate.connect(_destroy);
+	hurtbox_generator.generate_new.connect(_shatter);
+	hurtbox_generator.degenerate.connect(_destroy);
 
 	var invincible_damage_result: InvincibleFramesDamageResult = %InvincibleFramesDamageResult;
 	invincible_damage_result.init.connect(_disable_colliders);
@@ -84,13 +101,13 @@ func _on_dequeue_timeout() -> void:
 func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> MS_Generator.ShatterResult:
 	for shape in collision_deformation_shapes:
 		shape.apply_bitmap(
-			generator.generative_bundle.ms_canvas.get_tile_position(
+			hurtbox_generator.generative_bundle.ms_canvas.get_tile_position(
 				to_local(collision_point)
 			),
 			collision_angle,
-			generator.generative_bundle.ms_bitmap
+			hurtbox_generator.generative_bundle.ms_bitmap
 		);
 
-	var result := generator.shatter();
+	var result := hurtbox_generator.shatter();
 	
 	return result;
