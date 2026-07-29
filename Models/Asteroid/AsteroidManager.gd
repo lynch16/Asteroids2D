@@ -36,7 +36,7 @@ func _process(_delta: float) -> void:
 		var new_asteroid := spawn_asteroid(asteroid_to_launch.bundle);
 		new_asteroid.global_position = asteroid_to_launch.launch_position;
 		new_asteroid.velocity = asteroid_to_launch.launch_velocity;
-		new_asteroid.rotation = asteroid_to_launch.launch_angle;
+		new_asteroid.global_rotation = asteroid_to_launch.launch_angle;
 
 func set_spawn_parent_node(node: Node) -> void:
 	spawn_parent_node = node;
@@ -50,6 +50,7 @@ func shatter_asteroid(initial_aster: Asteroid, bundle: MS_GenerativeBundle) -> v
 		bundle,
 		initial_aster.global_position,
 		Vector2(speed, 0).rotated(direction),
+		initial_aster.global_rotation,
 	)
 	asteroid_launcher.append(asteroid_launch);
 	asteroid_shattered.emit();

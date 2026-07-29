@@ -4,6 +4,8 @@ class_name MS_Canvas extends Resource
 @export var canvas_rect: Rect2;
 @export var tile_size: int;
 
+var global_rotation: float;
+
 const CORNER_NW = Vector2(-1,1);
 const CORNER_NE = Vector2(1,1);
 const CORNER_SE = Vector2(1,-1);
@@ -25,8 +27,12 @@ func _init(
 
 	resource_local_to_scene = true;
 
+func update(p_global_rotation: float) -> void:
+	global_rotation = p_global_rotation;
+
 func get_tile_position(position: Vector2) -> Vector2i:
-	return Vector2(roundi(position.x / tile_size), roundi(position.y / tile_size));
+	var normalized_position := position.rotated(-global_rotation);
+	return Vector2(roundi(normalized_position.x / tile_size), roundi(normalized_position.y / tile_size));
 
 func get_max_x() -> int:
 	return roundi(canvas_rect.size.x / tile_size)
@@ -35,7 +41,7 @@ func get_max_y() -> int:
 	return roundi(canvas_rect.size.y / tile_size)
 
 func get_canvas_pos_from_tile(tile_pos: Vector2i) -> Vector2:
-	return Vector2(tile_pos.x * tile_size, tile_pos.y * tile_size);
+	return Vector2(tile_pos.x * tile_size, tile_pos.y * tile_size).rotated(global_rotation);
 
 func for_each_tile(callable: Callable) -> void:
 	for x: int in range(0, get_max_x()):

@@ -25,6 +25,13 @@ func _ready() -> void:
 		debugger.source_bitmap = generative_bundle.ms_bitmap;
 		debugger.source_canvas = generative_bundle.ms_canvas;
 
+func _process(_delta: float) -> void:
+	if (generative_bundle):
+		generative_bundle.ms_canvas.update(global_rotation);
+
+	if (debugger):
+		queue_redraw();
+
 ## Treat all polygons as different parts of the same object
 func generate() -> void:
 	_clear_created_resources();
@@ -132,10 +139,6 @@ func collide_with(subtractive_bitmap: MS_Bitmap, subtractive_bitmap_global_posit
 		subtractive_bitmap,
 		hit_tile_position,
 	);
-
-func _process(_delta: float) -> void:
-	if (debugger):
-		queue_redraw();
 
 func _draw() -> void:
 	if (debugger):
