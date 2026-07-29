@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="MS_CollisionMeshGroup" format=4 uid="uid://dgwibnjneqbdr"]
 
-[ext_resource type="Script" uid="uid://bjoothi63lu1k" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh.gd" id="1_1jc64"]
+[ext_resource type="Script" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh.gd" id="1_1jc64"]
 [ext_resource type="Texture2D" uid="uid://cbyjad0k8a2hi" path="res://TileMap/Textures/Ground (95)_128x128.png" id="2_pc60x"]
-[ext_resource type="Script" uid="uid://2j1xq6gbr86n" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="3_g4vo0"]
+[ext_resource type="Script" path="res://TileMap/MarchingSquares/GameObjects/ms_collision_mesh_group.gd" id="3_g4vo0"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_e4bn2"]
 points = PackedVector2Array(224, 144, 240, 144, 240, 208, 272, 224, 272, 240, 352, 176, 368, 176, 368, 128, 304, 96, 304, 80, 224, 80)
