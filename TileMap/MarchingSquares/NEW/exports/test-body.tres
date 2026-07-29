@@ -1,60 +1,27 @@
-[gd_scene format=3 uid="uid://4v1kdekge8d6"]
+[gd_resource type="Resource" script_class="MS_GenerativeBundle" format=3 uid="uid://b21xijes6n7x8"]
 
-[ext_resource type="Script" uid="uid://d1w5j6v0khj0r" path="res://TileMap/MarchingSquares/NEW/Tools/bundle_collider.gd" id="1_wu4id"]
-[ext_resource type="Script" uid="uid://duki344j0hw1o" path="res://TileMap/MarchingSquares/NEW/Core/Nodes/ms_generator.gd" id="2_sgk47"]
-[ext_resource type="Resource" uid="uid://b21xijes6n7x8" path="res://TileMap/MarchingSquares/NEW/exports/test-body.tres" id="3_xupas"]
-[ext_resource type="Resource" uid="uid://cj7ajkowsq236" path="res://TileMap/MarchingSquares/NEW/exports/test-bullet.tres" id="4_xupas"]
-[ext_resource type="Script" uid="uid://dc1ivcfx472fv" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_bitmap.gd" id="5_ttosc"]
-[ext_resource type="Script" uid="uid://dmjieybnk46lp" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_canvas.gd" id="6_xupas"]
-[ext_resource type="Script" uid="uid://cc1rpsuxjvyuu" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_generative_bundle.gd" id="7_xfhdo"]
+[ext_resource type="Script" uid="uid://dc1ivcfx472fv" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_bitmap.gd" id="1_41nx5"]
+[ext_resource type="Script" uid="uid://dmjieybnk46lp" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_canvas.gd" id="2_nvww2"]
+[ext_resource type="Script" uid="uid://cc1rpsuxjvyuu" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_generative_bundle.gd" id="3_yqyii"]
 
-[sub_resource type="Resource" id="Resource_ttosc"]
+[sub_resource type="Resource" id="Resource_pjyx6"]
 resource_local_to_scene = true
-script = ExtResource("5_ttosc")
+script = ExtResource("1_41nx5")
 bitmap_cells = Array[Array]([[0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 1.0, 1.0, 1.0, 0, 0], [0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0]])
+metadata/_custom_type_script = "uid://dc1ivcfx472fv"
 
 [sub_resource type="Resource" id="Resource_y8udn"]
 resource_local_to_scene = true
-script = ExtResource("6_xupas")
+script = ExtResource("2_nvww2")
 canvas_rect = Rect2(0, 0, 184, 168)
 tile_size = 8
 metadata/_custom_type_script = "uid://dmjieybnk46lp"
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_nvsou"]
 
-[sub_resource type="Resource" id="Resource_xupas"]
+[resource]
 resource_local_to_scene = true
-script = ExtResource("7_xfhdo")
+script = ExtResource("3_yqyii")
 ms_canvas = SubResource("Resource_y8udn")
-ms_bitmap = SubResource("Resource_ttosc")
+ms_bitmap = SubResource("Resource_pjyx6")
 texture = SubResource("GradientTexture1D_nvsou")
-
-[node name="BundleCollider" type="Node2D" unique_id=1596693533]
-script = ExtResource("1_wu4id")
-
-[node name="TargetGenerator" type="Node2D" parent="." unique_id=1081593086 node_paths=PackedStringArray("collision_object")]
-visible = false
-script = ExtResource("2_sgk47")
-generative_bundle = ExtResource("3_xupas")
-collision_object = NodePath("../Area2D")
-metadata/_custom_type_script = "uid://duki344j0hw1o"
-
-[node name="SubtractiveGenerator" type="Node2D" parent="." unique_id=2029413470 node_paths=PackedStringArray("collision_object")]
-visible = false
-position = Vector2(66, 48)
-script = ExtResource("2_sgk47")
-generative_bundle = ExtResource("4_xupas")
-collision_object = NodePath("../Area2D2")
-metadata/_custom_type_script = "uid://duki344j0hw1o"
-
-[node name="ResultGenerator" type="Node2D" parent="." unique_id=724708136 node_paths=PackedStringArray("collision_object")]
-script = ExtResource("2_sgk47")
-generative_bundle = SubResource("Resource_xupas")
-collision_object = NodePath("../Area2D")
-metadata/_custom_type_script = "uid://duki344j0hw1o"
-
-[node name="Area2D" type="Area2D" parent="." unique_id=1360865760]
-visible = false
-
-[node name="Area2D2" type="Area2D" parent="." unique_id=1995987634]
-visible = false

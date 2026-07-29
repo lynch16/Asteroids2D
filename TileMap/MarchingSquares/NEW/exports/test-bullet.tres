@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="MS_GenerativeBundle" format=3 uid="uid://cj7ajkowsq236"]
+
+[ext_resource type="Script" uid="uid://dc1ivcfx472fv" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_bitmap.gd" id="1_me5kw"]
+[ext_resource type="Script" uid="uid://dmjieybnk46lp" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_canvas.gd" id="2_d7g7r"]
+[ext_resource type="Script" uid="uid://cc1rpsuxjvyuu" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_generative_bundle.gd" id="3_ukrom"]
+
+[sub_resource type="Resource" id="Resource_1mr7t"]
+resource_local_to_scene = true
+script = ExtResource("1_me5kw")
+bitmap_cells = Array[Array]([[0, 0, 1.0, 0, 0], [0, 1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, 1.0, 1.0], [0, 1.0, 1.0, 1.0, 0], [0, 0, 1.0, 0, 0]])
+metadata/_custom_type_script = "uid://dc1ivcfx472fv"
+
+[sub_resource type="Resource" id="Resource_f68cf"]
+resource_local_to_scene = true
+script = ExtResource("2_d7g7r")
+canvas_rect = Rect2(0, 0, 40, 40)
+tile_size = 8
+metadata/_custom_type_script = "uid://dmjieybnk46lp"
+
+[sub_resource type="Gradient" id="Gradient_me5kw"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rves2"]
+gradient = SubResource("Gradient_me5kw")
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("3_ukrom")
+ms_canvas = SubResource("Resource_f68cf")
+ms_bitmap = SubResource("Resource_1mr7t")
+texture = SubResource("GradientTexture1D_rves2")

@@ -9,6 +9,10 @@ class_name BundleCollider extends Node2D
 @onready var subtractive_generator: MS_Generator = $SubtractiveGenerator;
 @onready var result_generator: MS_Generator = $ResultGenerator;
 
+
+## TODO::::
+	# Rewind collision efforts to make this tool work again
+
 func _generate() -> void:
 	_clear();
 
