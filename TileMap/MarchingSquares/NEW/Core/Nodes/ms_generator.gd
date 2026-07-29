@@ -43,8 +43,8 @@ func generate() -> void:
 		return;
 
 	for polygon in collision_polygons:
-		var collision := CollisionShape2D.new();
-		collision.shape = polygon;
+		var collision := CollisionPolygon2D.new();
+		collision.polygon = polygon;
 		collision_object.call_deferred("add_child", collision);
 		created_resources.append(collision);
 
@@ -88,9 +88,9 @@ func shatter() -> ShatterResult:
 		var min_max_position := new_bitmap.get_min_max_positions()
 		var min_pos: Vector2 = min_max_position[0] * new_canvas.tile_size;
 		var shifted_points := PackedVector2Array();
-		for point in polygon.points:
+		for point in polygon:
 			shifted_points.append(point - min_pos);
-		polygon.points = shifted_points;
+		polygon = shifted_points;
 
 		## Shrink the bitmap and canvas to just be the polygon too
 		# new_bitmap.shrink(true, min_max_position);
@@ -121,7 +121,7 @@ func _clear_created_resources() -> void:
 
 ## Shrink bitmap and canvas to only what we will be using
 ## Convert bitmap to zero, one, or many polygons
-func _get_source_collision_polygons() -> Array[ConvexPolygonShape2D]:
+func _get_source_collision_polygons() -> Array[PackedVector2Array]:
 	generative_bundle.ms_bitmap.update_bitmap();
 	return generative_bundle.ms_bitmap.to_polygon_shapes(generative_bundle.ms_canvas, 0.25);
 

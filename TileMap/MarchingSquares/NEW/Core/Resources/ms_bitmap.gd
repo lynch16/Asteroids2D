@@ -133,15 +133,15 @@ func get_min_max_positions() -> Array[Vector2i]:
 ## cull_min_size is the Vector2i(width,height) minimums from which polygons will be culled [br]
 func to_polygon_shapes(
 	canvas: MS_Canvas, 
-	fidelity: float = 1.0, 
+	fidelity: float = 2.0, 
 	cull_min_size: Vector2i = Vector2(2, 2)
-) -> Array[ConvexPolygonShape2D]:
+) -> Array[PackedVector2Array]:
 	var collision_polygons := bitmap.opaque_to_polygons(
 			canvas.canvas_rect,
 			fidelity
 		);
 
-	var shapes: Array[ConvexPolygonShape2D] = [];
+	var shapes: Array[PackedVector2Array] = [];
 
 	for polygon in collision_polygons:
 		var polygonRect := _get_polygon_rect2(polygon);
@@ -149,15 +149,13 @@ func to_polygon_shapes(
 		if (polygonRect.size.x < cull_min_size.x || polygonRect.size.y < cull_min_size.y):
 			continue;
 
-		var convex_shape := ConvexPolygonShape2D.new();
 		var resized_polygon := PackedVector2Array();
 		for point in polygon:
 			resized_polygon.append(
 				Vector2(point.x * canvas.tile_size, point.y * canvas.tile_size)
 			);
 
-		convex_shape.set_point_cloud(resized_polygon);
-		shapes.append(convex_shape);
+		shapes.append(resized_polygon);
 
 	return shapes;
 
@@ -171,7 +169,7 @@ func _get_polygon_rect2(polygon: PackedVector2Array) -> Rect2:
 	
 	return rect;
 		
-func get_bitmap_from_polygon(polygon: ConvexPolygonShape2D, canvas: MS_Canvas) -> MS_Bitmap:
+func get_bitmap_from_polygon(polygon: PackedVector2Array, canvas: MS_Canvas) -> MS_Bitmap:
 	var bitmap_size := get_size();
 	var polygon_bitmap_cells: Array[Array] = bitmap_cells.duplicate_deep();
 
@@ -179,7 +177,7 @@ func get_bitmap_from_polygon(polygon: ConvexPolygonShape2D, canvas: MS_Canvas) -
 		for y in range(bitmap_size.y):
 			var bit_pos := Vector2i(x, y);
 			if (
-				Geometry2D.is_point_in_polygon(bit_pos * canvas.tile_size, polygon.points)
+				Geometry2D.is_point_in_polygon(bit_pos * canvas.tile_size, polygon)
 			):
 				polygon_bitmap_cells[x][y] = get_cell(x, y);
 			else:
