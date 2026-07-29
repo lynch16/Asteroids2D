@@ -22,6 +22,7 @@ script = ExtResource("1_abe3b")
 bitmap = SubResource("Resource_ouxa8")
 canvas = SubResource("Resource_5r7b4")
 gradual_change = false
+file_name = "bigger"
 
 [node name="SaveButton" type="Button" parent="." unique_id=291874781]
 offset_left = 518.0

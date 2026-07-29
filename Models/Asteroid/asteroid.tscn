@@ -81,6 +81,11 @@ script = ExtResource("7_tml4o")
 collision_object = NodePath("../Hurtbox2D")
 metadata/_custom_type_script = "uid://duki344j0hw1o"
 
+[node name="DebugBitmap" type="Node2D" parent="HurtboxGenerator" unique_id=1983122680]
+z_index = 2
+script = ExtResource("14_i50kp")
+metadata/_custom_type_script = "uid://crj1q4pd64vla"
+
 [node name="Hurtbox2D" type="Area2D" parent="." unique_id=1386337789 node_paths=PackedStringArray("owner_node")]
 unique_name_in_owner = true
 script = ExtResource("8_i50kp")
@@ -98,10 +103,8 @@ metadata/_custom_type_script = "uid://l6occnfuxuon"
 script = ExtResource("13_gw6yr")
 metadata/_custom_type_script = "uid://yp8x320gf3ox"
 
-[node name="MeshDeformDamageResult" type="Node" parent="Hurtbox2D" unique_id=2115329955 node_paths=PackedStringArray("debug_bitmap")]
+[node name="MeshDeformDamageResult" type="Node" parent="Hurtbox2D" unique_id=2115329955]
 script = ExtResource("14_rr1y8")
-debug = true
-debug_bitmap = NodePath("../DebugBitmap")
 metadata/_custom_type_script = "uid://cycggoq5xk77s"
 
 [node name="ApplyDamageResult" type="Node" parent="Hurtbox2D" unique_id=68998802]
@@ -131,7 +134,3 @@ metadata/_custom_type_script = "uid://bkqqxy4geuo3l"
 
 [node name="HitAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Hurtbox2D/SfxDamageResult" unique_id=1534288876]
 stream = ExtResource("20_1xflu")
-
-[node name="DebugBitmap" type="Node2D" parent="Hurtbox2D" unique_id=1983122680]
-script = ExtResource("14_i50kp")
-metadata/_custom_type_script = "uid://crj1q4pd64vla"

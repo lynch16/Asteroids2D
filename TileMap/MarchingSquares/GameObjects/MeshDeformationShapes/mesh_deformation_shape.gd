@@ -15,12 +15,5 @@ func _init(
 
 	bitmap = MS_Bitmap.new();
 
-func _get_bitmap() -> MS_Bitmap:
+func get_bitmap() -> MS_Bitmap:
 	return bitmap
-
-func apply_bitmap(
-	_collision_point: Vector2,
-	_collision_angle: float,
-	target_bitmap: MS_Bitmap,
-) -> void:
-	target_bitmap.subtract(_get_bitmap(), _collision_point);

@@ -3,6 +3,8 @@ class_name TargeterComponent
 extends Node2D
 ## Responsible for keeping track of target and calculating math to that target for EquipItem Components
 
+# TODO: Does this belong with the EquipItems or with their owner?
+
 @export_category("Optional properties")
 @export var target: Node2D; ## Target node
 

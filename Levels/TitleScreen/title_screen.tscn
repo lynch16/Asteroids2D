@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bmbrpa4nbfa02" path="res://UI/area_button.tscn" id="6_7cu5t"]
 [ext_resource type="PackedScene" uid="uid://423u2ig3bkp0" path="res://Models/Player/player_spawn.tscn" id="6_wytci"]
 [ext_resource type="PackedScene" uid="uid://drhrxw7642nqd" path="res://Models/Asteroid/asteroid.tscn" id="7_3yk5t"]
-[ext_resource type="Resource" uid="uid://cujvgeb6eo6qw" path="res://Levels/TitleScreen/r.tres" id="9_pf33r"]
+[ext_resource type="Script" uid="uid://dc1ivcfx472fv" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_bitmap.gd" id="9_pf33r"]
+[ext_resource type="Script" uid="uid://dmjieybnk46lp" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_canvas.gd" id="10_jjd1d"]
+[ext_resource type="Script" uid="uid://cc1rpsuxjvyuu" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_generative_bundle.gd" id="11_a6nqb"]
 [ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="11_nxm0e"]
 [ext_resource type="PackedScene" uid="uid://ygio5vatco1t" path="res://UI/HUD/hud.tscn" id="14_n8hwn"]
 [ext_resource type="PackedScene" uid="uid://evepknlqgvo6" path="res://sprites/backgrounds/space_background.tscn" id="21_xawrf"]
@@ -32,103 +34,34 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-268, -208, 2162, -202,
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iehl1"]
 size = Vector2(120, 150)
 
-[sub_resource type="Resource" id="Resource_0cfow"]
+[sub_resource type="Resource" id="Resource_pf33r"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_kbx3r"]
+[sub_resource type="Resource" id="Resource_jjd1d"]
 resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
+script = ExtResource("9_pf33r")
+bitmap_cells = Array[Array]([[0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0], [0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0]])
+metadata/_custom_type_script = "uid://dc1ivcfx472fv"
 
-[sub_resource type="Resource" id="Resource_3xsrw"]
+[sub_resource type="Resource" id="Resource_a6nqb"]
 resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
+script = ExtResource("10_jjd1d")
+canvas_rect = Rect2(0, 0, 112, 176)
+tile_size = 8
+metadata/_custom_type_script = "uid://dmjieybnk46lp"
 
-[sub_resource type="Resource" id="Resource_5fut2"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pp337"]
 
-[sub_resource type="Resource" id="Resource_7hd5u"]
+[sub_resource type="Resource" id="Resource_ttvwb"]
 resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_s4tle"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_g45wl"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_55i6g"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_mhnq3"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_rtw7s"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_5cl33"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_awkw0"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_tdsk6"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_y816g"]
-resource_local_to_scene = true
-script = ExtResource("11_nxm0e")
-initial_health = 400.0
-faction = 2
-metadata/_custom_type_script = "uid://d1adag40dhb61"
+script = ExtResource("11_a6nqb")
+ms_canvas = SubResource("Resource_a6nqb")
+ms_bitmap = SubResource("Resource_jjd1d")
+texture = SubResource("GradientTexture1D_pp337")
 
 [node name="Level" type="Node2D" unique_id=350803456]
 process_mode = 1
@@ -163,52 +96,6 @@ button_text = "Quit Game"
 [node name="Node" type="Node2D" parent="GameArea" unique_id=1316491208]
 position = Vector2(0, -161)
 
-[node name="R" type="CollisionShape2D" parent="GameArea/Node" unique_id=2053337720]
-position = Vector2(362, 367)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node/R" unique_id=328524540 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_0cfow")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="O" type="CollisionShape2D" parent="GameArea/Node" unique_id=1828375990]
-position = Vector2(488, 360)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node/O" unique_id=2080275938 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_kbx3r")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="G" type="CollisionShape2D" parent="GameArea/Node" unique_id=1024392819]
-position = Vector2(617, 365)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node/G" unique_id=403847318 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_3xsrw")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="U" type="CollisionShape2D" parent="GameArea/Node" unique_id=160068995]
-position = Vector2(728, 367)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node/U" unique_id=1449146785 instance=ExtResource("7_3yk5t")]
-position = Vector2(7, -5)
-health_stats = SubResource("Resource_5fut2")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="E" type="CollisionShape2D" parent="GameArea/Node" unique_id=1142048150]
-position = Vector2(863, 367)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node/E" unique_id=625910990 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_7hd5u")
-generative_bundle = ExtResource("9_pf33r")
-
 [node name="Node2" type="Node2D" parent="GameArea" unique_id=698420488]
 position = Vector2(192, -120)
 
@@ -218,81 +105,8 @@ shape = SubResource("RectangleShape2D_iehl1")
 disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/A" unique_id=1352790788 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_s4tle")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="S" type="CollisionShape2D" parent="GameArea/Node2" unique_id=603336680]
-position = Vector2(611, 534)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node2/S" unique_id=276505509 instance=ExtResource("7_3yk5t")]
-position = Vector2(0, 1)
-health_stats = SubResource("Resource_g45wl")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="T" type="CollisionShape2D" parent="GameArea/Node2" unique_id=994204098]
-position = Vector2(724, 525)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node2/T" unique_id=1078606356 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_55i6g")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="E" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1889455133]
-position = Vector2(848, 552)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node2/E" unique_id=1220128983 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_mhnq3")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="R" type="CollisionShape2D" parent="GameArea/Node2" unique_id=281176681]
-position = Vector2(968, 552)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node2/R" unique_id=854005038 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_rtw7s")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="O" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1167639424]
-position = Vector2(1098, 545)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node2/O" unique_id=191314344 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_5cl33")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="I" type="CollisionShape2D" parent="GameArea/Node2" unique_id=218550786]
-position = Vector2(1185, 557)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node2/I" unique_id=1564619993 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_awkw0")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="D" type="CollisionShape2D" parent="GameArea/Node2" unique_id=2026019724]
-position = Vector2(1280, 547)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node2/D" unique_id=1829127472 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_tdsk6")
-generative_bundle = ExtResource("9_pf33r")
-
-[node name="S2" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1697245248]
-position = Vector2(1409, 552)
-shape = SubResource("RectangleShape2D_iehl1")
-disabled = true
-
-[node name="Asteroid" parent="GameArea/Node2/S2" unique_id=1093990205 instance=ExtResource("7_3yk5t")]
-health_stats = SubResource("Resource_y816g")
-generative_bundle = ExtResource("9_pf33r")
+health_stats = SubResource("Resource_pf33r")
+generative_bundle = SubResource("Resource_ttvwb")
 
 [node name="PlayerSpawn" parent="." unique_id=90593702 instance=ExtResource("6_wytci")]
 unique_name_in_owner = true

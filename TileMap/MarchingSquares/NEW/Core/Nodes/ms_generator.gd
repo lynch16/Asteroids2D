@@ -13,10 +13,17 @@ enum ShatterResult {
 @export var collision_object: CollisionObject2D;
 @export_tool_button("Generate", "EditKey") var gen := generate;
 
+@onready var debugger: DebugBitmap = get_node_or_null("DebugBitmap");
+
 signal generate_new(new_bundle: MS_GenerativeBundle);
 signal degenerate();
 
 var created_resources: Array[Node2D] = [];
+
+func _ready() -> void:
+	if (debugger):
+		debugger.source_bitmap = generative_bundle.ms_bitmap;
+		debugger.source_canvas = generative_bundle.ms_canvas;
 
 ## Treat all polygons as different parts of the same object
 func generate() -> void:
@@ -28,10 +35,7 @@ func generate() -> void:
 		degenerate.emit();
 		return;
 
-	var rect_offset: Vector2 = Vector2(
-		generative_bundle.ms_canvas.canvas_rect.size.x / 2.0,
-		generative_bundle.ms_canvas.canvas_rect.size.y / 2.0,
-	)
+	var rect_offset: Vector2 = generative_bundle.ms_canvas.get_rect_offset();
 
 	for polygon in collision_polygons:
 		var collision := CollisionShape2D.new();
@@ -101,7 +105,8 @@ func shatter() -> ShatterResult:
 
 func _clear_created_resources() -> void:
 	for child in created_resources:
-		child.call_deferred("queue_free");
+		if (is_instance_valid(child)):
+			child.call_deferred("queue_free");
 	created_resources = [];
 
 ## Shrink bitmap and canvas to only what we will be using
@@ -112,14 +117,32 @@ func _get_source_collision_polygons() -> Array[ConvexPolygonShape2D]:
 	
 	return generative_bundle.ms_bitmap.to_polygon_shapes(generative_bundle.ms_canvas, 0.25);
 
-func collide_with(subtractive_generator: MS_Generator, should_shatter: bool = true) -> void:
-	var position_diff := subtractive_generator.global_position - global_position;
+func collide_with(subtractive_bitmap: MS_Bitmap, subtractive_bitmap_global_position: Vector2) -> void:
+	var position_diff := subtractive_bitmap_global_position - global_position;
+	var hit_tile_position := generative_bundle.ms_canvas.get_tile_position(position_diff);
+	
+	if (debugger):
+		debugger.update_renders(
+			subtractive_bitmap, 
+			hit_tile_position,
+			generative_bundle.ms_canvas.get_rect_offset()
+		);
+
 	generative_bundle.ms_bitmap.subtract(
-		subtractive_generator.generative_bundle.ms_bitmap,
-		generative_bundle.ms_canvas.get_tile_position(position_diff)
+		subtractive_bitmap,
+		hit_tile_position,
 	);
 
-	if (should_shatter):
-		shatter();
-	else:
-		generate();
+func _process(_delta: float) -> void:
+	if (debugger):
+		queue_redraw();
+
+func _draw() -> void:
+	if (debugger):
+		_draw_rect();
+
+func _draw_rect() -> void:
+	if (generative_bundle):
+		var rect_offset: Vector2 = generative_bundle.ms_canvas.get_rect_offset();
+		generative_bundle.ms_canvas.canvas_rect.position = -rect_offset;
+		draw_rect(generative_bundle.ms_canvas.canvas_rect, Color.BLUE, false, 2.0);

@@ -20,21 +20,12 @@ func _collide() -> void:
 	for child in children:
 		child.queue_free();
 
-	var position_diff := subtractive_generator.global_position - target_generator.global_position;
-	var new_cells := target_generator.generative_bundle.ms_bitmap._subtract(
+	target_generator.collide_with(
 		subtractive_generator.generative_bundle.ms_bitmap,
-		target_generator.generative_bundle.ms_canvas.get_tile_position(position_diff)
+		subtractive_generator.global_position
 	);
 
-	result_generator.generative_bundle = MS_GenerativeBundle.new(
-		target_generator.generative_bundle.ms_canvas,
-		MS_Bitmap.new(new_cells),
-		target_generator.generative_bundle.texture,
-	)
-
-	target_generator.hide();
-	subtractive_generator.hide();
-	result_generator.generate();
+	target_generator.generate();
 
 func _clear() -> void:
 	_clear_generator(target_generator);

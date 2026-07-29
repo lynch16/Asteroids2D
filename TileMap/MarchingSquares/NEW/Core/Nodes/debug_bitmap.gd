@@ -1,36 +1,56 @@
 class_name DebugBitmap extends Node2D
 
-var debug_renders: Array = [];
-var hit_position: Vector2;
+var source_bitmap: MS_Bitmap;
+var source_canvas: MS_Canvas;
 
-func update_renders(new_renders: Array, p_hit_position: Vector2) -> void:
-	debug_renders.append_array(new_renders);
-	hit_position = p_hit_position;
+var hit_bitmap: MS_Bitmap;
+var tile_hit_position: Vector2i;
+var canvas_position: Vector2;
+
+func update_renders(
+	p_hit_bitmap: MS_Bitmap,
+	p_tile_hit_position: Vector2i,
+	p_canvas_position: Vector2,
+) -> void:
+	hit_bitmap = p_hit_bitmap;
+	tile_hit_position = p_tile_hit_position;
+	canvas_position = p_canvas_position;
 
 func _process(_delta: float) -> void:
-	global_position = hit_position;
 	queue_redraw();
 
 func _draw() -> void:
 	_draw_dots();
-	_draw_rect();
-
-func _draw_rect() -> void:
-	for debug: Array in debug_renders:
-		var canvas: MS_Canvas = debug[1];
-		draw_rect(canvas.canvas_rect, Color.BLUE, false);
 
 func _draw_dots() -> void:
-	for debug: Array in debug_renders:
-		var bitmap: MS_Bitmap = debug[0];
-		var canvas: MS_Canvas = debug[1];
+	if (hit_bitmap):
+		var subtractive_size := hit_bitmap.get_size();
+		var this_size := source_bitmap.get_size();
 
-		for x in bitmap.bitmap_cells.size():
-			var row: Array = bitmap.bitmap_cells[x];
-			
-			for y in row.size():
-				var value := bitmap.get_cell(x, y);
+		var subtrative_canvas_size := source_canvas.get_canvas_pos_from_tile(subtractive_size);
+		var subtractive_canvas_position := source_canvas.get_canvas_pos_from_tile(tile_hit_position);
+		var subtractive_rect := Rect2(
+			-canvas_position + subtractive_canvas_position, 
+			subtrative_canvas_size
+		);
 
-				var color := Color.RED;
-				color.a = value;
-				draw_circle(canvas.get_canvas_pos_from_tile(Vector2i(x, y)), canvas.tile_size/2.0, color);
+		draw_rect(subtractive_rect, Color.PURPLE, false, 2.0);
+
+		print(hit_bitmap.bitmap_cells)
+
+		for x in range(subtractive_size.x):
+			for y in range(subtractive_size.y):
+				var associated_bit := Vector2i(tile_hit_position.x + x, tile_hit_position.y + y);
+				if (
+					associated_bit.x > 0 &&
+					associated_bit.y > 0 &&
+					associated_bit.x < subtractive_size.x &&
+					associated_bit.y < subtractive_size.y
+				):
+					var color := Color.RED;
+					color.a = hit_bitmap.get_cell(x, y);
+					draw_circle(
+						-canvas_position + source_canvas.get_canvas_pos_from_tile(Vector2i(associated_bit.x, associated_bit.y)), 
+						source_canvas.tile_size/2.0, 
+						color
+					);

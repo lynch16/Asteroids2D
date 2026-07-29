@@ -27,18 +27,18 @@ func _enter_tree() -> void:
 	hurtbox = $Hurtbox2D;
 	hurtbox.health_stats = health_stats;
 
-	hitbox = Hitbox2D.new(
-		combat_stats,
-		0.0,
-		null,
-		HitLog.new(),
-		self
-	);
-	add_child(hitbox);
-	hitbox_generator = $HitboxGenerator;
-	hitbox_generator.collision_object = hitbox;
-	hitbox_generator.generative_bundle = generative_bundle;
-	hitbox_generator.generate();
+	# hitbox = Hitbox2D.new(
+	# 	combat_stats,
+	# 	0.0,
+	# 	null,
+	# 	HitLog.new(),
+	# 	self
+	# );
+	# add_child(hitbox);
+	# hitbox_generator = $HitboxGenerator;
+	# hitbox_generator.collision_object = hitbox;
+	# hitbox_generator.generative_bundle = generative_bundle;
+	# hitbox_generator.generate();
 
 func _ready() -> void:
 	add_to_group("enemy");
@@ -100,13 +100,10 @@ func _on_dequeue_timeout() -> void:
 
 func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> MS_Generator.ShatterResult:
 	for shape in collision_deformation_shapes:
-		shape.apply_bitmap(
-			hurtbox_generator.generative_bundle.ms_canvas.get_tile_position(
-				to_local(collision_point)
-			),
-			collision_angle,
-			hurtbox_generator.generative_bundle.ms_bitmap
-		);
+		hurtbox_generator.collide_with(
+			shape.get_bitmap(),
+			collision_point
+		)
 
 	var result := hurtbox_generator.shatter();
 	

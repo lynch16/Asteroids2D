@@ -50,3 +50,9 @@ func resize_to_bitmap(bitmap: MS_Bitmap) -> void:
 	_resize(
 		bitmap.get_size() * tile_size		
 	);
+
+func get_rect_offset() -> Vector2:
+	return Vector2(
+		canvas_rect.size.x / 2.0,
+		canvas_rect.size.y / 2.0,
+	)
