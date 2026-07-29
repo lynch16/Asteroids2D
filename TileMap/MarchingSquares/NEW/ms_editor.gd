@@ -86,10 +86,13 @@ func _for_points_in_cursor(cursor_position: Vector2, callable: Callable) -> void
 
 			var bit_pos := Vector2i(tile_position.x + x, tile_position.y + y);
 
-			if (bit_pos.x > canvas.get_max_x() || bit_pos.y > canvas.get_max_y()):
-				continue;
-
-			callable.call(bit_pos);
+			if (
+				bit_pos.x > -1 &&
+				bit_pos.x < canvas.get_max_x() && 
+				bit_pos.y > -1 &&
+				bit_pos.y < canvas.get_max_y()
+			):
+				callable.call(bit_pos);
 
 # Draw dots at each vertex, colored whether the mouse is hovering
 func _draw() -> void:
