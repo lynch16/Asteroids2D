@@ -35,11 +35,8 @@ func generate() -> void:
 		degenerate.emit();
 		return;
 
-	var rect_offset: Vector2 = generative_bundle.ms_canvas.get_rect_offset();
-
 	for polygon in collision_polygons:
 		var collision := CollisionShape2D.new();
-		collision.position = -rect_offset;
 		collision.shape = polygon;
 		collision_object.call_deferred("add_child", collision);
 		created_resources.append(collision);
@@ -51,7 +48,6 @@ func generate() -> void:
 	);
 
 	var mesh_instance := mesher.create_mesh_instance();
-	mesh_instance.position = -rect_offset;
 	add_child(mesh_instance);
 	created_resources.append(mesh_instance);
 
@@ -125,7 +121,6 @@ func collide_with(subtractive_bitmap: MS_Bitmap, subtractive_bitmap_global_posit
 		debugger.update_renders(
 			subtractive_bitmap, 
 			hit_tile_position,
-			generative_bundle.ms_canvas.get_rect_offset()
 		);
 
 	generative_bundle.ms_bitmap.subtract(
@@ -143,6 +138,4 @@ func _draw() -> void:
 
 func _draw_rect() -> void:
 	if (generative_bundle):
-		var rect_offset: Vector2 = generative_bundle.ms_canvas.get_rect_offset();
-		generative_bundle.ms_canvas.canvas_rect.position = -rect_offset;
 		draw_rect(generative_bundle.ms_canvas.canvas_rect, Color.BLUE, false, 2.0);

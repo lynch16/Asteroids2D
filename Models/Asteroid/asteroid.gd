@@ -100,9 +100,13 @@ func _on_dequeue_timeout() -> void:
 
 func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> MS_Generator.ShatterResult:
 	for shape in collision_deformation_shapes:
+		var shape_bitmap := shape.get_bitmap();
+		var collision_canvas_size := hurtbox_generator.generative_bundle.ms_canvas.get_canvas_pos_from_tile(shape_bitmap.get_size())
+
+		var normalized_collision_point := collision_point - collision_canvas_size/2.0
 		hurtbox_generator.collide_with(
 			shape.get_bitmap(),
-			collision_point
+			normalized_collision_point
 		)
 
 	var result := hurtbox_generator.shatter();
