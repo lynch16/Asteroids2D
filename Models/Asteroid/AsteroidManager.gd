@@ -50,7 +50,6 @@ func shatter_asteroid(initial_aster: Asteroid, bundle: MS_GenerativeBundle) -> v
 		bundle,
 		initial_aster.global_position,
 		Vector2(speed, 0).rotated(direction),
-		direction
 	)
 	asteroid_launcher.append(asteroid_launch);
 	asteroid_shattered.emit();

@@ -51,6 +51,10 @@ func generate() -> void:
 	add_child(mesh_instance);
 	created_resources.append(mesh_instance);
 
+func shrink_to_size() -> void:
+	generative_bundle.ms_bitmap.shrink();
+	generative_bundle.ms_canvas.resize_to_bitmap(generative_bundle.ms_bitmap);
+
 ## Treat each polygon within the bitmap as a unique object [br]
 ## Need to hook up to regenerate to use the shattered objects
 func shatter() -> ShatterResult:
@@ -82,8 +86,11 @@ func shatter() -> ShatterResult:
 		polygon.points = shifted_points;
 
 		## Shrink the bitmap and canvas to just be the polygon too
-		new_bitmap.shrink(true, min_max_position);
-		new_canvas.resize_to_bitmap(new_bitmap);
+		# new_bitmap.shrink(true, min_max_position);
+		# new_canvas.resize_to_bitmap(new_bitmap);
+		## Cant do this because then the pieces lose all context of where they fit into the whole
+
+		new_bitmap.update_bitmap();
 
 		var new_bundle := MS_GenerativeBundle.new(
 			new_canvas,
@@ -108,9 +115,7 @@ func _clear_created_resources() -> void:
 ## Shrink bitmap and canvas to only what we will be using
 ## Convert bitmap to zero, one, or many polygons
 func _get_source_collision_polygons() -> Array[ConvexPolygonShape2D]:
-	generative_bundle.ms_bitmap.shrink();
-	generative_bundle.ms_canvas.resize_to_bitmap(generative_bundle.ms_bitmap);
-	
+	generative_bundle.ms_bitmap.update_bitmap();
 	return generative_bundle.ms_bitmap.to_polygon_shapes(generative_bundle.ms_canvas, 0.25);
 
 func collide_with(subtractive_bitmap: MS_Bitmap, subtractive_bitmap_global_position: Vector2) -> void:

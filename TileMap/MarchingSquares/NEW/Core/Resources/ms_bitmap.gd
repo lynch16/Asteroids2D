@@ -13,6 +13,12 @@ func _init(
 	bitmap_cells = p_bitmap_cells;
 
 	bitmap = BitMap.new();
+	update_bitmap();
+
+	resource_local_to_scene = true;
+
+# region Core
+func update_bitmap() -> void:
 	var new_size := get_size();
 	bitmap.resize(new_size);
 	for x in range(new_size.x):
@@ -20,9 +26,6 @@ func _init(
 			var cell_val: float = bitmap_cells[x][y];
 			bitmap.set_bit(x, y, _above_cutoff(cell_val))
 
-	resource_local_to_scene = true;
-
-# region Core
 func _above_cutoff(val: float) -> bool:
 	return val > bitmap_cutoff;
 
@@ -95,12 +98,7 @@ func shrink(mutate: bool = true, min_max_position: Array[Vector2i] = get_min_max
 
 	if (mutate):
 		bitmap_cells = new_cells;
-
-		bitmap.resize(Vector2i(new_x_size, new_y_size));
-		for x in range(new_x_size):
-			for y in range(new_y_size):
-				var cell_val: float = bitmap_cells[x][y];
-				bitmap.set_bit(x, y, _above_cutoff(cell_val));
+		update_bitmap();
 	
 	return new_cells;
 

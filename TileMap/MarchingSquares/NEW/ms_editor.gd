@@ -43,6 +43,7 @@ func generate() -> void:
 	);
 	generator.generative_bundle = bundle;
 
+	generator.shrink_to_size();
 	generator.generate();
 
 func _process(delta: float) -> void:
