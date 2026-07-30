@@ -71,11 +71,13 @@ layout_mode = 2
 script = ExtResource("4_4i42v")
 
 [node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/WButton" unique_id=1083760310]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("4_dlmha")
 stretch_mode = 2
 
 [node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/WButton" unique_id=1255438607]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("5_a3bux")
 stretch_mode = 2
@@ -93,11 +95,13 @@ control_action = &"boost"
 metadata/_custom_type_script = "uid://xhv5d6ocihe"
 
 [node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/RButton" unique_id=1068046488]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("5_qnfi4")
 stretch_mode = 2
 
 [node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/RButton" unique_id=1570106610]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("7_a3bux")
 stretch_mode = 2
@@ -113,11 +117,13 @@ control_action = &"yaw_left"
 metadata/_custom_type_script = "uid://xhv5d6ocihe"
 
 [node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/AButton" unique_id=829780918]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("6_a3bux")
 stretch_mode = 2
 
 [node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/AButton" unique_id=1659722696]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("9_37src")
 stretch_mode = 2
@@ -135,11 +141,13 @@ control_action = &"yaw_right"
 metadata/_custom_type_script = "uid://xhv5d6ocihe"
 
 [node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/DButton" unique_id=1724909514]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("7_4kf3v")
 stretch_mode = 2
 
 [node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/DButton" unique_id=899579362]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("10_w1md3")
 stretch_mode = 2
@@ -160,11 +168,13 @@ control_action = &"fire_weapon"
 metadata/_custom_type_script = "uid://xhv5d6ocihe"
 
 [node name="Default" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/SpaceButton" unique_id=1862395386]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("8_dlmha")
 stretch_mode = 2
 
 [node name="Selected" type="TextureRect" parent="BoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/SpaceButton" unique_id=1510494336]
+modulate = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 2
 texture = ExtResource("11_4kf3v")
 stretch_mode = 2
