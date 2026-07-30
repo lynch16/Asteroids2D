@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dtsq7iblcod6w" path="res://Models/Asteroid/asteroid.gd" id="1_i4x4e"]
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://wmd6w6j2858o" path="res://Models/EntityModules/Damage/combat_stats.gd" id="3_jywkw"]
-[ext_resource type="Resource" path="res://TileMap/MarchingSquares/NEW/exports/test.tres" id="4_1xflu"]
 [ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="4_h8hu4"]
 [ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="5_tml4o"]
 [ext_resource type="Script" uid="uid://deqvt75qdcfcl" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/slice_mesh_deformation_shape.gd" id="6_i50kp"]
@@ -51,7 +50,6 @@ collision_mask = 3
 script = ExtResource("1_i4x4e")
 combat_stats = SubResource("Resource_4ujrd")
 health_stats = SubResource("Resource_qdhb0")
-generative_bundle = ExtResource("4_1xflu")
 mesh_deformation_shapes = Array[ExtResource("5_tml4o")]([SubResource("Resource_yeyrc")])
 
 [node name="GravityField" type="Area2D" parent="." unique_id=2107640775]
@@ -74,11 +72,13 @@ metadata/_custom_type_script = "uid://ckmcn5r0df3nm"
 
 [node name="HitboxGenerator" type="Node2D" parent="." unique_id=1366384108]
 script = ExtResource("7_tml4o")
+debug = null
 metadata/_custom_type_script = "uid://duki344j0hw1o"
 
 [node name="HurtboxGenerator" type="Node2D" parent="." unique_id=829988067 node_paths=PackedStringArray("collision_object")]
 script = ExtResource("7_tml4o")
 collision_object = NodePath("../Hurtbox2D")
+debug = null
 metadata/_custom_type_script = "uid://duki344j0hw1o"
 
 [node name="DebugBitmap" type="Node2D" parent="HurtboxGenerator" unique_id=1983122680]
