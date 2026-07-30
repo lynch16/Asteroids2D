@@ -456,7 +456,7 @@ position = Vector2(1536, 741)
 button_text = "Quit Game"
 
 [node name="Node" type="Node2D" parent="GameArea" unique_id=1316491208]
-position = Vector2(0, -161)
+position = Vector2(56, -352)
 
 [node name="R" type="CollisionShape2D" parent="GameArea/Node" unique_id=1881747337]
 position = Vector2(488, 552)
@@ -509,7 +509,7 @@ generative_bundle = SubResource("Resource_kewm4")
 mesh_deformation_shapes = Array[ExtResource("12_jjd1d")]([])
 
 [node name="Node2" type="Node2D" parent="GameArea" unique_id=698420488]
-position = Vector2(192, -120)
+position = Vector2(248, -311)
 
 [node name="A" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1608626306]
 position = Vector2(128, 706)
