@@ -9,8 +9,6 @@ class_name Asteroid extends SpawnableCharacter2D
 var hurtbox_generator: MS_Generator;
 var hitbox_generator: MS_Generator;
 
-var hitbox: Hitbox2D;
-
 var mass := 10000;
 var damageable: Damageable;
 var safe_collision_time := 5.0;
@@ -27,18 +25,9 @@ func _enter_tree() -> void:
 	hurtbox = $Hurtbox2D;
 	hurtbox.health_stats = health_stats;
 
-	# hitbox = Hitbox2D.new(
-	# 	combat_stats,
-	# 	0.0,
-	# 	null,
-	# 	HitLog.new(),
-	# 	self
-	# );
-	# add_child(hitbox);
-	# hitbox_generator = $HitboxGenerator;
-	# hitbox_generator.collision_object = hitbox;
-	# hitbox_generator.generative_bundle = generative_bundle;
-	# hitbox_generator.generate();
+	if (hurtbox is HitHurtbox2D):
+		var hithurtbox: HitHurtbox2D = hurtbox;
+		hithurtbox.combat_stats = combat_stats;
 
 func _ready() -> void:
 	add_to_group("enemy");

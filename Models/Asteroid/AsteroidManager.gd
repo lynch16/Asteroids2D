@@ -42,7 +42,7 @@ func set_spawn_parent_node(node: Node) -> void:
 	spawn_parent_node = node;
 
 func shatter_asteroid(initial_aster: Asteroid, bundle: MS_GenerativeBundle) -> void:
-	var direction := randf_range(0, PI);
+	var direction := randf_range(0, PI/4);
 	var speed := initial_aster.velocity.length() * randf_range(0.5, 2.0);
 	initial_aster.velocity = initial_aster.velocity.rotated(-direction);
 	
