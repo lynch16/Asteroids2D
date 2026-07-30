@@ -14,18 +14,9 @@ size = Vector2(20, 8)
 
 [sub_resource type="Resource" id="Resource_ry1h5"]
 script = ExtResource("3_6qf6n")
-radius = 48.0
+radius = 4
 damage = 1.0
 shape = SubResource("CircleShape2D_d8d6v")
-metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6qf6n"]
-
-[sub_resource type="Resource" id="Resource_llfw1"]
-script = ExtResource("3_6qf6n")
-radius = 64.0
-damage = 0.5
-shape = SubResource("CircleShape2D_6qf6n")
 metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
 
 [sub_resource type="Resource" id="Resource_mo7ir"]
@@ -36,7 +27,7 @@ metadata/_custom_type_script = "uid://wmd6w6j2858o"
 script = ExtResource("1_12rmc")
 throwable = NodePath("ThrowableComponent")
 projectile_shape = SubResource("RectangleShape2D_d8d6v")
-mesh_deformation_shapes = Array[ExtResource("2_d8d6v")]([SubResource("Resource_ry1h5"), SubResource("Resource_llfw1")])
+mesh_deformation_shapes = Array[ExtResource("2_d8d6v")]([SubResource("Resource_ry1h5")])
 combat_stats = SubResource("Resource_mo7ir")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=302593925]

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cax161nxkd5bn"]
+
+[ext_resource type="Script" uid="uid://c7sx5c5yobuvc" path="res://TileMap/MarchingSquares/NEW/Tools/bundle_viewer.gd" id="1_04k1x"]
+[ext_resource type="Script" uid="uid://duki344j0hw1o" path="res://TileMap/MarchingSquares/NEW/Core/Nodes/ms_generator.gd" id="1_n57pk"]
+[ext_resource type="Resource" uid="uid://vkhuqtosvxf3" path="res://TileMap/MarchingSquares/NEW/exports/test2.tres" id="2_0pnk4"]
+
+[node name="BundleViewer" type="Node2D" unique_id=453860300]
+script = ExtResource("1_04k1x")
+bundle = ExtResource("2_0pnk4")
+
+[node name="MS_Generator" type="Node2D" parent="." unique_id=948616701]
+script = ExtResource("1_n57pk")
+generative_bundle = ExtResource("2_0pnk4")
+metadata/_custom_type_script = "uid://duki344j0hw1o"

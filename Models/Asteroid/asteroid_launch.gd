@@ -1,18 +1,18 @@
 class_name AsteroidLaunch
 extends Resource
 
-@export var asteroid_mesh: MS_CollisionMeshGroup;
+@export var bundle: MS_GenerativeBundle;
 @export var launch_position: Vector2;
 @export var launch_velocity: Vector2;
 @export var launch_angle: float;
 
 func _init(
-    p_asteroid_mesh: MS_CollisionMeshGroup = MS_CollisionMeshGroup.new(),
+    p_bundle: MS_GenerativeBundle = MS_GenerativeBundle.new(),
 	p_launch_position: Vector2 = Vector2(),
     p_launch_velocity: Vector2 = Vector2(),
     p_launch_angle: float = 0.0,
 ) -> void:
-	asteroid_mesh = p_asteroid_mesh;
+	bundle = p_bundle;
 	launch_position = p_launch_position;
 	launch_velocity = p_launch_velocity;
 	launch_angle = p_launch_angle;

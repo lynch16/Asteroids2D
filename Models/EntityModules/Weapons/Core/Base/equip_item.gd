@@ -8,6 +8,9 @@ var last_use_time: float;
 var can_use: bool = true;
 var owner_character: CharacterBody2D;
 
+# TODO: Move set/get target to weapon
+# TODO: Move equip/unequip to a component
+
 @export_category("Optional components for additional features")
 @export var targeter: TargeterComponent:
 	set(value):

@@ -16,7 +16,7 @@ func on_damage(
 			deformation_shapes = damager_node.get("mesh_deformation_shapes");
 		var result := asteroid.deform_mesh(hit_position, hit_angle, deformation_shapes);
 
-		if (result == DeformableMesh2D.GroupDeformationResult.Destroyed):
+		if (result == MS_Generator.ShatterResult.Destroyed):
 			damageable.health_stats.current_health = 0;
 
 	return true;

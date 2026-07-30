@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_bou01")
-num_starting_rocks = 5
+num_starting_rocks = 2
 rock_throw_interval = 3.0
+num_rocks_to_throw = 0
 enemey_scene = ExtResource("1_2hlfr")
 metadata/_custom_type_script = "uid://bo5uwcqvj1ehh"

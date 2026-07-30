@@ -3,6 +3,7 @@ class_name RangedWeapon
 extends Weapon
 ## RangedWeapon is a Weapon that has a ThrowerComponent
 
+# TODO: This could probably be expanded to support multiple projectiles by iterating the thrower
 @export var thrower: ThrowerComponent:
 	set(value):
 		thrower = value;

@@ -1,35 +1,37 @@
-class_name Hitbox2D
-extends Area2D
+class_name HitHurtbox2D
+extends Hurtbox2D
+## The generated collisions from MS_CollisionMeshGroup are used as both the hitbox and hurtbox.
 
-var attacker_combat_stats: CombatStats;
-var lifetime: float;
-var shape: Shape2D;
-var hit_log: HitLog;
+@export var lifetime: float;
+@export var combat_stats: CombatStats;
+
 var deal_damage: DealDamage;
-var owner_node: Node;
+var hit_log: HitLog;
 
 func _init(
-	p_attacker_combat_stats: CombatStats = CombatStats.new(),
-	p_lifetime: float = 0.0,
+	p_health_stats: HealthStats = HealthStats.new(),
 	p_shape: Shape2D = null,
-	p_hit_log: HitLog = null,
 	p_owner_node: Node = null,
+	p_combat_stats: CombatStats = CombatStats.new(),
+	p_lifetime: float = 0.0,
+	p_hitlog: HitLog = HitLog.new(),
 ) -> void:
-	attacker_combat_stats = p_attacker_combat_stats;
+	super(p_health_stats, p_shape, p_owner_node);
+	combat_stats = p_combat_stats;
 	lifetime = p_lifetime;
-	shape = p_shape;
-	hit_log = p_hit_log;
-	owner_node = p_owner_node;
+	hit_log = p_hitlog;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	monitorable = false;
+	super();
+	monitoring = true;
+	monitorable = true;
 	area_shape_entered.connect(_on_area_shape_entered);
 
 	deal_damage = DealDamage.new(
-		attacker_combat_stats,
+		combat_stats,
 		owner_node,
-		hit_log,
+		hit_log
 	);
 	add_child(deal_damage);
 
@@ -41,15 +43,7 @@ func _ready() -> void:
 		add_child(timer);
 		timer.start();
 
-	if (shape != null):
-		var collision_shape := CollisionShape2D.new();
-		collision_shape.shape = shape;
-		add_child(collision_shape);
-	
-	set_collision_layer_value(1, false);
-	set_collision_mask_value(1, false);
-
-	match attacker_combat_stats.faction:
+	match combat_stats.faction:
 		FactionStats.Faction.PLAYER:
 			set_collision_mask_value(2, true);
 		FactionStats.Faction.ENEMY:
