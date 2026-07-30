@@ -5,6 +5,9 @@ var left_thrust: AnimatedSprite2D;
 var right_thrust: AnimatedSprite2D;
 var center_thrust: AnimatedSprite2D;
 
+var boost_y_pos := 5.0;
+var boost_scale := Vector2(1.5, 1.5);
+
 func _ready() -> void:
 	left_thrust = get_node_or_null("AnimatedThrustSpriteL");
 	right_thrust = get_node_or_null("AnimatedThrustSpriteR");
@@ -32,3 +35,15 @@ func stop_animation() -> void:
 	if (is_instance_valid(left_thrust)): left_thrust.pause();
 	if (is_instance_valid(right_thrust)): right_thrust.pause();
 	if (is_instance_valid(center_thrust)): center_thrust.pause();
+
+func scale_up() -> void:
+	left_thrust.position.y = boost_y_pos;
+	left_thrust.scale = boost_scale;
+	right_thrust.position.y = boost_y_pos;
+	right_thrust.scale = boost_scale;
+
+func scale_down() -> void:
+	left_thrust.position.y = 0;
+	left_thrust.scale = Vector2(1.0, 1.0);
+	right_thrust.position.y = 0;
+	right_thrust.scale = Vector2(1.0, 1.0);
