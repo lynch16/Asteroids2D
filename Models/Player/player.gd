@@ -73,6 +73,11 @@ func _handle_animation_and_sound(
 	is_turning: bool
 ) -> void:
 	if (is_accelerating):
+		if (movement_controller.is_boosting):
+			thrust_animations.scale_up();
+		else:
+			thrust_animations.scale_down();
+
 		thrust_animations.start_animation();
 		if (!thrust_sound.playing):
 			thrust_sound.play();

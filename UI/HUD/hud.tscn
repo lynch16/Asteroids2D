@@ -26,7 +26,6 @@ font_color = Color(0.93333334, 0.15294118, 0.2784314, 1)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_37p78")
-_debug_mode = true
 life_icon_texture = ExtResource("4_qdh7y")
 
 [node name="DebugHUD" type="Control" parent="." unique_id=59998819]

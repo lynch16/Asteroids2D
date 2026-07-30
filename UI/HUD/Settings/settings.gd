@@ -63,6 +63,7 @@ func _load() -> void:
 	_on_resolution_changed(resolution_option_idx, false); 
 
 	full_screen_button.set_pressed_no_signal(fullscreen);
+	_on_fullscreen_toggle(fullscreen, false);
 
 func _save() -> void:
 	var settings_resource := SettingsResource.new();
