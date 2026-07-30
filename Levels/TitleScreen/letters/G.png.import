@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://kdydi5yoxy5p"
+path="res://.godot/imported/G.png-1710545f4aa11bdd63e64a32a3d45ecd.res"
+
+[deps]
+
+source_file="res://Levels/TitleScreen/letters/G.png"
+dest_files=["res://.godot/imported/G.png-1710545f4aa11bdd63e64a32a3d45ecd.res"]
+
+[params]
+
+create_from=1
+threshold=0.5

@@ -13,6 +13,7 @@ enum ShatterResult {
 @export var collision_object: CollisionObject2D;
 @export_tool_button("Generate", "EditKey") var gen := generate;
 
+@export var debug: bool = false;
 @onready var debugger: DebugBitmap = get_node_or_null("DebugBitmap");
 
 signal generate_new(new_bundle: MS_GenerativeBundle);
@@ -21,7 +22,7 @@ signal degenerate();
 var created_resources: Array[Node2D] = [];
 
 func _ready() -> void:
-	if (debugger):
+	if (debug):
 		debugger.source_bitmap = generative_bundle.ms_bitmap;
 		debugger.source_canvas = generative_bundle.ms_canvas;
 
@@ -29,7 +30,7 @@ func _process(_delta: float) -> void:
 	if (generative_bundle):
 		generative_bundle.ms_canvas.update(global_rotation);
 
-	if (debugger):
+	if (debug):
 		queue_redraw();
 
 ## Treat all polygons as different parts of the same object
@@ -129,7 +130,7 @@ func collide_with(subtractive_bitmap: MS_Bitmap, subtractive_bitmap_global_posit
 	var position_diff := subtractive_bitmap_global_position - global_position;
 	var hit_tile_position := generative_bundle.ms_canvas.get_tile_position(position_diff);
 	
-	if (debugger):
+	if (debug):
 		debugger.update_renders(
 			subtractive_bitmap, 
 			hit_tile_position,
@@ -141,7 +142,7 @@ func collide_with(subtractive_bitmap: MS_Bitmap, subtractive_bitmap_global_posit
 	);
 
 func _draw() -> void:
-	if (debugger):
+	if (debug):
 		_draw_rect();
 
 func _draw_rect() -> void:

@@ -10,14 +10,23 @@ class_name MS_Editor extends Node2D
 @export_enum("circle", "square") var cursor_shape := "circle";
 @export var gradual_change := true;
 
+@export_category("Load")
+@export var external_bitmap: BitMap:
+	set(val):
+		external_bitmap = val;
+		_load_bitmap();
+
 @export_category("Save")
 @export_custom(PROPERTY_HINT_NONE, "suffix:.tres") var file_name: String = "test";
 
 @onready var save_button: Button = $SaveButton;
 @onready var generate_button: Button = $GenButton;
+@onready var load_button: Button = $LoadButton;
 @onready var generator: MS_Generator = $MS_Generator;
 
 const FOLDER_NAME =  "res://TileMap/MarchingSquares/NEW/exports/";
+
+var orig_rect := Rect2(Vector2.ZERO, Vector2(400, 400));
 
 func _ready() -> void:
 	if (!bitmap):
@@ -27,6 +36,23 @@ func _ready() -> void:
 
 	save_button.button_up.connect(save);
 	generate_button.button_up.connect(generate);
+	load_button.button_up.connect(_load_bitmap);
+
+func _load_bitmap() -> void:
+	var orig_size := bitmap.get_size();
+	canvas.canvas_rect = orig_rect;
+	for x in range(orig_size.x):
+		for y in range(orig_size.y):
+			bitmap.set_cell(x, y, 0.0);
+
+	var external_size := external_bitmap.get_size();
+	bitmap.resize(canvas.canvas_rect.size / canvas.tile_size);
+	for x in range(external_size.x):
+		for y in range(external_size.y):
+			bitmap.set_cell(x, y, external_bitmap.get_bit(x, y));
+			
+	generate();
+	save();
 
 func save() -> void:
 	var bundle: MS_GenerativeBundle = MS_GenerativeBundle.new(
