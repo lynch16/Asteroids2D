@@ -202,9 +202,10 @@ script = ExtResource("11_f3ot7")
 position = Vector2(-5, 0)
 sprite_frames = SubResource("SpriteFrames_7m2s5")
 frame_progress = 0.73849505
+flip_h = true
 
 [node name="AnimatedThrustSpriteR" type="AnimatedSprite2D" parent="AnimatedShipSprite2D/ThrustAnimations" unique_id=974993700]
-position = Vector2(6, 0)
+position = Vector2(5, 0)
 sprite_frames = SubResource("SpriteFrames_7m2s5")
 frame_progress = 0.4736041
 
