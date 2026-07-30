@@ -11,6 +11,7 @@
 vertices = PackedVector2Array(2152.0313, -192.02344, 2156.961, 1332.0234, -258.9922, 1336.9688, -258, -197.96875)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-268, -208, 2162, -202, 2167, 1342, -269, 1347)])
+cell_size = 8.0
 
 [node name="Level" type="Node2D" unique_id=350803456]
 process_mode = 1

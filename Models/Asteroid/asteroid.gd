@@ -1,10 +1,13 @@
 class_name Asteroid extends SpawnableCharacter2D
 
 @export var max_velocity := 400; # m/s
-@export var collision_mesh_group: MS_CollisionMeshGroup;
 @export var combat_stats: CombatStats;
 @export var health_stats: HealthStats;
+@export var generative_bundle: MS_GenerativeBundle;
 @export var mesh_deformation_shapes: Array[MeshDeformationShape] = [];
+
+var hurtbox_generator: MS_Generator;
+var hitbox_generator: MS_Generator;
 
 var mass := 10000;
 var damageable: Damageable;
@@ -15,29 +18,26 @@ signal asteroid_destroyed;
 
 func _enter_tree() -> void:
 	super();
+	hurtbox_generator = $HurtboxGenerator;
+	hurtbox_generator.generative_bundle = generative_bundle;
+	hurtbox_generator.generate();
 
-	if (!hurtbox):
-		hurtbox = %MeshDeformHitHurtbox2D;
+	hurtbox = $Hurtbox2D;
+	hurtbox.health_stats = health_stats;
 
-	if hurtbox is MeshDeformHitHurtbox2D:
-		var deformable_hurtbox: MeshDeformHitHurtbox2D = hurtbox;
-
-		# Propagate stats so only manage at top level
-		deformable_hurtbox.combat_stats = combat_stats;
-		deformable_hurtbox.health_stats = health_stats;
-		deformable_hurtbox.collision_mesh_group = collision_mesh_group;
+	if (hurtbox is HitHurtbox2D):
+		var hithurtbox: HitHurtbox2D = hurtbox;
+		hithurtbox.combat_stats = combat_stats;
 
 func _ready() -> void:
 	add_to_group("enemy");
+
 	health_stats.resource_local_to_scene = true;
 	combat_stats.resource_local_to_scene = true;
+	generative_bundle.resource_local_to_scene = true;
 
-	if hurtbox is MeshDeformHitHurtbox2D:
-		var deformable_hurtbox: MeshDeformHitHurtbox2D = hurtbox;
-
-		# Connect to mesh deformation results
-		deformable_hurtbox.spawn_new_group.connect(_shatter);
-		deformable_hurtbox.all_colliders_destroyed.connect(_destroy);
+	hurtbox_generator.generate_new.connect(_shatter);
+	hurtbox_generator.degenerate.connect(_destroy);
 
 	var invincible_damage_result: InvincibleFramesDamageResult = %InvincibleFramesDamageResult;
 	invincible_damage_result.init.connect(_disable_colliders);
@@ -51,8 +51,8 @@ func _physics_process(_delta: float) -> void:
 	velocity = velocity.normalized() * min(velocity.length(), max_velocity);
 	move_and_slide();
 
-func _shatter(new_mesh_group: MS_CollisionMeshGroup) -> void:
-	AsteroidManager.shatter_asteroid(self, new_mesh_group);
+func _shatter(bundle: MS_GenerativeBundle) -> void:
+	AsteroidManager.shatter_asteroid(self, bundle);
 
 func get_collision_object() -> CollisionObject2D:
 	return hurtbox;
@@ -87,13 +87,17 @@ func _destroy() -> void:
 func _on_dequeue_timeout() -> void:
 	call_deferred("queue_free");
 
-func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> DeformableMesh2D.GroupDeformationResult:
-	if hurtbox is MeshDeformHurtbox2D:
-		var deformable_hurtbox: MeshDeformHurtbox2D = hurtbox;
-		return deformable_hurtbox.deformable_mesh_2d.deform_group(
-			collision_point,
-			collision_angle,
-			collision_deformation_shapes
-		);
+func deform_mesh(collision_point: Vector2, collision_angle: float, collision_deformation_shapes: Array[MeshDeformationShape]) -> MS_Generator.ShatterResult:
+	for shape in collision_deformation_shapes:
+		var shape_bitmap := shape.get_bitmap();
+		var collision_canvas_size := hurtbox_generator.generative_bundle.ms_canvas.get_canvas_pos_from_tile(shape_bitmap.get_size())
+
+		var normalized_collision_point := collision_point - collision_canvas_size/2.0
+		hurtbox_generator.collide_with(
+			shape.get_bitmap(),
+			normalized_collision_point
+		)
+
+	var result := hurtbox_generator.shatter();
 	
-	return DeformableMesh2D.GroupDeformationResult.None;
+	return result;

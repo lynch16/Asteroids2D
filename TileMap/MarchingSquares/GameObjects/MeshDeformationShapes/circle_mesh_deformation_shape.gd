@@ -1,40 +1,32 @@
 class_name CircleMeshDeformationShape
 extends MeshDeformationShape
 
-@export var radius: float;
+@export var radius: int;
 
 func _init(
 	p_damage: float = 0.0,
 	p_shape: CircleShape2D = CircleShape2D.new(),
-	p_radius: float = 1.0,
+	p_radius: int = 1,
 ) -> void:
 	super._init(p_damage, p_shape);
 	radius = p_radius;
 
-func _apply_vector(
-	collision_point: Vector2,
-	_collision_angle: float,
-	ms_corner: Vector2,
-	corner_value: float,
-) -> float:
-	if (Geometry2D.is_point_in_circle(ms_corner, collision_point, radius)):
-		return corner_value - damage;
-	return corner_value;
+func get_bitmap() -> MS_Bitmap:
+	var new_size := Vector2i(radius * 2 + 1, radius * 2 + 1);
+	bitmap.resize(new_size);
+	for x in range(-radius, radius + 1):
+		for y in range(-radius, radius + 1):
+			if (abs(x) + abs(y) > radius):
+				continue;
 
-func apply_shape(
-	collision_point: Vector2,
-	collision_angle: float,
-	corner_sampling: Dictionary[Vector2, float],
-) -> Dictionary[Vector2, float]:
-	var new_corners: Dictionary[Vector2, float] = {};
-	return corner_sampling.keys().reduce(
-		func (updated_corners: Dictionary[Vector2, float], key: Vector2) -> Dictionary[Vector2, float]:
-			updated_corners[key] = _apply_vector(
-				collision_point,
-				collision_angle,
-				key,
-				corner_sampling[key]
-			)
-			return updated_corners,
-		new_corners
-	)
+			var norm_x := _normalize_cell_point(x);
+			var norm_y := _normalize_cell_point(y);
+
+			if (norm_x < new_size.x && norm_x > 0 &&
+				norm_y < new_size.y && norm_y > 0):
+				bitmap.set_cell(norm_x, norm_y, damage);
+
+	return bitmap;
+
+func _normalize_cell_point(cell_point: int) -> int:
+	return radius + cell_point + 1;

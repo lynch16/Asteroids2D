@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="MS_GenerativeBundle" format=3 uid="uid://cujvgeb6eo6qw"]
+
+[ext_resource type="Script" uid="uid://dc1ivcfx472fv" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_bitmap.gd" id="1_scf4m"]
+[ext_resource type="Script" uid="uid://dmjieybnk46lp" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_canvas.gd" id="2_4ji3d"]
+[ext_resource type="Script" uid="uid://cc1rpsuxjvyuu" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_generative_bundle.gd" id="3_ureeh"]
+
+[sub_resource type="Resource" id="Resource_00ihw"]
+resource_local_to_scene = true
+script = ExtResource("1_scf4m")
+bitmap_cells = Array[Array]([[0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0], [0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0]])
+metadata/_custom_type_script = "uid://dc1ivcfx472fv"
+
+[sub_resource type="Resource" id="Resource_se6gx"]
+resource_local_to_scene = true
+script = ExtResource("2_4ji3d")
+canvas_rect = Rect2(0, 0, 112, 176)
+tile_size = 8
+metadata/_custom_type_script = "uid://dmjieybnk46lp"
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pp337"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("3_ureeh")
+ms_canvas = SubResource("Resource_se6gx")
+ms_bitmap = SubResource("Resource_00ihw")
+texture = SubResource("GradientTexture1D_pp337")

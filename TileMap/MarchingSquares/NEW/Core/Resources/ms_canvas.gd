@@ -1,0 +1,64 @@
+@tool 
+class_name MS_Canvas extends Resource
+## Responsible for managing the size of the canvas and tile for proc gen
+@export var canvas_rect: Rect2;
+@export var tile_size: int;
+
+var global_rotation: float;
+
+const CORNER_NW = Vector2(-1,1);
+const CORNER_NE = Vector2(1,1);
+const CORNER_SE = Vector2(1,-1);
+const CORNER_SW = Vector2(-1,-1);
+
+const CORNERS: PackedVector2Array = [
+	CORNER_NW,
+	CORNER_NE,
+	CORNER_SE,
+	CORNER_SW,
+];
+
+func _init(
+	p_canvas_rect: Rect2 = Rect2(),
+	p_tile_size: int = 8
+) -> void:
+	canvas_rect = p_canvas_rect;
+	tile_size = p_tile_size;
+
+	resource_local_to_scene = true;
+
+func update(p_global_rotation: float) -> void:
+	global_rotation = p_global_rotation;
+
+func get_tile_position(position: Vector2) -> Vector2i:
+	var normalized_position := position.rotated(-global_rotation);
+	return Vector2(roundi(normalized_position.x / tile_size), roundi(normalized_position.y / tile_size));
+
+func get_max_x() -> int:
+	return roundi(canvas_rect.size.x / tile_size)
+
+func get_max_y() -> int:
+	return roundi(canvas_rect.size.y / tile_size)
+
+func get_canvas_pos_from_tile(tile_pos: Vector2i) -> Vector2:
+	return Vector2(tile_pos.x * tile_size, tile_pos.y * tile_size).rotated(global_rotation);
+
+func for_each_tile(callable: Callable) -> void:
+	for x: int in range(0, get_max_x()):
+		for y: int in range(0, get_max_y()):
+			var center := Vector2(x + 0.5, y + 0.5) * float(tile_size);
+			callable.call(center);
+
+func _resize(new_size: Vector2) -> void:
+	canvas_rect.size = new_size;
+
+func resize_to_bitmap(bitmap: MS_Bitmap) -> void:
+	_resize(
+		bitmap.get_size() * tile_size		
+	);
+
+func get_rect_offset() -> Vector2:
+	return Vector2(
+		canvas_rect.size.x / 2.0,
+		canvas_rect.size.y / 2.0,
+	)

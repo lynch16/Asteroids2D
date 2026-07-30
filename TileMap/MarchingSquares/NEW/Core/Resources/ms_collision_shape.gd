@@ -1,0 +1,3 @@
+@tool 
+class_name MS_CollisionShape extends ConvexPolygonShape2D
+

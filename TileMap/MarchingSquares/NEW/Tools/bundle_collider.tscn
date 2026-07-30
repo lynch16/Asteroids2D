@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://4v1kdekge8d6"]
+
+[ext_resource type="Script" uid="uid://d1w5j6v0khj0r" path="res://TileMap/MarchingSquares/NEW/Tools/bundle_collider.gd" id="1_wu4id"]
+[ext_resource type="Script" uid="uid://duki344j0hw1o" path="res://TileMap/MarchingSquares/NEW/Core/Nodes/ms_generator.gd" id="2_sgk47"]
+[ext_resource type="Resource" uid="uid://0gse3ghrpct7" path="res://TileMap/MarchingSquares/NEW/exports/bigger.tres" id="3_ttosc"]
+[ext_resource type="Resource" uid="uid://4ygc5oqdvyfr" path="res://TileMap/MarchingSquares/NEW/exports/r.tres" id="4_ttosc"]
+[ext_resource type="Script" uid="uid://dc1ivcfx472fv" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_bitmap.gd" id="5_ttosc"]
+[ext_resource type="Script" uid="uid://dmjieybnk46lp" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_canvas.gd" id="6_xupas"]
+[ext_resource type="Script" uid="uid://cc1rpsuxjvyuu" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_generative_bundle.gd" id="7_xfhdo"]
+
+[sub_resource type="Resource" id="Resource_ttosc"]
+resource_local_to_scene = true
+script = ExtResource("5_ttosc")
+bitmap_cells = Array[Array]([[0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0], [0, 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0]])
+
+[sub_resource type="Resource" id="Resource_ehqq4"]
+resource_local_to_scene = true
+script = ExtResource("6_xupas")
+canvas_rect = Rect2(0, 0, 120, 144)
+tile_size = 8
+metadata/_custom_type_script = "uid://dmjieybnk46lp"
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2xddt"]
+
+[sub_resource type="Resource" id="Resource_xupas"]
+resource_local_to_scene = true
+script = ExtResource("7_xfhdo")
+ms_canvas = SubResource("Resource_ehqq4")
+ms_bitmap = SubResource("Resource_ttosc")
+texture = SubResource("GradientTexture1D_2xddt")
+
+[node name="BundleCollider" type="Node2D" unique_id=1596693533]
+script = ExtResource("1_wu4id")
+
+[node name="TargetArea2D" type="Area2D" parent="." unique_id=2007934413]
+visible = false
+
+[node name="TargetGenerator" type="Node2D" parent="." unique_id=1081593086 node_paths=PackedStringArray("collision_object")]
+script = ExtResource("2_sgk47")
+generative_bundle = ExtResource("3_ttosc")
+collision_object = NodePath("../TargetArea2D")
+metadata/_custom_type_script = "uid://duki344j0hw1o"
+
+[node name="SubtractiveGenerator" type="Node2D" parent="." unique_id=2029413470 node_paths=PackedStringArray("collision_object")]
+position = Vector2(40, 44)
+script = ExtResource("2_sgk47")
+generative_bundle = ExtResource("4_ttosc")
+collision_object = NodePath("../SubtractiveArea2D")
+metadata/_custom_type_script = "uid://duki344j0hw1o"
+
+[node name="ResultGenerator" type="Node2D" parent="." unique_id=724708136]
+script = ExtResource("2_sgk47")
+generative_bundle = SubResource("Resource_xupas")
+metadata/_custom_type_script = "uid://duki344j0hw1o"
+
+[node name="SubtractiveArea2D" type="Area2D" parent="." unique_id=1387296397]
+visible = false

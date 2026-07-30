@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://ugh1wu22egg8"]
+
+[ext_resource type="Script" uid="uid://rfihgtl2tub0" path="res://TileMap/MarchingSquares/NEW/ms_editor.gd" id="1_abe3b"]
+[ext_resource type="Script" uid="uid://dc1ivcfx472fv" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_bitmap.gd" id="2_nf4aw"]
+[ext_resource type="Script" uid="uid://dmjieybnk46lp" path="res://TileMap/MarchingSquares/NEW/Core/Resources/ms_canvas.gd" id="3_dlxko"]
+[ext_resource type="Script" uid="uid://duki344j0hw1o" path="res://TileMap/MarchingSquares/NEW/Core/Nodes/ms_generator.gd" id="4_py3gh"]
+
+[sub_resource type="Resource" id="Resource_cn52x"]
+resource_local_to_scene = true
+script = ExtResource("2_nf4aw")
+metadata/_custom_type_script = "uid://dc1ivcfx472fv"
+
+[sub_resource type="Resource" id="Resource_5r7b4"]
+resource_local_to_scene = true
+script = ExtResource("3_dlxko")
+canvas_rect = Rect2(0, 0, 400, 500)
+tile_size = 8
+metadata/_custom_type_script = "uid://dmjieybnk46lp"
+
+[node name="MS Editor" type="Node2D" unique_id=1666039974]
+script = ExtResource("1_abe3b")
+bitmap = SubResource("Resource_cn52x")
+canvas = SubResource("Resource_5r7b4")
+gradual_change = false
+file_name = "knuckle"
+
+[node name="SaveButton" type="Button" parent="." unique_id=291874781]
+offset_left = 518.0
+offset_top = 657.0
+offset_right = 557.0
+offset_bottom = 688.0
+text = "Save"
+
+[node name="MS_Generator" type="Node2D" parent="." unique_id=239813718 node_paths=PackedStringArray("collision_object")]
+script = ExtResource("4_py3gh")
+collision_object = NodePath("../Area2D")
+debug = null
+metadata/_custom_type_script = "uid://duki344j0hw1o"
+
+[node name="GenButton" type="Button" parent="." unique_id=395350416]
+offset_left = 600.0
+offset_top = 657.0
+offset_right = 639.0
+offset_bottom = 688.0
+text = "Generate"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=26575449]
+
+[node name="LoadButton" type="Button" parent="." unique_id=1678839772]
+offset_left = 755.0
+offset_top = 657.0
+offset_right = 835.0
+offset_bottom = 688.0
+text = "Load"

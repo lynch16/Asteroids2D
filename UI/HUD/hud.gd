@@ -8,7 +8,7 @@ var viewport_size: Vector2;
 @onready var debug_controls: Control = get_node("DebugHUD");
 @onready var score_value: Label = get_node("RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/Score_Value");
 @onready var level_announce: Label = get_node("RuntimeHUD/BoxContainer/LevelAnnounce");
-@onready var game_manager: GameManager = get_node("/root/GameManager");
+@onready var game_manager: GameManager = get_node_or_null("/root/GameManager");
 @onready var lives_container: BoxContainer = %LivesContainer;
 @onready var health_bar: TextureProgressBar = %HealthProgressBar;
 @onready var energy_bar: TextureProgressBar = %EnergyProgressBar;
@@ -26,8 +26,10 @@ func _ready() -> void:
 	ScoreManager.score_updated.connect(_update_score_view);
 	SignalBus.player_health_updated.connect(_update_health_view);
 	SignalBus.player_energy_updated.connect(_update_energy_view);
-	game_manager.level_start.connect(_announce_level_start);
-	game_manager.player_lives_updated.connect(_update_lives_view);
+	
+	if (game_manager):
+		game_manager.level_start.connect(_announce_level_start);
+		game_manager.player_lives_updated.connect(_update_lives_view);
 
 func _update_lives_view(player_lives: int) -> void:
 	var existing_lives_count := lives_container.get_child_count();

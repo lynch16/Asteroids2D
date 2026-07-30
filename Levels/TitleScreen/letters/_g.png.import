@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://dik3rk7jp3wat"
+path="res://.godot/imported/_g.png-3a2e3a2a7a6ee2b6c0dff9268b00893b.res"
+
+[deps]
+
+source_file="res://Levels/TitleScreen/letters/_g.png"
+dest_files=["res://.godot/imported/_g.png-3a2e3a2a7a6ee2b6c0dff9268b00893b.res"]
+
+[params]
+
+create_from=1
+threshold=0.5
