@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://csqnipxruh7ui"
+path="res://.godot/imported/_t.png-74d176b2e4a35b9f970f57a213c10f14.res"
+
+[deps]
+
+source_file="res://Levels/TitleScreen/letters/_t.png"
+dest_files=["res://.godot/imported/_t.png-74d176b2e4a35b9f970f57a213c10f14.res"]
+
+[params]
+
+create_from=1
+threshold=0.5

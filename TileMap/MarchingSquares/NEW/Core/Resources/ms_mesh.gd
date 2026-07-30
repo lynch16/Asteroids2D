@@ -106,7 +106,10 @@ func _get_tile_index_from_corners(
 
 		var tile_position := ms_canvas.get_tile_position(corner);
 
-		if (tile_position.x < 0 || tile_position.y < 0):
+		if (
+			tile_position.x < 0 || 
+			tile_position.y < 0
+		):
 			continue;
 
 		tile_index += int(ms_bitmap.get_bitmap_cellv(tile_position)) << i;

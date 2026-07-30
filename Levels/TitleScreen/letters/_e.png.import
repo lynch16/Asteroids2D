@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://cp3ukoxui5a0w"
+path="res://.godot/imported/_e.png-955c684ce5bf4fd533c3300d95196e32.res"
+
+[deps]
+
+source_file="res://Levels/TitleScreen/letters/_e.png"
+dest_files=["res://.godot/imported/_e.png-955c684ce5bf4fd533c3300d95196e32.res"]
+
+[params]
+
+create_from=1
+threshold=0.5
