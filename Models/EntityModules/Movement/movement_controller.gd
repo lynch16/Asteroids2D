@@ -29,7 +29,7 @@ var is_rubber_banding := false;
 
 var tween: Tween;
 
-@onready var recharge_timer: Timer = $RechargeTimer;
+@onready var recharge_timer: Timer = get_node_or_null("RechargeTimer");
 
 signal movement_updated(velocity: Vector2, rotation: float);
 signal energy_updated(remaining_energy: float);
@@ -52,10 +52,10 @@ func _physics_process(delta: float) -> void:
 
 	if (!is_boosting):
 		# Create recharge timer if needs to recharge and not already created
-		if (boost_needs_recharge && !is_boost_recharging && recharge_timer.is_stopped()):
+		if (boost_needs_recharge && !is_boost_recharging && recharge_timer && recharge_timer.is_stopped()):
 			recharge_timer.start();
 
-	elif (!recharge_timer.is_stopped()):
+	elif (recharge_timer && !recharge_timer.is_stopped()):
 		recharge_timer.stop();
 
 	if (is_boost_recharging):
