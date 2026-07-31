@@ -6,6 +6,7 @@ var hurtbox: Hurtbox2D;
 
 func _enter_tree() -> void:
 	shapecast = SpawnShapeCast2D.new();
+	shapecast.hide();
 	var shape := CircleShape2D.new();
 	shape.radius = 200.0;
 	shapecast.shape = shape;
