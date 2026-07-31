@@ -9,7 +9,7 @@ signal player_lives_updated(lives_left: int);
 @export var title_screen_scene: PackedScene;
 @export var hud_scene: PackedScene;
 
-@export var starting_level := 0;
+@export var starting_level_idx := 0;
 @export var level_scene: PackedScene;
 @export var levels: Array[LevelResource] = [];
 
@@ -58,7 +58,7 @@ func on_start() -> void:
 		active_level.queue_free();
 
 	started = true;
-	current_level_idx = starting_level;
+	current_level_idx = starting_level_idx;
 	player_lives = starting_player_lives;
 	hud = hud_scene.instantiate();
 	add_child(hud);

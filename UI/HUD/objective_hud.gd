@@ -36,7 +36,7 @@ func _update_objectives() -> void:
 	if (!active_level): return;
 
 	var total_asteroids_required := active_level.num_starting_rocks + active_level.num_rocks_to_throw - num_asteroids_destroyed + asteroids_broken_off;
-	var total_enemies_required := active_level.num_enemies - num_enemies_destroyed; # TODO: Increase to include number of groups when added
+	var total_enemies_required := active_level.total_enemies_required - num_enemies_destroyed;
 	if (total_enemies_required <= 0):
 		enemies_container.hide();
 	else:

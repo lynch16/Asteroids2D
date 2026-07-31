@@ -72,13 +72,11 @@ metadata/_custom_type_script = "uid://ckmcn5r0df3nm"
 
 [node name="HitboxGenerator" type="Node2D" parent="." unique_id=1366384108]
 script = ExtResource("7_tml4o")
-debug = null
 metadata/_custom_type_script = "uid://duki344j0hw1o"
 
 [node name="HurtboxGenerator" type="Node2D" parent="." unique_id=829988067 node_paths=PackedStringArray("collision_object")]
 script = ExtResource("7_tml4o")
 collision_object = NodePath("../Hurtbox2D")
-debug = null
 metadata/_custom_type_script = "uid://duki344j0hw1o"
 
 [node name="DebugBitmap" type="Node2D" parent="HurtboxGenerator" unique_id=1983122680]
@@ -97,7 +95,6 @@ metadata/_custom_type_script = "uid://b3yfpesf7si0u"
 unique_name_in_owner = true
 script = ExtResource("12_qdhb0")
 invincible_length = 0.4
-restart_on_new_damage = true
 metadata/_custom_type_script = "uid://l6occnfuxuon"
 
 [node name="ScoreDamageResult" type="Node" parent="Hurtbox2D" unique_id=760267701]

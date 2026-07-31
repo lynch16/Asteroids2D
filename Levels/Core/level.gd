@@ -15,11 +15,13 @@ var rock_thrower_start_delay := 10.0;
 
 var enemey_scene: PackedScene;
 ## How many enemies to spawn
-var num_enemies := 0;
+var possible_num_enemies := Vector2i(0, 0);
 ## How long to wait before spawning enemies
 var enemies_start_delay := 10.0;
 ## Hunters vs shoot at random place
 var enemy_hunters := false;
+## How many enemy groups to send
+var enemy_group_count := 0;
 
 @onready var player_spawn: PlayerSpawn = %PlayerSpawn;
 @onready var game_area: GameArea = %GameArea;
@@ -28,6 +30,10 @@ var enemy_hunters := false;
 var start_rocks_timer: Timer;
 var start_enemies_timer: Timer;
 var current_rocks_thrown := 0;
+var current_enemy_group_count := 0;
+
+var enemy_groups: Array[int] = [];
+var total_enemies_required := 0;
 
 signal level_loaded(level: Level);
 signal win_condition_met;
@@ -43,7 +49,8 @@ func _ready() -> void:
 	rock_thrower_start_delay = level_settings.rock_thrower_start_delay;
 	AsteroidManager.asteroid_count = 0;
 	enemey_scene = level_settings.enemey_scene;
-	num_enemies = level_settings.num_enemies;
+	possible_num_enemies = level_settings.possible_num_enemies;
+	enemy_group_count = level_settings.enemy_group_count;
 	enemies_start_delay = level_settings.enemies_start_delay;
 	enemy_hunters = level_settings.enemy_hunters;
 
@@ -52,6 +59,12 @@ func _ready() -> void:
 	player_spawn.player_spawned.connect(start_enemies);
 	tree_exiting.connect(_on_tree_exiting);
 
+	for i in range(enemy_group_count):
+		var num_enemies := randi() % possible_num_enemies.y + possible_num_enemies.x;
+		enemy_groups.append(num_enemies);
+		total_enemies_required += num_enemies;
+
+	print("total_enemies_required: ", total_enemies_required)
 	enter();
 
 func enter() -> void:
@@ -69,10 +82,9 @@ func start_enemies(_player: Player) -> void:
 		start_rocks_timer.timeout.connect(_on_start_rocks_timer_timeout);
 		add_child(start_rocks_timer);
 
-	if (num_enemies > 0):
+	if (possible_num_enemies.y > 0):
 		start_enemies_timer = Timer.new();
 		start_enemies_timer.wait_time = enemies_start_delay;
-		start_enemies_timer.one_shot = true;
 		start_enemies_timer.autostart = true;
 		start_enemies_timer.timeout.connect(_on_start_enemies_timer_timeout);
 		add_child(start_enemies_timer);
@@ -103,6 +115,7 @@ func _on_start_rocks_timer_timeout() -> void:
 		rock_thrower.start();
 
 func _on_start_enemies_timer_timeout() -> void:
+	var num_enemies := enemy_groups[current_enemy_group_count];
 	var spawn_group := EnemySpawnGroup.new(num_enemies);
 	if (enemy_hunters):
 		spawn_group.patrol_mode = EnemySpawnGroup.PatrolMode.Hunt;
@@ -110,6 +123,10 @@ func _on_start_enemies_timer_timeout() -> void:
 		spawn_group.patrol_mode = EnemySpawnGroup.PatrolMode.ShootRandom;
 
 	game_area.add_child(spawn_group);
+	current_enemy_group_count += 1;
+
+	if (current_enemy_group_count >= enemy_group_count):
+		start_enemies_timer.stop();
 
 func _are_all_rocks_thrown() -> bool:
 	return current_rocks_thrown >= num_starting_rocks + num_rocks_to_throw

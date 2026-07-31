@@ -8,5 +8,6 @@ script = ExtResource("2_7ctvf")
 num_starting_rocks = 5
 rock_throw_interval = 3.0
 enemey_scene = ExtResource("1_xetsh")
-num_enemies = 3
+possible_num_enemies = Vector2i(3, 3)
+enemy_group_count = 1
 metadata/_custom_type_script = "uid://bo5uwcqvj1ehh"
