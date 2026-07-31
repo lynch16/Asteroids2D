@@ -123,7 +123,6 @@ process_mode = 3
 script = ExtResource("1_h2yge")
 title_screen_scene = ExtResource("2_efxa6")
 hud_scene = ExtResource("5_lquwl")
-starting_level_idx = 9
 level_scene = ExtResource("2_7mycd")
 levels = Array[ExtResource("3_272bh")]([ExtResource("4_5vw27"), ExtResource("5_4c57u"), ExtResource("6_efxa6"), ExtResource("7_dg77c"), ExtResource("8_ycdy4"), ExtResource("11_kq58d"), ExtResource("12_seu75"), ExtResource("13_htxhm"), ExtResource("14_jq2sk"), ExtResource("15_4k2k6")])
 player_health = ExtResource("11_ryguw")
