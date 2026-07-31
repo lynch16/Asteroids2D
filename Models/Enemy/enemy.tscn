@@ -188,6 +188,7 @@ metadata/_custom_type_script = "uid://yp8x320gf3ox"
 [node name="DeathSfxDamageResult" type="Node" parent="Hurtbox2D" unique_id=1296475006 node_paths=PackedStringArray("audio_stream")]
 script = ExtResource("9_8ik7f")
 position_particles_at_hit_location = true
+sfx_lifetime = 0.5
 particles_scene = ExtResource("8_5x7pv")
 audio_stream = NodePath("AudioStreamPlayer2D")
 metadata/_custom_type_script = "uid://l3f2bsi7sp6n"
