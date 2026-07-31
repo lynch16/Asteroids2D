@@ -8,6 +8,7 @@ class_name Asteroid extends SpawnableCharacter2D
 
 var hurtbox_generator: MS_Generator;
 var hitbox_generator: MS_Generator;
+var invincible_damage_result: InvincibleFramesDamageResult
 
 var mass := 10000;
 var damageable: Damageable;
@@ -39,12 +40,15 @@ func _ready() -> void:
 	hurtbox_generator.generate_new.connect(_shatter);
 	hurtbox_generator.degenerate.connect(_destroy);
 
-	var invincible_damage_result: InvincibleFramesDamageResult = %InvincibleFramesDamageResult;
+	invincible_damage_result = %InvincibleFramesDamageResult;
 	invincible_damage_result.init.connect(_disable_colliders);
 	invincible_damage_result.end.connect(_enable_colliders);
 
 	## Dont kill with health b/c these are rocks that dont have health
 	# health_stats.on_health_depleted.connect(_destroy);
+
+func start_invincible() -> void:
+	invincible_damage_result.start_invincible();
 
 func _physics_process(_delta: float) -> void:
 	# Clamp velocity to reasonable playable value
