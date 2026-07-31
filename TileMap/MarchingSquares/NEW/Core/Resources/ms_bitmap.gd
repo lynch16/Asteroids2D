@@ -40,8 +40,14 @@ func set_cell(x: int, y: int, value: float) -> void:
 	bitmap.set_bit(x, y, _above_cutoff(value));
 
 func get_cell(x: int, y: int) -> float:
+	if (x > bitmap_cells.size() - 1):
+		return 0;
+
 	var row := bitmap_cells[x];
 	if (!row): 
+		return 0;
+
+	if (y > bitmap_cells[x].size() - 1):
 		return 0;
 
 	return bitmap_cells[x][y];
