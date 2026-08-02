@@ -63,7 +63,7 @@ func _on_area_shape_entered(_body_rid: RID, body: Node2D, body_shape_index: int,
 		var local_collider := shape_owner_get_owner(local_shape_owner);
 		var local_shape: Shape2D = shape_owner_get_shape(local_shape_owner, local_shape_index);
 
-		if (body_collider is Node2D):
+		if (body_collider is Node2D && local_shape && mesh_shape):
 			var mesh_collider: Node2D = body_collider;
 			var local_mesh_collider: Node2D = local_collider;
 			var collision_points := local_shape.collide_and_get_contacts(
