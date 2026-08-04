@@ -19,10 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://bf3r8p73v8mdp" path="res://TileMap/Textures/Ground (91)_128x128.png" id="15_0cfow"]
 [ext_resource type="Texture2D" uid="uid://c3iatf1rvr8gb" path="res://TileMap/Textures/Ground (93)_128x128.png" id="15_iruta"]
 [ext_resource type="Texture2D" uid="uid://cbyjad0k8a2hi" path="res://TileMap/Textures/Ground (95)_128x128.png" id="16_tcprm"]
-[ext_resource type="Texture2D" uid="uid://cba4e44n6mci5" path="res://TileMap/Textures/Ground (97)_128x128.png" id="17_2c8sj"]
+[ext_resource type="Resource" uid="uid://bhiif52gbquqo" path="res://Levels/TitleScreen/LetterBundles/_e.tres" id="17_ii217"]
 [ext_resource type="Texture2D" uid="uid://cgsiytrc163gx" path="res://TileMap/Textures/Ground (92)_128x128.png" id="19_7hd5u"]
+[ext_resource type="Resource" uid="uid://jm3ch6kasn51" path="res://Levels/TitleScreen/LetterBundles/_s.tres" id="19_ii217"]
 [ext_resource type="Texture2D" uid="uid://bnhm5sxpnnduc" path="res://TileMap/Textures/Ground (94)_128x128.png" id="20_8imtr"]
-[ext_resource type="Texture2D" uid="uid://b6ashk0ihpsk3" path="res://TileMap/Textures/Ground (96)_128x128.png" id="21_eq3yf"]
 [ext_resource type="PackedScene" uid="uid://evepknlqgvo6" path="res://sprites/backgrounds/space_background.tscn" id="21_xawrf"]
 [ext_resource type="Texture2D" uid="uid://umck8eqkj7yg" path="res://TileMap/Textures/Ground (98)_128x128.png" id="22_kewm4"]
 [ext_resource type="Texture2D" uid="uid://daufqmqdxlcgn" path="res://TileMap/Textures/Ground (100)_128x128.png" id="23_s4tle"]
@@ -161,26 +161,6 @@ initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_55i6g"]
-resource_local_to_scene = true
-script = ExtResource("9_pf33r")
-bitmap_cells = Array[Array]([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
-metadata/_custom_type_script = "uid://dc1ivcfx472fv"
-
-[sub_resource type="Resource" id="Resource_0ti5y"]
-resource_local_to_scene = true
-script = ExtResource("10_jjd1d")
-canvas_rect = Rect2(0, 0, 144, 168)
-tile_size = 8
-metadata/_custom_type_script = "uid://dmjieybnk46lp"
-
-[sub_resource type="Resource" id="Resource_ore3j"]
-resource_local_to_scene = true
-script = ExtResource("11_a6nqb")
-ms_canvas = SubResource("Resource_0ti5y")
-ms_bitmap = SubResource("Resource_55i6g")
-texture = ExtResource("17_2c8sj")
-
 [sub_resource type="Resource" id="Resource_rhyok"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
@@ -215,26 +195,6 @@ initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_rtw7s"]
-resource_local_to_scene = true
-script = ExtResource("9_pf33r")
-bitmap_cells = Array[Array]([[0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
-metadata/_custom_type_script = "uid://dc1ivcfx472fv"
-
-[sub_resource type="Resource" id="Resource_rxq3e"]
-resource_local_to_scene = true
-script = ExtResource("10_jjd1d")
-canvas_rect = Rect2(0, 0, 128, 168)
-tile_size = 8
-metadata/_custom_type_script = "uid://dmjieybnk46lp"
-
-[sub_resource type="Resource" id="Resource_mob0t"]
-resource_local_to_scene = true
-script = ExtResource("11_a6nqb")
-ms_canvas = SubResource("Resource_rxq3e")
-ms_bitmap = SubResource("Resource_rtw7s")
-texture = ExtResource("19_7hd5u")
-
 [sub_resource type="Resource" id="Resource_p7n2e"]
 resource_local_to_scene = true
 script = ExtResource("11_nxm0e")
@@ -268,26 +228,6 @@ script = ExtResource("11_nxm0e")
 initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
-
-[sub_resource type="Resource" id="Resource_awkw0"]
-resource_local_to_scene = true
-script = ExtResource("9_pf33r")
-bitmap_cells = Array[Array]([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
-metadata/_custom_type_script = "uid://dc1ivcfx472fv"
-
-[sub_resource type="Resource" id="Resource_o4bic"]
-resource_local_to_scene = true
-script = ExtResource("10_jjd1d")
-canvas_rect = Rect2(0, 0, 144, 168)
-tile_size = 8
-metadata/_custom_type_script = "uid://dmjieybnk46lp"
-
-[sub_resource type="Resource" id="Resource_0yvql"]
-resource_local_to_scene = true
-script = ExtResource("11_a6nqb")
-ms_canvas = SubResource("Resource_o4bic")
-ms_bitmap = SubResource("Resource_awkw0")
-texture = ExtResource("21_eq3yf")
 
 [sub_resource type="Resource" id="Resource_lyhwm"]
 resource_local_to_scene = true
@@ -404,26 +344,6 @@ initial_health = 400.0
 faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
-[sub_resource type="Resource" id="Resource_ghcbc"]
-resource_local_to_scene = true
-script = ExtResource("9_pf33r")
-bitmap_cells = Array[Array]([[0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
-metadata/_custom_type_script = "uid://dc1ivcfx472fv"
-
-[sub_resource type="Resource" id="Resource_rbwdq"]
-resource_local_to_scene = true
-script = ExtResource("10_jjd1d")
-canvas_rect = Rect2(0, 0, 128, 168)
-tile_size = 8
-metadata/_custom_type_script = "uid://dmjieybnk46lp"
-
-[sub_resource type="Resource" id="Resource_5w8ns"]
-resource_local_to_scene = true
-script = ExtResource("11_a6nqb")
-ms_canvas = SubResource("Resource_rbwdq")
-ms_bitmap = SubResource("Resource_ghcbc")
-texture = ExtResource("20_8imtr")
-
 [node name="Level" type="Node2D" unique_id=350803456]
 process_mode = 1
 script = ExtResource("1_aegml")
@@ -504,7 +424,7 @@ disabled = true
 
 [node name="Asteroid" parent="GameArea/Node/E" unique_id=422262365 instance=ExtResource("7_3yk5t")]
 health_stats = SubResource("Resource_jfluk")
-generative_bundle = SubResource("Resource_ore3j")
+generative_bundle = ExtResource("17_ii217")
 mesh_deformation_shapes = Array[ExtResource("12_jjd1d")]([])
 
 [node name="Node2" type="Node2D" parent="GameArea" unique_id=698420488]
@@ -527,7 +447,7 @@ disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/S" unique_id=546022170 instance=ExtResource("7_3yk5t")]
 health_stats = SubResource("Resource_wt487")
-generative_bundle = SubResource("Resource_mob0t")
+generative_bundle = ExtResource("19_ii217")
 mesh_deformation_shapes = Array[ExtResource("12_jjd1d")]([])
 
 [node name="T" type="CollisionShape2D" parent="GameArea/Node2" unique_id=714864067]
@@ -547,7 +467,7 @@ disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/E" unique_id=1850937742 instance=ExtResource("7_3yk5t")]
 health_stats = SubResource("Resource_7knn6")
-generative_bundle = SubResource("Resource_0yvql")
+generative_bundle = ExtResource("17_ii217")
 mesh_deformation_shapes = Array[ExtResource("12_jjd1d")]([])
 
 [node name="R" type="CollisionShape2D" parent="GameArea/Node2" unique_id=1227453183]
@@ -597,7 +517,7 @@ disabled = true
 
 [node name="Asteroid" parent="GameArea/Node2/S2" unique_id=1250416435 instance=ExtResource("7_3yk5t")]
 health_stats = SubResource("Resource_xysy4")
-generative_bundle = SubResource("Resource_5w8ns")
+generative_bundle = ExtResource("19_ii217")
 mesh_deformation_shapes = Array[ExtResource("12_jjd1d")]([])
 
 [node name="PlayerSpawn" parent="." unique_id=90593702 instance=ExtResource("6_wytci")]

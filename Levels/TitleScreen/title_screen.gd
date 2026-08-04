@@ -23,8 +23,6 @@ func _ready() -> void:
 	controls_dialog.on_close.connect(_close_controls_dialog);
 	controls_dialog.center_in_viewport();
 
-	# TODO: Need to include a close button in controls dialog for use in title screen
-
 	super();
 
 func _on_player_die(player: Player) -> void:
