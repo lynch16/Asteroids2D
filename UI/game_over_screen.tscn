@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dolysnw8dpfk3"]
 
-[ext_resource type="Script" uid="uid://b2tp883vqyu0a" path="res://UI/end_play_screen.gd" id="1_w767k"]
+[ext_resource type="Script" path="res://UI/end_play_screen.gd" id="1_w767k"]
 [ext_resource type="FontFile" uid="uid://wcand475xq2m" path="res://UI/HUD/Settings/Assets/Fonts/Kenney Future Narrow.ttf" id="2_3u8xh"]
 [ext_resource type="LabelSettings" uid="uid://jn80rubv6hrf" path="res://UI/HUD/HUD_label_settings.tres" id="3_w3m40"]
 [ext_resource type="Texture2D" uid="uid://cvdgkq3jbndgq" path="res://UI/logo-white-new.svg" id="4_21hx0"]
