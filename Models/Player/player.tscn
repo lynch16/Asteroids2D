@@ -174,7 +174,7 @@ z_index = 1
 texture_filter = 1
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_onrkg")
-animation = &"blue"
+animation = &"red"
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
 }
