@@ -201,6 +201,9 @@ func _subtract(subtractive_bitmap: MS_Bitmap, subtractive_offset: Vector2i) -> A
 	var this_size := get_size();
 	var new_cells: Array[Array] = bitmap_cells.duplicate_deep();
 
+	if (bitmap.get_size().x == 0):
+		return new_cells;
+
 	for x in range(subtractive_size.x):
 		for y in range(subtractive_size.y):
 			var associated_bit := Vector2i(subtractive_offset.x + x, subtractive_offset.y + y);
