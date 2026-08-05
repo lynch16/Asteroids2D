@@ -14,8 +14,10 @@ extends Resource
 @export_group("Enemy Settings")
 @export var enemey_scene: PackedScene;
 ## How many enemies to spawn
-@export var num_enemies := 0;
+@export var possible_num_enemies := Vector2i(0, 0);
 ## How long to wait before spawning enemies
 @export var enemies_start_delay := 10.0;
 ## Hunters vs shoot at random place
 @export var enemy_hunters := false;
+## How many enemy groups to send
+@export var enemy_group_count := 0;

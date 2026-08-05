@@ -14,7 +14,8 @@ class_name MS_Editor extends Node2D
 @export var external_bitmap: BitMap:
 	set(val):
 		external_bitmap = val;
-		_load_bitmap();
+		if (generator):
+			_load_bitmap();
 
 @export_category("Save")
 @export_custom(PROPERTY_HINT_NONE, "suffix:.tres") var file_name: String = "test";

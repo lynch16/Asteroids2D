@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://cuu68osgjyfgx" path="res://Models/Asteroid/gravity_field.gd" id="3_0d2cp"]
 [ext_resource type="Script" uid="uid://wmd6w6j2858o" path="res://Models/EntityModules/Damage/combat_stats.gd" id="3_jywkw"]
 [ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="4_h8hu4"]
+[ext_resource type="Script" uid="uid://bvo0xe0yh18n3" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/circle_mesh_deformation_shape.gd" id="5_i50kp"]
 [ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="5_tml4o"]
-[ext_resource type="Script" uid="uid://deqvt75qdcfcl" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/slice_mesh_deformation_shape.gd" id="6_i50kp"]
 [ext_resource type="Script" uid="uid://duki344j0hw1o" path="res://TileMap/MarchingSquares/NEW/Core/Nodes/ms_generator.gd" id="7_tml4o"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="9_tsxo3"]
 [ext_resource type="Script" uid="uid://b3yfpesf7si0u" path="res://Models/EntityModules/Damage/Hurt/hit_hurtbox_2d.gd" id="11_i50kp"]
@@ -36,9 +36,22 @@ faction = 2
 metadata/_custom_type_script = "uid://d1adag40dhb61"
 
 [sub_resource type="Resource" id="Resource_yeyrc"]
-script = ExtResource("6_i50kp")
+script = ExtResource("5_i50kp")
+radius = 8
 damage = 1.0
-metadata/_custom_type_script = "uid://deqvt75qdcfcl"
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
+
+[sub_resource type="Resource" id="Resource_tml4o"]
+script = ExtResource("5_i50kp")
+radius = 16
+damage = 0.5
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
+
+[sub_resource type="Resource" id="Resource_i50kp"]
+script = ExtResource("5_i50kp")
+radius = 32
+damage = 0.25
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufyc"]
 resource_local_to_scene = true
@@ -50,7 +63,7 @@ collision_mask = 3
 script = ExtResource("1_i4x4e")
 combat_stats = SubResource("Resource_4ujrd")
 health_stats = SubResource("Resource_qdhb0")
-mesh_deformation_shapes = Array[ExtResource("5_tml4o")]([SubResource("Resource_yeyrc")])
+mesh_deformation_shapes = Array[ExtResource("5_tml4o")]([SubResource("Resource_yeyrc"), SubResource("Resource_tml4o"), SubResource("Resource_i50kp")])
 
 [node name="GravityField" type="Area2D" parent="." unique_id=2107640775]
 process_mode = 4
@@ -72,13 +85,11 @@ metadata/_custom_type_script = "uid://ckmcn5r0df3nm"
 
 [node name="HitboxGenerator" type="Node2D" parent="." unique_id=1366384108]
 script = ExtResource("7_tml4o")
-debug = null
 metadata/_custom_type_script = "uid://duki344j0hw1o"
 
 [node name="HurtboxGenerator" type="Node2D" parent="." unique_id=829988067 node_paths=PackedStringArray("collision_object")]
 script = ExtResource("7_tml4o")
 collision_object = NodePath("../Hurtbox2D")
-debug = null
 metadata/_custom_type_script = "uid://duki344j0hw1o"
 
 [node name="DebugBitmap" type="Node2D" parent="HurtboxGenerator" unique_id=1983122680]
@@ -97,7 +108,6 @@ metadata/_custom_type_script = "uid://b3yfpesf7si0u"
 unique_name_in_owner = true
 script = ExtResource("12_qdhb0")
 invincible_length = 0.4
-restart_on_new_damage = true
 metadata/_custom_type_script = "uid://l6occnfuxuon"
 
 [node name="ScoreDamageResult" type="Node" parent="Hurtbox2D" unique_id=760267701]

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LevelResource" format=3 uid="uid://d0bfba8t4bpnk"]
+
+[ext_resource type="PackedScene" uid="uid://bhivcoamxxg4n" path="res://Models/Enemy/enemy.tscn" id="1_ao3ra"]
+[ext_resource type="Script" uid="uid://bo5uwcqvj1ehh" path="res://Levels/Core/level_resource.gd" id="2_brrb6"]
+
+[resource]
+script = ExtResource("2_brrb6")
+num_starting_rocks = 5
+rock_throw_interval = 3.0
+num_rocks_to_throw = 10
+rock_thrower_start_delay = 5.0
+enemey_scene = ExtResource("1_ao3ra")
+possible_num_enemies = Vector2i(5, 5)
+enemy_hunters = true
+enemy_group_count = 5
+metadata/_custom_type_script = "uid://bo5uwcqvj1ehh"

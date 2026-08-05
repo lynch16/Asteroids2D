@@ -19,14 +19,13 @@ func on_init(p_damageable: Damageable) -> void:
 	timer.wait_time = invincible_length;
 	timer.timeout.connect(on_end);
 	add_child(timer);
-	_start_inv();
 	
 func on_damage(_damage_dealt: float, _dmgr: Node, _hit_position: Vector2, _hit_angle: float) -> bool:
 	if (_is_inv()):
 		return false;
 		
 	if (restart_on_new_damage):
-		_start_inv();
+		start_invincible();
 		
 	return true;
 
@@ -40,5 +39,5 @@ func _is_inv() -> bool:
 func _reset_inv() -> void:
 	timer.stop();
 	
-func _start_inv() -> void:
+func start_invincible() -> void:
 	timer.start();

@@ -23,6 +23,11 @@ func _init(
 func create_mesh() -> ArrayMesh:
 	_calculate_surface_array();
 	mesh = ArrayMesh.new();
+	if (surface_array[Mesh.ARRAY_VERTEX] is PackedVector2Array):
+		var array_vertex: PackedVector2Array = surface_array[Mesh.ARRAY_VERTEX];
+		if (array_vertex.size() == 0):
+			return mesh;
+
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array);
 
 	return mesh;

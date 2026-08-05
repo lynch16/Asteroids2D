@@ -22,10 +22,13 @@ signal degenerate();
 var created_resources: Array[Node2D] = [];
 
 func _ready() -> void:
+	if (generative_bundle):
+		generative_bundle = generative_bundle.duplicate_deep();
+	
 	if (debug):
 		debugger.source_bitmap = generative_bundle.ms_bitmap;
 		debugger.source_canvas = generative_bundle.ms_canvas;
-
+	
 func _process(_delta: float) -> void:
 	if (generative_bundle):
 		generative_bundle.ms_canvas.update(global_rotation);

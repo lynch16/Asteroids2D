@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b13huugitcogo" path="res://Models/utilities/GameManager.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://du4nnb206ggo4" path="res://Levels/Core/level.tscn" id="2_7mycd"]
-[ext_resource type="PackedScene" uid="uid://dwuumottdrlrs" path="res://Levels/TitleScreen/title_screen.tscn" id="2_efxa6"]
+[ext_resource type="PackedScene" uid="uid://pnxgjo4ay4kn" path="res://Levels/TitleScreen/inherited_title_screen.tscn" id="2_kq58d"]
 [ext_resource type="Script" uid="uid://bo5uwcqvj1ehh" path="res://Levels/Core/level_resource.gd" id="3_272bh"]
 [ext_resource type="PackedScene" uid="uid://dc4xstka1au80" path="res://UI/Pause/pause_menu.tscn" id="4_1bvp3"]
 [ext_resource type="Resource" uid="uid://c35p735bxy766" path="res://Levels/AsteroidLevels/level_1.tres" id="4_5vw27"]
@@ -11,13 +11,18 @@
 [ext_resource type="Resource" uid="uid://bkj5ff0ekfgp5" path="res://Levels/AsteroidLevels/level_3.tres" id="6_efxa6"]
 [ext_resource type="Resource" uid="uid://5mecektn7wh3" path="res://Levels/AsteroidLevels/level_4.tres" id="7_dg77c"]
 [ext_resource type="Resource" uid="uid://xpaviqs02jeu" path="res://Levels/AsteroidLevels/level_5.tres" id="8_ycdy4"]
+[ext_resource type="Resource" uid="uid://daeso2a5yc3ie" path="res://Levels/AsteroidLevels/level_6.tres" id="11_kq58d"]
 [ext_resource type="Resource" uid="uid://cwpyp4d8gta26" path="res://Models/Player/player_health_stats.tres" id="11_ryguw"]
 [ext_resource type="AudioStream" uid="uid://stbo21cv3rc2" path="res://Audio/Music/Deepness of Space [Action Loop].wav" id="12_2cqfq"]
 [ext_resource type="Script" uid="uid://1rc73f16d7y5" path="res://UI/music_player.gd" id="12_dg77c"]
+[ext_resource type="Resource" uid="uid://ddx0dcf8lm0j2" path="res://Levels/AsteroidLevels/level_7.tres" id="12_seu75"]
 [ext_resource type="AudioStream" uid="uid://665y47bnfi2n" path="res://Audio/Music/Into the Unknown [Action Loop].wav" id="12_w48qg"]
+[ext_resource type="Resource" uid="uid://dj36wbbqajkxx" path="res://Levels/AsteroidLevels/level_8.tres" id="13_htxhm"]
 [ext_resource type="AudioStream" uid="uid://73yiw5bk4rk" path="res://Audio/Music/Mystery Unveils [Action Loop].wav" id="13_vivmo"]
 [ext_resource type="AudioStream" uid="uid://hig3jqr0ymlo" path="res://Audio/Music/Star Formation [Ambient Loop].wav" id="13_yaehf"]
 [ext_resource type="AudioStream" uid="uid://c85vkolsv47wl" path="res://Audio/Music/Peaceful System [Ambient Loop].wav" id="14_074og"]
+[ext_resource type="Resource" uid="uid://d1eysftvtqhpf" path="res://Levels/AsteroidLevels/level_9.tres" id="14_jq2sk"]
+[ext_resource type="Resource" uid="uid://d0bfba8t4bpnk" path="res://Levels/AsteroidLevels/level_10.tres" id="15_4k2k6"]
 [ext_resource type="AudioStream" uid="uid://gtadbqrkpo64" path="res://Audio/Music/Bright Star [Ambient Loop].wav" id="15_cegan"]
 [ext_resource type="AudioStream" uid="uid://b4ivc4lhx5ore" path="res://Audio/Music/Antimatter Fountain [Action Loop].wav" id="18_getpj"]
 [ext_resource type="AudioStream" uid="uid://hd0ojwbft8v8" path="res://Audio/Music/Pulsar [Action Loop].wav" id="19_ryguw"]
@@ -116,10 +121,10 @@ Vector2i(1, 8): {
 [node name="GameManager" type="Node" unique_id=944017969]
 process_mode = 3
 script = ExtResource("1_h2yge")
-title_screen_scene = ExtResource("2_efxa6")
+title_screen_scene = ExtResource("2_kq58d")
 hud_scene = ExtResource("5_lquwl")
 level_scene = ExtResource("2_7mycd")
-levels = Array[ExtResource("3_272bh")]([ExtResource("4_5vw27"), ExtResource("5_4c57u"), ExtResource("6_efxa6"), ExtResource("7_dg77c"), ExtResource("8_ycdy4")])
+levels = Array[ExtResource("3_272bh")]([ExtResource("4_5vw27"), ExtResource("5_4c57u"), ExtResource("6_efxa6"), ExtResource("7_dg77c"), ExtResource("8_ycdy4"), ExtResource("11_kq58d"), ExtResource("12_seu75"), ExtResource("13_htxhm"), ExtResource("14_jq2sk"), ExtResource("15_4k2k6")])
 player_health = ExtResource("11_ryguw")
 
 [node name="PauseMenu" parent="." unique_id=1804450957 instance=ExtResource("4_1bvp3")]
