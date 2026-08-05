@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://doplsd1o4rtt6" path="res://sprites/backgrounds/Background_SmallStars-0001.png" id="5_rxof2"]
 
 [node name="SpaceBackground" type="Node2D" unique_id=1045910225]
-modulate = Color(0.5529556, 0.55295557, 0.55295557, 1)
 
 [node name="SpaceParallax2D" type="Parallax2D" parent="." unique_id=800418724]
 
