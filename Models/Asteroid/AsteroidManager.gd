@@ -5,7 +5,8 @@ extends Node
 var asteroid_bundles: Array[AsteroidBundleWeight] = [];
 
 var astreroid_scene := preload("uid://drhrxw7642nqd");
-var asteroid_count := 0;
+var current_asteroid_count := 0;
+var total_asteroid_count := 0;
 var spawn_parent_node: Node;
 
 var asteroid_launcher: Array[AsteroidLaunch] = [];
@@ -58,8 +59,10 @@ func shatter_asteroid(initial_aster: Asteroid, bundle: MS_GenerativeBundle) -> v
 func spawn_asteroid(bundle: MS_GenerativeBundle = null) -> Asteroid:
 	var asteroid: Asteroid = _create_asteroid(bundle);
 	# Need to be added within the navigation region
+	asteroid.name = "Asteroid_" + str(total_asteroid_count)
 	spawn_parent_node.add_child(asteroid);
-	asteroid_count += 1;
+	current_asteroid_count += 1;
+	total_asteroid_count += 1;
 	asteroid_created.emit();
 	return asteroid;
 
@@ -83,8 +86,11 @@ func _create_asteroid(bundle: MS_GenerativeBundle) -> Asteroid:
 	return asteroid;
 
 func get_asteroid_count() -> int:
-	return asteroid_count;
+	return current_asteroid_count;
+
+func reset_asteroid_count() -> void:
+	current_asteroid_count = 0;
 
 func _on_asteroid_destroyed() -> void:
-	asteroid_count -= 1;
+	current_asteroid_count -= 1;
 	asteroid_destroyed.emit();

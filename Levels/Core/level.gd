@@ -47,7 +47,8 @@ func _ready() -> void:
 	rock_throw_interval = level_settings.rock_throw_interval;
 	num_rocks_to_throw = level_settings.num_rocks_to_throw;
 	rock_thrower_start_delay = level_settings.rock_thrower_start_delay;
-	AsteroidManager.asteroid_count = 0;
+	AsteroidManager.reset_asteroid_count();
+	EnemyManager.reset_enemy_count();
 	enemey_scene = level_settings.enemey_scene;
 	possible_num_enemies = level_settings.possible_num_enemies;
 	enemy_group_count = level_settings.enemy_group_count;
@@ -64,7 +65,6 @@ func _ready() -> void:
 		enemy_groups.append(num_enemies);
 		total_enemies_required += num_enemies;
 
-	print("total_enemies_required: ", total_enemies_required)
 	enter();
 
 func enter() -> void:
@@ -134,7 +134,7 @@ func _are_all_rocks_thrown() -> bool:
 func _check_win_condition() -> void:
 	if (
 		AsteroidManager.get_asteroid_count() <= 0 &&
-		_are_all_rocks_thrown() && # TODO: Should they have to wait for all rocks to be thrown if they cleared the screen?
+		_are_all_rocks_thrown() && 
 		EnemyManager.get_enemy_count() <= 0
 	):
 		is_active = false;
