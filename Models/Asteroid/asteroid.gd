@@ -35,7 +35,6 @@ func _ready() -> void:
 
 	health_stats.resource_local_to_scene = true;
 	combat_stats.resource_local_to_scene = true;
-	generative_bundle.resource_local_to_scene = true;
 
 	hurtbox_generator.generate_new.connect(_shatter);
 	hurtbox_generator.degenerate.connect(_destroy);
