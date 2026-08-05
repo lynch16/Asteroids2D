@@ -115,6 +115,9 @@ func _on_start_rocks_timer_timeout() -> void:
 		rock_thrower.start();
 
 func _on_start_enemies_timer_timeout() -> void:
+	if (enemy_groups.size() == 0):
+		return;
+		
 	var num_enemies := enemy_groups[current_enemy_group_count];
 	var spawn_group := EnemySpawnGroup.new(num_enemies);
 	if (enemy_hunters):
