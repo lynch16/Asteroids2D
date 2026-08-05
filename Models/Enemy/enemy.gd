@@ -16,8 +16,6 @@ signal target_acquired(target: Node2D);
 func _enter_tree() -> void:
 	super();
 	hurtbox = %Hurtbox2D;
-	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
-	hurtbox.shape = collision_shape.shape;
 	hurtbox.health_stats = health_stats;
 
 func get_patrol_state() -> PatrolState:
