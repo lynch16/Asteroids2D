@@ -6,6 +6,8 @@ var bake_timeout := 1.0;
 
 var viewport_buffer := 400.0;
 
+@onready var enemy_pool: Node2D = $EnemyPool;
+@onready var asteroid_pool: Node2D = $AsteroidPool;
 
 func _ready() -> void:
 	if navigation_polygon == null:
@@ -19,8 +21,8 @@ func _ready() -> void:
 		])
 		navigation_polygon.add_outline(vertices);
 
-	AsteroidManager.set_spawn_parent_node(self);
-	EnemyManager.set_spawn_parent_node(self);
+	AsteroidManager.set_spawn_parent_node(asteroid_pool);
+	EnemyManager.set_spawn_parent_node(enemy_pool);
 
 func _physics_process(delta: float) -> void:
 	timer += delta;

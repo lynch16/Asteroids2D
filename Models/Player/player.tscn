@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bsfnrmutub50v" path="res://Models/EntityModules/Weapons/Weapons/Cannons/cannon_weapon.tscn" id="7_mdxrt"]
 [ext_resource type="Script" uid="uid://l6occnfuxuon" path="res://Models/EntityModules/Damage/Hurt/DamageResults/invincible_frames_damage_result.gd" id="9_o3uiv"]
 [ext_resource type="Script" uid="uid://ckmcn5r0df3nm" path="res://Models/utilities/BoundaryManager/boundary_manager.gd" id="9_o7pk3"]
+[ext_resource type="Script" uid="uid://b3yfpesf7si0u" path="res://Models/EntityModules/Damage/Hurt/hit_hurtbox_2d.gd" id="10_jb2ds"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="10_m1agk"]
-[ext_resource type="Script" uid="uid://cuecudo47i27o" path="res://Models/EntityModules/Damage/Hurt/hurtbox_2d.gd" id="10_o7pk3"]
 [ext_resource type="Script" uid="uid://dkorgdk4bdefl" path="res://Models/Animations/thrust_animations.gd" id="11_f3ot7"]
 [ext_resource type="AudioStream" uid="uid://dqsnnia8nyxxq" path="res://Audio/SoundEffects/Sci-Fi Spaceship Engine Loop 3.wav" id="13_r6kw6"]
 [ext_resource type="Script" uid="uid://bkqqxy4geuo3l" path="res://Models/EntityModules/Damage/Hurt/DamageResults/sfx_damage_result.gd" id="13_utqtg"]
@@ -220,14 +220,14 @@ weapon_to_equip = ExtResource("7_mdxrt")
 character = NodePath("..")
 metadata/_custom_type_script = "uid://tw3rerqdtlqi"
 
-[node name="Hurtbox2D" type="Area2D" parent="." unique_id=1821236986 node_paths=PackedStringArray("owner_node")]
+[node name="Hurtbox2D" type="Area2D" parent="." unique_id=1532697725 node_paths=PackedStringArray("owner_node")]
 unique_name_in_owner = true
 rotation = 1.5707964
 collision_mask = 0
-script = ExtResource("10_o7pk3")
+script = ExtResource("10_jb2ds")
 health_stats = SubResource("Resource_wbkmi")
 owner_node = NodePath("..")
-metadata/_custom_type_script = "uid://cuecudo47i27o"
+metadata/_custom_type_script = "uid://b3yfpesf7si0u"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2D" unique_id=1088582691]
 shape = SubResource("ConvexPolygonShape2D_sh265")
@@ -279,6 +279,7 @@ shake_length = 0.2
 metadata/_custom_type_script = "uid://7pw27byl1g0r"
 
 [node name="BoundaryManager" type="Node2D" parent="." unique_id=1520790136 node_paths=PackedStringArray("node")]
+position = Vector2(-4, 0)
 script = ExtResource("9_o7pk3")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://ckmcn5r0df3nm"
@@ -307,7 +308,8 @@ metadata/_custom_type_script = "uid://v4gqslu6ep4x"
 wait_time = 3.0
 one_shot = true
 
-[connection signal="input_boost" from="MovementController/InputController" to="MovementController" method="boost_forward"]
+[connection signal="input_boost_end" from="MovementController/InputController" to="MovementController" method="_boost_off"]
+[connection signal="input_boost_start" from="MovementController/InputController" to="MovementController" method="_boost_on"]
 [connection signal="input_left" from="MovementController/InputController" to="MovementController" method="yaw_left"]
 [connection signal="input_right" from="MovementController/InputController" to="MovementController" method="yaw_right"]
 [connection signal="input_up" from="MovementController/InputController" to="MovementController" method="move_forward"]

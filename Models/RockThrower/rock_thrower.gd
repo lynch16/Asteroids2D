@@ -19,6 +19,7 @@ func stop() -> void:
 
 func throw_rock() -> void:
 	var rock := AsteroidManager.spawn_asteroid();
+	rock.start_invincible();
 	set_start_position_velocity(rock);
 	on_throw_rock.emit();
 	

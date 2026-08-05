@@ -3,6 +3,8 @@ extends SpawnableCharacter2D
 
 @export var health_stats: HealthStats;
 @export var combat_stats: CombatStats;
+@export var collision_combat_stats: CombatStats;
+@export var mesh_deformation_shapes: Array[MeshDeformationShape]
 
 @onready var move_controller: NavCharacterMovementController = get_node("NavCharacterMovementController");
 @onready var vision_area: VisionArea = get_node("VisionArea");
@@ -16,9 +18,11 @@ signal target_acquired(target: Node2D);
 func _enter_tree() -> void:
 	super();
 	hurtbox = %Hurtbox2D;
-	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
-	hurtbox.shape = collision_shape.shape;
 	hurtbox.health_stats = health_stats;
+
+	if (hurtbox is HitHurtbox2D):
+		var hithurtbox: HitHurtbox2D = hurtbox;
+		hithurtbox.combat_stats = collision_combat_stats;
 
 func get_patrol_state() -> PatrolState:
 	return ($StateMachine/PatrolState as PatrolState);
@@ -44,6 +48,9 @@ func set_start_velocity(_velocity: Vector2) -> void:
 	move_controller.update_nav_velocity(_velocity);
 
 func _die() -> void:
+	move_controller.process_mode = Node.PROCESS_MODE_DISABLED;
+	var sprite: AnimatedSprite2D = $AnimatedSprite2D;
+	sprite.hide();
 	get_tree().create_timer(1.0, false).timeout.connect(queue_free);
 
 func enable_dequeue_off_screen() -> void:

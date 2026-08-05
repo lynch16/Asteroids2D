@@ -26,6 +26,10 @@ unique_name_in_owner = true
 navigation_polygon = SubResource("NavigationPolygon_fk8qc")
 script = ExtResource("4_bcvyo")
 
+[node name="EnemyPool" type="Node2D" parent="GameArea" unique_id=2059879412]
+
+[node name="AsteroidPool" type="Node2D" parent="GameArea" unique_id=1619575839]
+
 [node name="PlayerSpawn" parent="." unique_id=90593702 instance=ExtResource("5_fk8qc")]
 unique_name_in_owner = true
 position = Vector2(473, 570)

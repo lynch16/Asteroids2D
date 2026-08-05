@@ -20,10 +20,6 @@ signal player_died(player: Player);
 
 func _enter_tree() -> void:
 	hurtbox = %Hurtbox2D;
-	# TODO: I think CollisionShape2D for the Hurtbox is being duplicated 2x
-	# There should be a collision shape for the physics body under the Character and for the Area for Hit/Hurboxes
-	var collision_shape: CollisionShape2D = get_node("CollisionShape2D");
-	hurtbox.shape = collision_shape.shape;
 	hurtbox.health_stats = health_stats;
 
 func _ready() -> void:

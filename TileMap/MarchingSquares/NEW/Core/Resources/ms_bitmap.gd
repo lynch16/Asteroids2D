@@ -40,8 +40,14 @@ func set_cell(x: int, y: int, value: float) -> void:
 	bitmap.set_bit(x, y, _above_cutoff(value));
 
 func get_cell(x: int, y: int) -> float:
+	if (x > bitmap_cells.size() - 1):
+		return 0;
+
 	var row := bitmap_cells[x];
 	if (!row): 
+		return 0;
+
+	if (y > bitmap_cells[x].size() - 1):
 		return 0;
 
 	return bitmap_cells[x][y];
@@ -194,6 +200,9 @@ func _subtract(subtractive_bitmap: MS_Bitmap, subtractive_offset: Vector2i) -> A
 	var subtractive_size := subtractive_bitmap.get_size();
 	var this_size := get_size();
 	var new_cells: Array[Array] = bitmap_cells.duplicate_deep();
+
+	if (bitmap.get_size().x == 0):
+		return new_cells;
 
 	for x in range(subtractive_size.x):
 		for y in range(subtractive_size.y):

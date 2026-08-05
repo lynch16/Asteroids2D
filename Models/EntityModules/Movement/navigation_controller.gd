@@ -57,8 +57,6 @@ func _physics_process(delta: float) -> void:
 	if (hard_burn != movement_controller.movement_stats.hard_turn_ratio):
 		# TODO: Determine when to slow down
 		movement_controller.move_forward(delta);
-	else:
-		print("HARD BURN")
 
 func update_nav_target(movement_target: Vector2) -> void:
 	nav_agent.target_position = movement_target;

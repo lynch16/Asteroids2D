@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://ccmuearcodtas" path="res://Models/Enemy/enemy.gd" id="1_pipm3"]
 [ext_resource type="Script" uid="uid://wmd6w6j2858o" path="res://Models/EntityModules/Damage/combat_stats.gd" id="2_eowg7"]
-[ext_resource type="Script" uid="uid://cuecudo47i27o" path="res://Models/EntityModules/Damage/Hurt/hurtbox_2d.gd" id="2_p7ovo"]
 [ext_resource type="Script" uid="uid://d1adag40dhb61" path="res://Models/EntityModules/Damage/health_stats.gd" id="2_s2vdc"]
+[ext_resource type="Script" uid="uid://b3yfpesf7si0u" path="res://Models/EntityModules/Damage/Hurt/hit_hurtbox_2d.gd" id="4_5x7pv"]
 [ext_resource type="Script" uid="uid://dlprwkxy5ex8f" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/patrol_attack_transition.gd" id="4_ebih1"]
+[ext_resource type="Script" uid="uid://cygds17dquvpr" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/mesh_deformation_shape.gd" id="4_mpe44"]
+[ext_resource type="Script" uid="uid://bvo0xe0yh18n3" path="res://TileMap/MarchingSquares/GameObjects/MeshDeformationShapes/circle_mesh_deformation_shape.gd" id="5_btyu7"]
 [ext_resource type="PackedScene" uid="uid://tjlvf8cvvy0p" path="res://Models/EntityModules/Movement/vision_area.tscn" id="5_mb64x"]
 [ext_resource type="Script" uid="uid://c81h2p2qstl63" path="res://Models/EntityModules/AI/HFSM/EnemyNPC/patrol_state.gd" id="5_p7ovo"]
 [ext_resource type="Script" uid="uid://dhchi74lu51yr" path="res://Models/EntityModules/Damage/Hurt/DamageResults/apply_damage_result.gd" id="5_u1nat"]
@@ -39,6 +41,18 @@ metadata/_custom_type_script = "uid://d1adag40dhb61"
 resource_local_to_scene = true
 script = ExtResource("2_eowg7")
 faction = 1
+
+[sub_resource type="Resource" id="Resource_5x7pv"]
+script = ExtResource("2_eowg7")
+damage_dealt = 50.0
+faction = 1
+metadata/_custom_type_script = "uid://wmd6w6j2858o"
+
+[sub_resource type="Resource" id="Resource_kjuir"]
+script = ExtResource("5_btyu7")
+radius = 8
+damage = 1.0
+metadata/_custom_type_script = "uid://bvo0xe0yh18n3"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eowg7"]
 size = Vector2(14.5, 18.5)
@@ -163,15 +177,17 @@ collision_mask = 5
 script = ExtResource("1_pipm3")
 health_stats = SubResource("Resource_l403r")
 combat_stats = SubResource("Resource_eowg7")
+collision_combat_stats = SubResource("Resource_5x7pv")
+mesh_deformation_shapes = Array[ExtResource("4_mpe44")]([SubResource("Resource_kjuir")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1339700338]
 shape = SubResource("RectangleShape2D_eowg7")
 
-[node name="Hurtbox2D" type="Area2D" parent="." unique_id=1447978395 node_paths=PackedStringArray("owner_node")]
+[node name="Hurtbox2D" type="Area2D" parent="." unique_id=1409422915 node_paths=PackedStringArray("owner_node")]
 unique_name_in_owner = true
-script = ExtResource("2_p7ovo")
+script = ExtResource("4_5x7pv")
 owner_node = NodePath("..")
-metadata/_custom_type_script = "uid://cuecudo47i27o"
+metadata/_custom_type_script = "uid://b3yfpesf7si0u"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2D" unique_id=1333636303]
 shape = SubResource("RectangleShape2D_l403r")
@@ -188,6 +204,7 @@ metadata/_custom_type_script = "uid://yp8x320gf3ox"
 [node name="DeathSfxDamageResult" type="Node" parent="Hurtbox2D" unique_id=1296475006 node_paths=PackedStringArray("audio_stream")]
 script = ExtResource("9_8ik7f")
 position_particles_at_hit_location = true
+sfx_lifetime = 0.5
 particles_scene = ExtResource("8_5x7pv")
 audio_stream = NodePath("AudioStreamPlayer2D")
 metadata/_custom_type_script = "uid://l3f2bsi7sp6n"

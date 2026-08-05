@@ -34,7 +34,12 @@ func play_level_music() -> void:
 	_transition_music(current_level_music);
 
 func play_next_level_music(level_index: int) -> void:
-	current_level_music = LEVEL_INDEX.values()[level_index];
+	var all_levels: Array = LEVEL_INDEX.values();
+	# Pick a random level music if there is none specified for the level
+	if (level_index >= all_levels.size()):
+		level_index = randi_range(0, all_levels.size() - 1);
+
+	current_level_music = all_levels[level_index];
 	play_level_music();
 
 func play_title_music() -> void:

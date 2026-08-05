@@ -6,6 +6,6 @@ extends Node
 
 func _process(_delta: float) -> void:
 	fps_value.text = str(Engine.get_frames_per_second());
-	num_asteroids_value.text = str(AsteroidManager.asteroid_count);
+	num_asteroids_value.text = str(AsteroidManager.get_asteroid_count());
 	var mouse_down_position := get_viewport().get_mouse_position();
 	mouse_position_label.text = str(mouse_down_position);
