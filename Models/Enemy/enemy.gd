@@ -3,6 +3,8 @@ extends SpawnableCharacter2D
 
 @export var health_stats: HealthStats;
 @export var combat_stats: CombatStats;
+@export var collision_combat_stats: CombatStats;
+@export var mesh_deformation_shapes: Array[MeshDeformationShape]
 
 @onready var move_controller: NavCharacterMovementController = get_node("NavCharacterMovementController");
 @onready var vision_area: VisionArea = get_node("VisionArea");
@@ -17,6 +19,10 @@ func _enter_tree() -> void:
 	super();
 	hurtbox = %Hurtbox2D;
 	hurtbox.health_stats = health_stats;
+
+	if (hurtbox is HitHurtbox2D):
+		var hithurtbox: HitHurtbox2D = hurtbox;
+		hithurtbox.combat_stats = collision_combat_stats;
 
 func get_patrol_state() -> PatrolState:
 	return ($StateMachine/PatrolState as PatrolState);
