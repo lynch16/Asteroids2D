@@ -45,6 +45,7 @@ func _load_title_screen() -> void:
 	var title_screen: TitleScreen = title_screen_scene.instantiate();
 	title_screen.start.connect(on_start);
 	title_screen.exit_game.connect(_exit_game);
+	title_screen.name = "Title Screen";
 	add_child(title_screen);
 	active_level = title_screen;
 
@@ -61,6 +62,7 @@ func on_start() -> void:
 	current_level_idx = starting_level_idx;
 	player_lives = starting_player_lives;
 	hud = hud_scene.instantiate();
+	hud.name = "HUD";
 	add_child(hud);
 	game_start.emit();
 	player_lives_updated.emit(player_lives);
@@ -99,6 +101,7 @@ func start_next_level(reset_player_health: bool = false) -> void:
 	music_player.play_next_level_music(current_level_idx);
 
 	active_level = new_level;
+	new_level.name = "Level_" + str(current_level_idx);
 	add_child(active_level);
 	new_level.win_condition_met.connect(_play_win_music);
 	new_level.lose_condition_met.connect(on_player_died);
