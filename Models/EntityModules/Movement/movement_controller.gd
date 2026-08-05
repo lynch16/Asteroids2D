@@ -24,6 +24,7 @@ var on_flip_complete: Callable;
 var is_boosting := false;
 var is_boost_recharging := false;
 var boost_needs_recharge := false;
+var boost_enabled := false;
 
 var is_rubber_banding := false;
 
@@ -63,10 +64,7 @@ func _physics_process(delta: float) -> void:
 		
 	is_boosting = false;
 
-func move_forward(delta: float) -> void:
-	# Apply acceleration to max speed in direction facing
-	acceleration = Vector2(movement_stats.acceleration, 0).rotated(ship_direction) * delta;
-	
+
 func _recharge_boost_energy(delta: float) -> void:
 	_update_ship_energy(movement_stats.current_energy + movement_stats.boost_recharge_speed * delta);
 	if (is_equal_approx(movement_stats.current_energy, movement_stats.max_energy)):
@@ -94,10 +92,21 @@ func _update_ship_energy(new_energy: float) -> void:
 	movement_stats.current_energy = new_energy;
 	energy_updated.emit(movement_stats.current_energy);
 
-func boost_forward(delta: float) -> void:
-	if (movement_stats.current_energy <= movement_stats.min_energy):
+func _boost_on() -> void:
+	boost_enabled = true;
+func _boost_off() -> void:
+	boost_enabled = false;
+
+func move_forward(delta: float) -> void:
+	if (boost_enabled && !is_equal_approx(movement_stats.current_energy, movement_stats.min_energy)):
+		boost_forward(delta);
 		return;
 
+	# Apply acceleration to max speed in direction facing
+	acceleration = Vector2(movement_stats.acceleration, 0).rotated(ship_direction) * delta;
+	
+
+func boost_forward(delta: float) -> void:
 	is_boosting = true;
 	is_boost_recharging = false;
 	boost_needs_recharge = true;

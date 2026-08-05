@@ -307,7 +307,8 @@ metadata/_custom_type_script = "uid://v4gqslu6ep4x"
 wait_time = 3.0
 one_shot = true
 
-[connection signal="input_boost" from="MovementController/InputController" to="MovementController" method="boost_forward"]
+[connection signal="input_boost_end" from="MovementController/InputController" to="MovementController" method="_boost_off"]
+[connection signal="input_boost_start" from="MovementController/InputController" to="MovementController" method="_boost_on"]
 [connection signal="input_left" from="MovementController/InputController" to="MovementController" method="yaw_left"]
 [connection signal="input_right" from="MovementController/InputController" to="MovementController" method="yaw_right"]
 [connection signal="input_up" from="MovementController/InputController" to="MovementController" method="move_forward"]

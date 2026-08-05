@@ -6,7 +6,7 @@ class_name ControlDetailsContainer extends MarginContainer
 @onready var w: Label = $W;
 @onready var a: Label = $A;
 @onready var d: Label = $D;
-@onready var r: Label = $R;
+@onready var shift: Label = $Shift;
 @onready var space: Label = $Space;
 
 var selected_label: Label;
@@ -18,7 +18,7 @@ func _ready() -> void:
 	w.modulate.a = 0.0;
 	a.modulate.a = 0.0;
 	d.modulate.a = 0.0;
-	r.modulate.a = 0.0;
+	shift.modulate.a = 0.0;
 	space.modulate.a = 0.0;
 
 	selected_label = overview;
@@ -35,8 +35,8 @@ func show_a() -> void:
 func show_d() -> void:
 	_show_label(d);
 
-func show_r() -> void:
-	_show_label(r);
+func show_shift() -> void:
+	_show_label(shift);
 	
 func show_space() -> void:
 	_show_label(space);
