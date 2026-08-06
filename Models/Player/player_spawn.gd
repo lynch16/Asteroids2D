@@ -4,7 +4,7 @@ extends Node2D
 @export var player_scene: PackedScene;
 @export var spawn_delay := 1.0;
 
-var init_player_speed := 0.5;
+var init_player_speed := 1.0;
 
 @onready var particles: GPUParticles2D = $GPUParticles2D;
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D;
