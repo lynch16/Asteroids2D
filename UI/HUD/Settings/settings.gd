@@ -45,16 +45,17 @@ func center_in_viewport() -> void:
 	global_position = Vector2((viewport.size.x - sprite_rect.size.x)/2, (viewport.size.y - sprite_rect.size.y)/2);
 
 func _load() -> void:
-	var existing_settings: SettingsResource = ResourceLoader.load(SAVE_PATH);
-	if (existing_settings):
-		resolution_option_idx = resolution_options.find_custom(
-			func(opt: ResolutionOptions) -> bool:
-				if (opt.size == existing_settings.resolution):
-					return true;
-				return false;
-		);
-		fullscreen = existing_settings.fullscreen;
-		volume_value = existing_settings.volume_value;
+	if (ResourceLoader.exists(SAVE_PATH)):
+		var existing_settings: SettingsResource = ResourceLoader.load(SAVE_PATH);
+		if (existing_settings):
+			resolution_option_idx = resolution_options.find_custom(
+				func(opt: ResolutionOptions) -> bool:
+					if (opt.size == existing_settings.resolution):
+						return true;
+					return false;
+			);
+			fullscreen = existing_settings.fullscreen;
+			volume_value = existing_settings.volume_value;
 
 	volume_slider.value = volume_value;
 	_on_volume_changed(volume_value, false);

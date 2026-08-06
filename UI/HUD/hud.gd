@@ -7,6 +7,7 @@ var viewport_size: Vector2;
 
 @onready var debug_controls: Control = get_node("DebugHUD");
 @onready var score_value: Label = get_node("RuntimeHUD/VBoxContainer/MarginContainer/HBoxContainer/Score_Value");
+@onready var gold_medal: TextureRect = %GoldMedal;
 @onready var level_announce: Label = get_node("RuntimeHUD/BoxContainer/LevelAnnounce");
 @onready var game_manager: GameManager = get_node_or_null("/root/GameManager");
 @onready var lives_container: BoxContainer = %LivesContainer;
@@ -24,6 +25,7 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_update_viewport_size);
 	
 	ScoreManager.score_updated.connect(_update_score_view);
+	ScoreManager.new_high_score.connect(_on_new_high_score);
 	SignalBus.player_health_updated.connect(_update_health_view);
 	SignalBus.player_energy_updated.connect(_update_energy_view);
 	
@@ -74,3 +76,8 @@ func _announce_level_start(level_index: int, _level: Level) -> void:
 	# Optional: Free the label or disable it once the fade is complete
 	await tween.finished
 	level_announce.hide();
+
+func _on_new_high_score(_new_score: int) -> void:
+	if (gold_medal.hidden):
+		gold_medal.show();
+		gold_medal.process_mode = Node.PROCESS_MODE_INHERIT;

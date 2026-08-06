@@ -6,6 +6,8 @@ class_name TitleScreen extends Level
 @onready var exit_button: AreaButton = $GameArea/ExitButton;
 @onready var settings: Settings = $Settings;
 @onready var controls_dialog: ControlsDialog = $ControlsDialog;
+@onready var high_score_container: HBoxContainer = %HighScoreContainer;
+@onready var high_score_value: Label = %HighScoreValue;
 
 var dialog_open := false;
 
@@ -22,6 +24,11 @@ func _ready() -> void:
 	settings.center_in_viewport();
 	controls_dialog.on_close.connect(_close_controls_dialog);
 	controls_dialog.center_in_viewport();
+
+	var high_score := ScoreManager.get_high_score();
+	if (high_score > 0):
+		high_score_container.show();
+		high_score_value.text = str(high_score);
 
 	super();
 
