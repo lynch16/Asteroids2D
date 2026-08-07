@@ -1,14 +1,57 @@
 [gd_scene format=3 uid="uid://dolysnw8dpfk3"]
 
-[ext_resource type="Script" path="res://UI/end_play_screen.gd" id="1_w767k"]
+[ext_resource type="Script" uid="uid://b2tp883vqyu0a" path="res://UI/end_play_screen.gd" id="1_w767k"]
 [ext_resource type="FontFile" uid="uid://wcand475xq2m" path="res://UI/HUD/Settings/Assets/Fonts/Kenney Future Narrow.ttf" id="2_3u8xh"]
 [ext_resource type="LabelSettings" uid="uid://jn80rubv6hrf" path="res://UI/HUD/HUD_label_settings.tres" id="3_w3m40"]
 [ext_resource type="Texture2D" uid="uid://cvdgkq3jbndgq" path="res://UI/logo-white-new.svg" id="4_21hx0"]
 [ext_resource type="PackedScene" uid="uid://bicxv587ry1jt" path="res://UI/HUD/Settings/Assets/settings_button.tscn" id="5_jyx8y"]
+[ext_resource type="Texture2D" uid="uid://b4mwe55te5ujx" path="res://UI/HUD/Gold Medal/Gold01.png" id="5_ueroc"]
+[ext_resource type="Texture2D" uid="uid://36qolpuj3hdg" path="res://UI/HUD/Gold Medal/Gold02.png" id="6_t2ycn"]
+[ext_resource type="Texture2D" uid="uid://dmuxiroi4s7as" path="res://UI/HUD/Gold Medal/Gold11.png" id="7_qvsni"]
+[ext_resource type="Texture2D" uid="uid://cinvr68r3mlkm" path="res://UI/HUD/Gold Medal/Gold12.png" id="8_wqh73"]
+[ext_resource type="Texture2D" uid="uid://ps5jjc123gns" path="res://UI/HUD/Gold Medal/Gold13.png" id="9_f00q7"]
+[ext_resource type="Texture2D" uid="uid://cr708bu3fnua8" path="res://UI/HUD/Gold Medal/Gold03.png" id="10_e1tcm"]
+[ext_resource type="Texture2D" uid="uid://6wvk0eegwqhu" path="res://UI/HUD/Gold Medal/Gold04.png" id="11_m01cc"]
+[ext_resource type="Texture2D" uid="uid://b6m1j264p7rx4" path="res://UI/HUD/Gold Medal/Gold05.png" id="12_gw1er"]
+[ext_resource type="Texture2D" uid="uid://diahrcfevjfp3" path="res://UI/HUD/Gold Medal/Gold06.png" id="13_hmmg7"]
+[ext_resource type="Texture2D" uid="uid://sansn1scpboc" path="res://UI/HUD/Gold Medal/Gold07.png" id="14_sjirl"]
+[ext_resource type="Texture2D" uid="uid://dufry20nkuy1w" path="res://UI/HUD/Gold Medal/Gold08.png" id="15_td6xq"]
+[ext_resource type="Texture2D" uid="uid://52wn7ybegpo8" path="res://UI/HUD/Gold Medal/Gold09.png" id="16_uwbl3"]
+[ext_resource type="Texture2D" uid="uid://c45ren7lxhpf8" path="res://UI/HUD/Gold Medal/Gold10.png" id="17_g026u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7c84e"]
 font = ExtResource("2_3u8xh")
 font_size = 64
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_bb4bu"]
+frames = 13
+one_shot = true
+frame_0/texture = ExtResource("5_ueroc")
+frame_0/duration = 0.07
+frame_1/texture = ExtResource("6_t2ycn")
+frame_1/duration = 0.07
+frame_2/texture = ExtResource("10_e1tcm")
+frame_2/duration = 0.07
+frame_3/texture = ExtResource("11_m01cc")
+frame_3/duration = 0.07
+frame_4/texture = ExtResource("12_gw1er")
+frame_4/duration = 0.07
+frame_5/texture = ExtResource("13_hmmg7")
+frame_5/duration = 0.07
+frame_6/texture = ExtResource("14_sjirl")
+frame_6/duration = 0.07
+frame_7/texture = ExtResource("15_td6xq")
+frame_7/duration = 0.07
+frame_8/texture = ExtResource("16_uwbl3")
+frame_8/duration = 0.07
+frame_9/texture = ExtResource("17_g026u")
+frame_9/duration = 0.07
+frame_10/texture = ExtResource("7_qvsni")
+frame_10/duration = 0.07
+frame_11/texture = ExtResource("8_wqh73")
+frame_11/duration = 0.07
+frame_12/texture = ExtResource("9_f00q7")
+frame_12/duration = 0.07
 
 [node name="GameOverScreen" type="Node2D" unique_id=473307949]
 script = ExtResource("1_w767k")
@@ -59,6 +102,34 @@ size_flags_vertical = 4
 texture_normal = ExtResource("4_21hx0")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="HighScoreContainer" type="MarginContainer" parent="BoxContainer/HBoxContainer/VBoxContainer" unique_id=158398461]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer/HBoxContainer/VBoxContainer/HighScoreContainer" unique_id=129838268]
+layout_mode = 2
+alignment = 1
+
+[node name="GoldMedal" type="TextureRect" parent="BoxContainer/HBoxContainer/VBoxContainer/HighScoreContainer/HBoxContainer" unique_id=266114201]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AnimatedTexture_bb4bu")
+stretch_mode = 2
+
+[node name="HighScoreLabel" type="Label" parent="BoxContainer/HBoxContainer/VBoxContainer/HighScoreContainer/HBoxContainer" unique_id=10144366]
+layout_mode = 2
+text = "High Score:"
+label_settings = ExtResource("3_w3m40")
+
+[node name="HighScoreValue" type="Label" parent="BoxContainer/HBoxContainer/VBoxContainer/HighScoreContainer/HBoxContainer" unique_id=319769107]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+label_settings = ExtResource("3_w3m40")
 
 [node name="TitleButton" parent="." unique_id=789434949 instance=ExtResource("5_jyx8y")]
 unique_name_in_owner = true
