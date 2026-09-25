@@ -32,7 +32,7 @@ func add_score(score_increment: int) -> void:
 		high_score.high_score = _score;
 		_on_new_high_score();
 	
-func _reset_score() -> void:
+func reset_score() -> void:
 	_score = 0;
 	score_updated.emit(_score);
 

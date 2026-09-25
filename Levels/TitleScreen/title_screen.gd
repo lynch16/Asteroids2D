@@ -37,6 +37,7 @@ func _on_player_die(player: Player) -> void:
 	player_spawn.spawn_player(_on_player_die);
 
 func _start() -> void:
+	if (dialog_open): return;
 	start.emit();
 
 func _open_options() -> void:
@@ -47,6 +48,7 @@ func _open_options() -> void:
 	settings.open();
 
 func _exit_game() -> void:
+	if (dialog_open): return;
 	exit_game.emit();
 	
 func _close_options() -> void:

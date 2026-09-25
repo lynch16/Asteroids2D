@@ -9,7 +9,7 @@ var is_in_screen := false;
 var allow_enter_screen_wait := 10.0;
 
 func _enter_tree() -> void:
-	get_tree().create_timer(allow_enter_screen_wait).timeout.connect(_force_in_screen);
+	get_tree().create_timer(allow_enter_screen_wait, false).timeout.connect(_force_in_screen);
 
 func _physics_process(_delta: float) -> void:
 	var screen_size := get_viewport_rect().size;
