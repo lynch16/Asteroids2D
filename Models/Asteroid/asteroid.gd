@@ -43,8 +43,28 @@ func _ready() -> void:
 	invincible_damage_result.init.connect(_disable_colliders);
 	invincible_damage_result.end.connect(_enable_colliders);
 
+	var boundary_manager: BoundaryManager = $BoundaryManager;
+	boundary_manager.set_position_calculator(_get_collision_center)
+
 	## Dont kill with health b/c these are rocks that dont have health
 	# health_stats.on_health_depleted.connect(_destroy);
+
+func _get_collision_center() -> Vector2:
+	var all_points: PackedVector2Array = [];
+	var center := Vector2.ZERO;
+
+	for child in hurtbox.get_children():
+		if (child is CollisionPolygon2D):
+			var collider: CollisionPolygon2D = child;
+			var polygon := collider.polygon;
+			for point in polygon:
+				var global_point := to_global(point);
+				center += global_point;
+				all_points.append(global_point);
+	
+	center /= all_points.size();
+
+	return center
 
 func start_invincible() -> void:
 	invincible_damage_result.start_invincible();
