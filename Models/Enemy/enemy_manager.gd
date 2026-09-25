@@ -17,6 +17,7 @@ func set_spawn_parent_node(node: Node) -> void:
 func create_enemy() -> Enemy:
 	var enemy: Enemy = enemy_scene.instantiate();
 	enemy.name = "Enemy_" + str(total_enemy_count);
+	enemy.set_on_death(_on_enemy_destroyed);
 	spawn_parent_node.add_child(enemy);
 	current_enemy_count += 1;
 	total_enemy_count += 1;

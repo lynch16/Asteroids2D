@@ -13,6 +13,8 @@ extends SpawnableCharacter2D
 var damageable: Damageable;
 var tracked_opponents: Array[Node2D] = [];
 
+var on_death: Callable;
+
 signal target_acquired(target: Node2D);
 
 func _enter_tree() -> void:
@@ -47,10 +49,15 @@ func set_start_velocity(_velocity: Vector2) -> void:
 	velocity = _velocity;
 	move_controller.update_nav_velocity(_velocity);
 
+func set_on_death(p_on_death: Callable) -> void:
+	on_death = p_on_death;
+
 func _die() -> void:
 	move_controller.process_mode = Node.PROCESS_MODE_DISABLED;
 	var sprite: AnimatedSprite2D = $AnimatedSprite2D;
 	sprite.hide();
+	if (on_death):
+		on_death.call();
 	get_tree().create_timer(1.0, false).timeout.connect(queue_free);
 
 func enable_dequeue_off_screen() -> void:

@@ -59,6 +59,7 @@ func on_start() -> void:
 		active_level.queue_free();
 
 	started = true;
+	ScoreManager.reset_score();
 	current_level_idx = starting_level_idx;
 	player_lives = starting_player_lives;
 	hud = hud_scene.instantiate();
